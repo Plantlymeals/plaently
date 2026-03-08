@@ -5,11 +5,11 @@ const Nutrition = () => {
   const { t } = useTranslation();
 
   const macros = [
-    { label: t("nutrition.protein"), value: "20–25g", desc: t("nutritionPage.proteinDesc") },
+    { label: t("nutrition.protein"), value: "20–21g", desc: t("nutritionPage.proteinDesc") },
     { label: t("nutritionPage.carbsLabel"), value: t("nutritionPage.carbsValue"), desc: t("nutritionPage.carbsDesc") },
-    { label: t("nutrition.fat"), value: "10–14g", desc: t("nutritionPage.fatDesc") },
+    { label: t("nutrition.fat"), value: "2–7g", desc: t("nutritionPage.fatDesc") },
     { label: t("nutritionPage.fiberLabel"), value: t("nutritionPage.fiberValue"), desc: t("nutritionPage.fiberDesc") },
-    { label: t("nutrition.calories"), value: "350–390 kcal", desc: t("nutritionPage.caloriesDesc") },
+    { label: t("nutrition.calories"), value: "228–285 kcal", desc: t("nutritionPage.caloriesDesc") },
   ];
 
   return (

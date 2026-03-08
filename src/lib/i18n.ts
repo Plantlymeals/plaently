@@ -115,7 +115,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nutritionPage.carbsDesc": { sv: "Långsam energifrisättning från ärt - solros protein.", en: "Slow energy release from pea - sunflower protein." },
   "nutritionPage.fatDesc": { sv: "Hälsosamma fetter från olivolja, kokos och nötter.", en: "Healthy fats from olive oil, coconut and nuts." },
   "nutritionPage.fiberLabel": { sv: "Fiber", en: "Fibre" },
-  "nutritionPage.fiberValue": { sv: "4–7g", en: "4–7g" },
+  "nutritionPage.fiberValue": { sv: "5–9g", en: "5–9g" },
   "nutritionPage.fiberDesc": { sv: "Tarmvänlig fiber för mättnad och matsmältning.", en: "Gut-friendly fibre for satiety and digestion." },
   "nutritionPage.caloriesDesc": { sv: "Balanserat kaloriinnehåll anpassat för en komplett måltid.", en: "Balanced calorie content designed for a complete meal." },
   "nutritionPage.whyTitle": { sv: "Varför växtprotein?", en: "Why plant protein?" },
