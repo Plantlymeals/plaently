@@ -6,6 +6,7 @@ import WhySection from "@/components/home/WhySection";
 import HowItWorks from "@/components/home/HowItWorks";
 import LifestyleSection from "@/components/home/LifestyleSection";
 import BundleSection from "@/components/home/BundleSection";
+import MealFinderQuiz from "@/components/home/MealFinderQuiz";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import NutritionPreview from "@/components/home/NutritionPreview";
 import FinalCTA from "@/components/home/FinalCTA";
@@ -20,6 +21,7 @@ const Index = () => {
       <HowItWorks />
       <LifestyleSection />
       <BundleSection />
+      <MealFinderQuiz />
       <TestimonialsSection />
       <NutritionPreview />
       <FinalCTA />
