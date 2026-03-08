@@ -95,6 +95,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.orderNow": { sv: "Beställ nu", en: "Order now" },
   "bundles.mostPopular": { sv: "⭐ Populärast", en: "⭐ Most Popular" },
   "bundles.bestValue": { sv: "Bäst värde", en: "Best Value" },
+  "bundles.save": { sv: "Spara", en: "Save" },
 
   // Nutrition preview
   "nutrition.title": { sv: "Vetenskapligt baserad näring", en: "Science-Backed Nutrition" },
