@@ -4,12 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    });
+    setLoading(false);
+    if (error) {
+      toast.error("Something went wrong. Please try again.");
+      return;
+    }
     toast.success("Thanks for reaching out! We'll get back to you soon.");
     setForm({ name: "", email: "", message: "" });
   };
@@ -36,7 +53,9 @@ const Contact = () => {
               <label className="text-sm font-medium">Message</label>
               <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Your message..." rows={5} required className="rounded-xl" />
             </div>
-            <Button type="submit" className="w-full rounded-full font-semibold" size="lg">Send Message</Button>
+            <Button type="submit" className="w-full rounded-full font-semibold" size="lg" disabled={loading}>
+              {loading ? "Sending…" : "Send Message"}
+            </Button>
           </form>
 
           <div className="text-center space-y-3 animate-fade-up">

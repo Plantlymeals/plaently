@@ -2,61 +2,27 @@ import { Link, useParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Clock, Flame, Dumbbell, ArrowLeft } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
 
-const allProducts = [
-  {
-    slug: "fusilli-bolognese",
-    name: "Plant‑Based Fusilli Bolognese",
-    protein: "22g",
-    calories: "380 kcal",
-    prep: "5 min",
-    price: "€3.90",
-    description: "Classic Italian comfort, reimagined with 100% plant-based protein. Rich tomato and herb sauce with fusilli pasta.",
-    ingredients: "Fusilli pasta (durum wheat), soy protein, tomato paste, onion, garlic, olive oil, basil, oregano, sea salt, black pepper.",
-    allergens: "Wheat, Soy",
-    nutrition: { protein: "22g", carbs: "42g", fat: "10g", fiber: "6g", sugar: "4g", salt: "1.2g" },
-  },
-  {
-    slug: "thai-curry",
-    name: "Plant‑Based Thai Curry",
-    protein: "20g",
-    calories: "350 kcal",
-    prep: "5 min",
-    price: "€3.90",
-    description: "Aromatic Thai green curry with coconut, vegetables and plant protein. A taste of Southeast Asia in every cup.",
-    ingredients: "Rice, pea protein, coconut milk powder, green curry paste, lemongrass, lime leaf, bamboo shoots, bell pepper, coriander.",
-    allergens: "None",
-    nutrition: { protein: "20g", carbs: "38g", fat: "12g", fiber: "5g", sugar: "3g", salt: "1.0g" },
-  },
-  {
-    slug: "creamy-mushroom",
-    name: "Plant‑Based Creamy Mushroom",
-    protein: "23g",
-    calories: "360 kcal",
-    prep: "5 min",
-    price: "€3.90",
-    description: "Silky creamy mushroom sauce with plant protein and herbs. Comforting, rich, and packed with umami flavour.",
-    ingredients: "Penne pasta (durum wheat), soy protein, mushroom powder, cashew cream, garlic, thyme, nutritional yeast, sea salt.",
-    allergens: "Wheat, Soy, Nuts (Cashew)",
-    nutrition: { protein: "23g", carbs: "36g", fat: "14g", fiber: "4g", sugar: "2g", salt: "1.1g" },
-  },
-  {
-    slug: "mediterranean-pasta",
-    name: "Plant‑Based Mediterranean Pasta",
-    protein: "25g",
-    calories: "390 kcal",
-    prep: "5 min",
-    price: "€3.90",
-    description: "Sun-dried tomatoes, olives, and herbs meet high-protein pasta. The Mediterranean, in a cup.",
-    ingredients: "Penne pasta (durum wheat), pea protein, sun-dried tomato, olive pieces, roasted bell pepper, oregano, garlic, olive oil.",
-    allergens: "Wheat",
-    nutrition: { protein: "25g", carbs: "44g", fat: "11g", fiber: "7g", sugar: "5g", salt: "1.3g" },
-  },
-];
+type Product = Tables<"products">;
 
 const ProductDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const product = allProducts.find((p) => p.slug === slug);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.from("products").select("*").eq("slug", slug!).single().then(({ data }) => {
+      setProduct(data);
+      setLoading(false);
+    });
+  }, [slug]);
+
+  if (loading) {
+    return <Layout><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
+  }
 
   if (!product) {
     return (
@@ -69,6 +35,8 @@ const ProductDetail = () => {
     );
   }
 
+  const nutrition = (product.nutrition as Record<string, string>) || {};
+
   return (
     <Layout>
       <section className="py-12 md:py-20">
@@ -79,7 +47,11 @@ const ProductDetail = () => {
 
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center">
-              <span className="text-8xl">🍝</span>
+              {product.image_url ? (
+                <img src={product.image_url} alt={product.name} className="h-full w-full object-cover rounded-2xl" />
+              ) : (
+                <span className="text-8xl">🍝</span>
+              )}
             </div>
 
             <div className="space-y-8">
@@ -91,7 +63,7 @@ const ProductDetail = () => {
               <div className="flex gap-6 text-sm text-muted-foreground">
                 <span className="flex items-center gap-1"><Dumbbell className="h-4 w-4 text-primary" />{product.protein} protein</span>
                 <span className="flex items-center gap-1"><Flame className="h-4 w-4 text-primary" />{product.calories}</span>
-                <span className="flex items-center gap-1"><Clock className="h-4 w-4 text-primary" />{product.prep}</span>
+                <span className="flex items-center gap-1"><Clock className="h-4 w-4 text-primary" />{product.prep_time}</span>
               </div>
 
               <div className="flex items-center gap-4">
@@ -104,28 +76,33 @@ const ProductDetail = () => {
                 <Button variant="outline" className="rounded-full px-8 font-semibold">Subscribe & Save 15%</Button>
               </div>
 
-              {/* Nutrition table */}
-              <div className="space-y-3">
-                <h3 className="font-heading font-semibold">Nutrition per serving</h3>
-                <div className="grid grid-cols-3 gap-3">
-                  {Object.entries(product.nutrition).map(([key, val]) => (
-                    <div key={key} className="rounded-xl bg-secondary p-3 text-center">
-                      <p className="text-xs text-muted-foreground capitalize">{key}</p>
-                      <p className="font-semibold text-sm">{val}</p>
-                    </div>
-                  ))}
+              {Object.keys(nutrition).length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-heading font-semibold">Nutrition per serving</h3>
+                  <div className="grid grid-cols-3 gap-3">
+                    {Object.entries(nutrition).map(([key, val]) => (
+                      <div key={key} className="rounded-xl bg-secondary p-3 text-center">
+                        <p className="text-xs text-muted-foreground capitalize">{key}</p>
+                        <p className="font-semibold text-sm">{val}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
-              <div className="space-y-2">
-                <h3 className="font-heading font-semibold text-sm">Ingredients</h3>
-                <p className="text-sm text-muted-foreground">{product.ingredients}</p>
-              </div>
+              {product.ingredients && (
+                <div className="space-y-2">
+                  <h3 className="font-heading font-semibold text-sm">Ingredients</h3>
+                  <p className="text-sm text-muted-foreground">{product.ingredients}</p>
+                </div>
+              )}
 
-              <div className="space-y-2">
-                <h3 className="font-heading font-semibold text-sm">Allergens</h3>
-                <p className="text-sm text-muted-foreground">{product.allergens}</p>
-              </div>
+              {product.allergens && (
+                <div className="space-y-2">
+                  <h3 className="font-heading font-semibold text-sm">Allergens</h3>
+                  <p className="text-sm text-muted-foreground">{product.allergens}</p>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <h3 className="font-heading font-semibold text-sm">Preparation</h3>
@@ -143,6 +120,14 @@ const ProductDetail = () => {
 
 // Products grid page
 const Products = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    supabase.from("products").select("*").eq("is_published", true).order("sort_order").then(({ data }) => {
+      if (data) setProducts(data);
+    });
+  }, []);
+
   return (
     <Layout>
       <section className="py-12 md:py-20">
@@ -155,21 +140,25 @@ const Products = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {allProducts.map((product) => (
+            {products.map((product) => (
               <Link
                 key={product.slug}
                 to={`/products/${product.slug}`}
                 className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center">
-                  <span className="text-4xl">🍝</span>
+                  {product.image_url ? (
+                    <img src={product.image_url} alt={product.name} className="h-full w-full object-cover rounded-xl" />
+                  ) : (
+                    <span className="text-4xl">🍝</span>
+                  )}
                 </div>
                 <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.name}</h3>
                 <p className="text-lg font-bold text-primary mb-3">{product.price}</p>
                 <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1"><Dumbbell className="h-3 w-3" />{product.protein}</span>
                   <span className="flex items-center gap-1"><Flame className="h-3 w-3" />{product.calories}</span>
-                  <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{product.prep}</span>
+                  <span className="flex items-center gap-1"><Clock className="h-3 w-3" />{product.prep_time}</span>
                 </div>
               </Link>
             ))}

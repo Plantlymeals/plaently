@@ -1,10 +1,20 @@
-const testimonials = [
-  { quote: "PLÄNTLY has completely replaced my sad desk lunches. Real food, real protein, zero effort.", author: "Anna K.", role: "Marketing Director" },
-  { quote: "As an athlete, I need quick protein after training. These meals are a game-changer.", author: "Erik L.", role: "CrossFit Coach" },
-  { quote: "We ordered the Office Pack for our team. Everyone loves it — even the skeptics.", author: "Sofia M.", role: "Startup Founder" },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Tables } from "@/integrations/supabase/types";
+
+type Testimonial = Tables<"testimonials">;
 
 const TestimonialsSection = () => {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+
+  useEffect(() => {
+    supabase.from("testimonials").select("*").eq("is_published", true).order("sort_order").then(({ data }) => {
+      if (data) setTestimonials(data);
+    });
+  }, []);
+
+  if (testimonials.length === 0) return null;
+
   return (
     <section className="py-20 md:py-28 gradient-subtle">
       <div className="container space-y-12">
@@ -13,12 +23,12 @@ const TestimonialsSection = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map(({ quote, author, role }) => (
-            <div key={author} className="rounded-2xl bg-card border border-border/50 p-8 shadow-card space-y-4 animate-fade-up">
-              <p className="text-foreground/80 leading-relaxed italic">"{quote}"</p>
+          {testimonials.map((t) => (
+            <div key={t.id} className="rounded-2xl bg-card border border-border/50 p-8 shadow-card space-y-4 animate-fade-up">
+              <p className="text-foreground/80 leading-relaxed italic">"{t.quote}"</p>
               <div>
-                <p className="font-heading font-semibold text-sm">{author}</p>
-                <p className="text-xs text-muted-foreground">{role}</p>
+                <p className="font-heading font-semibold text-sm">{t.author_name}</p>
+                <p className="text-xs text-muted-foreground">{t.author_role}</p>
               </div>
             </div>
           ))}
