@@ -147,9 +147,9 @@ const Products = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Our Meals</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Plant-Based Protein Meals</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              High-protein, plant-based meals ready in 5 minutes. Pick your favourites.
+              High protein vegan meals ready in 5 minutes. Plant protein pasta, curries &amp; more — pick your favourites.
             </p>
           </div>
 
