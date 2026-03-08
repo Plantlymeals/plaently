@@ -1,11 +1,14 @@
 import Layout from "@/components/Layout";
+import { useTranslation } from "@/lib/i18n";
 
 const Nutrition = () => {
+  const { t } = useTranslation();
+
   const macros = [
-    { label: "Protein", value: "20g", desc: "Komplett aminosyraprofil från ärt-, soja- och risprotein." },
-    { label: "Kolhydrater", value: "36–44g", desc: "Långsam energifrisättning från fullkorn och grönsaker." },
-    { label: "Fett", value: "10–14g", desc: "Hälsosamma fetter från olivolja, kokos och nötter." },
-    { label: "Fiber", value: "4–7g", desc: "Tarmvänlig fiber för mättnad och matsmältning." },
+    { label: t("nutrition.protein"), value: "20g", desc: t("nutritionPage.proteinDesc") },
+    { label: t("nutritionPage.carbsLabel"), value: t("nutritionPage.carbsValue"), desc: t("nutritionPage.carbsDesc") },
+    { label: t("nutrition.fat"), value: "10–14g", desc: t("nutritionPage.fatDesc") },
+    { label: t("nutritionPage.fiberLabel"), value: t("nutritionPage.fiberValue"), desc: t("nutritionPage.fiberDesc") },
   ];
 
   return (
@@ -13,12 +16,9 @@ const Nutrition = () => {
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Växtbaserad proteinnäring</h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% veganska källor.
-            </p>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("nutritionPage.title")}</h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("nutritionPage.subtitle")}</p>
           </div>
-
           <div className="grid sm:grid-cols-2 gap-8">
             {macros.map(({ label, value, desc }) => (
               <div key={label} className="rounded-2xl bg-card border border-border/50 p-8 shadow-card space-y-3 animate-fade-up">
@@ -28,23 +28,21 @@ const Nutrition = () => {
               </div>
             ))}
           </div>
-
           <div className="space-y-6 animate-fade-up">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold">Varför växtprotein?</h2>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">{t("nutritionPage.whyTitle")}</h2>
             <div className="prose prose-lg text-muted-foreground space-y-4">
-              <p>Växtbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.</p>
-              <p>PLÄNTLY använder en egen blandning av ärt-, soja- och risprotein för att uppnå ett komplett aminosyravärde som matchar vassleprotein i biotillgänglighet.</p>
-              <p>Utöver protein är våra måltider rika på mikronäringsämnen, antioxidanter och fiber — näringsämnen som ofta saknas i processad snabbmat.</p>
+              <p>{t("nutritionPage.whyP1")}</p>
+              <p>{t("nutritionPage.whyP2")}</p>
+              <p>{t("nutritionPage.whyP3")}</p>
             </div>
           </div>
-
           <div className="space-y-6 animate-fade-up">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold">Hållbarhetseffekt</h2>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">{t("nutritionPage.sustainTitle")}</h2>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                { stat: "80%", label: "Mindre CO₂-utsläpp jämfört med köttmåltider" },
-                { stat: "75%", label: "Mindre vattenanvändning per portion" },
-                { stat: "90%", label: "Mindre markanvändning jämfört med animaliskt protein" },
+                { stat: "80%", label: t("nutritionPage.co2") },
+                { stat: "75%", label: t("nutritionPage.water") },
+                { stat: "90%", label: t("nutritionPage.land") },
               ].map(({ stat, label }) => (
                 <div key={label} className="text-center rounded-2xl bg-secondary p-6 space-y-2">
                   <p className="text-3xl font-bold text-primary">{stat}</p>

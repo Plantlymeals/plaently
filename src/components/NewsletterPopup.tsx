@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useTranslation } from "@/lib/i18n";
 import logo from "@/assets/logo.png";
 
 const NewsletterPopup = () => {
@@ -12,6 +13,7 @@ const NewsletterPopup = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem("newsletter-dismissed");
@@ -29,75 +31,47 @@ const NewsletterPopup = () => {
     e.preventDefault();
     if (!email.trim() || loading) return;
     setLoading(true);
-
-    const { error } = await supabase
-      .from("newsletter_subscribers")
-      .insert({ email: email.trim().toLowerCase() });
-
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
     setLoading(false);
-
     if (error) {
       if (error.code === "23505") {
-        toast.info("Redan prenumerant!", { description: "Denna e-post är redan registrerad." });
+        toast.info(t("newsletter.alreadySubscribed"), { description: t("newsletter.alreadyDesc") });
       } else {
-        toast.error("Något gick fel", { description: "Försök igen senare." });
+        toast.error(t("newsletter.error"), { description: t("newsletter.errorDesc") });
       }
       return;
     }
-
     setSubmitted(true);
     sessionStorage.setItem("newsletter-dismissed", "true");
     setTimeout(() => setIsOpen(false), 2000);
   };
 
   const benefits = [
-    { icon: Gift, title: "10% rabatt på din första beställning", desc: "Exklusiv rabatt för nya prenumeranter." },
-    { icon: Truck, title: "Gratis fraktuppdateringar", desc: "Bli först med att veta om leveranserbjudanden." },
-    { icon: Mail, title: "Recept & tips", desc: "Veckovis växtbaserad näringsinspiration." },
+    { icon: Gift, title: t("newsletter.benefit1Title"), desc: t("newsletter.benefit1Desc") },
+    { icon: Truck, title: t("newsletter.benefit2Title"), desc: t("newsletter.benefit2Desc") },
+    { icon: Mail, title: t("newsletter.benefit3Title"), desc: t("newsletter.benefit3Desc") },
   ];
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-foreground/50 z-[100]"
-            onClick={handleClose}
-          />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed inset-0 z-[101] flex items-center justify-center p-4"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-foreground/50 z-[100]" onClick={handleClose} />
+          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} className="fixed inset-0 z-[101] flex items-center justify-center p-4">
             <div className="bg-background rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative">
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 z-10 p-1 rounded-full hover:bg-muted transition-colors"
-                aria-label="Stäng"
-              >
+              <button onClick={handleClose} className="absolute top-4 right-4 z-10 p-1 rounded-full hover:bg-muted transition-colors" aria-label={t("newsletter.close")}>
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
-
               <div className="bg-primary pt-8 pb-6 px-6 text-center">
                 <img src={logo} alt="PLÄNTLY" className="h-7 mx-auto mb-3 brightness-0 invert" />
-                <h2 className="text-xl font-heading font-bold text-primary-foreground">
-                  Gå med i PLÄNTLY-familjen
-                </h2>
-                <p className="text-primary-foreground/80 text-sm mt-1">
-                  Få exklusiva erbjudanden &amp; växtbaserad inspiration.
-                </p>
+                <h2 className="text-xl font-heading font-bold text-primary-foreground">{t("newsletter.title")}</h2>
+                <p className="text-primary-foreground/80 text-sm mt-1">{t("newsletter.subtitle")}</p>
               </div>
-
               <div className="p-6">
                 {submitted ? (
                   <div className="text-center py-4">
-                    <p className="text-lg font-heading font-semibold text-foreground">Välkommen ombord! 🌱</p>
-                    <p className="text-muted-foreground text-sm mt-1">Kolla din inkorg för en bekräftelse.</p>
+                    <p className="text-lg font-heading font-semibold text-foreground">{t("newsletter.success")}</p>
+                    <p className="text-muted-foreground text-sm mt-1">{t("newsletter.successDesc")}</p>
                   </div>
                 ) : (
                   <>
@@ -114,25 +88,16 @@ const NewsletterPopup = () => {
                         </div>
                       ))}
                     </div>
-
                     <form onSubmit={handleSubmit} className="space-y-3">
-                      <Input
-                        type="email"
-                        placeholder="din@epost.se"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="rounded-full"
-                      />
+                      <Input type="email" placeholder={t("newsletter.placeholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="rounded-full" />
                       <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
-                        {loading ? "Prenumererar…" : "Prenumerera & spara 10%"}
+                        {loading ? t("newsletter.submitting") : t("newsletter.submit")}
                       </Button>
                     </form>
-
                     <p className="text-[11px] text-muted-foreground text-center mt-4 leading-relaxed">
-                      Genom att prenumerera godkänner du att ta emot marknadsföringsmail.
-                      <br />
-                      Avprenumerera när som helst. Inget spam, aldrig.
+                      {t("newsletter.disclaimer").split("\n").map((line, i) => (
+                        <span key={i}>{line}{i === 0 && <br />}</span>
+                      ))}
                     </p>
                   </>
                 )}
