@@ -24,7 +24,7 @@ import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import AdminBundles from "./pages/admin/AdminBundles";
 import AdminHero from "./pages/admin/AdminHero";
 import AdminMessages from "./pages/admin/AdminMessages";
-import AdminSetup from "./pages/admin/AdminSetup";
+
 
 const queryClient = new QueryClient();
 
