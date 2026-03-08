@@ -28,7 +28,7 @@ const ProductOverview = () => {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-    toast.success("Added to cart!", { position: "top-center" });
+    toast.success("Tillagd i varukorgen!", { position: "top-center" });
   };
 
   if (products.length === 0) return null;
@@ -37,9 +37,9 @@ const ProductOverview = () => {
     <section className="py-20 md:py-28 bg-background">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">Our Meals</h2>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">Våra måltider</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Chef-crafted, plant-powered meals packed with protein. Just add hot water.
+            Kocklagade, växtbaserade måltider fyllda med protein. Tillsätt bara hett vatten.
           </p>
         </div>
 
@@ -71,7 +71,7 @@ const ProductOverview = () => {
                   className="w-full rounded-full font-semibold text-sm"
                   size="sm"
                 >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lägg i varukorg"}
                 </Button>
               </div>
             );

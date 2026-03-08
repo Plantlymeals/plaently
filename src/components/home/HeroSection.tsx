@@ -16,9 +16,9 @@ const HeroSection = () => {
     });
   }, []);
 
-  const headline = hero?.headline || "Real food.\nReal protein.";
-  const subheadline = hero?.subheadline || "Plant‑based meals with 20–25g protein per serving. Ready in minutes.";
-  const ctaText = hero?.cta_text || "Shop Meals";
+  const headline = hero?.headline || "Riktig mat.\nRiktigt protein.";
+  const subheadline = hero?.subheadline || "Växtbaserade måltider med 20g protein per portion. Klart på minuter.";
+  const ctaText = hero?.cta_text || "Handla Måltider";
   const ctaLink = hero?.cta_link || "/products";
 
   return (
@@ -39,7 +39,7 @@ const HeroSection = () => {
                 <Link to={ctaLink}>{ctaText}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                <a href="#how-it-works">Learn How It Works</a>
+                <a href="#how-it-works">Så funkar det</a>
               </Button>
             </div>
           </div>
@@ -47,7 +47,7 @@ const HeroSection = () => {
           <div className="animate-fade-up-delay-2 flex justify-center">
             <img
               src={hero?.image_url || heroImage}
-              alt="PLÄNTLY high protein vegan meal cups — plant-based protein ready meals"
+              alt="PLÄNTLY växtbaserade proteinmåltider — högprotein veganska färdigrätter"
               className="w-full max-w-xl rounded-2xl shadow-elevated"
             />
           </div>

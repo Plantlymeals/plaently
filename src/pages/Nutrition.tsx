@@ -2,10 +2,10 @@ import Layout from "@/components/Layout";
 
 const Nutrition = () => {
   const macros = [
-    { label: "Protein", value: "20–25g", desc: "Complete amino acid profile from pea, soy and rice protein." },
-    { label: "Carbohydrates", value: "36–44g", desc: "Slow-release energy from whole grains and vegetables." },
-    { label: "Fat", value: "10–14g", desc: "Healthy fats from olive oil, coconut and nuts." },
-    { label: "Fiber", value: "4–7g", desc: "Gut-friendly fiber for satiety and digestive health." },
+    { label: "Protein", value: "20g", desc: "Komplett aminosyraprofil från ärt-, soja- och risprotein." },
+    { label: "Kolhydrater", value: "36–44g", desc: "Långsam energifrisättning från fullkorn och grönsaker." },
+    { label: "Fett", value: "10–14g", desc: "Hälsosamma fetter från olivolja, kokos och nötter." },
+    { label: "Fiber", value: "4–7g", desc: "Tarmvänlig fiber för mättnad och matsmältning." },
   ];
 
   return (
@@ -13,9 +13,9 @@ const Nutrition = () => {
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Plant-Based Protein Nutrition</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Växtbaserad proteinnäring</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Every PLÄNTLY plant-based protein meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% vegan sources.
+              Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% veganska källor.
             </p>
           </div>
 
@@ -30,21 +30,21 @@ const Nutrition = () => {
           </div>
 
           <div className="space-y-6 animate-fade-up">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold">Why Plant Protein?</h2>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">Varför växtprotein?</h2>
             <div className="prose prose-lg text-muted-foreground space-y-4">
-              <p>Plant-based proteins offer a complete amino acid profile when properly combined, while being easier to digest and significantly more sustainable than animal sources.</p>
-              <p>PLÄNTLY uses a proprietary blend of pea, soy and rice protein to achieve a complete amino acid score, rivaling whey protein in bioavailability.</p>
-              <p>Beyond protein, our meals are rich in micronutrients, antioxidants and fiber — nutrients often missing from processed convenience foods.</p>
+              <p>Växtbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.</p>
+              <p>PLÄNTLY använder en egen blandning av ärt-, soja- och risprotein för att uppnå ett komplett aminosyravärde som matchar vassleprotein i biotillgänglighet.</p>
+              <p>Utöver protein är våra måltider rika på mikronäringsämnen, antioxidanter och fiber — näringsämnen som ofta saknas i processad snabbmat.</p>
             </div>
           </div>
 
           <div className="space-y-6 animate-fade-up">
-            <h2 className="font-heading text-2xl md:text-3xl font-bold">Sustainability Impact</h2>
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">Hållbarhetseffekt</h2>
             <div className="grid sm:grid-cols-3 gap-6">
               {[
-                { stat: "80%", label: "Less CO₂ emissions vs. meat-based meals" },
-                { stat: "75%", label: "Less water usage per serving" },
-                { stat: "90%", label: "Less land use compared to animal protein" },
+                { stat: "80%", label: "Mindre CO₂-utsläpp jämfört med köttmåltider" },
+                { stat: "75%", label: "Mindre vattenanvändning per portion" },
+                { stat: "90%", label: "Mindre markanvändning jämfört med animaliskt protein" },
               ].map(({ stat, label }) => (
                 <div key={label} className="text-center rounded-2xl bg-secondary p-6 space-y-2">
                   <p className="text-3xl font-bold text-primary">{stat}</p>

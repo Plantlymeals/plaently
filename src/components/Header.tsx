@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import logo from "@/assets/logo.png";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
+import logo from "@/assets/logo.png";
 
 const navItems = [
-  { label: "Home", path: "/" },
-  { label: "Products", path: "/products" },
-  { label: "How It Works", path: "/#how-it-works" },
-  { label: "Nutrition", path: "/nutrition" },
-  { label: "Lifestyle", path: "/lifestyle" },
-  { label: "About", path: "/about" },
-  { label: "Blog", path: "/blog" },
+  { label: "Hem", path: "/" },
+  { label: "Produkter", path: "/products" },
+  { label: "Så funkar det", path: "/#how-it-works" },
+  { label: "Näring", path: "/nutrition" },
+  { label: "Livsstil", path: "/lifestyle" },
+  { label: "Om oss", path: "/about" },
+  { label: "Blogg", path: "/blog" },
   { label: "FAQ", path: "/faq" },
-  { label: "Contact", path: "/contact" },
+  { label: "Kontakt", path: "/contact" },
 ];
 
 const Header = () => {
@@ -28,7 +28,6 @@ const Header = () => {
           <img src={logo} alt="PLÄNTLY" className="h-7 md:h-8" />
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <Link
@@ -46,20 +45,19 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <CartDrawer />
           <Button asChild className="hidden sm:inline-flex rounded-full px-6 font-semibold">
-            <Link to="/products">Shop Now</Link>
+            <Link to="/products">Handla nu</Link>
           </Button>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label="Toggle menu"
+            aria-label="Öppna meny"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile nav */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-border/50 bg-background/95 backdrop-blur-lg animate-fade-up">
           <nav className="container py-4 flex flex-col gap-1">
@@ -76,7 +74,7 @@ const Header = () => {
               </Link>
             ))}
             <Button asChild className="mt-3 rounded-full font-semibold">
-              <Link to="/products" onClick={() => setMobileOpen(false)}>Shop Now</Link>
+              <Link to="/products" onClick={() => setMobileOpen(false)}>Handla nu</Link>
             </Button>
           </nav>
         </div>

@@ -8,8 +8,8 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 const BUNDLE_BADGES: Record<string, string> = {
-  "most-popular": "⭐ Most Popular",
-  "best-value": "Best Value",
+  "most-popular": "⭐ Populärast",
+  "best-value": "Bäst värde",
 };
 
 const BundleSection = () => {
@@ -36,12 +36,11 @@ const BundleSection = () => {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-    toast.success("Added to cart!", { position: "top-center" });
+    toast.success("Tillagd i varukorgen!", { position: "top-center" });
   };
 
   const getBadge = (product: ShopifyProduct) => {
     const tags = (product.node as any).tags || [];
-    // tags come as string from Storefront API description field — check via includes
     for (const [tag, label] of Object.entries(BUNDLE_BADGES)) {
       if (typeof tags === "string" ? tags.includes(tag) : Array.isArray(tags) && tags.includes(tag)) {
         return label;
@@ -54,8 +53,8 @@ const BundleSection = () => {
     <section className="py-20 md:py-28 bg-background">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">Pick Your Pack</h2>
-          <p className="text-muted-foreground text-lg">Save more when you buy more.</p>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">Välj ditt paket</h2>
+          <p className="text-muted-foreground text-lg">Spara mer när du köper mer.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -77,7 +76,7 @@ const BundleSection = () => {
                   disabled={isLoading}
                   className="w-full rounded-full font-semibold"
                 >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Order Now"}
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Beställ nu"}
                 </Button>
               </div>
             );

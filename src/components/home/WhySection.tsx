@@ -1,12 +1,12 @@
 import { Dumbbell, Leaf, CandyOff, Clock, Sprout, Scale } from "lucide-react";
 
 const features = [
-  { icon: Dumbbell, title: "High Protein", desc: "20–25g of plant protein per serving" },
-  { icon: Leaf, title: "Plant‑Based", desc: "100% vegan, real ingredients" },
-  { icon: CandyOff, title: "Low Sugar", desc: "No added sugars or sweeteners" },
-  { icon: Clock, title: "Ready in Minutes", desc: "Just add hot water and enjoy" },
-  { icon: Sprout, title: "Sustainable", desc: "Eco-friendly ingredients & packaging" },
-  { icon: Scale, title: "Balanced Nutrition", desc: "Optimized macros for every meal" },
+  { icon: Dumbbell, title: "Högprotein", desc: "20g växtprotein per portion" },
+  { icon: Leaf, title: "Växtbaserat", desc: "100% veganskt, riktiga råvaror" },
+  { icon: CandyOff, title: "Lågt socker", desc: "Inga tillsatta sockerarter eller sötningsmedel" },
+  { icon: Clock, title: "Klart på minuter", desc: "Tillsätt bara hett vatten och njut" },
+  { icon: Sprout, title: "Hållbart", desc: "Miljövänliga ingredienser & förpackningar" },
+  { icon: Scale, title: "Balanserad näring", desc: "Optimerade makron för varje måltid" },
 ];
 
 const WhySection = () => {
@@ -14,9 +14,9 @@ const WhySection = () => {
     <section className="py-20 md:py-28 gradient-subtle">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">Why PLÄNTLY?</h2>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">Varför PLÄNTLY?</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everything you need in a meal. Nothing you don't.
+            Allt du behöver i en måltid. Inget du inte behöver.
           </p>
         </div>
 

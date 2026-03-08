@@ -19,13 +19,13 @@ const FinalCTA = () => {
     <section className="py-20 md:py-28 gradient-primary">
       <div className="container text-center space-y-8 animate-fade-up">
         <h2 className="font-heading text-3xl md:text-5xl font-bold text-primary-foreground">
-          {cta?.headline || "Eat Smarter. Live Better."}
+          {cta?.headline || "Ät smartare. Lev bättre."}
         </h2>
         <p className="text-lg text-primary-foreground/80 max-w-xl mx-auto">
-          {cta?.subheadline || "Join thousands who've made the switch to real, plant-based protein meals."}
+          {cta?.subheadline || "Gå med tusentals som valt riktiga, växtbaserade proteinmåltider."}
         </p>
         <Button asChild size="lg" className="rounded-full px-10 text-base font-semibold bg-foreground text-background hover:bg-foreground/90">
-          <Link to={cta?.cta_link || "/products"}>{cta?.cta_text || "Shop PLÄNTLY"}</Link>
+          <Link to={cta?.cta_link || "/products"}>{cta?.cta_text || "Handla PLÄNTLY"}</Link>
         </Button>
       </div>
     </section>

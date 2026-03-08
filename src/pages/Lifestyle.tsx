@@ -4,23 +4,23 @@ import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 const personas = [
   {
     icon: Dumbbell,
-    title: "Athletes & Fitness",
-    desc: "Fuel your training with 20–25g of plant protein per meal. PLÄNTLY meals are designed for fast recovery and sustained energy, whether you're lifting, running or training for your next competition.",
+    title: "Atleter & fitness",
+    desc: "Driva din träning med 20g växtprotein per måltid. PLÄNTLY-måltider är designade för snabb återhämtning och uthållig energi, oavsett om du lyfter, springer eller tränar inför nästa tävling.",
   },
   {
     icon: Briefcase,
-    title: "Office & Corporate",
-    desc: "Upgrade your workplace meals. PLÄNTLY office packs keep teams fueled with nutritious, hot meals — no kitchen, no chef, no hassle. Just boiling water and 5 minutes.",
+    title: "Kontor & företag",
+    desc: "Uppgradera era arbetsplatsmåltider. PLÄNTLY kontorspaket håller teamen mätta med näringsrika, varma måltider — inget kök, ingen kock, inget krångel. Bara kokande vatten och 5 minuter.",
   },
   {
     icon: Rocket,
-    title: "Entrepreneurs & Freelancers",
-    desc: "When you're building something, you don't have time for bad food. PLÄNTLY keeps you sharp with balanced nutrition that takes less time than ordering a coffee.",
+    title: "Entreprenörer & frilansare",
+    desc: "När du bygger något har du inte tid för dålig mat. PLÄNTLY håller dig skärpt med balanserad näring som tar mindre tid än att beställa en kaffe.",
   },
   {
     icon: Utensils,
-    title: "Everyday Healthy Eating",
-    desc: "Not everyone has time to cook three meals a day. PLÄNTLY makes it easy to eat well, even on your busiest days. Real food, real protein, zero compromise.",
+    title: "Vardaglig hälsosam mat",
+    desc: "Alla har inte tid att laga tre mål om dagen. PLÄNTLY gör det enkelt att äta bra, även dina mest hektiska dagar. Riktig mat, riktigt protein, noll kompromisser.",
   },
 ];
 
@@ -30,9 +30,9 @@ const Lifestyle = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Built for Every Lifestyle</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Byggd för alla livsstilar</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              PLÄNTLY fits into your life, not the other way around.
+              PLÄNTLY passar in i ditt liv, inte tvärtom.
             </p>
           </div>
 

@@ -19,7 +19,7 @@ const TestimonialsSection = () => {
     <section className="py-20 md:py-28 gradient-subtle">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">What People Say</h2>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">Vad andra säger</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
