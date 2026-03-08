@@ -17,6 +17,13 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminOverview from "./pages/admin/AdminOverview";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminBlog from "./pages/admin/AdminBlog";
+import AdminFAQs from "./pages/admin/AdminFAQs";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import AdminBundles from "./pages/admin/AdminBundles";
+import AdminHero from "./pages/admin/AdminHero";
+import AdminMessages from "./pages/admin/AdminMessages";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +47,13 @@ const App = () => (
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
               <Route index element={<AdminOverview />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="blog" element={<AdminBlog />} />
+              <Route path="faqs" element={<AdminFAQs />} />
+              <Route path="testimonials" element={<AdminTestimonials />} />
+              <Route path="bundles" element={<AdminBundles />} />
+              <Route path="hero" element={<AdminHero />} />
+              <Route path="messages" element={<AdminMessages />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
