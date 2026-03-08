@@ -20,8 +20,8 @@ const Blog = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Blog</h1>
-            <p className="text-muted-foreground text-lg">Nutrition science, lifestyle tips, and sustainable food stories.</p>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Blogg</h1>
+            <p className="text-muted-foreground text-lg">Näringsvetenskap, livsstilstips och hållbara mathistorier.</p>
           </div>
 
           {posts.length > 0 ? (
@@ -31,12 +31,12 @@ const Blog = () => {
                   <p className="text-xs font-medium text-primary uppercase tracking-wider">{post.category}</p>
                   <h2 className="font-heading text-lg font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
                   <p className="text-sm text-muted-foreground">{post.excerpt}</p>
-                  <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString() : ""}</p>
+                  <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString("sv-SE") : ""}</p>
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="text-center text-muted-foreground">No posts yet. Check back soon!</p>
+            <p className="text-center text-muted-foreground">Inga inlägg ännu. Kom tillbaka snart!</p>
           )}
         </div>
       </section>

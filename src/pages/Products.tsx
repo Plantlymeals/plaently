@@ -31,8 +31,8 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="container py-20 text-center">
-          <h1 className="font-heading text-3xl font-bold mb-4">Product not found</h1>
-          <Button asChild variant="outline" className="rounded-full"><Link to="/products">Back to Products</Link></Button>
+          <h1 className="font-heading text-3xl font-bold mb-4">Produkten hittades inte</h1>
+          <Button asChild variant="outline" className="rounded-full"><Link to="/products">Tillbaka till produkter</Link></Button>
         </div>
       </Layout>
     );
@@ -52,7 +52,7 @@ const ProductDetail = () => {
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions || [],
     });
-    toast.success("Added to cart!", { position: "top-center" });
+    toast.success("Tillagd i varukorgen!", { position: "top-center" });
   };
 
   return (
@@ -60,13 +60,13 @@ const ProductDetail = () => {
       <section className="py-12 md:py-20">
         <div className="container">
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="h-4 w-4" /> Back to Products
+            <ArrowLeft className="h-4 w-4" /> Tillbaka till produkter
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {image ? (
-                <img src={image.url} alt={image.altText || `${product.title} — high protein vegan meal`} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || `${product.title} — växtbaserad proteinmåltid`} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}
@@ -80,7 +80,7 @@ const ProductDetail = () => {
               {price && (
                 <div className="flex items-center gap-4">
                   <span className="text-3xl font-bold text-primary">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</span>
-                  <span className="text-sm text-muted-foreground">per meal</span>
+                  <span className="text-sm text-muted-foreground">per måltid</span>
                 </div>
               )}
 
@@ -90,7 +90,7 @@ const ProductDetail = () => {
                   disabled={isLoading || !selectedVariant}
                   className="rounded-full px-8 font-semibold"
                 >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lägg i varukorg"}
                 </Button>
               </div>
 
@@ -139,7 +139,7 @@ const Products = () => {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-    toast.success("Added to cart!", { position: "top-center" });
+    toast.success("Tillagd i varukorgen!", { position: "top-center" });
   };
 
   return (
@@ -147,9 +147,9 @@ const Products = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Plant-Based Protein Meals</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Växtbaserade proteinmåltider</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              High protein vegan meals ready in 5 minutes. Plant protein pasta, curries &amp; more — pick your favourites.
+              Högprotein veganska måltider klara på 5 minuter. Växtproteinpasta, currys &amp; mer — välj dina favoriter.
             </p>
           </div>
 
@@ -158,7 +158,7 @@ const Products = () => {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
             </div>
           ) : products.length === 0 ? (
-            <p className="text-center text-muted-foreground py-12">No products found.</p>
+            <p className="text-center text-muted-foreground py-12">Inga produkter hittades.</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {products.map((product) => {
@@ -172,7 +172,7 @@ const Products = () => {
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
                         {image ? (
-                          <img src={image.url} alt={image.altText || `${product.node.title} — plant-based protein meal`} className="h-full w-full object-contain" loading="lazy" />
+                          <img src={image.url} alt={image.altText || `${product.node.title} — växtbaserad proteinmåltid`} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <span className="text-4xl">🍝</span>
                         )}
@@ -186,7 +186,7 @@ const Products = () => {
                       className="w-full rounded-full font-semibold text-sm"
                       size="sm"
                     >
-                      {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
+                      {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lägg i varukorg"}
                     </Button>
                   </div>
                 );
