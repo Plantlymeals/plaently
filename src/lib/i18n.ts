@@ -43,7 +43,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "why.highProtein": { sv: "Högprotein", en: "High Protein" },
   "why.highProteinDesc": { sv: "20g växtprotein per portion", en: "20g plant protein per serving" },
   "why.plantBased": { sv: "Växtbaserat", en: "Plant-Based" },
-  "why.plantBasedDesc": { sv: "100% veganskt, riktiga råvaror", en: "100% vegan, real ingredients" },
+  "why.plantBasedDesc": { sv: "100% växtbaserad protein", en: "100% plant-based protein" },
   "why.lowSugar": { sv: "Lågt socker", en: "Low Sugar" },
   "why.lowSugarDesc": { sv: "Inga tillsatta sockerarter eller sötningsmedel", en: "No added sugars or sweeteners" },
   "why.readyInMinutes": { sv: "Klart på minuter", en: "Ready in Minutes" },
