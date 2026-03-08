@@ -1,10 +1,10 @@
 import { Briefcase, Dumbbell, Plane, Utensils } from "lucide-react";
 
 const useCases = [
-  { icon: Briefcase, title: "Office Lunches", desc: "Nutritious meals at your desk without the takeout guilt." },
-  { icon: Dumbbell, title: "Post‑Workout Recovery", desc: "Refuel with 20–25g plant protein after every session." },
-  { icon: Plane, title: "Travel Days", desc: "Lightweight, no-fridge-needed meals for life on the go." },
-  { icon: Utensils, title: "Quick Healthy Dinners", desc: "A real dinner in 5 minutes on your busiest evenings." },
+  { icon: Briefcase, title: "Kontorsluncher", desc: "Näringsrika måltider vid skrivbordet utan dåligt samvete." },
+  { icon: Dumbbell, title: "Efter träningen", desc: "Fyll på med 20g växtprotein efter varje pass." },
+  { icon: Plane, title: "Resedagar", desc: "Lätta, behöver ingen kyl — perfekta måltider för dig som är på språng." },
+  { icon: Utensils, title: "Snabb hälsosam middag", desc: "En riktig middag på 5 minuter, även dina mest hektiska kvällar." },
 ];
 
 const LifestyleSection = () => {
@@ -12,9 +12,9 @@ const LifestyleSection = () => {
     <section className="py-20 md:py-28 gradient-subtle">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">Built for Modern Life</h2>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">Byggd för det moderna livet</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Wherever your day takes you, PLÄNTLY fits in.
+            Vart din dag än tar dig — PLÄNTLY passar in.
           </p>
         </div>
 
