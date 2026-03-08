@@ -38,9 +38,9 @@ const NewsletterPopup = () => {
 
     if (error) {
       if (error.code === "23505") {
-        toast.info("Already subscribed!", { description: "This email is already registered." });
+        toast.info("Redan prenumerant!", { description: "Denna e-post är redan registrerad." });
       } else {
-        toast.error("Something went wrong", { description: "Please try again later." });
+        toast.error("Något gick fel", { description: "Försök igen senare." });
       }
       return;
     }
@@ -51,9 +51,9 @@ const NewsletterPopup = () => {
   };
 
   const benefits = [
-    { icon: Gift, title: "10% off your first order", desc: "Exclusive discount for new subscribers." },
-    { icon: Truck, title: "Free shipping updates", desc: "Be the first to know about delivery deals." },
-    { icon: Mail, title: "Recipes & tips", desc: "Weekly plant-based nutrition inspiration." },
+    { icon: Gift, title: "10% rabatt på din första beställning", desc: "Exklusiv rabatt för nya prenumeranter." },
+    { icon: Truck, title: "Gratis fraktuppdateringar", desc: "Bli först med att veta om leveranserbjudanden." },
+    { icon: Mail, title: "Recept & tips", desc: "Veckovis växtbaserad näringsinspiration." },
   ];
 
   return (
@@ -78,7 +78,7 @@ const NewsletterPopup = () => {
               <button
                 onClick={handleClose}
                 className="absolute top-4 right-4 z-10 p-1 rounded-full hover:bg-muted transition-colors"
-                aria-label="Close"
+                aria-label="Stäng"
               >
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
@@ -86,18 +86,18 @@ const NewsletterPopup = () => {
               <div className="bg-primary pt-8 pb-6 px-6 text-center">
                 <img src={logo} alt="PLÄNTLY" className="h-7 mx-auto mb-3 brightness-0 invert" />
                 <h2 className="text-xl font-heading font-bold text-primary-foreground">
-                  Join the PLÄNTLY family
+                  Gå med i PLÄNTLY-familjen
                 </h2>
                 <p className="text-primary-foreground/80 text-sm mt-1">
-                  Get exclusive deals &amp; plant-based inspiration.
+                  Få exklusiva erbjudanden &amp; växtbaserad inspiration.
                 </p>
               </div>
 
               <div className="p-6">
                 {submitted ? (
                   <div className="text-center py-4">
-                    <p className="text-lg font-heading font-semibold text-foreground">Welcome aboard! 🌱</p>
-                    <p className="text-muted-foreground text-sm mt-1">Check your inbox for a confirmation.</p>
+                    <p className="text-lg font-heading font-semibold text-foreground">Välkommen ombord! 🌱</p>
+                    <p className="text-muted-foreground text-sm mt-1">Kolla din inkorg för en bekräftelse.</p>
                   </div>
                 ) : (
                   <>
@@ -118,21 +118,21 @@ const NewsletterPopup = () => {
                     <form onSubmit={handleSubmit} className="space-y-3">
                       <Input
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder="din@epost.se"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         className="rounded-full"
                       />
                       <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
-                        {loading ? "Subscribing…" : "Subscribe & Save 10%"}
+                        {loading ? "Prenumererar…" : "Prenumerera & spara 10%"}
                       </Button>
                     </form>
 
                     <p className="text-[11px] text-muted-foreground text-center mt-4 leading-relaxed">
-                      By subscribing you agree to receive marketing emails.
+                      Genom att prenumerera godkänner du att ta emot marknadsföringsmail.
                       <br />
-                      Unsubscribe anytime. No spam, ever.
+                      Avprenumerera när som helst. Inget spam, aldrig.
                     </p>
                   </>
                 )}
