@@ -1,0 +1,1 @@
+UPDATE hero_content SET subheadline = 'Plant-based meals with 20g protein per serving. Ready in minutes.' WHERE section_key = 'homepage_hero';
