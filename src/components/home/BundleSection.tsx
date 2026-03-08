@@ -2,21 +2,53 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
+import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import { useCartStore } from "@/stores/cartStore";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
-type Bundle = Tables<"bundles">;
+const BUNDLE_BADGES: Record<string, string> = {
+  "most-popular": "⭐ Most Popular",
+  "best-value": "Best Value",
+};
 
 const BundleSection = () => {
-  const [bundles, setBundles] = useState<Bundle[]>([]);
+  const [bundles, setBundles] = useState<ShopifyProduct[]>([]);
+  const addItem = useCartStore(state => state.addItem);
+  const isLoading = useCartStore(state => state.isLoading);
 
   useEffect(() => {
-    supabase.from("bundles").select("*").eq("is_published", true).order("sort_order").then(({ data }) => {
+    fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
       if (data) setBundles(data);
     });
   }, []);
 
   if (bundles.length === 0) return null;
+
+  const handleAddToCart = async (product: ShopifyProduct) => {
+    const variant = product.node.variants.edges[0]?.node;
+    if (!variant) return;
+    await addItem({
+      product,
+      variantId: variant.id,
+      variantTitle: variant.title,
+      price: variant.price,
+      quantity: 1,
+      selectedOptions: variant.selectedOptions || [],
+    });
+    toast.success("Added to cart!", { position: "top-center" });
+  };
+
+  const getBadge = (product: ShopifyProduct) => {
+    const tags = (product.node as any).tags || [];
+    // tags come as string from Storefront API description field — check via includes
+    for (const [tag, label] of Object.entries(BUNDLE_BADGES)) {
+      if (typeof tags === "string" ? tags.includes(tag) : Array.isArray(tags) && tags.includes(tag)) {
+        return label;
+      }
+    }
+    return null;
+  };
 
   return (
     <section className="py-20 md:py-28 bg-background">
@@ -27,21 +59,29 @@ const BundleSection = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {bundles.map((b) => (
-            <div key={b.id} className="relative rounded-2xl bg-card border border-border/50 p-6 shadow-card text-center space-y-4 hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 animate-fade-up">
-              {b.badge && (
-                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold">
-                  {b.badge}
-                </Badge>
-              )}
-              <h3 className="font-heading text-lg font-semibold pt-2">{b.name}</h3>
-              <p className="text-3xl font-bold text-primary">{b.price}</p>
-              <p className="text-sm text-muted-foreground">{b.meal_count} meals</p>
-              <Button asChild className="w-full rounded-full font-semibold">
-                <Link to="/products">Order Now</Link>
-              </Button>
-            </div>
-          ))}
+          {bundles.map((b) => {
+            const price = b.node.priceRange.minVariantPrice;
+            const badge = getBadge(b);
+            return (
+              <div key={b.node.id} className="relative rounded-2xl bg-card border border-border/50 p-6 shadow-card text-center space-y-4 hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 animate-fade-up">
+                {badge && (
+                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold">
+                    {badge}
+                  </Badge>
+                )}
+                <h3 className="font-heading text-lg font-semibold pt-2">{b.node.title}</h3>
+                <p className="text-3xl font-bold text-primary">{price.currencyCode} {parseFloat(price.amount).toFixed(0)}</p>
+                <p className="text-sm text-muted-foreground">{b.node.description}</p>
+                <Button
+                  onClick={() => handleAddToCart(b)}
+                  disabled={isLoading}
+                  className="w-full rounded-full font-semibold"
+                >
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Order Now"}
+                </Button>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
