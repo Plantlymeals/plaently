@@ -111,7 +111,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% växt baserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
   "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
   "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
-  "nutritionPage.carbsValue": { sv: "36–44g", en: "36–44g" },
+  "nutritionPage.carbsValue": { sv: "25–37g", en: "25–37g" },
   "nutritionPage.carbsDesc": { sv: "Långsam energifrisättning från ärt - solros protein.", en: "Slow energy release from pea - sunflower protein." },
   "nutritionPage.fatDesc": { sv: "Hälsosamma fetter från olivolja, kokos och nötter.", en: "Healthy fats from olive oil, coconut and nuts." },
   "nutritionPage.fiberLabel": { sv: "Fiber", en: "Fibre" },
