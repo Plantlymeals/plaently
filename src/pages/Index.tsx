@@ -21,6 +21,7 @@ const Index = () => {
       <HowItWorks />
       <LifestyleSection />
       <BundleSection />
+      <MealFinderQuiz />
       <TestimonialsSection />
       <NutritionPreview />
       <FinalCTA />
