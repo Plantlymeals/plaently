@@ -15,11 +15,6 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const ScrollToTop = () => {
-  const { pathname } = await import("react-router-dom").then(() => ({ pathname: "" }));
-  return null;
-};
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
