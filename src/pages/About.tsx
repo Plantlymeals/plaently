@@ -7,7 +7,7 @@ const About = () => {
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">About PLÄNTLY</h1>
-            <p className="text-muted-foreground text-lg">Making healthy, plant-based protein meals simple, delicious, and sustainable for modern life.</p>
+            <p className="text-muted-foreground text-lg">High protein vegan meals made simple, delicious, and sustainable for modern life.</p>
           </div>
 
           <div className="space-y-8 text-muted-foreground leading-relaxed animate-fade-up">

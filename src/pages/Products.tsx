@@ -66,7 +66,7 @@ const ProductDetail = () => {
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {image ? (
-                <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || `${product.title} — high protein vegan meal`} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}

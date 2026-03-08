@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-heading text-2xl font-bold text-primary">PLÄNTLY</h3>
             <p className="text-sm text-primary-foreground/60 leading-relaxed">
-              Plant‑based protein meals for modern life. Scandinavian simplicity meets real nutrition.
+              High protein vegan ready meals for modern life. Plant-based protein meals with Scandinavian simplicity.
             </p>
           </div>
 

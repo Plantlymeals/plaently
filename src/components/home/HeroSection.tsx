@@ -47,7 +47,7 @@ const HeroSection = () => {
           <div className="animate-fade-up-delay-2 flex justify-center">
             <img
               src={hero?.image_url || heroImage}
-              alt="PLÄNTLY plant-based protein meal cups on a minimalist podium"
+              alt="PLÄNTLY high protein vegan meal cups — plant-based protein ready meals"
               className="w-full max-w-xl rounded-2xl shadow-elevated"
             />
           </div>
