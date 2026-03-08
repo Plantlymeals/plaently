@@ -112,7 +112,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
   "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
   "nutritionPage.carbsValue": { sv: "36–44g", en: "36–44g" },
-  "nutritionPage.carbsDesc": { sv: "Långsam energifrisättning från fullkorn och grönsaker.", en: "Slow energy release from whole grains and vegetables." },
+  "nutritionPage.carbsDesc": { sv: "Långsam energifrisättning från ärt - solros protein.", en: "Slow energy release from pea - sunflower protein." },
   "nutritionPage.fatDesc": { sv: "Hälsosamma fetter från olivolja, kokos och nötter.", en: "Healthy fats from olive oil, coconut and nuts." },
   "nutritionPage.fiberLabel": { sv: "Fiber", en: "Fibre" },
   "nutritionPage.fiberValue": { sv: "4–7g", en: "4–7g" },
