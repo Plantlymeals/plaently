@@ -18,9 +18,9 @@ const HeroSection = () => {
     });
   }, []);
 
-  const headline = hero?.headline || t("hero.headline");
-  const subheadline = hero?.subheadline || t("hero.subheadline");
-  const ctaText = hero?.cta_text || t("hero.cta");
+  const headline = t("hero.headline");
+  const subheadline = t("hero.subheadline");
+  const ctaText = t("hero.cta");
   const ctaLink = hero?.cta_link || "/products";
 
   return (
