@@ -13,9 +13,9 @@ const Nutrition = () => {
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Nutrition Science</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Plant-Based Protein Nutrition</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based sources.
+              Every PLÄNTLY plant-based protein meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% vegan sources.
             </p>
           </div>
 

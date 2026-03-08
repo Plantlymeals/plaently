@@ -66,7 +66,7 @@ const ProductDetail = () => {
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {image ? (
-                <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || `${product.title} — high protein vegan meal`} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}
@@ -147,9 +147,9 @@ const Products = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Our Meals</h1>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">Plant-Based Protein Meals</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              High-protein, plant-based meals ready in 5 minutes. Pick your favourites.
+              High protein vegan meals ready in 5 minutes. Plant protein pasta, curries &amp; more — pick your favourites.
             </p>
           </div>
 
@@ -172,7 +172,7 @@ const Products = () => {
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
                         {image ? (
-                          <img src={image.url} alt={image.altText || product.node.title} className="h-full w-full object-contain" />
+                          <img src={image.url} alt={image.altText || `${product.node.title} — plant-based protein meal`} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <span className="text-4xl">🍝</span>
                         )}
