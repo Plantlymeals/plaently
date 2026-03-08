@@ -46,9 +46,9 @@ const ProductDetail = () => {
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-16">
-            <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center">
+            <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {product.image_url ? (
-                <img src={product.image_url} alt={product.name} className="h-full w-full object-cover rounded-2xl" />
+                <img src={product.image_url} alt={product.name} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}
