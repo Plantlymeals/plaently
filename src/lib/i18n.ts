@@ -108,7 +108,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Nutrition page
   "nutritionPage.title": { sv: "Växtbaserad proteinnäring", en: "Plant-Based Protein Nutrition" },
-  "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% veganska källor.", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% vegan sources." },
+  "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% växt baserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
   "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
   "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
   "nutritionPage.carbsValue": { sv: "36–44g", en: "36–44g" },
