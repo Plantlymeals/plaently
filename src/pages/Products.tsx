@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
+import { useTranslation } from "@/lib/i18n";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -14,6 +15,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!productHandle) return;
@@ -31,8 +33,8 @@ const ProductDetail = () => {
     return (
       <Layout>
         <div className="container py-20 text-center">
-          <h1 className="font-heading text-3xl font-bold mb-4">Produkten hittades inte</h1>
-          <Button asChild variant="outline" className="rounded-full"><Link to="/products">Tillbaka till produkter</Link></Button>
+          <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
+          <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
         </div>
       </Layout>
     );
@@ -52,7 +54,7 @@ const ProductDetail = () => {
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions || [],
     });
-    toast.success("Tillagd i varukorgen!", { position: "top-center" });
+    toast.success(t("products.addedToCart"), { position: "top-center" });
   };
 
   return (
@@ -60,49 +62,34 @@ const ProductDetail = () => {
       <section className="py-12 md:py-20">
         <div className="container">
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="h-4 w-4" /> Tillbaka till produkter
+            <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
           </Link>
-
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {image ? (
-                <img src={image.url} alt={image.altText || `${product.title} — växtbaserad proteinmåltid`} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}
             </div>
-
             <div className="space-y-8">
               <div className="space-y-3">
                 <h1 className="font-heading text-3xl md:text-4xl font-bold">{product.title}</h1>
               </div>
-
               {price && (
                 <div className="flex items-center gap-4">
                   <span className="text-3xl font-bold text-primary">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</span>
-                  <span className="text-sm text-muted-foreground">per måltid</span>
+                  <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
                 </div>
               )}
-
               <div className="flex flex-wrap gap-3">
-                <Button
-                  onClick={handleAddToCart}
-                  disabled={isLoading || !selectedVariant}
-                  className="rounded-full px-8 font-semibold"
-                >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lägg i varukorg"}
+                <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
+                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
-
               {product.descriptionHtml && (
                 <div
-                  className="prose prose-sm max-w-none
-                    [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2
-                    [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50
-                    [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground
-                    [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30
-                    [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed
-                    [&_strong]:text-foreground"
+                  className="prose prose-sm max-w-none [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2 [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50 [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30 [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_strong]:text-foreground"
                   dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
                 />
               )}
@@ -120,6 +107,7 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
   const addItem = useCartStore(state => state.addItem);
   const cartIsLoading = useCartStore(state => state.isLoading);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchShopifyProducts(20).then((data) => {
@@ -139,7 +127,7 @@ const Products = () => {
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
     });
-    toast.success("Tillagd i varukorgen!", { position: "top-center" });
+    toast.success(t("products.addedToCart"), { position: "top-center" });
   };
 
   return (
@@ -147,32 +135,24 @@ const Products = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Växtbaserade proteinmåltider</h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Högprotein veganska måltider klara på 5 minuter. Växtproteinpasta, currys &amp; mer — välj dina favoriter.
-            </p>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("products.pageTitle")}</h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("products.pageSubtitle")}</p>
           </div>
-
           {loading ? (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
-            </div>
+            <div className="flex justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>
           ) : products.length === 0 ? (
-            <p className="text-center text-muted-foreground py-12">Inga produkter hittades.</p>
+            <p className="text-center text-muted-foreground py-12">{t("products.noProducts")}</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {products.map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const price = product.node.priceRange.minVariantPrice;
                 return (
-                  <div
-                    key={product.node.id}
-                    className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
-                  >
+                  <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
                         {image ? (
-                          <img src={image.url} alt={image.altText || `${product.node.title} — växtbaserad proteinmåltid`} className="h-full w-full object-contain" loading="lazy" />
+                          <img src={image.url} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <span className="text-4xl">🍝</span>
                         )}
@@ -180,13 +160,8 @@ const Products = () => {
                       <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
                       <p className="text-lg font-bold text-primary mb-3">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</p>
                     </Link>
-                    <Button
-                      onClick={() => handleAddToCart(product)}
-                      disabled={cartIsLoading}
-                      className="w-full rounded-full font-semibold text-sm"
-                      size="sm"
-                    >
-                      {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Lägg i varukorg"}
+                    <Button onClick={() => handleAddToCart(product)} disabled={cartIsLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
+                      {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                     </Button>
                   </div>
                 );

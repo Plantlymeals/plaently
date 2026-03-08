@@ -3,11 +3,13 @@ import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
+import { useTranslation } from "@/lib/i18n";
 
 type BlogPost = Tables<"blog_posts">;
 
 const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
+  const { lang, t } = useTranslation();
 
   useEffect(() => {
     supabase.from("blog_posts").select("*").eq("is_published", true).order("published_at", { ascending: false }).then(({ data }) => {
@@ -20,10 +22,9 @@ const Blog = () => {
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
-            <h1 className="font-heading text-4xl md:text-5xl font-bold">Blogg</h1>
-            <p className="text-muted-foreground text-lg">Näringsvetenskap, livsstilstips och hållbara mathistorier.</p>
+            <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("blog.title")}</h1>
+            <p className="text-muted-foreground text-lg">{t("blog.subtitle")}</p>
           </div>
-
           {posts.length > 0 ? (
             <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {posts.map((post) => (
@@ -31,12 +32,12 @@ const Blog = () => {
                   <p className="text-xs font-medium text-primary uppercase tracking-wider">{post.category}</p>
                   <h2 className="font-heading text-lg font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
                   <p className="text-sm text-muted-foreground">{post.excerpt}</p>
-                  <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString("sv-SE") : ""}</p>
+                  <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-US") : ""}</p>
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="text-center text-muted-foreground">Inga inlägg ännu. Kom tillbaka snart!</p>
+            <p className="text-center text-muted-foreground">{t("blog.noPosts")}</p>
           )}
         </div>
       </section>

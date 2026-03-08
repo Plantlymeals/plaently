@@ -1,25 +1,29 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
+import { useTranslation } from "@/lib/i18n";
 import logo from "@/assets/logo.png";
-
-const navItems = [
-  { label: "Hem", path: "/" },
-  { label: "Produkter", path: "/products" },
-  { label: "Så funkar det", path: "/#how-it-works" },
-  { label: "Näring", path: "/nutrition" },
-  { label: "Livsstil", path: "/lifestyle" },
-  { label: "Om oss", path: "/about" },
-  { label: "Blogg", path: "/blog" },
-  { label: "FAQ", path: "/faq" },
-  { label: "Kontakt", path: "/contact" },
-];
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { lang, t, setLang } = useTranslation();
+
+  const navItems = [
+    { label: t("nav.home"), path: "/" },
+    { label: t("nav.products"), path: "/products" },
+    { label: t("nav.howItWorks"), path: "/#how-it-works" },
+    { label: t("nav.nutrition"), path: "/nutrition" },
+    { label: t("nav.lifestyle"), path: "/lifestyle" },
+    { label: t("nav.about"), path: "/about" },
+    { label: t("nav.blog"), path: "/blog" },
+    { label: t("nav.faq"), path: "/faq" },
+    { label: t("nav.contact"), path: "/contact" },
+  ];
+
+  const toggleLang = () => setLang(lang === "sv" ? "en" : "sv");
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
@@ -42,10 +46,18 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors"
+            aria-label="Switch language"
+          >
+            <Globe className="h-3.5 w-3.5" />
+            {lang === "sv" ? "EN" : "SE"}
+          </button>
           <CartDrawer />
           <Button asChild className="hidden sm:inline-flex rounded-full px-6 font-semibold">
-            <Link to="/products">Handla nu</Link>
+            <Link to="/products">{t("nav.shopNow")}</Link>
           </Button>
 
           <button
@@ -74,7 +86,7 @@ const Header = () => {
               </Link>
             ))}
             <Button asChild className="mt-3 rounded-full font-semibold">
-              <Link to="/products" onClick={() => setMobileOpen(false)}>Handla nu</Link>
+              <Link to="/products" onClick={() => setMobileOpen(false)}>{t("nav.shopNow")}</Link>
             </Button>
           </nav>
         </div>

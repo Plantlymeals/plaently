@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-product.png";
 import type { Tables } from "@/integrations/supabase/types";
+import { useTranslation } from "@/lib/i18n";
 
 type HeroContent = Tables<"hero_content">;
 
 const HeroSection = () => {
   const [hero, setHero] = useState<HeroContent | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     supabase.from("hero_content").select("*").eq("section_key", "homepage_hero").single().then(({ data }) => {
@@ -16,9 +18,9 @@ const HeroSection = () => {
     });
   }, []);
 
-  const headline = hero?.headline || "Riktig mat.\nRiktigt protein.";
-  const subheadline = hero?.subheadline || "Växtbaserade måltider med 20g protein per portion. Klart på minuter.";
-  const ctaText = hero?.cta_text || "Handla Måltider";
+  const headline = hero?.headline || t("hero.headline");
+  const subheadline = hero?.subheadline || t("hero.subheadline");
+  const ctaText = hero?.cta_text || t("hero.cta");
   const ctaLink = hero?.cta_link || "/products";
 
   return (
@@ -31,25 +33,18 @@ const HeroSection = () => {
                 <span key={i}>{line}{i === 0 && <br />}</span>
               ))}
             </h1>
-            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed">
-              {subheadline}
-            </p>
+            <p className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed">{subheadline}</p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold bg-foreground text-background hover:bg-foreground/90">
                 <Link to={ctaLink}>{ctaText}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
-                <a href="#how-it-works">Så funkar det</a>
+                <a href="#how-it-works">{t("hero.howItWorks")}</a>
               </Button>
             </div>
           </div>
-
           <div className="animate-fade-up-delay-2 flex justify-center">
-            <img
-              src={hero?.image_url || heroImage}
-              alt="PLÄNTLY växtbaserade proteinmåltider — högprotein veganska färdigrätter"
-              className="w-full max-w-xl rounded-2xl shadow-elevated"
-            />
+            <img src={hero?.image_url || heroImage} alt="PLÄNTLY plant-based protein meals" className="w-full max-w-xl rounded-2xl shadow-elevated" />
           </div>
         </div>
       </div>

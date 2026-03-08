@@ -1,25 +1,25 @@
 import { Dumbbell, Leaf, CandyOff, Clock, Sprout, Scale } from "lucide-react";
-
-const features = [
-  { icon: Dumbbell, title: "Högprotein", desc: "20g växtprotein per portion" },
-  { icon: Leaf, title: "Växtbaserat", desc: "100% veganskt, riktiga råvaror" },
-  { icon: CandyOff, title: "Lågt socker", desc: "Inga tillsatta sockerarter eller sötningsmedel" },
-  { icon: Clock, title: "Klart på minuter", desc: "Tillsätt bara hett vatten och njut" },
-  { icon: Sprout, title: "Hållbart", desc: "Miljövänliga ingredienser & förpackningar" },
-  { icon: Scale, title: "Balanserad näring", desc: "Optimerade makron för varje måltid" },
-];
+import { useTranslation } from "@/lib/i18n";
 
 const WhySection = () => {
+  const { t } = useTranslation();
+
+  const features = [
+    { icon: Dumbbell, title: t("why.highProtein"), desc: t("why.highProteinDesc") },
+    { icon: Leaf, title: t("why.plantBased"), desc: t("why.plantBasedDesc") },
+    { icon: CandyOff, title: t("why.lowSugar"), desc: t("why.lowSugarDesc") },
+    { icon: Clock, title: t("why.readyInMinutes"), desc: t("why.readyInMinutesDesc") },
+    { icon: Sprout, title: t("why.sustainable"), desc: t("why.sustainableDesc") },
+    { icon: Scale, title: t("why.balanced"), desc: t("why.balancedDesc") },
+  ];
+
   return (
     <section className="py-20 md:py-28 gradient-subtle">
       <div className="container space-y-12">
         <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">Varför PLÄNTLY?</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Allt du behöver i en måltid. Inget du inte behöver.
-          </p>
+          <h2 className="font-heading text-3xl md:text-5xl font-bold">{t("why.title")}</h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("why.subtitle")}</p>
         </div>
-
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="flex items-start gap-4 animate-fade-up">

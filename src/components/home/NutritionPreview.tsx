@@ -1,9 +1,13 @@
+import { useTranslation } from "@/lib/i18n";
+
 const NutritionPreview = () => {
+  const { t } = useTranslation();
+
   const macros = [
-    { label: "Protein", value: "20g", percent: 75, color: "bg-primary" },
-    { label: "Kolhydrater", value: "40g", percent: 55, color: "bg-primary/60" },
-    { label: "Fett", value: "12g", percent: 35, color: "bg-primary/30" },
-    { label: "Kalorier", value: "370 kcal", percent: 45, color: "bg-primary/50" },
+    { label: t("nutrition.protein"), value: "20g", percent: 75, color: "bg-primary" },
+    { label: t("nutrition.carbs"), value: "40g", percent: 55, color: "bg-primary/60" },
+    { label: t("nutrition.fat"), value: "12g", percent: 35, color: "bg-primary/30" },
+    { label: t("nutrition.calories"), value: "370 kcal", percent: 45, color: "bg-primary/50" },
   ];
 
   return (
@@ -11,16 +15,10 @@ const NutritionPreview = () => {
       <div className="container">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-6 animate-fade-up">
-            <h2 className="font-heading text-3xl md:text-5xl font-bold">Vetenskapligt baserad näring</h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Varje PLÄNTLY-måltid är designad av nutritionister för att leverera optimala makronäringsämnen från
-              100% växtbaserade källor. Högt i komplett protein, balanserade kolhydrater och hälsosamma fetter.
-            </p>
-            <p className="text-muted-foreground text-sm">
-              Genomsnittliga värden per portion. Varierar beroende på smak.
-            </p>
+            <h2 className="font-heading text-3xl md:text-5xl font-bold">{t("nutrition.title")}</h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">{t("nutrition.desc")}</p>
+            <p className="text-muted-foreground text-sm">{t("nutrition.average")}</p>
           </div>
-
           <div className="space-y-6 animate-fade-up-delay-1">
             {macros.map(({ label, value, percent, color }) => (
               <div key={label} className="space-y-2">
