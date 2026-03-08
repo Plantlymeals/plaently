@@ -19,7 +19,7 @@ const HowItWorks = () => {
         <div className="grid md:grid-cols-3 gap-8 md:gap-12">
           {steps.map(({ number, title, desc }) => (
             <div key={number} className="text-center space-y-4 animate-fade-up">
-              <div className="w-16 h-16 mx-auto rounded-full gradient-primary flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto rounded-full bg-primary flex items-center justify-center">
                 <span className="font-heading text-xl font-bold text-primary-foreground">{number}</span>
               </div>
               <h3 className="font-heading text-xl font-semibold">{title}</h3>
