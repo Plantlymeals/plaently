@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -9,7 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <h3 className="font-heading text-2xl font-bold text-primary">PLÄNTLY</h3>
+            <img src={logo} alt="PLÄNTLY" className="h-7 brightness-0 invert" />
             <p className="text-sm text-primary-foreground/60 leading-relaxed">
               High protein vegan ready meals for modern life. Plant-based protein meals with Scandinavian simplicity.
             </p>
