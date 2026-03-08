@@ -57,7 +57,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "how.title": { sv: "Så funkar det", en: "How it works" },
   "how.subtitle": { sv: "Tre enkla steg till riktig näring.", en: "Three simple steps to real nutrition." },
   "how.step1Title": { sv: "Välj dina måltider", en: "Choose your meals" },
-  "how.step1Desc": { sv: "Välj bland våra kocklagade, proteinrika smaker.", en: "Pick from our chef-crafted, high-protein flavours." },
+  "how.step1Desc": { sv: "Välj bland våra, protein och fiberrika smaker.", en: "Pick from our protein and fibre-rich flavours." },
   "how.step2Title": { sv: "Tillsätt hett vatten", en: "Add hot water" },
   "how.step2Desc": { sv: "Häll i kokande vatten, rör om och vänta 5 minuter.", en: "Pour in boiling water, stir and wait 5 minutes." },
   "how.step3Title": { sv: "Njut av riktigt protein", en: "Enjoy real protein" },
