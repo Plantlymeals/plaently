@@ -117,6 +117,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nutritionPage.fiberLabel": { sv: "Fiber", en: "Fibre" },
   "nutritionPage.fiberValue": { sv: "4–7g", en: "4–7g" },
   "nutritionPage.fiberDesc": { sv: "Tarmvänlig fiber för mättnad och matsmältning.", en: "Gut-friendly fibre for satiety and digestion." },
+  "nutritionPage.caloriesDesc": { sv: "Balanserat kaloriinnehåll anpassat för en komplett måltid.", en: "Balanced calorie content designed for a complete meal." },
   "nutritionPage.whyTitle": { sv: "Varför växtprotein?", en: "Why plant protein?" },
   "nutritionPage.whyP1": { sv: "Växtbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.", en: "Plant-based proteins offer a complete amino acid profile when combined correctly, while being easier to digest and significantly more sustainable than animal sources." },
   "nutritionPage.whyP2": { sv: "PLÄNTLY använder en egen blandning av ärt-, soja- och risprotein för att uppnå ett komplett aminosyravärde som matchar vassleprotein i biotillgänglighet.", en: "PLÄNTLY uses a proprietary blend of pea, soy and rice protein to achieve a complete amino acid score matching whey protein in bioavailability." },
