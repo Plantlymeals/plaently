@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { useCartSync } from "@/hooks/useCartSync";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Index from "./pages/Index";
 import { Products, ProductDetail } from "./pages/Products";
@@ -25,8 +26,39 @@ import AdminBundles from "./pages/admin/AdminBundles";
 import AdminHero from "./pages/admin/AdminHero";
 import AdminMessages from "./pages/admin/AdminMessages";
 
-
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  useCartSync();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/products" element={<Products />} />
+      <Route path="/products/:slug" element={<ProductDetail />} />
+      <Route path="/product/:handle" element={<ProductDetail />} />
+      <Route path="/nutrition" element={<Nutrition />} />
+      <Route path="/lifestyle" element={<Lifestyle />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/blog" element={<Blog />} />
+      <Route path="/faq" element={<FAQ />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+
+      <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
+        <Route index element={<AdminOverview />} />
+        <Route path="products" element={<AdminProducts />} />
+        <Route path="blog" element={<AdminBlog />} />
+        <Route path="faqs" element={<AdminFAQs />} />
+        <Route path="testimonials" element={<AdminTestimonials />} />
+        <Route path="bundles" element={<AdminBundles />} />
+        <Route path="hero" element={<AdminHero />} />
+        <Route path="messages" element={<AdminMessages />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -35,30 +67,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:slug" element={<ProductDetail />} />
-            <Route path="/nutrition" element={<Nutrition />} />
-            <Route path="/lifestyle" element={<Lifestyle />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            
-            <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
-              <Route index element={<AdminOverview />} />
-              <Route path="products" element={<AdminProducts />} />
-              <Route path="blog" element={<AdminBlog />} />
-              <Route path="faqs" element={<AdminFAQs />} />
-              <Route path="testimonials" element={<AdminTestimonials />} />
-              <Route path="bundles" element={<AdminBundles />} />
-              <Route path="hero" element={<AdminHero />} />
-              <Route path="messages" element={<AdminMessages />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <AppContent />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

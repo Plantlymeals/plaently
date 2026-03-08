@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CartDrawer } from "@/components/CartDrawer";
 
 const navItems = [
   { label: "Home", path: "/" },
@@ -42,6 +43,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-3">
+          <CartDrawer />
           <Button asChild className="hidden sm:inline-flex rounded-full px-6 font-semibold">
             <Link to="/products">Shop Now</Link>
           </Button>
