@@ -35,10 +35,10 @@ const HeroSection = () => {
             </h1>
             <p className="text-lg md:text-xl text-primary-foreground/80 max-w-lg leading-relaxed">{subheadline}</p>
             <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold bg-foreground text-background hover:bg-foreground/90">
+              <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold bg-background text-foreground hover:bg-background/90">
                 <Link to={ctaLink}>{ctaText}</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-background/50 text-background bg-background/15 hover:bg-background/25">
                 <a href="#how-it-works">{t("hero.howItWorks")}</a>
               </Button>
             </div>
