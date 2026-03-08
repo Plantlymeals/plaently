@@ -24,8 +24,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="font-heading text-2xl font-bold tracking-tight text-primary">
-          PLÄNTLY
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="PLÄNTLY" className="h-7 md:h-8" />
         </Link>
 
         {/* Desktop nav */}
