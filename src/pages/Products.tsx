@@ -46,9 +46,9 @@ const ProductDetail = () => {
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-16">
-            <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center">
+            <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
               {product.image_url ? (
-                <img src={product.image_url} alt={product.name} className="h-full w-full object-cover rounded-2xl" />
+                <img src={product.image_url} alt={product.name} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
               )}
@@ -146,9 +146,9 @@ const Products = () => {
                 to={`/products/${product.slug}`}
                 className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center">
+                <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
                   {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} className="h-full w-full object-cover rounded-xl" />
+                    <img src={product.image_url} alt={product.name} className="h-full w-full object-contain" />
                   ) : (
                     <span className="text-4xl">🍝</span>
                   )}
