@@ -75,7 +75,6 @@ const ProductDetail = () => {
             <div className="space-y-8">
               <div className="space-y-3">
                 <h1 className="font-heading text-3xl md:text-4xl font-bold">{product.title}</h1>
-                <p className="text-muted-foreground leading-relaxed">{product.description}</p>
               </div>
 
               {price && (
@@ -94,6 +93,19 @@ const ProductDetail = () => {
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Add to Cart"}
                 </Button>
               </div>
+
+              {product.descriptionHtml && (
+                <div
+                  className="prose prose-sm max-w-none
+                    [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2
+                    [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50
+                    [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground
+                    [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30
+                    [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed
+                    [&_strong]:text-foreground"
+                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                />
+              )}
             </div>
           </div>
         </div>
