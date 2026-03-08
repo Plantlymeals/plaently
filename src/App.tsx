@@ -24,7 +24,7 @@ import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import AdminBundles from "./pages/admin/AdminBundles";
 import AdminHero from "./pages/admin/AdminHero";
 import AdminMessages from "./pages/admin/AdminMessages";
-import AdminSetup from "./pages/admin/AdminSetup";
+
 
 const queryClient = new QueryClient();
 
@@ -46,7 +46,7 @@ const App = () => (
             <Route path="/faq" element={<FAQ />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin/setup" element={<AdminSetup />} />
+            
             <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
               <Route index element={<AdminOverview />} />
               <Route path="products" element={<AdminProducts />} />
