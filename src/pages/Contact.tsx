@@ -22,7 +22,7 @@ const Contact = () => {
     const { error } = await supabase.from("contact_submissions").insert({
       name: form.name.trim(),
       email: form.email.trim(),
-      message: form.message.trim(),
+      message: form.message.trim()
     });
     setLoading(false);
     if (error) {
@@ -60,12 +60,12 @@ const Contact = () => {
           </form>
           <div className="text-center space-y-3 animate-fade-up">
             <p className="text-sm text-muted-foreground">{t("contact.orEmail")}</p>
-            <a href="mailto:hello@plantly.com" className="text-primary font-medium hover:underline">hello@plantly.com</a>
+            <a href="mailto:hello@plantly.com" className="text-primary font-medium hover:underline">hello@plaently.com</a>
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>);
+
 };
 
 export default Contact;
