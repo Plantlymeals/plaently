@@ -187,7 +187,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "about.p4": { sv: "Idag litar atleter, kontor, entreprenörer och alla som vägrar välja mellan hälsa och bekvämlighet på PLÄNTLY. Vi är på uppdrag att göra växtbaserat protein till det enklaste valet för det moderna livet.", en: "Today, athletes, offices, entrepreneurs and everyone who refuses to choose between health and convenience trust PLÄNTLY. We're on a mission to make plant-based protein the easiest choice for modern life." },
   "about.founded": { sv: "Grundat i Stockholm", en: "Founded in Stockholm" },
   "about.mealsServed": { sv: "Serverade måltider", en: "Meals served" },
-  "about.plantBasedStat": { sv: "Växtbaserat", en: "Plant-based" },
+  "about.plantBasedStat": { sv: "Växtbaserat-Protein", en: "Plant-based Protein" },
 
   // Blog
   "blog.title": { sv: "Blogg", en: "Blog" },
