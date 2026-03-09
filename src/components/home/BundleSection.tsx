@@ -123,7 +123,7 @@ const BundleSection = () => {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground">{b.node.description}</p>
+                <p className="text-sm text-muted-foreground">{getDescKey(b.node.title) ? t(getDescKey(b.node.title)!) : b.node.description}</p>
                 <Button onClick={() => handleAddToCart(b)} disabled={isLoading} className="w-full rounded-full font-semibold">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("bundles.orderNow")}
                 </Button>
