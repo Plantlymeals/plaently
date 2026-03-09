@@ -16,6 +16,21 @@ const BUNDLE_MEAL_COUNTS: Record<string, number> = {
   "big office": 120,
 };
 
+const BUNDLE_DESC_KEYS: Record<string, string> = {
+  starter: "bundles.desc.starter",
+  athlete: "bundles.desc.athlete",
+  office: "bundles.desc.office",
+  "big office": "bundles.desc.bigoffice",
+};
+
+function getDescKey(title: string): string | null {
+  const lower = title.toLowerCase();
+  for (const [key, descKey] of Object.entries(BUNDLE_DESC_KEYS)) {
+    if (lower.includes(key)) return descKey;
+  }
+  return null;
+}
+
 function getMealCount(title: string): number | null {
   const lower = title.toLowerCase();
   for (const [key, count] of Object.entries(BUNDLE_MEAL_COUNTS)) {
