@@ -19,13 +19,21 @@ const Contact = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("contact_submissions").insert({
-      name: form.name.trim(),
-      email: form.email.trim(),
-      message: form.message.trim()
-    });
-    setLoading(false);
-    if (error) {
+    try {
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        message: form.message.trim()
+      });
+      setLoading(false);
+      if (error) {
+        console.error("Contact form error:", error);
+        toast.error(t("contact.error"));
+        return;
+      }
+    } catch (err) {
+      console.error("Contact form exception:", err);
+      setLoading(false);
       toast.error(t("contact.error"));
       return;
     }
