@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-xs text-primary-foreground/40">© 2026 PLÄNTLY. {t("footer.rights")}</p>
           <div className="flex gap-6">
-            {["Instagram", "TikTok", "LinkedIn"].map((social) => (
+            {["LinkedIn", "Instagram", "TikTok", "Facebook"].map((social) => (
               <a key={social} href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors">{social}</a>
             ))}
           </div>
