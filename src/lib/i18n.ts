@@ -45,7 +45,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "why.plantBased": { sv: "Växtbaserat", en: "Plant-Based" },
   "why.plantBasedDesc": { sv: "100% växtbaserad protein", en: "100% plant-based protein" },
   "why.lowSugar": { sv: "Lågt socker", en: "Low Sugar" },
-  "why.lowSugarDesc": { sv: "Inga tillsatta sockerarter eller sötningsmedel", en: "No added sugars or sweeteners" },
+  "why.lowSugarDesc": { sv: "Vissa tillsatta sockerarter eller sötningsmedel", en: "Some added sugars or sweeteners" },
   "why.readyInMinutes": { sv: "Klart på minuter", en: "Ready in Minutes" },
   "why.readyInMinutesDesc": { sv: "Tillsätt bara hett vatten och njut", en: "Just add hot water and enjoy" },
   "why.sustainable": { sv: "Hållbart", en: "Sustainable" },
