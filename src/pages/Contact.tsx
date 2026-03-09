@@ -60,7 +60,7 @@ const Contact = () => {
           </form>
           <div className="text-center space-y-3 animate-fade-up">
             <p className="text-sm text-muted-foreground">{t("contact.orEmail")}</p>
-            <a href="mailto:hello@plantly.com" className="text-primary font-medium hover:underline">hello@plaently.com</a>
+            <a href="mailto:hello@plantly.com" className="text-primary font-medium hover:underline">hello@plantly.com</a>
           </div>
         </div>
       </section>
