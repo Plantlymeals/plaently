@@ -20,8 +20,8 @@ const About = () => {
           </div>
           <div className="grid sm:grid-cols-3 gap-6 animate-fade-up">
             {[
-              { stat: "2024", label: t("about.founded") },
-              { stat: "50 000+", label: t("about.mealsServed") },
+              { stat: "2025", label: t("about.founded") },
+              { stat: "1000+", label: t("about.mealsServed") },
               { stat: "100%", label: t("about.plantBasedStat") },
             ].map(({ stat, label }) => (
               <div key={label} className="text-center rounded-2xl bg-secondary p-6">
