@@ -1,11 +1,34 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim() || loading) return;
+    setLoading(true);
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
+    setLoading(false);
+    if (error) {
+      if (error.code === "23505") {
+        toast.info(t("newsletter.alreadySubscribed"), { description: t("newsletter.alreadyDesc") });
+      } else {
+        toast.error(t("newsletter.error"), { description: t("newsletter.errorDesc") });
+      }
+      return;
+    }
+    toast.success(t("newsletter.success"), { description: t("newsletter.successDesc") });
+    setEmail("");
+  };
 
   return (
     <footer className="bg-foreground text-primary-foreground">
@@ -46,10 +69,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/40">{t("footer.stayUpdated")}</h4>
             <p className="text-sm text-primary-foreground/60">{t("footer.newsletterDesc")}</p>
-            <div className="flex gap-2">
-              <Input placeholder={t("footer.emailPlaceholder")} className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/30 rounded-full" />
-              <Button className="rounded-full px-5 shrink-0">{t("footer.join")}</Button>
-            </div>
+            <form onSubmit={handleSubscribe} className="flex gap-2">
+              <Input type="email" placeholder={t("footer.emailPlaceholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/30 rounded-full" />
+              <Button type="submit" className="rounded-full px-5 shrink-0" disabled={loading}>{t("footer.join")}</Button>
+            </form>
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
