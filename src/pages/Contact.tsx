@@ -10,35 +10,43 @@ import { useTranslation } from "@/lib/i18n";
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus("idle");
+
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       toast.error(t("contact.fillAll"));
       return;
     }
+
     setLoading(true);
     try {
       const { error } = await supabase.from("contact_submissions").insert({
         name: form.name.trim(),
         email: form.email.trim(),
-        message: form.message.trim()
+        message: form.message.trim(),
       });
-      setLoading(false);
+
       if (error) {
         console.error("Contact form error:", error);
+        setStatus("error");
         toast.error(t("contact.error"));
         return;
       }
+
+      setStatus("success");
+      toast.success(t("contact.success"));
+      setForm({ name: "", email: "", message: "" });
     } catch (err) {
       console.error("Contact form exception:", err);
-      setLoading(false);
+      setStatus("error");
       toast.error(t("contact.error"));
-      return;
+    } finally {
+      setLoading(false);
     }
-    toast.success(t("contact.success"));
-    setForm({ name: "", email: "", message: "" });
   };
 
   return (
@@ -65,6 +73,13 @@ const Contact = () => {
             <Button type="submit" className="w-full rounded-full font-semibold" size="lg" disabled={loading}>
               {loading ? t("contact.submitting") : t("contact.submit")}
             </Button>
+
+            {status === "success" && (
+              <p className="text-sm text-primary text-center">{t("contact.success")}</p>
+            )}
+            {status === "error" && (
+              <p className="text-sm text-destructive text-center">{t("contact.error")}</p>
+            )}
           </form>
           <div className="text-center space-y-3 animate-fade-up">
             <p className="text-sm text-muted-foreground">{t("contact.orEmail")}</p>
@@ -72,8 +87,8 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </Layout>);
-
+    </Layout>
+  );
 };
 
 export default Contact;
