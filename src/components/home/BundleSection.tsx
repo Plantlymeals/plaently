@@ -9,23 +9,24 @@ import { useTranslation } from "@/lib/i18n";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
-const BUNDLE_MEAL_COUNTS: Record<string, number> = {
-  starter: 12,
-  athlete: 24,
-  office: 60,
-  "big office": 120,
-};
+// Order matters: "big office" must come before "office" to avoid partial match
+const BUNDLE_MEAL_COUNTS: [string, number][] = [
+  ["big office", 120],
+  ["office", 60],
+  ["athlete", 24],
+  ["starter", 12],
+];
 
-const BUNDLE_DESC_KEYS: Record<string, string> = {
-  starter: "bundles.desc.starter",
-  athlete: "bundles.desc.athlete",
-  office: "bundles.desc.office",
-  "big office": "bundles.desc.bigoffice",
-};
+const BUNDLE_DESC_KEYS: [string, string][] = [
+  ["big office", "bundles.desc.bigoffice"],
+  ["office", "bundles.desc.office"],
+  ["athlete", "bundles.desc.athlete"],
+  ["starter", "bundles.desc.starter"],
+];
 
 function getDescKey(title: string): string | null {
   const lower = title.toLowerCase();
-  for (const [key, descKey] of Object.entries(BUNDLE_DESC_KEYS)) {
+  for (const [key, descKey] of BUNDLE_DESC_KEYS) {
     if (lower.includes(key)) return descKey;
   }
   return null;
@@ -33,7 +34,7 @@ function getDescKey(title: string): string | null {
 
 function getMealCount(title: string): number | null {
   const lower = title.toLowerCase();
-  for (const [key, count] of Object.entries(BUNDLE_MEAL_COUNTS)) {
+  for (const [key, count] of BUNDLE_MEAL_COUNTS) {
     if (lower.includes(key)) return count;
   }
   return null;
