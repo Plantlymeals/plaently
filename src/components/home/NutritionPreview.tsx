@@ -3,11 +3,16 @@ import { useTranslation } from "@/lib/i18n";
 const NutritionPreview = () => {
   const { t } = useTranslation();
 
+  // Averages calculated from per-serving data of all 4 meals:
+  // Fusilli Bolognese (75g): 263 kcal, 20.3g protein, 37.5g carbs, 2.2g fat, 5.9g fibre
+  // Pasta Carbonara (75g): 285 kcal, 20.2g protein, 34.5g carbs, 6.4g fat, 4.3g fibre
+  // Smoky BBQ Lentils (65g): 228 kcal, 20.8g protein, 25.4g carbs, 2.9g fat, 9.1g fibre
+  // Yellow Curry & Rice (75g): 285 kcal, 20.4g protein, 32.9g carbs, 6.7g fat, 6.1g fibre
   const macros = [
-    { label: t("nutrition.protein"), value: "20–25g", percent: 75, color: "bg-primary" },
-    { label: t("nutrition.carbs"), value: "36–44g", percent: 55, color: "bg-primary/60" },
-    { label: t("nutrition.fat"), value: "10–14g", percent: 35, color: "bg-primary/30" },
-    { label: t("nutrition.calories"), value: "350–390 kcal", percent: 45, color: "bg-primary/50" },
+    { label: t("nutrition.protein"), value: "20.4g", percent: 75, color: "bg-primary" },
+    { label: t("nutrition.carbs"), value: "32.6g", percent: 55, color: "bg-primary/60" },
+    { label: t("nutrition.fat"), value: "4.6g", percent: 20, color: "bg-primary/30" },
+    { label: t("nutrition.calories"), value: "265 kcal", percent: 45, color: "bg-primary/50" },
   ];
 
   return (
