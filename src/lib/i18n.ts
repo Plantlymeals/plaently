@@ -29,7 +29,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
 
   // Trust
-  "trust.rating": { sv: "4.8/5 från 2 000+ recensioner", en: "4.8/5 from 2,000+ reviews" },
+  "trust.rating": { sv: "4.8/5 från 1 000+ recensioner", en: "4.8/5 from 1,000+ reviews" },
   "trust.loved": { sv: "Älskad av yrkesverksamma, atleter och moderna arbetsplatser.", en: "Loved by professionals, athletes and modern workplaces." },
   "trust.offices": { sv: "Kontor", en: "Offices" },
   "trust.athletes": { sv: "Atleter", en: "Athletes" },
