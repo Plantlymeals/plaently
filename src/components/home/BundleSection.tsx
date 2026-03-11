@@ -100,12 +100,12 @@ const BundleSection = () => {
             const savingsPercent = fullPrice ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100) : null;
 
             return (
-              <div key={b.node.id} className="relative rounded-2xl bg-card border border-border/50 p-6 shadow-card text-center space-y-4 hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 animate-fade-up">
+              <div key={b.node.id} className="relative rounded-2xl bg-card border border-border/50 p-6 shadow-card text-center flex flex-col hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 animate-fade-up">
                 {badge && (
                   <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold">{badge}</Badge>
                 )}
-                <h3 className="font-heading text-lg font-semibold pt-2">{b.node.title}</h3>
-                <div className="space-y-1">
+                <h3 className="font-heading text-lg font-semibold pt-2 mb-4">{b.node.title}</h3>
+                <div className="space-y-1 mb-4">
                   <p className="text-3xl font-bold text-primary">{price.currencyCode} {bundlePrice.toFixed(0)}</p>
                   {fullPrice && savingsPercent && savingsPercent > 0 && (
                     <p className="text-xs text-muted-foreground line-through">
@@ -123,8 +123,8 @@ const BundleSection = () => {
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground">{getDescKey(b.node.title) ? t(getDescKey(b.node.title)!) : b.node.description}</p>
-                <Button onClick={() => handleAddToCart(b)} disabled={isLoading} className="w-full rounded-full font-semibold">
+                <p className="text-sm text-muted-foreground mb-4 flex-1">{getDescKey(b.node.title) ? t(getDescKey(b.node.title)!) : b.node.description}</p>
+                <Button onClick={() => handleAddToCart(b)} disabled={isLoading} className="w-full rounded-full font-semibold mt-auto">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("bundles.orderNow")}
                 </Button>
               </div>
