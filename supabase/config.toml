@@ -3,3 +3,5 @@ project_id = "fpwwjbevjhxbggtkaabc"
 [functions]
   [functions.auth-email-hook]
     verify_jwt = false
+  [functions.send-newsletter]
+    verify_jwt = false

@@ -15,6 +15,7 @@ const navItems = [
   { label: "Bundles", path: "/admin/bundles", icon: Package },
   { label: "Hero Content", path: "/admin/hero", icon: Image },
   { label: "Messages", path: "/admin/messages", icon: MessageSquare },
+  { label: "Campaigns", path: "/admin/campaigns", icon: Mail },
 ];
 
 const SidebarNav = ({ currentPath, onNavigate, signOut }: { currentPath: string; onNavigate?: () => void; signOut: () => void }) => (

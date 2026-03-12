@@ -59,6 +59,7 @@ const AppContent = () => {
           <Route path="bundles" element={<AdminBundles />} />
           <Route path="hero" element={<AdminHero />} />
           <Route path="messages" element={<AdminMessages />} />
+          <Route path="campaigns" element={<AdminCampaigns />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
