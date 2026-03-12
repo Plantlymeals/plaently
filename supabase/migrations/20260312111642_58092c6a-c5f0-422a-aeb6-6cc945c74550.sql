@@ -1,0 +1,1 @@
+UPDATE faqs SET answer = 'Shake it, open the lid, pour boiling water to the fill line, stir, close the lid and wait 5 minutes. Stir again and enjoy!', updated_at = now() WHERE id = 'fd2c85ee-c29a-4e0f-8891-fce176e9c690';
