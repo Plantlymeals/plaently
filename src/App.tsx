@@ -35,31 +35,33 @@ const AppContent = () => {
   useCartSync();
 
   return (
-    <Routes>
-      <Route path="/" element={<Index />} />
-      <Route path="/products" element={<Products />} />
-      <Route path="/products/:slug" element={<ProductDetail />} />
-      <Route path="/product/:handle" element={<ProductDetail />} />
-      <Route path="/nutrition" element={<Nutrition />} />
-      <Route path="/lifestyle" element={<Lifestyle />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/faq" element={<FAQ />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/admin/login" element={<AdminLogin />} />
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:slug" element={<ProductDetail />} />
+        <Route path="/product/:handle" element={<ProductDetail />} />
+        <Route path="/nutrition" element={<Nutrition />} />
+        <Route path="/lifestyle" element={<Lifestyle />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-      <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
-        <Route index element={<AdminOverview />} />
-        <Route path="products" element={<AdminProducts />} />
-        <Route path="blog" element={<AdminBlog />} />
-        <Route path="faqs" element={<AdminFAQs />} />
-        <Route path="testimonials" element={<AdminTestimonials />} />
-        <Route path="bundles" element={<AdminBundles />} />
-        <Route path="hero" element={<AdminHero />} />
-        <Route path="messages" element={<AdminMessages />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
+          <Route index element={<AdminOverview />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="blog" element={<AdminBlog />} />
+          <Route path="faqs" element={<AdminFAQs />} />
+          <Route path="testimonials" element={<AdminTestimonials />} />
+          <Route path="bundles" element={<AdminBundles />} />
+          <Route path="hero" element={<AdminHero />} />
+          <Route path="messages" element={<AdminMessages />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 
