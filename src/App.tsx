@@ -28,6 +28,7 @@ const AdminTestimonials = lazy(() => import("./pages/admin/AdminTestimonials"));
 const AdminBundles = lazy(() => import("./pages/admin/AdminBundles"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
+const AdminCampaigns = lazy(() => import("./pages/admin/AdminCampaigns"));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const AppContent = () => {
           <Route path="bundles" element={<AdminBundles />} />
           <Route path="hero" element={<AdminHero />} />
           <Route path="messages" element={<AdminMessages />} />
+          <Route path="campaigns" element={<AdminCampaigns />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
