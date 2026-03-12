@@ -1,0 +1,1 @@
+ALTER TABLE faqs ADD COLUMN question_sv text, ADD COLUMN answer_sv text;
