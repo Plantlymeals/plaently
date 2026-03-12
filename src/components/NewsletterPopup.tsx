@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
-import logo from "@/assets/logo.png";
+const logo = "/images/logo.png";
 
 const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
