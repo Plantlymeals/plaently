@@ -152,7 +152,7 @@ const Products = () => {
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
                         {image ? (
-                          <img src={image.url} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" />
+                          <img src={`${image.url}&width=300`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
                         ) : (
                           <span className="text-4xl">🍝</span>
                         )}

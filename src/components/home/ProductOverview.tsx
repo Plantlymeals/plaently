@@ -51,7 +51,7 @@ const ProductOverview = () => {
                 <Link to={`/product/${product.node.handle}`}>
                   <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center">
                     {image ? (
-                      <img src={image.url} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" />
+                      <img src={`${image.url}&width=300`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" width={250} height={160} loading="lazy" />
                     ) : (
                       <span className="text-4xl">🍝</span>
                     )}
