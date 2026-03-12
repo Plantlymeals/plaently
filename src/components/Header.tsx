@@ -4,7 +4,7 @@ import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useTranslation } from "@/lib/i18n";
-import logo from "@/assets/logo.png";
+const logo = "/images/logo.png";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
