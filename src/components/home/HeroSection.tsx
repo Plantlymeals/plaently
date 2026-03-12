@@ -44,7 +44,7 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="animate-fade-up-delay-2 flex justify-center">
-            <img src={hero?.image_url || heroImage} alt="PLÄNTLY plant-based protein meals" className="w-full max-w-xl rounded-2xl shadow-elevated" />
+            <img src={hero?.image_url || heroImage} alt="PLÄNTLY plant-based protein meals" className="w-full max-w-xl rounded-2xl shadow-elevated" width={576} height={324} fetchPriority="high" />
           </div>
         </div>
       </div>
