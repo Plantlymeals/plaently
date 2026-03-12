@@ -1,0 +1,1 @@
+UPDATE faqs SET answer = 'All PLÄNTLY meals are 100% plant-based protein. Some contain milk powder — check individual product pages for allergen details.', updated_at = now() WHERE id = 'bdbc3261-9ac0-4e78-b5c7-4428f36ba699';
