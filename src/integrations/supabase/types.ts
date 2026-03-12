@@ -131,28 +131,34 @@ export type Database = {
       faqs: {
         Row: {
           answer: string
+          answer_sv: string | null
           created_at: string
           id: string
           is_published: boolean | null
           question: string
+          question_sv: string | null
           sort_order: number | null
           updated_at: string
         }
         Insert: {
           answer: string
+          answer_sv?: string | null
           created_at?: string
           id?: string
           is_published?: boolean | null
           question: string
+          question_sv?: string | null
           sort_order?: number | null
           updated_at?: string
         }
         Update: {
           answer?: string
+          answer_sv?: string | null
           created_at?: string
           id?: string
           is_published?: boolean | null
           question?: string
+          question_sv?: string | null
           sort_order?: number | null
           updated_at?: string
         }
