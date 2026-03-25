@@ -12,7 +12,7 @@ type Product = Tables<"products">;
 const emptyProduct: Partial<TablesInsert<"products">> = {
   slug: "", name: "", description: "", protein: "", calories: "", prep_time: "5 min",
   price: "", ingredients: "", allergens: "", image_url: "", is_published: true, sort_order: 0,
-  nutrition: { protein: "", carbs: "", fat: "", fiber: "", sugar: "", salt: "" },
+  nutrition: { protein: "", carbs: "", fat: "", saturated_fat: "", fiber: "", sugar: "", salt: "" },
 };
 
 const AdminProducts = () => {
