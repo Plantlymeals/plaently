@@ -12,7 +12,7 @@ type Product = Tables<"products">;
 const emptyProduct: Partial<TablesInsert<"products">> = {
   slug: "", name: "", description: "", protein: "", calories: "", prep_time: "5 min",
   price: "", ingredients: "", allergens: "", image_url: "", is_published: true, sort_order: 0,
-  nutrition: { protein: "", carbs: "", fat: "", fiber: "", sugar: "", salt: "" },
+  nutrition: { protein: "", carbs: "", fat: "", saturated_fat: "", fiber: "", sugar: "", salt: "" },
 };
 
 const AdminProducts = () => {
@@ -105,10 +105,18 @@ const AdminProducts = () => {
 
           <div className="space-y-2">
             <label className="text-xs font-medium">Nutrition (per serving)</label>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-              {["protein", "carbs", "fat", "fiber", "sugar", "salt"].map(k => (
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+              {[
+                { key: "protein", label: "Protein" },
+                { key: "carbs", label: "Carbs" },
+                { key: "sugars", label: "↳ of which sugars" },
+                { key: "fat", label: "Fat" },
+                { key: "saturated_fat", label: "↳ of which saturated" },
+                { key: "fiber", label: "Fiber" },
+                { key: "salt", label: "Salt" },
+              ].map(({ key: k, label }) => (
                 <div key={k} className="space-y-1">
-                  <label className="text-[10px] text-muted-foreground capitalize">{k}</label>
+                  <label className="text-[10px] text-muted-foreground">{label}</label>
                   <Input value={(form.nutrition as Record<string, string>)?.[k] ?? ""} onChange={e => updateNutrition(k, e.target.value)} className="rounded-xl text-xs" />
                 </div>
               ))}
