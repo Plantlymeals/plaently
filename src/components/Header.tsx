@@ -86,18 +86,32 @@ const Header = () => {
       {mobileOpen && (
         <div className="lg:hidden border-t border-border/50 bg-background/95 backdrop-blur-lg animate-fade-up">
           <nav className="container py-4 flex flex-col gap-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-primary/5 hover:text-primary ${
-                  location.pathname === item.path ? "text-primary bg-primary/5" : "text-foreground/70"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isHash = item.path.includes("#");
+              const handleMobileClick = (e: React.MouseEvent) => {
+                setMobileOpen(false);
+                if (isHash && location.pathname === "/") {
+                  e.preventDefault();
+                  const hash = item.path.split("#")[1];
+                  setTimeout(() => {
+                    document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+                  }, 100);
+                  window.history.pushState(null, "", item.path);
+                }
+              };
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={handleMobileClick}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors hover:bg-primary/5 hover:text-primary ${
+                    location.pathname === item.path ? "text-primary bg-primary/5" : "text-foreground/70"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <Button asChild className="mt-3 rounded-full font-semibold">
               <Link to="/products" onClick={() => setMobileOpen(false)}>{t("nav.shopNow")}</Link>
             </Button>
