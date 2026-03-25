@@ -105,7 +105,7 @@ const AdminProducts = () => {
 
           <div className="space-y-2">
             <label className="text-xs font-medium">Nutrition (per serving)</label>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {[
                 { key: "protein", label: "Protein" },
                 { key: "carbs", label: "Carbs" },
