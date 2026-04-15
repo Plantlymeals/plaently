@@ -84,10 +84,8 @@ const ProductDetail = () => {
         description={product.description || "Högprotein växtbaserad färdigrätt från PLÄNTLY."}
         path={`/product/${product.handle}`}
         type="product"
+        jsonLd={jsonLd}
       />
-      <Helmet>
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      </Helmet>
       <section className="py-12 md:py-20">
         <div className="container">
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
