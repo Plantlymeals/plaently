@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
+import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
@@ -58,8 +59,35 @@ const ProductDetail = () => {
     toast.success(t("products.addedToCart"), { position: "top-center" });
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description,
+    image: image?.url,
+    url: `https://plantlymeals.com/product/${product.handle}`,
+    brand: { "@type": "Brand", name: "PLÄNTLY" },
+    ...(price && {
+      offers: {
+        "@type": "Offer",
+        price: parseFloat(price.amount).toFixed(2),
+        priceCurrency: price.currencyCode,
+        availability: selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      },
+    }),
+  };
+
   return (
     <Layout>
+      <SEOHead
+        title={`${product.title} — PLÄNTLY`}
+        description={product.description || "Högprotein växtbaserad färdigrätt från PLÄNTLY."}
+        path={`/product/${product.handle}`}
+        type="product"
+      />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
       <section className="py-12 md:py-20">
         <div className="container">
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
