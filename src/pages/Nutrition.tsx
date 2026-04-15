@@ -15,6 +15,7 @@ const Nutrition = () => {
 
   return (
     <Layout>
+      <SEOHead title="Näring — PLÄNTLY | Högprotein växtbaserad näring" description="Se näringsinnehållet i PLÄNTLY:s måltider — 20g+ protein, balanserade makros och naturliga ingredienser." path="/nutrition" />
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
