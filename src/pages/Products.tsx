@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
@@ -132,6 +133,7 @@ const Products = () => {
 
   return (
     <Layout>
+      <SEOHead title="Produkter — PLÄNTLY | Växtbaserade proteinmåltider" description="Utforska PLÄNTLY:s sortiment av högprotein växtbaserade färdigrätter. Snabbt, gott och näringsrikt." path="/products" />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
