@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 

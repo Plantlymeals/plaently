@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const Nutrition = () => {

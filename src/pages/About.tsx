@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const About = () => {
@@ -6,6 +7,7 @@ const About = () => {
 
   return (
     <Layout>
+      <SEOHead title="Om PLÄNTLY — Vår historia & vision" description="Lär känna PLÄNTLY — vi skapar växtbaserade proteinmåltider med skandinavisk kvalitet för en hållbar framtid." path="/about" />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
