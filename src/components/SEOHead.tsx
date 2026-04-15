@@ -6,6 +6,7 @@ interface SEOHeadProps {
   path: string;
   image?: string;
   type?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
 const BASE_URL = "https://plantlymeals.com";
