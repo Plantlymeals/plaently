@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -26,6 +27,7 @@ const FAQPage = () => {
 
   return (
     <Layout>
+      <SEOHead title="Vanliga frågor — PLÄNTLY" description="Svar på vanliga frågor om PLÄNTLY:s växtbaserade proteinmåltider, leverans, ingredienser och mer." path="/faq" />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SEOHead from "@/components/SEOHead";
 import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,6 +20,7 @@ const Blog = () => {
 
   return (
     <Layout>
+      <SEOHead title="Blogg — PLÄNTLY" description="Läs om växtbaserad kost, hälsa och hållbarhet. Tips, recept och nyheter från PLÄNTLY." path="/blog" />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

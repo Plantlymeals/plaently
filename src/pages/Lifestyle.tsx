@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
@@ -14,6 +15,7 @@ const Lifestyle = () => {
 
   return (
     <Layout>
+      <SEOHead title="Livsstil — PLÄNTLY | Måltider för din livsstil" description="Upptäck hur PLÄNTLY passar din livsstil — för atleter, kontorsarbetare, entreprenörer och alla däremellan." path="/lifestyle" />
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
