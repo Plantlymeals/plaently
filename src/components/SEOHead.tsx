@@ -11,7 +11,7 @@ interface SEOHeadProps {
 
 const BASE_URL = "https://plantlymeals.com";
 
-const SEOHead = ({ title, description, path, image, type = "website" }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, image, type = "website", jsonLd }: SEOHeadProps) => {
   const url = `${BASE_URL}${path}`;
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
 
