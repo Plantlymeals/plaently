@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import { Helmet } from "react-helmet-async";
+
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2 } from "lucide-react";
