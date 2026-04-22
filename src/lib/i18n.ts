@@ -27,6 +27,28 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.subheadline": { sv: "Balanserade måltider med 20g växtprotein. Klara på 5 minuter — för det moderna livet.", en: "Balanced, high-protein meals ready in 5 minutes for modern lifestyles." },
   "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
+  "hero.ctaStarter": { sv: "Handla Starter Pack", en: "Shop Starter Pack" },
+  "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
+  "hero.badge1": { sv: "20g protein", en: "20g protein" },
+  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
+  "hero.badge3": { sv: "100% växtbaserat", en: "100% plant-based" },
+
+  // Problem → Solution
+  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
+  "ps.problemTitle": { sv: "Snabbmat är ohälsosam.", en: "Fast food is unhealthy." },
+  "ps.problemDesc": { sv: "Hälsosam mat tar tid du inte har.", en: "Healthy food takes time you don't have." },
+  "ps.solutionTitle": { sv: "PLÄNTLY = hälsosam snabbmat.", en: "PLÄNTLY = healthy fast food." },
+  "ps.solutionDesc": { sv: "Riktiga måltider med 20g växtprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
+
+  // Starter Pack highlight
+  "starter.badge": { sv: "Populärast val", en: "Most popular choice" },
+  "starter.title": { sv: "Starter Pack", en: "Starter Pack" },
+  "starter.subtitle": { sv: "Den perfekta introduktionen till PLÄNTLY.", en: "The perfect introduction to PLÄNTLY." },
+  "starter.meals": { sv: "12 måltider", en: "12 meals" },
+  "starter.shipping": { sv: "Fri frakt", en: "Free shipping" },
+  "starter.protein": { sv: "20g protein per måltid", en: "20g protein per meal" },
+  "starter.cta": { sv: "Beställ nu", en: "Order now" },
+  "starter.from": { sv: "Från", en: "From" },
 
   // Trust
   "trust.rating": { sv: "4.8/5 från 1 000+ recensioner", en: "4.8/5 from 1,000+ reviews" },
