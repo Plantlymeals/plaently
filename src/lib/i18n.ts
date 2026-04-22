@@ -24,7 +24,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Hero
   "hero.headline": { sv: "Hälsosam snabbmat\ndriven av växtprotein.", en: "Healthy Fast Food\nPowered by Plant Protein." },
-  "hero.subheadline": { sv: "Balanserade måltider med 20g växtprotein. Klara på 3–5 minuter — för det moderna livet.", en: "Balanced, high-protein meals ready in 3–5 minutes for modern lifestyles." },
+  "hero.subheadline": { sv: "Balanserade måltider med 20g växtprotein. Klara på 5 minuter — för det moderna livet.", en: "Balanced, high-protein meals ready in 5 minutes for modern lifestyles." },
   "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
 
@@ -96,7 +96,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "productDetail.nutritionProtein": { sv: "20g växtprotein per portion", en: "20g plant protein per serving" },
   "productDetail.nutritionMacros": { sv: "Balanserade makron och 5–9g fiber", en: "Balanced macros and 5–9g fibre" },
   "productDetail.nutritionClean": { sv: "Riktiga ingredienser, inga konstgjorda tillsatser", en: "Real ingredients, no artificial additives" },
-  "productDetail.prepTitle": { sv: "Klart på 3–5 minuter", en: "Ready in 3–5 minutes" },
+  "productDetail.prepTitle": { sv: "Klart på 5 minuter", en: "Ready in 5 minutes" },
   "productDetail.prepStep1": { sv: "Öppna koppen", en: "Open the cup" },
   "productDetail.prepStep2": { sv: "Tillsätt hett vatten till markeringen", en: "Add hot water to the line" },
   "productDetail.prepStep3": { sv: "Rör om och vänta 5 min", en: "Stir and wait 5 min" },
