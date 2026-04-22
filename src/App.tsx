@@ -16,6 +16,7 @@ const Nutrition = lazy(() => import("./pages/Nutrition"));
 const Lifestyle = lazy(() => import("./pages/Lifestyle"));
 const About = lazy(() => import("./pages/About"));
 const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -51,6 +52,7 @@ const AppContent = () => {
         <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:slug" element={<BlogPost />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin/login" element={<AdminLogin />} />
