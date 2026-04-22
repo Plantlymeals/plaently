@@ -21,6 +21,21 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://plantlymeals.com/high-protein-meals</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://plantlymeals.com/plant-based-meals</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://plantlymeals.com/healthy-instant-meals</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://plantlymeals.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

@@ -30,6 +30,7 @@ const AdminBundles = lazy(() => import("./pages/admin/AdminBundles"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
 const AdminCampaigns = lazy(() => import("./pages/admin/AdminCampaigns"));
+const CategoryPage = lazy(() => import("./pages/categories/CategoryPage"));
 
 const queryClient = new QueryClient();
 
@@ -45,6 +46,9 @@ const AppContent = () => {
         <Route path="/product/:handle" element={<ProductDetail />} />
         <Route path="/nutrition" element={<Nutrition />} />
         <Route path="/lifestyle" element={<Lifestyle />} />
+        <Route path="/high-protein-meals" element={<CategoryPage categoryKey="high-protein-meals" />} />
+        <Route path="/plant-based-meals" element={<CategoryPage categoryKey="plant-based-meals" />} />
+        <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/faq" element={<FAQ />} />

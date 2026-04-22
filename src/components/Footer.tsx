@@ -43,6 +43,9 @@ const Footer = () => {
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.products"), path: "/products" },
+                { label: lang === "sv" ? "Högprotein" : "High Protein", path: "/high-protein-meals" },
+                { label: lang === "sv" ? "Växtbaserat" : "Plant-Based", path: "/plant-based-meals" },
+                { label: lang === "sv" ? "Snabbmåltider" : "Instant Meals", path: "/healthy-instant-meals" },
                 { label: t("nav.nutrition"), path: "/nutrition" },
                 { label: t("nav.lifestyle"), path: "/lifestyle" },
                 { label: t("nav.about"), path: "/about" },
