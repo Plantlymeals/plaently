@@ -23,8 +23,8 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.shopNow": { sv: "Handla nu", en: "Shop now" },
 
   // Hero
-  "hero.headline": { sv: "Riktig mat.\nRiktigt protein.", en: "Real food.\nReal protein." },
-  "hero.subheadline": { sv: "Växtbaserade måltider med 20g protein per portion. Klart på minuter.", en: "Plant-based meals with 20g protein per serving. Ready in minutes." },
+  "hero.headline": { sv: "Hälsosam snabbmat\ndriven av växtprotein.", en: "Healthy Fast Food\nPowered by Plant Protein." },
+  "hero.subheadline": { sv: "Balanserade måltider med 20g växtprotein. Klara på 3–5 minuter — för det moderna livet.", en: "Balanced, high-protein meals ready in 3–5 minutes for modern lifestyles." },
   "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
 
@@ -88,6 +88,21 @@ const translations: Record<string, Record<Lang, string>> = {
   "products.notFound": { sv: "Produkten hittades inte", en: "Product not found" },
   "products.backToProducts": { sv: "Tillbaka till produkter", en: "Back to products" },
   "products.perMeal": { sv: "per måltid", en: "per meal" },
+
+  // Product detail enhancements
+  "productDetail.tasteTitle": { sv: "Smaken först", en: "Taste first" },
+  "productDetail.tasteDesc": { sv: "Utvecklad av kockar i Stockholm för att leverera riktig, tillfredsställande smak — inte ett kompromissalternativ.", en: "Developed by chefs in Stockholm to deliver real, satisfying flavour — not a compromise option." },
+  "productDetail.nutritionTitle": { sv: "Näringshöjdpunkter", en: "Nutrition highlights" },
+  "productDetail.nutritionProtein": { sv: "20g växtprotein per portion", en: "20g plant protein per serving" },
+  "productDetail.nutritionMacros": { sv: "Balanserade makron och 5–9g fiber", en: "Balanced macros and 5–9g fibre" },
+  "productDetail.nutritionClean": { sv: "Riktiga ingredienser, inga konstgjorda tillsatser", en: "Real ingredients, no artificial additives" },
+  "productDetail.prepTitle": { sv: "Klart på 3–5 minuter", en: "Ready in 3–5 minutes" },
+  "productDetail.prepStep1": { sv: "Öppna koppen", en: "Open the cup" },
+  "productDetail.prepStep2": { sv: "Tillsätt hett vatten till markeringen", en: "Add hot water to the line" },
+  "productDetail.prepStep3": { sv: "Rör om och vänta 5 min", en: "Stir and wait 5 min" },
+  "productDetail.benefitsTitle": { sv: "Hälsosam snabbmat", en: "Healthy fast food" },
+  "productDetail.benefitsDesc": { sv: "100% växtbaserad protein, balanserade makron och riktiga ingredienser — på tiden det tar att koka vatten.", en: "100% plant-based protein, balanced macros and real ingredients — in the time it takes to boil water." },
+  "productDetail.ctaSubscribe": { sv: "Starta prenumeration", en: "Start subscription" },
 
   // Bundles
   "bundles.title": { sv: "Välj ditt paket", en: "Choose your pack" },

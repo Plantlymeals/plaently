@@ -14,9 +14,12 @@ const Blog = () => {
 
   useEffect(() => {
     supabase.from("blog_posts").select("*").eq("is_published", true).order("published_at", { ascending: false }).then(({ data }) => {
-      if (data) setPosts(data);
+      if (!data) return;
+      // Filter posts by language: SV posts have "-sv" suffix, EN posts don't.
+      const filtered = data.filter((p) => (lang === "sv" ? p.slug.endsWith("-sv") : !p.slug.endsWith("-sv")));
+      setPosts(filtered);
     });
-  }, []);
+  }, [lang]);
 
   return (
     <Layout>
