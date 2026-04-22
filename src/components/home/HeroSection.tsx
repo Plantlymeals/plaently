@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import heroImage from "@/assets/hero-product.png";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
+import { Leaf, Clock, Dumbbell } from "lucide-react";
 
 type HeroContent = Tables<"hero_content">;
 
@@ -20,7 +21,6 @@ const HeroSection = () => {
 
   const headline = t("hero.headline");
   const subheadline = t("hero.subheadline");
-  const ctaText = t("hero.cta");
   const ctaLink = hero?.cta_link || "/products";
 
   return (
@@ -34,12 +34,23 @@ const HeroSection = () => {
               )}
             </h1>
             <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground">{subheadline}</p>
+            <ul className="flex flex-wrap gap-2 pt-1" aria-label="Key product benefits">
+              {[
+                { icon: Dumbbell, label: t("hero.badge1") },
+                { icon: Clock, label: t("hero.badge2") },
+                { icon: Leaf, label: t("hero.badge3") },
+              ].map(({ icon: Icon, label }) => (
+                <li key={label} className="inline-flex items-center gap-2 rounded-full bg-background/15 backdrop-blur-sm border border-background/30 px-4 py-1.5 text-sm font-medium text-primary-foreground">
+                  <Icon className="h-4 w-4" /> {label}
+                </li>
+              ))}
+            </ul>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold bg-background text-foreground hover:bg-background/90">
-                <Link to={ctaLink}>{ctaText}</Link>
+                <Link to="/products">{t("hero.ctaStarter")}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-background/50 text-background bg-background/15 hover:bg-background/25">
-                <a href="#how-it-works" className="text-secondary-foreground">{t("hero.howItWorks")}</a>
+                <Link to={ctaLink} className="text-secondary-foreground">{t("hero.ctaTry")}</Link>
               </Button>
             </div>
           </div>
