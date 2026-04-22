@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
@@ -121,6 +121,41 @@ const ProductDetail = () => {
                 />
               )}
             </div>
+          </div>
+
+          {/* Product story sections */}
+          <div className="mt-20 grid md:grid-cols-3 gap-6">
+            <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
+              <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Flame className="h-5 w-5" /></div>
+              <h3 className="font-heading font-semibold text-base mb-2">{t("productDetail.tasteTitle")}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{t("productDetail.tasteDesc")}</p>
+            </div>
+            <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
+              <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Leaf className="h-5 w-5" /></div>
+              <h3 className="font-heading font-semibold text-base mb-3">{t("productDetail.nutritionTitle")}</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex gap-2"><Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />{t("productDetail.nutritionProtein")}</li>
+                <li className="flex gap-2"><Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />{t("productDetail.nutritionMacros")}</li>
+                <li className="flex gap-2"><Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />{t("productDetail.nutritionClean")}</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
+              <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Clock className="h-5 w-5" /></div>
+              <h3 className="font-heading font-semibold text-base mb-3">{t("productDetail.prepTitle")}</h3>
+              <ol className="space-y-2 text-sm text-muted-foreground list-decimal list-inside">
+                <li>{t("productDetail.prepStep1")}</li>
+                <li>{t("productDetail.prepStep2")}</li>
+                <li>{t("productDetail.prepStep3")}</li>
+              </ol>
+            </div>
+          </div>
+
+          <div className="mt-12 rounded-3xl gradient-hero p-10 md:p-14 text-center text-primary-foreground">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3">{t("productDetail.benefitsTitle")}</h2>
+            <p className="max-w-2xl mx-auto opacity-90 mb-6">{t("productDetail.benefitsDesc")}</p>
+            <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
+              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+            </Button>
           </div>
         </div>
       </section>
