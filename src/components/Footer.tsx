@@ -8,7 +8,7 @@ import { toast } from "sonner";
 const logo = "/images/logo.png";
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
