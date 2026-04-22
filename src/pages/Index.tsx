@@ -2,6 +2,8 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
+import StarterPackHighlight from "@/components/home/StarterPackHighlight";
+import ProblemSolution from "@/components/home/ProblemSolution";
 import ProductOverview from "@/components/home/ProductOverview";
 import WhySection from "@/components/home/WhySection";
 import HowItWorks from "@/components/home/HowItWorks";
@@ -16,12 +18,14 @@ const Index = () => {
   return (
     <Layout>
       <SEOHead
-        title="PLÄNTLY — Växtbaserade proteinmåltider | Högprotein veganska färdigrätter"
-        description="PLÄNTLY är en ny generation av växtbaserad snabbmat — högt protein, balanserad näring och bekväma måltider för människor i farten. 🌱"
+        title="Healthy Fast Food | High Protein Plant-Based Meals | PLÄNTLY"
+        description="Discover 100% plant-based high-protein meals ready in 5 minutes. Healthy fast food for modern lifestyles."
         path="/"
       />
       <HeroSection />
+      <StarterPackHighlight />
       <TrustSection />
+      <ProblemSolution />
       <ProductOverview />
       <WhySection />
       <HowItWorks />
