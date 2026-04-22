@@ -278,7 +278,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       faqs: [
         { q: "How is this different from instant noodles?", a: "PLÄNTLY contains real ingredients, 20g of plant protein, balanced macros and zero artificial fillers — instant noodles offer none of these." },
-        { q: "How long do they take to prepare?", a: "3–5 minutes. Add hot water, stir, wait, eat." },
+        { q: "How long do they take to prepare?", a: "5 minutes. Add hot water, stir, wait, eat." },
         { q: "Do I need anything besides water?", a: "Just a cup of boiling water — that's it. No cooking, no microwave, no extra ingredients." },
       ],
       ctaHeadline: "Try healthy instant meals",
@@ -329,7 +329,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       faqs: [
         { q: "Hur skiljer sig detta från snabbnudlar?", a: "PLÄNTLY innehåller riktiga ingredienser, 20g växtprotein, balanserade makron och noll konstgjorda fyllmedel — snabbnudlar erbjuder inget av detta." },
-        { q: "Hur lång tid tar det att tillaga?", a: "3–5 minuter. Tillsätt hett vatten, rör om, vänta, ät." },
+        { q: "Hur lång tid tar det att tillaga?", a: "5 minuter. Tillsätt hett vatten, rör om, vänta, ät." },
         { q: "Behöver jag något annat än vatten?", a: "Bara en kopp kokande vatten — det är allt. Ingen matlagning, ingen mikro, inga extra ingredienser." },
       ],
       ctaHeadline: "Prova hälsosamma snabbmåltider",
