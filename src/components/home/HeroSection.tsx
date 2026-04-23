@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/hero-product.jpg";
+import heroImage from "@/assets/hero-product.png";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
@@ -55,7 +55,20 @@ const HeroSection = () => {
             </div>
           </div>
           <div className="animate-fade-up-delay-2 flex justify-center">
-            <img src={hero?.image_url || heroImage} alt="PLÄNTLY plant-based protein meals" className="w-full max-w-xl rounded-2xl shadow-elevated" width={576} height={324} fetchPriority="high" />
+            <img
+              src={hero?.image_url || heroImage}
+              alt="PLÄNTLY plant-based protein meals"
+              className="w-full max-w-xl"
+              style={{
+                WebkitMaskImage:
+                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
+                maskImage:
+                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
+              }}
+              width={576}
+              height={324}
+              fetchPriority="high"
+            />
           </div>
         </div>
       </div>
