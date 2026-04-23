@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/hero-product.png";
+import heroImage from "@/assets/hero-product.jpg";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
