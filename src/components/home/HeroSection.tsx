@@ -33,7 +33,7 @@ const HeroSection = () => {
               <span key={i}>{line}{i === 0 && <br />}</span>
               )}
             </h1>
-            <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)]">{subheadline}</p>
+             <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)] font-normal">{subheadline}</p>
             <ul className="flex flex-wrap gap-2 pt-1" aria-label="Key product benefits">
               {[
                 { icon: Dumbbell, label: t("hero.badge1") },
