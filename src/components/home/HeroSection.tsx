@@ -28,12 +28,12 @@ const HeroSection = () => {
       <div className="container py-20 md:py-32 lg:py-40">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-fade-up">
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-white [text-shadow:0_2px_16px_hsl(150_40%_20%_/_0.55),0_1px_2px_hsl(150_40%_15%_/_0.45)]">
+            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-primary-foreground [text-shadow:0_2px_12px_hsl(0_0%_0%_/_0.25)]">
               {headline.split("\n").map((line, i) =>
               <span key={i}>{line}{i === 0 && <br />}</span>
               )}
             </h1>
-            <p className="text-lg md:text-xl max-w-lg leading-relaxed text-white [text-shadow:0_1px_10px_hsl(150_40%_18%_/_0.6),0_1px_2px_hsl(150_40%_15%_/_0.5)]">{subheadline}</p>
+            <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)]">{subheadline}</p>
             <ul className="flex flex-wrap gap-2 pt-1" aria-label="Key product benefits">
               {[
                 { icon: Dumbbell, label: t("hero.badge1") },
