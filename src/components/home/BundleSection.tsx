@@ -28,7 +28,7 @@ const BUNDLE_META: Record<BundleKey, {
   taster:       { cups: 4,   features: ["bundles.feat.allFlavours", "bundles.feat.firstOrder", "bundles.feat.standardShipping"], highlight: "trial", freeShipping: false },
   starter:      { cups: 12,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
   athlete:      { cups: 24,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
-  monthly:      { cups: 30,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "subscription", freeShipping: true },
+  monthly:      { cups: 24,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "subscription", freeShipping: true },
   office:       { cups: 60,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
   "big office": { cups: 120, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
 };
