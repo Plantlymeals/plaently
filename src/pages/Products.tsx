@@ -225,7 +225,7 @@ const Products = () => {
             <p className="text-center text-muted-foreground py-12">{t("products.noProducts")}</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {products.map((product) => {
+              {[...products].sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const price = product.node.priceRange.minVariantPrice;
                 return (
