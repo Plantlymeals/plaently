@@ -6,6 +6,7 @@ const BUNDLE_MEAL_COUNTS: [string, number][] = [
   ["big office", 120],
   ["office", 60],
   ["athlete", 24],
+  ["monthly", 24],
   ["starter", 12],
   ["taster", 4],
 ];
