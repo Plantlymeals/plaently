@@ -6,6 +6,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { Truck } from "lucide-react";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
@@ -125,6 +126,9 @@ const BundleSection = () => {
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground mb-4 flex-1">{getDescKey(b.node.title) ? t(getDescKey(b.node.title)!) : b.node.description}</p>
+                <p className="flex items-center justify-center gap-1.5 text-xs font-medium text-primary mb-4">
+                  <Truck className="h-3.5 w-3.5" /> {t("bundles.freeShipping")}
+                </p>
                 <Button onClick={() => handleAddToCart(b)} disabled={isLoading} className="w-full rounded-full font-semibold mt-auto">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("bundles.orderNow")}
                 </Button>
