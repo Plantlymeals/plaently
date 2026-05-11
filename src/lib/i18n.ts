@@ -138,7 +138,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 växtbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
   "bundles.desc.office": { sv: "Mat till hela teamet. 60 växtbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 60 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
   "bundles.desc.bigoffice": { sv: "Bäst värde. 120 växtbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
-  "bundles.freeShipping": { sv: "Fri frakt", en: "Free shipping" },
+  "bundles.freeShipping": { sv: "Fri frakt i Sverige", en: "Free shipping in Sweden" },
   "bundles.tryFirst": { sv: "Prova först", en: "Try first" },
   "bundles.youSave": { sv: "Du sparar", en: "You save" },
   "bundles.value": { sv: "Värde", en: "Value" },
