@@ -6,6 +6,7 @@ import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
+import { getBundleSavings } from "@/lib/bundleSavings";
 
 interface Question {
   id: string;
@@ -210,10 +211,28 @@ const MealFinderQuiz = () => {
               <h3 className="font-heading text-2xl md:text-3xl font-bold">{bundle.name}</h3>
               <p className="text-muted-foreground max-w-md mx-auto">{result ? EXPLANATIONS[result] : ""}</p>
               {shopifyProduct && (
-                <p className="text-2xl font-bold text-primary">
-                  {shopifyProduct.node.priceRange.minVariantPrice.currencyCode}{" "}
-                  {parseFloat(shopifyProduct.node.priceRange.minVariantPrice.amount).toFixed(0)}
-                </p>
+                (() => {
+                  const p = shopifyProduct.node.priceRange.minVariantPrice;
+                  const amount = parseFloat(p.amount);
+                  const savings = getBundleSavings(shopifyProduct.node.title, amount);
+                  return (
+                    <div className="space-y-1">
+                      <p className="text-2xl font-bold text-primary">
+                        {p.currencyCode} {amount.toFixed(0)}
+                      </p>
+                      {savings && savings.savingsPercent > 0 && (
+                        <div className="flex items-center gap-2 justify-center">
+                          <span className="text-sm text-muted-foreground line-through">
+                            {p.currencyCode} {savings.fullPrice}
+                          </span>
+                          <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
+                            {t("bundles.save")} {savings.savingsPercent}%
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()
               )}
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                 {loadingProduct ? (
