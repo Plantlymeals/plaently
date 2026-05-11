@@ -1,58 +1,50 @@
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
-import { Truck } from "lucide-react";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
-// Order matters: "big office" must come before "office" to avoid partial match
-const BUNDLE_MEAL_COUNTS: [string, number][] = [
-  ["big office", 120],
-  ["office", 60],
-  ["athlete", 24],
-  ["starter", 12],
-  ["taster", 4],
-];
+type BundleKey = "taster" | "starter" | "athlete" | "office" | "big office";
 
-const BUNDLE_DESC_KEYS: [string, string][] = [
-  ["big office", "bundles.desc.bigoffice"],
-  ["office", "bundles.desc.office"],
-  ["athlete", "bundles.desc.athlete"],
-  ["starter", "bundles.desc.starter"],
-  ["taster", "bundles.desc.starter"],
-];
+// Order matters: "big office" must come before "office" to avoid partial match.
+const BUNDLE_KEYS: BundleKey[] = ["big office", "office", "athlete", "starter", "taster"];
 
-function getDescKey(title: string): string | null {
+function matchBundleKey(title: string): BundleKey | null {
   const lower = title.toLowerCase();
-  for (const [key, descKey] of BUNDLE_DESC_KEYS) {
-    if (lower.includes(key)) return descKey;
-  }
-  return null;
+  return BUNDLE_KEYS.find((k) => lower.includes(k)) ?? null;
 }
 
-function getMealCount(title: string): number | null {
-  const lower = title.toLowerCase();
-  for (const [key, count] of BUNDLE_MEAL_COUNTS) {
-    if (lower.includes(key)) return count;
-  }
-  return null;
-}
+const BUNDLE_META: Record<BundleKey, {
+  cups: number;
+  subtitleKey?: string;
+  features: string[];
+  highlight: "trial" | "popular" | "value" | "subscription";
+  freeShipping: boolean;
+}> = {
+  taster:       { cups: 4,   features: ["bundles.feat.allFlavours", "bundles.feat.firstOrder", "bundles.feat.standardShipping"], highlight: "trial", freeShipping: false },
+  starter:      { cups: 12,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
+  athlete:      { cups: 24,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
+  office:       { cups: 60,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
+  "big office": { cups: 120, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
+};
+
+const SUBTITLE_KEYS: Record<BundleKey, string> = {
+  taster: "bundles.desc.starter",
+  starter: "bundles.desc.starter",
+  athlete: "bundles.desc.athlete",
+  office: "bundles.desc.office",
+  "big office": "bundles.desc.bigoffice",
+};
 
 const BundleSection = () => {
   const [bundles, setBundles] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
-
-  const BUNDLE_BADGES: Record<string, string> = {
-    "most-popular": t("bundles.mostPopular"),
-    "best-value": t("bundles.bestValue"),
-  };
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
@@ -76,64 +68,117 @@ const BundleSection = () => {
     toast.success(t("products.addedToCart"), { position: "top-center" });
   };
 
-  const getBadge = (product: ShopifyProduct) => {
-    const tags = (product.node as any).tags || [];
-    for (const [tag, label] of Object.entries(BUNDLE_BADGES)) {
-      if (typeof tags === "string" ? tags.includes(tag) : Array.isArray(tags) && tags.includes(tag)) {
-        return label;
-      }
-    }
-    return null;
-  };
-
   return (
-    <section className="py-20 md:py-28 bg-background">
-      <div className="container space-y-12">
-        <div className="text-center space-y-4 animate-fade-up">
-          <h2 className="font-heading text-3xl md:text-5xl font-bold">{t("bundles.title")}</h2>
-          <p className="text-muted-foreground text-lg">{t("bundles.subtitle")}</p>
+    <section className="py-20 md:py-28 bg-[#0a0a0a] text-white">
+      <div className="container space-y-14">
+        <div className="text-center space-y-3 animate-fade-up">
+          <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">Bundles</p>
+          <h2 className="font-heading text-4xl md:text-6xl font-bold leading-tight">{t("bundles.title")}</h2>
+          <p className="text-white/60 text-base md:text-lg">{t("bundles.subtitle")}</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {bundles.map((b) => {
             const price = b.node.priceRange.minVariantPrice;
-            const badge = getBadge(b);
             const bundlePrice = parseFloat(price.amount);
-            const mealCount = getMealCount(b.node.title);
-            const perMeal = mealCount ? bundlePrice / mealCount : null;
-            const fullPrice = mealCount ? mealCount * SINGLE_MEAL_PRICE : null;
-            const savingsPercent = fullPrice ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100) : null;
+            const key = matchBundleKey(b.node.title);
+            const meta = key ? BUNDLE_META[key] : null;
+            const cups = meta?.cups ?? null;
+            const perCup = cups ? bundlePrice / cups : null;
+            const fullPrice = cups ? cups * SINGLE_MEAL_PRICE : null;
+            const savings = fullPrice && fullPrice > bundlePrice ? Math.round(fullPrice - bundlePrice) : 0;
+            const subtitleKey = key ? SUBTITLE_KEYS[key] : null;
+            const isPopular = meta?.highlight === "popular";
+            const isValue = meta?.highlight === "value";
+            const isTrial = meta?.highlight === "trial";
 
             return (
-              <div key={b.node.id} className="relative rounded-2xl bg-card border border-border/50 p-6 shadow-card text-center flex flex-col hover:shadow-elevated hover:-translate-y-1 transition-all duration-300 animate-fade-up">
-                {badge && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold">{badge}</Badge>
-                )}
-                <h3 className="font-heading text-lg font-semibold pt-2 mb-4">{b.node.title}</h3>
-                <div className="space-y-1 mb-4">
-                  <p className="text-3xl font-bold text-primary">{price.currencyCode} {bundlePrice.toFixed(0)}</p>
-                  {fullPrice && savingsPercent && savingsPercent > 0 && (
-                    <p className="text-xs text-muted-foreground line-through">
-                      {price.currencyCode} {fullPrice}
-                    </p>
+              <div
+                key={b.node.id}
+                className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 flex flex-col animate-fade-up hover:border-primary/40 transition-colors"
+              >
+                {/* Top badges */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {isTrial && (
+                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      {t("bundles.tryFirst")}
+                    </span>
                   )}
-                  {perMeal && (
-                    <p className="text-sm font-medium text-muted-foreground">
-                      {perMeal.toFixed(0)} {price.currencyCode} / {t("products.perMeal")}
-                    </p>
+                  {isPopular && (
+                    <span className="rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-primary-foreground">
+                      {t("bundles.mostPopular")}
+                    </span>
                   )}
-                  {savingsPercent !== null && savingsPercent > 0 && (
-                    <span className="inline-block mt-1 text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                      {t("bundles.save")} {savingsPercent}%
+                  {isValue && (
+                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      {t("bundles.bestValue")}
+                    </span>
+                  )}
+                  {meta?.freeShipping && (
+                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      {t("bundles.freeShipping")}
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground mb-4 flex-1">{getDescKey(b.node.title) ? t(getDescKey(b.node.title)!) : b.node.description}</p>
-                {bundlePrice >= 499 && (
-                  <p className="flex items-center justify-center gap-1.5 text-xs font-medium text-primary mb-4">
-                    <Truck className="h-3.5 w-3.5" /> {t("bundles.freeShipping")}
+
+                {/* Title + subtitle */}
+                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.node.title.replace(/—.*$/, "").trim() || b.node.title}</h3>
+                {cups && (
+                  <p className="text-sm text-white/50 mb-6">
+                    {cups} {t("bundles.cups")}
                   </p>
                 )}
-                <Button onClick={() => handleAddToCart(b)} disabled={isLoading} className="w-full rounded-full font-semibold mt-auto">
+
+                {/* Price block */}
+                <div className="mb-5">
+                  <p className="font-heading text-5xl md:text-6xl font-bold leading-none">
+                    {bundlePrice.toFixed(0)} <span className="text-2xl font-bold align-top">{price.currencyCode}</span>
+                  </p>
+                  {perCup && (
+                    <p className="text-sm text-white/60 mt-3">
+                      {perCup.toFixed(0)} {t("bundles.perCup")}
+                    </p>
+                  )}
+                </div>
+
+                {/* Savings strip */}
+                {savings > 0 && (
+                  <div className="mb-5">
+                    {isTrial ? (
+                      <p className="text-sm text-white/40 line-through">
+                        {t("bundles.value")} {fullPrice} {price.currencyCode}
+                      </p>
+                    ) : isValue ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1 text-xs font-semibold">
+                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {price.currencyCode}
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary px-3 py-1 text-xs font-semibold">
+                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {price.currencyCode}
+                      </span>
+                    )}
+                  </div>
+                )}
+
+                {/* Features */}
+                <ul className="space-y-2.5 mb-7 flex-1">
+                  {(meta?.features ?? []).map((fk) => (
+                    <li key={fk} className="flex items-start gap-2.5 text-sm text-white/85">
+                      <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                      <span>{t(fk)}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <Button
+                  onClick={() => handleAddToCart(b)}
+                  disabled={isLoading}
+                  className={`w-full rounded-full font-semibold h-12 text-base ${
+                    isPopular
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-white/10 text-white hover:bg-white/20 border border-white/15"
+                  }`}
+                >
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("bundles.orderNow")}
                 </Button>
               </div>
