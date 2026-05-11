@@ -27,7 +27,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "hero.subheadline": { sv: "Balanserade måltider med 20g växtprotein. Klara på 5 minuter — för det moderna livet.", en: "Balanced, high-protein meals ready in 5 minutes for modern lifestyles." },
   "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
-  "hero.ctaStarter": { sv: "Handla Starter Pack", en: "Shop Starter Pack" },
+   "hero.ctaStarter": { sv: "Handla Taster Pack", en: "Shop Taster Pack" },
   "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
   "hero.badge1": { sv: "20g protein", en: "20g protein" },
   "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
@@ -42,7 +42,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Starter Pack highlight
   "starter.badge": { sv: "Populärast val", en: "Most popular choice" },
-  "starter.title": { sv: "Starter Pack", en: "Starter Pack" },
+   "starter.title": { sv: "Taster Pack", en: "Taster Pack" },
   "starter.subtitle": { sv: "Den perfekta introduktionen till PLÄNTLY.", en: "The perfect introduction to PLÄNTLY." },
   "starter.meals": { sv: "12 måltider", en: "12 meals" },
   "starter.shipping": { sv: "Fri frakt", en: "Free shipping" },
@@ -133,7 +133,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.mostPopular": { sv: "⭐ Populärast", en: "⭐ Most Popular" },
   "bundles.bestValue": { sv: "Bäst värde", en: "Best Value" },
   "bundles.save": { sv: "Spara", en: "Save" },
-  "bundles.desc.starter": { sv: "Perfekt för dig som vill testa. 12 växtbaserade proteinmåltider — tillsätt bara hett vatten. Prova alla våra smaker.", en: "Perfect for first-time buyers. 12 plant-based protein meals — just add hot water. Try all our flavours and find your favourite." },
+   "bundles.desc.starter": { sv: "Perfekt för dig som vill testa. 12 växtbaserade proteinmåltider — tillsätt bara hett vatten. Prova alla våra smaker.", en: "Perfect for first-time buyers. 12 plant-based protein meals — just add hot water. Try all our flavours and find your favourite." },
   "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 växtbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
   "bundles.desc.office": { sv: "Mat till hela teamet. 60 växtbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 60 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
   "bundles.desc.bigoffice": { sv: "Bäst värde. 120 växtbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
