@@ -152,7 +152,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.feat.freeShipSe": { sv: "Fri frakt (Sverige)", en: "Free shipping (Sweden)" },
   "bundles.feat.delivered": { sv: "Levereras inom 2–4 dagar", en: "Delivered in 2–4 days" },
   "bundles.feat.monthlyMix": { sv: "Valfri mix varje månad", en: "Custom mix every month" },
-  "bundles.feat.freeShipAlways": { sv: "Gratis frakt alltid", en: "Free shipping always" },
+  "bundles.feat.freeShipAlways": { sv: "Fri frakt (Sverige)", en: "Free shipping (Sweden)" },
   "bundles.feat.cancelAnytime": { sv: "Avsluta när som helst", en: "Cancel anytime" },
   "bundles.feat.priorityCs": { sv: "Prioriterad kundservice", en: "Priority customer service" },
 
