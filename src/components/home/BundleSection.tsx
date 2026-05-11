@@ -128,7 +128,7 @@ const BundleSection = () => {
                       {t("bundles.subSave")}
                     </span>
                   )}
-                  {meta?.freeShipping && (
+                  {bundlePrice >= 499 && (
                     <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                       {t("bundles.freeShipping")}
                     </span>
