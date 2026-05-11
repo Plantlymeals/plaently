@@ -15,6 +15,7 @@ const BUNDLE_MEAL_COUNTS: [string, number][] = [
   ["office", 60],
   ["athlete", 24],
   ["starter", 12],
+  ["trial", 12],
 ];
 
 const BUNDLE_DESC_KEYS: [string, string][] = [
@@ -22,6 +23,7 @@ const BUNDLE_DESC_KEYS: [string, string][] = [
   ["office", "bundles.desc.office"],
   ["athlete", "bundles.desc.athlete"],
   ["starter", "bundles.desc.starter"],
+  ["trial", "bundles.desc.starter"],
 ];
 
 function getDescKey(title: string): string | null {
