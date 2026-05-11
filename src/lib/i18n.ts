@@ -45,7 +45,7 @@ const translations: Record<string, Record<Lang, string>> = {
    "starter.title": { sv: "Taster Pack", en: "Taster Pack" },
   "starter.subtitle": { sv: "Den perfekta introduktionen till PLÄNTLY.", en: "The perfect introduction to PLÄNTLY." },
   "starter.meals": { sv: "12 måltider", en: "12 meals" },
-  "starter.shipping": { sv: "Fri frakt", en: "Free shipping" },
+   "starter.shipping": { sv: "Tillagad på 5 min", en: "Ready in 5 minutes" },
   "starter.protein": { sv: "20g protein per måltid", en: "20g protein per meal" },
   "starter.cta": { sv: "Beställ nu", en: "Order now" },
   "starter.from": { sv: "Från", en: "From" },
