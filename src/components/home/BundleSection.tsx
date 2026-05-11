@@ -50,7 +50,14 @@ const BundleSection = () => {
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
-      if (data) setBundles(data);
+      if (data) {
+        const sorted = [...data].sort(
+          (a, b) =>
+            parseFloat(a.node.priceRange.minVariantPrice.amount) -
+            parseFloat(b.node.priceRange.minVariantPrice.amount)
+        );
+        setBundles(sorted);
+      }
     });
   }, []);
 
