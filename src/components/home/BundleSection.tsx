@@ -8,10 +8,10 @@ import { useTranslation } from "@/lib/i18n";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
-type BundleKey = "taster" | "starter" | "athlete" | "office" | "big office";
+type BundleKey = "taster" | "starter" | "athlete" | "monthly" | "office" | "big office";
 
 // Order matters: "big office" must come before "office" to avoid partial match.
-const BUNDLE_KEYS: BundleKey[] = ["big office", "office", "athlete", "starter", "taster"];
+const BUNDLE_KEYS: BundleKey[] = ["big office", "office", "monthly", "athlete", "starter", "taster"];
 
 function matchBundleKey(title: string): BundleKey | null {
   const lower = title.toLowerCase();
@@ -28,6 +28,7 @@ const BUNDLE_META: Record<BundleKey, {
   taster:       { cups: 4,   features: ["bundles.feat.allFlavours", "bundles.feat.firstOrder", "bundles.feat.standardShipping"], highlight: "trial", freeShipping: false },
   starter:      { cups: 12,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
   athlete:      { cups: 24,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
+  monthly:      { cups: 30,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "subscription", freeShipping: true },
   office:       { cups: 60,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
   "big office": { cups: 120, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
 };
@@ -36,6 +37,7 @@ const SUBTITLE_KEYS: Record<BundleKey, string> = {
   taster: "bundles.desc.starter",
   starter: "bundles.desc.starter",
   athlete: "bundles.desc.athlete",
+  monthly: "bundles.desc.office",
   office: "bundles.desc.office",
   "big office": "bundles.desc.bigoffice",
 };
@@ -90,6 +92,7 @@ const BundleSection = () => {
             const isPopular = meta?.highlight === "popular";
             const isValue = meta?.highlight === "value";
             const isTrial = meta?.highlight === "trial";
+            const isSubscription = meta?.highlight === "subscription";
 
             return (
               <div
@@ -111,6 +114,11 @@ const BundleSection = () => {
                   {isValue && (
                     <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
                       {t("bundles.bestValue")}
+                    </span>
+                  )}
+                  {isSubscription && (
+                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                      {t("bundles.subSave")}
                     </span>
                   )}
                   {meta?.freeShipping && (
@@ -147,7 +155,7 @@ const BundleSection = () => {
                       <p className="text-sm text-white/40 line-through">
                         {t("bundles.value")} {fullPrice} {price.currencyCode}
                       </p>
-                    ) : isValue ? (
+                    ) : isValue || isSubscription ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1 text-xs font-semibold">
                         <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {price.currencyCode}
                       </span>
