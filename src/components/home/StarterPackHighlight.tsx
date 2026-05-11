@@ -17,7 +17,7 @@ const StarterPackHighlight = () => {
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
       if (!data) return;
-      const starter = data.find((b) => b.node.title.toLowerCase().includes("starter")) || data[0];
+      const starter = data.find((b) => b.node.title.toLowerCase().includes("taster")) || data[0];
       if (starter) setPack(starter);
     });
   }, []);
