@@ -9,6 +9,7 @@ import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct 
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
+import { getBundleSavings } from "@/lib/bundleSavings";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -104,10 +105,27 @@ const ProductDetail = () => {
                 <h1 className="font-heading text-3xl md:text-4xl font-bold">{product.title}</h1>
               </div>
               {price && (
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl font-bold text-primary">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</span>
-                  <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
-                </div>
+                (() => {
+                  const amount = parseFloat(price.amount);
+                  const savings = getBundleSavings(product.title, amount);
+                  return (
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-3xl font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</span>
+                      {savings && savings.savingsPercent > 0 ? (
+                        <>
+                          <span className="text-sm text-muted-foreground line-through">
+                            {price.currencyCode} {savings.fullPrice}
+                          </span>
+                          <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
+                            {t("bundles.save")} {savings.savingsPercent}%
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
+                      )}
+                    </div>
+                  );
+                })()
               )}
               <div className="flex flex-wrap gap-3">
                 <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
@@ -221,7 +239,25 @@ const Products = () => {
                         )}
                       </div>
                       <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
-                      <p className="text-lg font-bold text-primary mb-3">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</p>
+                      {(() => {
+                        const amount = parseFloat(price.amount);
+                        const savings = getBundleSavings(product.node.title, amount);
+                        return (
+                          <div className="mb-3 space-y-1">
+                            <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
+                            {savings && savings.savingsPercent > 0 && (
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs text-muted-foreground line-through">
+                                  {price.currencyCode} {savings.fullPrice}
+                                </span>
+                                <span className="inline-block text-[10px] font-semibold text-primary bg-primary/10 rounded-full px-2 py-0.5">
+                                  {t("bundles.save")} {savings.savingsPercent}%
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
                     </Link>
                     <Button onClick={() => handleAddToCart(product)} disabled={cartIsLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
                       {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}

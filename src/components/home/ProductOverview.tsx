@@ -6,6 +6,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { getBundleSavings } from "@/lib/bundleSavings";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -57,7 +58,25 @@ const ProductOverview = () => {
                     )}
                   </div>
                   <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
-                  <p className="text-lg font-bold text-primary mb-3">{price.currencyCode} {parseFloat(price.amount).toFixed(2)}</p>
+                  {(() => {
+                    const amount = parseFloat(price.amount);
+                    const savings = getBundleSavings(product.node.title, amount);
+                    return (
+                      <div className="mb-3 space-y-1">
+                        <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
+                        {savings && savings.savingsPercent > 0 && (
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground line-through">
+                              {price.currencyCode} {savings.fullPrice}
+                            </span>
+                            <span className="inline-block text-[10px] font-semibold text-primary bg-primary/10 rounded-full px-2 py-0.5">
+                              {t("bundles.save")} {savings.savingsPercent}%
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </Link>
                 <Button onClick={() => handleAddToCart(product)} disabled={isLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
