@@ -156,6 +156,18 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.feat.cancelAnytime": { sv: "Avsluta när som helst", en: "Cancel anytime" },
   "bundles.feat.priorityCs": { sv: "Prioriterad kundservice", en: "Priority customer service" },
 
+  // Mix builder
+  "mix.title": { sv: "Anpassa din mix", en: "Customise your mix" },
+  "mix.subtitle": { sv: "Justera fördelningen av smaker. Standard är jämn fördelning.", en: "Adjust your flavour split. Defaults to an even mix." },
+  "mix.cupsLabel": { sv: "koppar valda", en: "cups selected" },
+  "mix.of": { sv: "av", en: "of" },
+  "mix.reset": { sv: "Återställ jämn mix", en: "Reset to even mix" },
+  "mix.confirm": { sv: "Lägg i kundvagn", en: "Add to cart" },
+  "mix.loading": { sv: "Laddar smaker…", en: "Loading flavours…" },
+  "mix.tooMany": { sv: "Du har valt fler än paketstorleken.", en: "You've selected more than the pack size." },
+  "mix.tooFew": { sv: "Lägg till fler koppar för att fylla paketet.", en: "Add more cups to fill the pack." },
+  "mix.flavourCol": { sv: "Smak", en: "Flavour" },
+
   // Nutrition preview
   "nutrition.title": { sv: "Vetenskapligt baserad näring", en: "Science-Backed Nutrition" },
   "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är designad av nutritionister för att leverera optimala makronäringsämnen från 100% växtbaserade källor. Högt i komplett protein, balanserade kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is designed by nutritionists to deliver optimal macronutrients from 100% plant-based sources. High in complete protein, balanced carbs and healthy fats." },

@@ -261,11 +261,18 @@ export interface CartItem {
   price: { amount: string; currencyCode: string };
   quantity: number;
   selectedOptions: Array<{ name: string; value: string }>;
+  attributes?: Array<{ key: string; value: string }>;
 }
 
 export async function createShopifyCart(item: CartItem): Promise<{ cartId: string; checkoutUrl: string; lineId: string } | null> {
   const data = await storefrontApiRequest(CART_CREATE_MUTATION, {
-    input: { lines: [{ quantity: item.quantity, merchandiseId: item.variantId }] },
+    input: {
+      lines: [{
+        quantity: item.quantity,
+        merchandiseId: item.variantId,
+        ...(item.attributes && item.attributes.length ? { attributes: item.attributes } : {}),
+      }],
+    },
   });
 
   if (data?.data?.cartCreate?.userErrors?.length > 0) {
@@ -285,7 +292,11 @@ export async function createShopifyCart(item: CartItem): Promise<{ cartId: strin
 export async function addLineToShopifyCart(cartId: string, item: CartItem): Promise<{ success: boolean; lineId?: string; cartNotFound?: boolean }> {
   const data = await storefrontApiRequest(CART_LINES_ADD_MUTATION, {
     cartId,
-    lines: [{ quantity: item.quantity, merchandiseId: item.variantId }],
+    lines: [{
+      quantity: item.quantity,
+      merchandiseId: item.variantId,
+      ...(item.attributes && item.attributes.length ? { attributes: item.attributes } : {}),
+    }],
   });
 
   const userErrors = data?.data?.cartLinesAdd?.userErrors || [];
@@ -296,7 +307,9 @@ export async function addLineToShopifyCart(cartId: string, item: CartItem): Prom
   }
 
   const lines = data?.data?.cartLinesAdd?.cart?.lines?.edges || [];
-  const newLine = lines.find((l: any) => l.node.merchandise.id === item.variantId);
+  // Find the LAST line with this variantId (newly added line is appended)
+  const matching = lines.filter((l: any) => l.node.merchandise.id === item.variantId);
+  const newLine = matching[matching.length - 1];
   return { success: true, lineId: newLine?.node?.id };
 }
 
