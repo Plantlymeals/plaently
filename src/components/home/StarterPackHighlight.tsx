@@ -7,6 +7,7 @@ import { useTranslation } from "@/lib/i18n";
 import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import heroImage from "@/assets/hero-product.png";
 
 const SINGLE_MEAL_PRICE = 35;
 const TASTER_MEALS = 4;
