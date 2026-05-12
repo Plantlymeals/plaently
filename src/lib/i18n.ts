@@ -134,7 +134,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.mostPopular": { sv: "⭐ Populärast", en: "⭐ Most Popular" },
   "bundles.bestValue": { sv: "Bäst värde", en: "Best Value" },
   "bundles.save": { sv: "Spara", en: "Save" },
-  "bundles.desc.starter": { sv: "Perfekt för dig som vill testa. 4 växtbaserade proteinmåltider — tillsätt bara hett vatten. Prova alla våra smaker.", en: "Perfect for first-time buyers. 4 plant-based protein meals — just add hot water. Try all our flavours and find your favourite." },
+   "bundles.desc.starter": { sv: "Börja med vårt taster pack och prova alla fyra smakerna. De flesta hittar en favorit inom första veckan — och går aldrig tillbaka till snabbnudlar.", en: "Start with our taster pack and try all four flavours. Most people find a favourite within the first week — and never go back to instant noodles." },
   "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 växtbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
   "bundles.desc.office": { sv: "Mat till hela teamet. 60 växtbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 60 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
   "bundles.desc.bigoffice": { sv: "Bäst värde. 120 växtbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
