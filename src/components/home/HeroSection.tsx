@@ -54,7 +54,7 @@ const HeroSection = () => {
               </Button>
             </div>
           </div>
-          <div className="animate-fade-up-delay-2 flex justify-center">
+          <div className="animate-fade-up-delay-2 items-start justify-center flex flex-row rounded-none">
             <img
               src={hero?.image_url || heroImage}
               alt="PLÄNTLY plant-based protein meals"
