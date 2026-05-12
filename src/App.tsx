@@ -21,6 +21,7 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Shipping = lazy(() => import("./pages/Shipping"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const Terms = lazy(() => import("./pages/Terms"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -61,6 +62,8 @@ const AppContent = () => {
         <Route path="/frakt" element={<Shipping />} />
         <Route path="/integritetspolicy" element={<PrivacyPolicy />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/kopsvillkor" element={<Terms />} />
+        <Route path="/terms-of-service" element={<Terms />} />
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
