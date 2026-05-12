@@ -24,7 +24,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Hero
   "hero.headline": { sv: "Hälsosam snabbmat\ndriven av växtprotein.", en: "Healthy Fast Food\nPowered by Plant Protein." },
-  "hero.subheadline": { sv: "Plantbaserade proteinmåltider klara på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
+   "hero.subheadline": { sv: "Plantbaserade proteinmåltider klar på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
   "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
   "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
    "hero.ctaStarter": { sv: "Handla Taster Pack", en: "Shop Taster Pack" },
@@ -106,7 +106,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Products page
   "products.pageTitle": { sv: "Växtbaserade proteinmåltider", en: "Plant-Based Protein Meals" },
-  "products.pageSubtitle": { sv: "Plantbaserade proteinmåltider klara på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
+   "products.pageSubtitle": { sv: "Plantbaserade proteinmåltider klar på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
   "products.noProducts": { sv: "Inga produkter hittades.", en: "No products found." },
   "products.notFound": { sv: "Produkten hittades inte", en: "Product not found" },
   "products.backToProducts": { sv: "Tillbaka till produkter", en: "Back to products" },
