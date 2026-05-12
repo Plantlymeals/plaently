@@ -307,7 +307,9 @@ export async function addLineToShopifyCart(cartId: string, item: CartItem): Prom
   }
 
   const lines = data?.data?.cartLinesAdd?.cart?.lines?.edges || [];
-  const newLine = lines.find((l: any) => l.node.merchandise.id === item.variantId);
+  // Find the LAST line with this variantId (newly added line is appended)
+  const matching = lines.filter((l: any) => l.node.merchandise.id === item.variantId);
+  const newLine = matching[matching.length - 1];
   return { success: true, lineId: newLine?.node?.id };
 }
 
