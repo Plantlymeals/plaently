@@ -10,6 +10,8 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
+import BundleSection from "@/components/home/BundleSection";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -199,7 +201,9 @@ const Products = () => {
             <p className="text-center text-muted-foreground py-12">{t("products.noProducts")}</p>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[...products].sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
+              {[...products]
+                .filter((p) => !getBundleCupsFromTitle(p.node.title))
+                .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const price = product.node.priceRange.minVariantPrice;
                 return (
@@ -243,6 +247,7 @@ const Products = () => {
           )}
         </div>
       </section>
+      <BundleSection />
       <MixBuilderDialog {...dialogProps} />
     </Layout>
   );
