@@ -18,7 +18,7 @@ export interface CupMeta {
 const FLAVOURS: Record<FlavourKey, CupMeta> = {
   bolognese: { key: "bolognese", src: bolognese, protein: 20, kcal: 380, vegan: true },
   carbonara: { key: "carbonara", src: carbonara, protein: 20, kcal: 410, vegan: false },
-  curry:     { key: "curry",     src: curry,     protein: 20, kcal: 390, vegan: true },
+  curry:     { key: "curry",     src: curry,     protein: 20, kcal: 390, vegan: false },
   bbq:       { key: "bbq",       src: bbq,       protein: 20, kcal: 370, vegan: true },
 };
 
