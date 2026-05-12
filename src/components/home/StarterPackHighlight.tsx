@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useCartStore } from "@/stores/cartStore";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
-import { toast } from "sonner";
 import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 const SINGLE_MEAL_PRICE = 35;
 const TASTER_MEALS = 4;
@@ -14,8 +14,7 @@ const TASTER_MEALS = 4;
 const StarterPackHighlight = () => {
   const [pack, setPack] = useState<ShopifyProduct | null>(null);
   const { t } = useTranslation();
-  const addItem = useCartStore((s) => s.addItem);
-  const isLoading = useCartStore((s) => s.isLoading);
+  const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
@@ -33,18 +32,7 @@ const StarterPackHighlight = () => {
   const fullPrice = TASTER_MEALS * SINGLE_MEAL_PRICE;
   const savingsPercent = fullPrice > bundlePrice ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100) : 0;
 
-  const handleOrder = async () => {
-    if (!variant) return;
-    await addItem({
-      product: pack,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
-    });
-    toast.success(t("products.addedToCart"), { position: "top-center" });
-  };
+  const handleOrder = () => handleAdd(pack);
 
   const features = [
     { icon: Check, label: t("starter.meals") },
@@ -101,6 +89,7 @@ const StarterPackHighlight = () => {
           </div>
         </div>
       </div>
+      <MixBuilderDialog {...dialogProps} />
     </section>
   );
 };
