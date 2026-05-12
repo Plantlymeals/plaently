@@ -50,6 +50,13 @@ const StarterPackHighlight = () => {
           </Badge>
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="space-y-5">
+              <img
+                src={heroImage}
+                alt="PLÄNTLY Taster Pack"
+                className="w-full max-w-[280px] mx-auto md:mx-0 object-contain"
+                width={280}
+                height={157}
+              />
               <h2 className="font-heading text-3xl md:text-5xl font-bold leading-tight">{t("starter.title")}</h2>
               <p className="text-muted-foreground text-lg">{t("starter.subtitle")}</p>
               <ul className="space-y-2.5">
