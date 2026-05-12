@@ -58,7 +58,7 @@ const HeroSection = () => {
             <img
               src={hero?.image_url || heroImage}
               alt="PLÄNTLY plant-based protein meals"
-              className="w-full max-w-xl"
+              className="w-full max-w-xl object-cover"
               style={{
                 WebkitMaskImage:
                   "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
