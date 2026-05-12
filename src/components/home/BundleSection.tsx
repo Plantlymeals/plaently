@@ -5,6 +5,7 @@ import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
@@ -47,6 +48,9 @@ const BundleSection = () => {
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
+  const [mixOpen, setMixOpen] = useState(false);
+  const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
+  const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
@@ -64,6 +68,13 @@ const BundleSection = () => {
   if (bundles.length === 0) return null;
 
   const handleAddToCart = async (product: ShopifyProduct) => {
+    return handleAddToCartWithAttrs(product, undefined);
+  };
+
+  const handleAddToCartWithAttrs = async (
+    product: ShopifyProduct,
+    attributes: Array<{ key: string; value: string }> | undefined
+  ) => {
     const variant = product.node.variants.edges[0]?.node;
     if (!variant) return;
     await addItem({
@@ -73,8 +84,22 @@ const BundleSection = () => {
       price: variant.price,
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
+      attributes,
     });
     toast.success(t("products.addedToCart"), { position: "top-center" });
+  };
+
+  const openMixFor = (product: ShopifyProduct, cups: number) => {
+    setActiveBundle(product);
+    setActiveBundleCups(cups);
+    setMixOpen(true);
+  };
+
+  const handleMixConfirm = async (attributes: Array<{ key: string; value: string }>) => {
+    if (!activeBundle) return;
+    await handleAddToCartWithAttrs(activeBundle, attributes);
+    setMixOpen(false);
+    setActiveBundle(null);
   };
 
   return (
@@ -186,7 +211,7 @@ const BundleSection = () => {
 
                 {/* CTA */}
                 <Button
-                  onClick={() => handleAddToCart(b)}
+                  onClick={() => (cups && cups > 1 ? openMixFor(b, cups) : handleAddToCart(b))}
                   disabled={isLoading}
                   className={`w-full rounded-full font-semibold h-12 text-base ${
                     isPopular
@@ -201,6 +226,18 @@ const BundleSection = () => {
           })}
         </div>
       </div>
+
+      <MixBuilderDialog
+        open={mixOpen}
+        onOpenChange={(o) => {
+          setMixOpen(o);
+          if (!o) setActiveBundle(null);
+        }}
+        bundleTitle={activeBundle?.node.title.replace(/—.*$/, "").trim() || ""}
+        totalCups={activeBundleCups}
+        isLoading={isLoading}
+        onConfirm={handleMixConfirm}
+      />
     </section>
   );
 };
