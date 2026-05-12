@@ -41,7 +41,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "ps.solutionDesc": { sv: "Riktiga måltider med 20g växtprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
 
   // Starter Pack highlight
-  "starter.badge": { sv: "Populärast val", en: "Most popular choice" },
+  "starter.badge": { sv: "Begränsat erbjudande", en: "Limited offer" },
    "starter.title": { sv: "Taster Pack", en: "Taster Pack" },
   "starter.subtitle": { sv: "Den perfekta introduktionen till PLÄNTLY.", en: "The perfect introduction to PLÄNTLY." },
   "starter.meals": { sv: "4 måltider", en: "4 meals" },
