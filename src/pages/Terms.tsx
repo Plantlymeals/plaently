@@ -1,9 +1,78 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { RotateCcw, ShieldCheck, Truck, Scale, AlertTriangle, Check } from "lucide-react";
 
 const Terms = () => {
+  const { pathname } = useLocation();
+  const isEn = pathname === "/terms-of-service";
+
+  const seo = isEn
+    ? {
+        title: "Terms & Conditions | PLÄNTLY",
+        description:
+          "PLÄNTLY purchase terms: prices in SEK incl. VAT, free shipping over 399 kr, 14-day right of withdrawal, 3-year complaint period and ARN dispute resolution under Swedish law.",
+        path: "/terms-of-service",
+        webPageName: "Terms & Conditions — PLÄNTLY",
+      }
+    : {
+        title: "Köpvillkor | PLÄNTLY",
+        description:
+          "PLÄNTLY köpvillkor: priser i SEK inkl. moms, fri frakt över 399 kr, 14 dagars ångerrätt, 3 års reklamationsrätt och tvistlösning via ARN enligt svensk lag.",
+        path: "/kopsvillkor",
+        webPageName: "Köpvillkor — PLÄNTLY",
+      };
+
+  const baseUrl = "https://plantlymeals.com";
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${baseUrl}/#organization`,
+        name: "PLÄNTLY AB",
+        url: baseUrl,
+        logo: `${baseUrl}/images/logo.png`,
+        email: "hello@plaently.com",
+        vatID: "SE559400472201",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Vretensborgsvägen 5",
+          postalCode: "126 30",
+          addressLocality: "Hägersten",
+          addressCountry: "SE",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email: "hello@plaently.com",
+          availableLanguage: ["Swedish", "English"],
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": `${baseUrl}${seo.path}#webpage`,
+        url: `${baseUrl}${seo.path}`,
+        name: seo.webPageName,
+        description: seo.description,
+        inLanguage: isEn ? "en" : "sv-SE",
+        isPartOf: { "@id": `${baseUrl}/#website` },
+        about: { "@id": `${baseUrl}/#organization` },
+        publisher: { "@id": `${baseUrl}/#organization` },
+        dateModified: "2026-05-01",
+        breadcrumb: { "@id": `${baseUrl}${seo.path}#breadcrumbs` },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${baseUrl}${seo.path}#breadcrumbs`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: isEn ? "Home" : "Hem", item: baseUrl },
+          { "@type": "ListItem", position: 2, name: seo.webPageName, item: `${baseUrl}${seo.path}` },
+        ],
+      },
+    ],
+  };
+
   const quick = [
     { icon: RotateCcw, label: "Ångerrätt", value: "14 dagar" },
     { icon: ShieldCheck, label: "Reklamation", value: "3 år" },
@@ -21,9 +90,11 @@ const Terms = () => {
   return (
     <Layout>
       <SEOHead
-        title="Köpvillkor | PLÄNTLY"
-        description="Köpvillkor för plaently.com — priser, leverans, ångerrätt, reklamation och tvistlösning. Tydliga villkor enligt svensk lag."
-        path="/kopsvillkor"
+        title={seo.title}
+        description={seo.description}
+        path={seo.path}
+        type="article"
+        jsonLd={jsonLd}
       />
 
       {/* HERO */}
