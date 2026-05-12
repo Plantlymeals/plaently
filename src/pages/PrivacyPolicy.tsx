@@ -6,7 +6,7 @@ const PrivacyPolicy = () => {
   const quickInfo = [
     { icon: Building2, label: "Ansvarig", value: "PLÄNTLY AB" },
     { icon: Lock, label: "Krypterad data", value: "HTTPS/TLS" },
-    { icon: Clock, label: "Svarstid", value: "Max 30 dagar" },
+    { icon: Clock, label: "Svarstid", value: "24 timmar" },
     { icon: FileText, label: "Lagstiftning", value: "GDPR + IMY" },
   ];
 
