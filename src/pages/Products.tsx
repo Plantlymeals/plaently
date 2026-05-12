@@ -211,14 +211,15 @@ const Products = () => {
                 .filter((p) => !getBundleCupsFromTitle(p.node.title))
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
-                const cupOverride = getCupImage(product.node.title);
+                const cupMeta = getCupMeta(product.node.title);
                 const price = product.node.priceRange.minVariantPrice;
                 return (
-                  <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
+                  <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
-                      <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
-                        {cupOverride ? (
-                          <img src={cupOverride} alt={product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
+                      <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
+                        {cupMeta && <CupBadges meta={cupMeta} />}
+                        {cupMeta ? (
+                          <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
                         ) : image ? (
                           <img src={`${image.url}&width=300`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
                         ) : (
