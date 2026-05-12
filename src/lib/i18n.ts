@@ -147,7 +147,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.subSave": { sv: "Prenumerera & Spara", en: "Subscribe & Save" },
   "bundles.feat.allFlavours": { sv: "Alla 4 smaker ingår", en: "All 4 flavours included" },
   "bundles.feat.firstOrder": { sv: "Perfekt som första order", en: "Perfect as first order" },
-  "bundles.feat.standardShipping": { sv: "Standardfrakt", en: "Standard shipping" },
+   "bundles.feat.standardShipping": { sv: "Standardfrakt, 49 SEK", en: "Standard shipping, 49 SEK" },
   "bundles.feat.mix4": { sv: "Välj din mix av alla 4 smaker", en: "Choose your mix of all 4 flavours" },
   "bundles.feat.freeShipSe": { sv: "Fri frakt (Sverige)", en: "Free shipping (Sweden)" },
   "bundles.feat.delivered": { sv: "Levereras inom 2–4 dagar", en: "Delivered in 2–4 days" },
