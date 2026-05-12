@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import heroImage from "@/assets/hero-product.png";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
@@ -53,22 +52,6 @@ const HeroSection = () => {
                 <Link to={ctaLink} className="text-secondary-foreground">{t("hero.ctaTry")}</Link>
               </Button>
             </div>
-          </div>
-          <div className="animate-fade-up-delay-2 items-start justify-center flex flex-row rounded-none w-full">
-            <img
-              src={hero?.image_url || heroImage}
-              alt="PLÄNTLY plant-based protein meals"
-              className="w-full max-w-xl object-cover"
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
-                maskImage:
-                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
-              }}
-              width={576}
-              height={324}
-              fetchPriority="high"
-            />
           </div>
         </div>
       </div>
