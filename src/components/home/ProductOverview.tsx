@@ -7,7 +7,8 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import { getCupImage } from "@/lib/productImages";
+import { getCupMeta } from "@/lib/productImages";
+import CupBadges from "@/components/CupBadges";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -32,14 +33,15 @@ const ProductOverview = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => {
             const image = product.node.images.edges[0]?.node;
-            const cupOverride = getCupImage(product.node.title);
+            const cupMeta = getCupMeta(product.node.title);
             const price = product.node.priceRange.minVariantPrice;
             return (
               <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up">
                 <Link to={`/product/${product.node.handle}`}>
-                  <div className="aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
-                    {cupOverride ? (
-                      <img src={cupOverride} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
+                  <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
+                    {cupMeta && <CupBadges meta={cupMeta} />}
+                    {cupMeta ? (
+                      <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
                     ) : image ? (
                       <img src={`${image.url}&width=260`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" width={250} height={160} loading="lazy" />
                     ) : (
