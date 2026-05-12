@@ -12,7 +12,8 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
-import { getCupImage } from "@/lib/productImages";
+import { getCupMeta } from "@/lib/productImages";
+import CupBadges from "@/components/CupBadges";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
