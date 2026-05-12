@@ -35,11 +35,11 @@ const ProductOverview = () => {
             const cupOverride = getCupImage(product.node.title);
             const price = product.node.priceRange.minVariantPrice;
             return (
-              <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up">
+              <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up">
                 <Link to={`/product/${product.node.handle}`}>
-                  <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center">
+                  <div className="aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                     {cupOverride ? (
-                      <img src={cupOverride} alt={product.node.title} className="h-full w-full object-contain rounded-xl" width={250} height={160} loading="lazy" />
+                      <img src={cupOverride} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
                     ) : image ? (
                       <img src={`${image.url}&width=260`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" width={250} height={160} loading="lazy" />
                     ) : (
