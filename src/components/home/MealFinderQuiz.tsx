@@ -7,6 +7,10 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import bolognese from "@/assets/cup-bolognese.png";
+import carbonara from "@/assets/cup-carbonara.png";
+import curry from "@/assets/cup-curry.png";
+import bbq from "@/assets/cup-bbq.png";
 
 interface Question {
   id: string;
@@ -15,10 +19,10 @@ interface Question {
 }
 
 const BUNDLES_META: Record<string, { name: string; count: number; searchTitle: string; image: string }> = {
-  starter: { name: "Starter Pack", count: 12, searchTitle: "Starter", image: "/images/products/starter-pack.png" },
-  athlete: { name: "Athlete Pack", count: 24, searchTitle: "Athlete", image: "/images/products/athlete-pack.png" },
-  office: { name: "Office Pack", count: 60, searchTitle: "Office", image: "/images/products/office-pack.png" },
-  "big-office": { name: "Big Office Pack", count: 120, searchTitle: "Big Office", image: "/images/products/big-office-pack.png" },
+  starter: { name: "Starter Pack", count: 12, searchTitle: "Starter", image: bolognese },
+  athlete: { name: "Athlete Pack", count: 24, searchTitle: "Athlete", image: bbq },
+  office: { name: "Office Pack", count: 60, searchTitle: "Office", image: curry },
+  "big-office": { name: "Big Office Pack", count: 120, searchTitle: "Big Office", image: carbonara },
 };
 
 type BundleKey = "starter" | "athlete" | "office" | "big-office";
@@ -194,8 +198,8 @@ const MealFinderQuiz = () => {
           {isResultStep && bundle && (
             <div className="space-y-6 text-center animate-fade-up">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">{t("quiz.yourMatch")}</p>
-              <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden bg-muted">
-                <img src={shopifyProduct?.node.images?.edges?.[0]?.node.url || bundle.image} alt={bundle.name} className="w-full h-full object-cover" />
+              <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
+                <img src={bundle.image} alt={bundle.name} className="w-full h-full object-contain" />
               </div>
               <h3 className="font-heading text-2xl md:text-3xl font-bold">{bundle.name}</h3>
               <p className="text-muted-foreground max-w-md mx-auto">{result ? EXPLANATIONS[result] : ""}</p>
