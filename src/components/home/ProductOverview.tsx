@@ -2,37 +2,22 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const addItem = useCartStore(state => state.addItem);
-  const isLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
+  const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
     fetchShopifyProducts(4).then((data) => {
       if (data) setProducts(data);
     });
   }, []);
-
-  const handleAddToCart = async (product: ShopifyProduct) => {
-    const variant = product.node.variants.edges[0]?.node;
-    if (!variant) return;
-    await addItem({
-      product,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
-    });
-    toast.success(t("products.addedToCart"), { position: "top-center" });
-  };
 
   if (products.length === 0) return null;
 
@@ -78,7 +63,7 @@ const ProductOverview = () => {
                     );
                   })()}
                 </Link>
-                <Button onClick={() => handleAddToCart(product)} disabled={isLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
+                <Button onClick={() => handleAdd(product)} disabled={isLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
@@ -86,6 +71,7 @@ const ProductOverview = () => {
           })}
         </div>
       </div>
+      <MixBuilderDialog {...dialogProps} />
     </section>
   );
 };

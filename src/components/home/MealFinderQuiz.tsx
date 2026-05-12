@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, ArrowLeft, Sparkles, ShoppingCart, Loader2 } from "lucide-react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 interface Question {
   id: string;
@@ -38,9 +38,8 @@ const MealFinderQuiz = () => {
   const [result, setResult] = useState<BundleKey | null>(null);
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
   const [loadingProduct, setLoadingProduct] = useState(false);
-  const addItem = useCartStore((s) => s.addItem);
-  const isLoading = useCartStore((s) => s.isLoading);
   const { t } = useTranslation();
+  const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   const QUESTIONS: Question[] = [
     {
@@ -121,17 +120,7 @@ const MealFinderQuiz = () => {
 
   const handleAddToCart = async () => {
     if (!shopifyProduct) return;
-    const variant = shopifyProduct.node.variants.edges[0]?.node;
-    if (!variant) return;
-    await addItem({
-      product: shopifyProduct,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
-    });
-    toast.success(t("products.addedToCart"), { position: "top-center" });
+    await handleAdd(shopifyProduct);
   };
 
   const handleRestart = () => {
@@ -252,6 +241,7 @@ const MealFinderQuiz = () => {
           )}
         </Card>
       </div>
+      <MixBuilderDialog {...dialogProps} />
     </section>
   );
 };

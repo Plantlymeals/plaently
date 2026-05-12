@@ -6,19 +6,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
-  const addItem = useCartStore(state => state.addItem);
-  const isLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
+  const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
     if (!productHandle) return;
@@ -47,18 +46,7 @@ const ProductDetail = () => {
   const image = product.images.edges[0]?.node;
   const price = selectedVariant?.price;
 
-  const handleAddToCart = async () => {
-    if (!selectedVariant) return;
-    await addItem({
-      product: { node: product },
-      variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
-      quantity: 1,
-      selectedOptions: selectedVariant.selectedOptions || [],
-    });
-    toast.success(t("products.addedToCart"), { position: "top-center" });
-  };
+  const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -177,6 +165,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </section>
+      <MixBuilderDialog {...dialogProps} />
     </Layout>
   );
 };
@@ -185,9 +174,8 @@ const ProductDetail = () => {
 const Products = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const addItem = useCartStore(state => state.addItem);
-  const cartIsLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
+  const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
     fetchShopifyProducts(20).then((data) => {
@@ -195,20 +183,6 @@ const Products = () => {
       setLoading(false);
     });
   }, []);
-
-  const handleAddToCart = async (product: ShopifyProduct) => {
-    const variant = product.node.variants.edges[0]?.node;
-    if (!variant) return;
-    await addItem({
-      product,
-      variantId: variant.id,
-      variantTitle: variant.title,
-      price: variant.price,
-      quantity: 1,
-      selectedOptions: variant.selectedOptions || [],
-    });
-    toast.success(t("products.addedToCart"), { position: "top-center" });
-  };
 
   return (
     <Layout>
@@ -259,7 +233,7 @@ const Products = () => {
                         );
                       })()}
                     </Link>
-                    <Button onClick={() => handleAddToCart(product)} disabled={cartIsLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
+                    <Button onClick={() => handleAdd(product)} disabled={cartIsLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
                       {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                     </Button>
                   </div>
@@ -269,6 +243,7 @@ const Products = () => {
           )}
         </div>
       </section>
+      <MixBuilderDialog {...dialogProps} />
     </Layout>
   );
 };
