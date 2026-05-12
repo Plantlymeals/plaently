@@ -62,7 +62,7 @@ const Footer = () => {
                 { label: t("nav.faq"), path: "/faq" },
                 { label: t("nav.contact"), path: "/contact" },
                 { label: t("footer.shipping"), path: "/shipping" },
-                { label: t("footer.privacy"), path: "/privacy-policy" },
+                { label: t("footer.privacy"), path: lang === "sv" ? "/integritetspolicy" : "/privacy-policy" },
                 { label: t("footer.terms"), path: "/terms-of-service" },
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="text-sm text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
