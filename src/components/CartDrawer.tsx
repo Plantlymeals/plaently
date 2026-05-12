@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { getCupImage } from "@/lib/productImages";
 import { useTranslation } from "@/lib/i18n";
 
 export const CartDrawer = () => {
@@ -55,9 +56,12 @@ export const CartDrawer = () => {
                   {items.map((item) => (
                     <div key={item.lineId ?? item.variantId} className="flex gap-4 p-3 rounded-xl bg-muted/50">
                       <div className="w-16 h-16 bg-secondary rounded-lg overflow-hidden flex-shrink-0">
-                        {item.product.node.images?.edges?.[0]?.node && (
-                          <img src={item.product.node.images.edges[0].node.url} alt={item.product.node.title} className="w-full h-full object-cover" />
-                        )}
+                        {(() => {
+                          const cup = getCupImage(item.product.node.title);
+                          const fallback = item.product.node.images?.edges?.[0]?.node?.url;
+                          const src = cup || fallback;
+                          return src ? <img src={src} alt={item.product.node.title} className={`w-full h-full ${cup ? "object-contain" : "object-cover"}`} /> : null;
+                        })()}
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>

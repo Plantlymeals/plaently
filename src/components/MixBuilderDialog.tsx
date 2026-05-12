@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, Loader2 } from "lucide-react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
+import { getCupImage } from "@/lib/productImages";
 
 interface MixBuilderDialogProps {
   open: boolean;
@@ -99,11 +100,16 @@ export const MixBuilderDialog = ({
             <div className="space-y-3 py-2 max-h-[55vh] overflow-y-auto pr-1">
               {flavours.map((f, idx) => {
                 const img = f.node.images?.edges?.[0]?.node?.url;
+                const cupOverride = getCupImage(f.node.title);
                 const cleanTitle = f.node.title.replace(/^Plant.?Based\s*/i, "");
                 return (
                   <div key={f.node.id} className="flex items-center gap-3 p-3 rounded-xl border bg-muted/30">
                     <div className="w-12 h-12 rounded-lg overflow-hidden bg-secondary shrink-0">
-                      {img && <img src={img} alt={cleanTitle} className="w-full h-full object-cover" />}
+                      {cupOverride ? (
+                        <img src={cupOverride} alt={cleanTitle} className="w-full h-full object-contain" />
+                      ) : img ? (
+                        <img src={img} alt={cleanTitle} className="w-full h-full object-cover" />
+                      ) : null}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm truncate">{cleanTitle}</p>
