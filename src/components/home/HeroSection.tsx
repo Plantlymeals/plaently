@@ -26,11 +26,11 @@ const HeroSection = () => {
     <section className="relative overflow-hidden gradient-hero">
       <div className="container py-20 md:py-32 lg:py-40">
         <div className="flex flex-col items-center text-center gap-12">
-          <div className="space-y-8 animate-fade-up flex flex-col items-center max-w-3xl">
-            <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-primary-foreground [text-shadow:0_2px_12px_hsl(0_0%_0%_/_0.25)]">
-              {headline.split("\n").map((line, i) =>
-              <span key={i}>{line}{i === 0 && <br />}</span>
-              )}
+          <div className="space-y-8 animate-fade-up flex flex-col items-center max-w-5xl w-full">
+            <h1 className="font-heading font-bold leading-[1.05] text-primary-foreground [text-shadow:0_2px_12px_hsl(0_0%_0%_/_0.25)]" style={{ fontSize: "clamp(1.875rem, 6.5vw, 4.5rem)" }}>
+              {headline.split("\n").map((line, i) => (
+                <span key={i} className="block">{line}</span>
+              ))}
             </h1>
              <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)] font-normal">{subheadline}</p>
             <ul className="flex flex-wrap justify-center gap-2 pt-1" aria-label="Key product benefits">
