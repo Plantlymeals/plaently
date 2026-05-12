@@ -100,7 +100,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Product overview
   "products.title": { sv: "Våra måltider", en: "Our Meals" },
-  "products.subtitle": { sv: "Växtbaserade måltider fyllda med protein. Tillsätt bara hett vatten.", en: "Plant-based meals packed with protein. Just add hot water." },
+  "products.subtitle": { sv: "Växtbaserade måltider fyllda med protein och fibrer. \nTillsätt bara hett vatten.", en: "Plant-based meals packed with protein and fibre. \nJust add hot water." },
   "products.addToCart": { sv: "Lägg i varukorg", en: "Add to cart" },
   "products.addedToCart": { sv: "Tillagd i varukorgen!", en: "Added to cart!" },
 
