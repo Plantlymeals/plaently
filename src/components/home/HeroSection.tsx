@@ -53,22 +53,6 @@ const HeroSection = () => {
               </Button>
             </div>
           </div>
-          <div className="animate-fade-up-delay-2 items-start justify-center flex flex-row rounded-none w-full">
-            <img
-              src={hero?.image_url || heroImage}
-              alt="PLÄNTLY plant-based protein meals"
-              className="w-full max-w-xl object-cover"
-              style={{
-                WebkitMaskImage:
-                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
-                maskImage:
-                  "radial-gradient(ellipse 75% 70% at 50% 45%, hsl(0 0% 0%) 55%, transparent 100%)",
-              }}
-              width={576}
-              height={324}
-              fetchPriority="high"
-            />
-          </div>
         </div>
       </div>
     </section>);
