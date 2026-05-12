@@ -38,7 +38,11 @@ export const useCartStore = create<CartStore>()(
 
       addItem: async (item) => {
         const { items, cartId, clearCart } = get();
-        const existingItem = items.find(i => i.variantId === item.variantId);
+        // Items carrying custom attributes (e.g. bundle mix) are unique per add — never merge
+        const hasAttributes = !!(item.attributes && item.attributes.length > 0);
+        const existingItem = hasAttributes
+          ? undefined
+          : items.find(i => i.variantId === item.variantId && !(i.attributes && i.attributes.length));
 
         set({ isLoading: true });
         try {
