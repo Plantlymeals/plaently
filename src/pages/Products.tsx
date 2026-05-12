@@ -48,7 +48,7 @@ const ProductDetail = () => {
 
   const selectedVariant = product.variants.edges[0]?.node;
   const image = product.images.edges[0]?.node;
-  const cupOverride = getCupImage(product.title);
+  const cupMeta = getCupMeta(product.title);
   const price = selectedVariant?.price;
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
@@ -86,9 +86,10 @@ const ProductDetail = () => {
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
           </Link>
           <div className="grid lg:grid-cols-2 gap-16">
-            <div className="h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
-              {cupOverride ? (
-                <img src={cupOverride} alt={product.title} className="h-full w-full object-cover" />
+            <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
+              {cupMeta && <CupBadges meta={cupMeta} size="md" />}
+              {cupMeta ? (
+                <img src={cupMeta.src} alt={product.title} className="h-full w-full object-cover" />
               ) : image ? (
                 <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
               ) : (
