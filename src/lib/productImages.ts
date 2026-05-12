@@ -15,11 +15,16 @@ export interface CupMeta {
 
 // Per-flavour nutrition. All cups: 20g plant protein per serving (brand standard).
 // Carbonara contains dairy/egg-style flavouring — not vegan. Others are vegan.
+// Per-serving nutrition (source: NutritionPreview spec).
+// Bolognese 75g: 263 kcal, 20.3g protein
+// Carbonara 75g: 285 kcal, 20.2g protein
+// Yellow Curry & Rice 75g: 285 kcal, 20.4g protein
+// Smoky BBQ Lentils 65g: 228 kcal, 20.8g protein
 const FLAVOURS: Record<FlavourKey, CupMeta> = {
-  bolognese: { key: "bolognese", src: bolognese, protein: 20, kcal: 380, vegan: true },
-  carbonara: { key: "carbonara", src: carbonara, protein: 20, kcal: 410, vegan: false },
-  curry:     { key: "curry",     src: curry,     protein: 20, kcal: 390, vegan: false },
-  bbq:       { key: "bbq",       src: bbq,       protein: 20, kcal: 370, vegan: true },
+  bolognese: { key: "bolognese", src: bolognese, protein: 20, kcal: 263, vegan: true },
+  carbonara: { key: "carbonara", src: carbonara, protein: 20, kcal: 285, vegan: false },
+  curry:     { key: "curry",     src: curry,     protein: 20, kcal: 285, vegan: false },
+  bbq:       { key: "bbq",       src: bbq,       protein: 20, kcal: 228, vegan: true },
 };
 
 // Ordered, specific keyword → flavour. First match wins.
