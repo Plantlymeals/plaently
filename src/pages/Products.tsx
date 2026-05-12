@@ -12,6 +12,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
+import { getCupImage } from "@/lib/productImages";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -46,6 +47,7 @@ const ProductDetail = () => {
 
   const selectedVariant = product.variants.edges[0]?.node;
   const image = product.images.edges[0]?.node;
+  const cupOverride = getCupImage(product.title);
   const price = selectedVariant?.price;
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
@@ -84,7 +86,9 @@ const ProductDetail = () => {
           </Link>
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="h-80 md:h-[28rem] rounded-2xl bg-secondary flex items-center justify-center p-8">
-              {image ? (
+              {cupOverride ? (
+                <img src={cupOverride} alt={product.title} className="h-full w-full object-contain" />
+              ) : image ? (
                 <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
               ) : (
                 <span className="text-8xl">🍝</span>
@@ -205,12 +209,15 @@ const Products = () => {
                 .filter((p) => !getBundleCupsFromTitle(p.node.title))
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
+                const cupOverride = getCupImage(product.node.title);
                 const price = product.node.priceRange.minVariantPrice;
                 return (
                   <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="h-40 rounded-xl bg-secondary mb-5 flex items-center justify-center p-4">
-                        {image ? (
+                        {cupOverride ? (
+                          <img src={cupOverride} alt={product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
+                        ) : image ? (
                           <img src={`${image.url}&width=300`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
                         ) : (
                           <span className="text-4xl">🍝</span>
