@@ -25,9 +25,22 @@ const FAQPage = () => {
     });
   }, []);
 
+  const jsonLd = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: lang === "sv" && faq.question_sv ? faq.question_sv : faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: lang === "sv" && faq.answer_sv ? faq.answer_sv : faq.answer,
+      },
+    })),
+  } : undefined;
+
   return (
     <Layout>
-      <SEOHead title="Vanliga frågor — PLÄNTLY" description="Svar på vanliga frågor om PLÄNTLY:s växtbaserade proteinmåltider, leverans, ingredienser och mer." path="/faq" />
+      <SEOHead title="Vanliga frågor — PLÄNTLY" description="Svar på vanliga frågor om PLÄNTLY:s växtbaserade proteinmåltider, leverans, ingredienser och mer." path="/faq" jsonLd={jsonLd} />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
