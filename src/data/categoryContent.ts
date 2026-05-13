@@ -25,9 +25,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "high-protein-meals": {
     en: {
       slug: "high-protein-meals",
-      metaTitle: "High Protein Vegan Meals — 20g Plant Protein in 5 Min | PLÄNTLY",
-      metaDescription: "High protein vegan meals ready in 5 minutes. 20g complete plant protein per serving — for athletes, professionals and busy modern lifestyles.",
-      h1: "High Protein Vegan Meals",
+      metaTitle: "​Protein Meals — 20g Plant Protein in 5 Min | PLÄNTLY",
+      metaDescription: "​Protein Meals ready in 5 minutes. 20g complete plant protein per serving — for athletes, professionals and busy modern lifestyles.",
+      h1: "​Protein Meals",
       keywordLabel: "High protein · Plant-based · Ready in 5 min",
       intro:
         "PLÄNTLY high protein meals deliver 20g of complete plant protein in every cup — ready in the time it takes to boil water. Real food, real protein, no compromise.",
