@@ -76,9 +76,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
     },
     sv: {
       slug: "high-protein-meals",
-      metaTitle: "Högprotein veganska måltider — 20g växtprotein på 5 min | PLÄNTLY",
-      metaDescription: "Högprotein veganska måltider klara på 5 minuter. 20g komplett växtprotein per portion — för atleter, yrkesverksamma och moderna livsstilar.",
-      h1: "Högprotein veganska måltider",
+      metaTitle: "​Protein Måltider — 20g växtprotein på 5 min | PLÄNTLY",
+      metaDescription: "​Protein Måltider klara på 5 minuter. 20g komplett växtprotein per portion — för atleter, yrkesverksamma och moderna livsstilar.",
+      h1: "​Protein Måltider",
       keywordLabel: "Högprotein · Växtbaserat · Klart på 5 min",
       intro:
         "PLÄNTLY högprotein-måltider levererar 20g komplett växtprotein i varje kopp — klara på tiden det tar att koka vatten. Riktig mat, riktigt protein, inga kompromisser.",
