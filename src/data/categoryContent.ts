@@ -36,7 +36,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           heading: "Why high protein matters",
           body: [
             "Protein is the single most important macronutrient for muscle repair, satiety and stable energy. Most fast food fails on all three. PLÄNTLY was built to fix that — without forcing you to spend an hour in the kitchen.",
-            "Each PLÄNTLY meal is engineered to hit 20g of complete plant protein from a blend of pea, soy and rice — a combination that matches whey on amino acid score and bioavailability. You get the muscle-building benefit of animal protein, with the lighter digestion of plants.",
+            "Each PLÄNTLY meal is engineered to hit 20g of complete plant protein from a blend of pea and sunflower protein — a combination that matches whey on amino acid score and bioavailability. You get the muscle-building benefit of animal protein, with the lighter digestion of plants.",
           ],
         },
         {
@@ -61,13 +61,13 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         },
       ],
       benefits: [
-        { title: "20g plant protein", desc: "Complete amino acid profile from pea, soy and rice." },
+        { title: "20g plant protein", desc: "Complete amino acid profile from pea and sunflower protein." },
         { title: "Ready in 5 minutes", desc: "Just add hot water — real food, no waiting." },
         { title: "Balanced macros", desc: "Slow carbs, healthy fats and fibre in every meal." },
         { title: "100% plant-based", desc: "No animal products, no artificial additives." },
       ],
       faqs: [
-        { q: "Is plant protein as good as whey?", a: "Yes. Our pea, soy and rice blend matches whey on amino acid score and bioavailability — with easier digestion and zero dairy." },
+        { q: "Is plant protein as good as whey?", a: "Yes. Our pea and sunflower protein blend matches whey on amino acid score and bioavailability — with easier digestion." },
         { q: "How much protein per serving?", a: "Every PLÄNTLY meal contains 20g of complete plant protein per serving." },
         { q: "Are these meals suitable post-workout?", a: "Absolutely. The 20g protein hit plus balanced carbs make them ideal for muscle recovery within 30–60 minutes of training." },
       ],
@@ -87,7 +87,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           heading: "Varför högt protein spelar roll",
           body: [
             "Protein är det enskilt viktigaste makronäringsämnet för muskelreparation, mättnad och stabil energi. Det mesta av snabbmaten misslyckas på alla tre punkter. PLÄNTLY byggdes för att lösa det — utan att tvinga dig att stå en timme i köket.",
-            "Varje PLÄNTLY-måltid är designad för att leverera 20g komplett växtprotein från en blandning av ärt, soja och ris — en kombination som matchar vassle på aminosyraprofil och biotillgänglighet. Du får den muskeluppbyggande effekten med plantans lättare matsmältning.",
+            "Varje PLÄNTLY-måltid är designad för att leverera 20g komplett växtprotein från en blandning av ärt och solros protein — en kombination som matchar vassle på aminosyraprofil och biotillgänglighet. Du får den muskeluppbyggande effekten med plantans lättare matsmältning.",
           ],
         },
         {
@@ -112,7 +112,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         },
       ],
       benefits: [
-        { title: "20g växtprotein", desc: "Komplett aminosyraprofil från ärt, soja och ris." },
+        { title: "20g växtprotein", desc: "Komplett aminosyraprofil från ärt och solros protein." },
         { title: "Klart på 5 minuter", desc: "Tillsätt bara hett vatten — riktig mat, ingen väntan." },
         { title: "Balanserade makron", desc: "Långsamma kolhydrater, hälsosamma fetter och fiber." },
         { title: "100% växtbaserat", desc: "Inga animaliska produkter, inga konstgjorda tillsatser." },
