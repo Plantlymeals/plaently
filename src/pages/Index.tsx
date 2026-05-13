@@ -17,8 +17,8 @@ const Index = () => {
   return (
     <Layout>
       <SEOHead
-        title="Healthy Fast Food | High Protein Plant-Based Meals | PLÄNTLY"
-        description="Discover 100% plant-based high-protein meals ready in 5 minutes. Healthy fast food for modern lifestyles."
+        title="PLÄNTLY — Växtbaserade proteinmåltider på 5 min"
+        description="Växtbaserade högprotein-måltider klara på 5 minuter. Snabb, näringsrik och bekväm mat för en aktiv vardag."
         path="/"
       />
       <HeroSection />
