@@ -118,7 +118,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "100% växtbaserat", desc: "Inga animaliska produkter, inga konstgjorda tillsatser." },
       ],
       faqs: [
-        { q: "Är växtprotein lika bra som vassle?", a: "Ja. Vår blandning av ärt, soja och ris matchar vassle på aminosyrapoäng och biotillgänglighet — med lättare matsmältning och utan mejeri." },
+        { q: "Är växtprotein lika bra som vassle?", a: "Ja. Vår blandning av ärt och solros protein matchar vassle på aminosyrapoäng och biotillgänglighet — med lättare matsmältning." },
         { q: "Hur mycket protein per portion?", a: "Varje PLÄNTLY-måltid innehåller 20g komplett växtprotein per portion." },
         { q: "Passar måltiderna efter träning?", a: "Absolut. 20g protein plus balanserade kolhydrater gör dem perfekta för muskelåterhämtning inom 30–60 minuter efter passet." },
       ],
