@@ -129,32 +129,32 @@ const BundleSection = () => {
             return (
               <div
                 key={b.node.id}
-                className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 flex flex-col animate-fade-up hover:border-primary/40 transition-colors"
+                className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 animate-fade-up hover:border-primary/40 transition-colors flex flex-col"
               >
                 {/* Top badges */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {isTrial && (
-                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
                       {t("bundles.tryFirst")}
                     </span>
                   )}
                   {isPopular && (
-                    <span className="rounded-full bg-primary px-3 py-1 text-[10px] font-bold tracking-widest uppercase text-primary-foreground">
+                    <span className="rounded-full bg-primary py-1 text-[10px] font-bold tracking-widest uppercase text-primary-foreground px-[9px]">
                       {t("bundles.mostPopular")}
                     </span>
                   )}
                   {isValue && (
-                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
                       {t("bundles.bestValue")}
                     </span>
                   )}
                   {isSubscription && (
-                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
                       {t("bundles.subSave")}
                     </span>
                   )}
                   {bundlePrice >= 499 && (
-                    <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-bold tracking-widest uppercase">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
                       {t("bundles.freeShipping")}
                     </span>
                   )}
