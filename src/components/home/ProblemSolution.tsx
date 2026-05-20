@@ -11,7 +11,7 @@ const ProblemSolution = () => {
           {t("ps.eyebrow")}
         </p>
         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-8 md:gap-6 items-center">
-          <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-10 text-center md:text-left animate-fade-up">
+          <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-10 text-center md:text-left animate-fade-up py-[54px]">
             <h3 className="font-heading text-2xl md:text-3xl font-bold leading-tight mb-3 text-foreground/90">
               {t("ps.problemTitle")}
             </h3>
