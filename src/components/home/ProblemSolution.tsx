@@ -11,7 +11,7 @@ const ProblemSolution = () => {
           {t("ps.eyebrow")}
         </p>
         <div className="grid md:grid-cols-[1fr_auto_1fr] gap-8 md:gap-6 items-center">
-          <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-10 text-center md:text-left animate-fade-up py-[54px]">
+          <div className="rounded-3xl border border-border/60 bg-card p-8 md:p-10 text-center animate-fade-up py-[54px]">
             <h3 className="font-heading text-2xl md:text-3xl font-bold leading-tight mb-3 text-foreground/90">
               {t("ps.problemTitle")}
             </h3>
@@ -21,7 +21,7 @@ const ProblemSolution = () => {
             <ArrowRight className="h-8 w-8 md:h-10 md:w-10 hidden md:block" />
             <ArrowRight className="h-7 w-7 rotate-90 md:hidden" />
           </div>
-          <div className="rounded-3xl gradient-primary p-8 md:p-10 text-center md:text-left text-primary-foreground shadow-elevated animate-fade-up-delay-2">
+          <div className="rounded-3xl gradient-primary p-8 md:p-10 text-center text-primary-foreground shadow-elevated animate-fade-up-delay-2">
             <h3 className="font-heading text-2xl md:text-3xl font-bold leading-tight mb-3">
               {t("ps.solutionTitle")}
             </h3>
