@@ -139,7 +139,7 @@ const BundleSection = () => {
                     </span>
                   )}
                   {isPopular && (
-                    <span className="rounded-full bg-primary py-1 text-[10px] font-bold tracking-widest uppercase text-primary-foreground px-[9px]">
+                    <span className="rounded-full bg-primary py-1 text-[10px] font-bold tracking-widest uppercase text-primary-foreground px-[8px]">
                       {t("bundles.mostPopular")}
                     </span>
                   )}
