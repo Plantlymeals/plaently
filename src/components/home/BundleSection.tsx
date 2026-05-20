@@ -134,7 +134,7 @@ const BundleSection = () => {
                 {/* Top badges */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {isTrial && (
-                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[8px]">
                       {t("bundles.tryFirst")}
                     </span>
                   )}
@@ -144,17 +144,17 @@ const BundleSection = () => {
                     </span>
                   )}
                   {isValue && (
-                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[8px]">
                       {t("bundles.bestValue")}
                     </span>
                   )}
                   {isSubscription && (
-                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[8px]">
                       {t("bundles.subSave")}
                     </span>
                   )}
                   {bundlePrice >= 499 && (
-                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[9px]">
+                    <span className="rounded-full border border-white/20 py-1 text-[10px] font-bold tracking-widest uppercase px-[8px]">
                       {t("bundles.freeShipping")}
                     </span>
                   )}
