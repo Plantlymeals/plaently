@@ -35,7 +35,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Problem → Solution
   "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
-  "ps.problemTitle": { sv: "Snabbmat är ohälsosam.", en: "Fast food is unhealthy." },
+  "ps.problemTitle": { sv: "Snabbmat är ohälsosamt.", en: "Fast food is unhealthy." },
   "ps.problemDesc": { sv: "Hälsosam mat tar tid du inte har.", en: "Healthy food takes time you don't have." },
   "ps.solutionTitle": { sv: "PLÄNTLY = hälsosam snabbmat.", en: "PLÄNTLY = healthy fast food." },
   "ps.solutionDesc": { sv: "Riktiga måltider med 20g växtprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
