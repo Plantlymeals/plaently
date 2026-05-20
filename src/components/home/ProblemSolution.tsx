@@ -21,7 +21,7 @@ const ProblemSolution = () => {
             <ArrowRight className="h-8 w-8 md:h-10 md:w-10 hidden md:block" />
             <ArrowRight className="h-7 w-7 rotate-90 md:hidden" />
           </div>
-          <div className="rounded-3xl gradient-primary p-8 md:p-10 text-center md:text-left text-primary-foreground shadow-elevated animate-fade-up-delay-2">
+          <div className="rounded-3xl gradient-primary p-8 md:p-10 text-center text-primary-foreground shadow-elevated animate-fade-up-delay-2">
             <h3 className="font-heading text-2xl md:text-3xl font-bold leading-tight mb-3">
               {t("ps.solutionTitle")}
             </h3>
