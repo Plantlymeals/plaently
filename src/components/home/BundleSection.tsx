@@ -108,7 +108,7 @@ const BundleSection = () => {
         <div className="text-center space-y-3 animate-fade-up">
           <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">Bundles</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold leading-tight">{t("bundles.title")}</h2>
-          <p className="text-white/60 text-base md:text-lg">{t("bundles.subtitle")}</p>
+          <p className="text-white/80 text-base md:text-lg">{t("bundles.subtitle")}</p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {bundles.map((b) => {
@@ -163,7 +163,7 @@ const BundleSection = () => {
                 {/* Title + subtitle */}
                 <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.node.title.replace(/—.*$/, "").trim() || b.node.title}</h3>
                 {cups && (
-                  <p className="text-sm text-white/50 mb-6">
+                  <p className="text-sm text-white/75 mb-6">
                     {cups} {t("bundles.cups")}
                   </p>
                 )}
@@ -174,7 +174,7 @@ const BundleSection = () => {
                     {bundlePrice.toFixed(0)} <span className="text-2xl font-bold align-top">{price.currencyCode}</span>
                   </p>
                   {perCup && (
-                    <p className="text-sm text-white/60 mt-3">
+                    <p className="text-sm text-white/80 mt-3">
                       {perCup.toFixed(0)} {t("bundles.perCup")}
                     </p>
                   )}
@@ -184,7 +184,7 @@ const BundleSection = () => {
                 {savings > 0 && (
                   <div className="mb-5">
                     {isTrial ? (
-                      <p className="text-sm text-white/40 line-through">
+                      <p className="text-sm text-white/70 line-through">
                         {t("bundles.value")} {fullPrice} {price.currencyCode}
                       </p>
                     ) : isValue || isSubscription ? (
