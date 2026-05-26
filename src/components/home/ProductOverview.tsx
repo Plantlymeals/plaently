@@ -43,7 +43,7 @@ const ProductOverview = () => {
                     {cupMeta ? (
                       <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
                     ) : image ? (
-                      <img src={`${image.url}&width=260`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" width={250} height={160} loading="lazy" />
+                      <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" loading="lazy" />
                     ) : (
                       <span className="text-4xl">🍝</span>
                     )}
