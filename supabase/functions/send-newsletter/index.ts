@@ -92,10 +92,21 @@ Deno.serve(async (req) => {
 
     if (payload.type === "welcome") {
       // Welcome emails are only triggered by the database trigger, which
-      // forwards a shared internal secret. Reject any external caller.
+      // forwards a shared internal secret read from Vault. Reject any
+      // external caller.
       const providedSecret = req.headers.get("x-internal-secret");
-      const expectedSecret = Deno.env.get("INTERNAL_WEBHOOK_SECRET");
-      if (!expectedSecret || providedSecret !== expectedSecret) {
+      const adminForSecret = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      );
+      const { data: expectedSecret } = await adminForSecret.rpc(
+        "get_internal_webhook_secret"
+      );
+      if (
+        !expectedSecret ||
+        typeof expectedSecret !== "string" ||
+        providedSecret !== expectedSecret
+      ) {
         return new Response(JSON.stringify({ error: "Unauthorized" }), {
           status: 401,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
