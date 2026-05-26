@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "email-assets public read" ON storage.objects;
