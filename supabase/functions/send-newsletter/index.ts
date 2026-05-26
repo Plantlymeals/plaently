@@ -91,7 +91,29 @@ Deno.serve(async (req) => {
     const payload: RequestPayload = await req.json();
 
     if (payload.type === "welcome") {
+      // Welcome emails are only triggered by the database trigger, which
+      // forwards a shared internal secret. Reject any external caller.
+      const providedSecret = req.headers.get("x-internal-secret");
+      const expectedSecret = Deno.env.get("INTERNAL_WEBHOOK_SECRET");
+      if (!expectedSecret || providedSecret !== expectedSecret) {
+        return new Response(JSON.stringify({ error: "Unauthorized" }), {
+          status: 401,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
       const { email } = payload.record;
+      // Basic server-side email format validation
+      if (
+        typeof email !== "string" ||
+        email.length > 254 ||
+        !/^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/.test(email)
+      ) {
+        return new Response(JSON.stringify({ error: "Invalid email" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
       console.log("Sending welcome email to", email);
       const result = await sendEmail(
         resendKey,
