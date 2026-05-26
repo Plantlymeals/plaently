@@ -1,0 +1,1 @@
+DELETE FROM public.newsletter_subscribers WHERE email = 'test-1779818672@plaently.test';
