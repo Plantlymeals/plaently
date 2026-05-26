@@ -221,7 +221,7 @@ const Products = () => {
                         {cupMeta ? (
                           <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
                         ) : image ? (
-                          <img src={`${image.url}&width=300`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" width={250} height={160} />
+                          <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <span className="text-4xl">🍝</span>
                         )}
