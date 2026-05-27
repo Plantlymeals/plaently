@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fallback font metrics-matched to Poppins to minimise CLS during font swap */
+@font-face {
+  font-family: "Poppins-fallback";
+  size-adjust: 112%;
+  ascent-override: 95%;
+  src: local("Arial");
+}
+
 @layer base {
   :root {
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Poppins', sans-serif;
+    --font-heading: 'Poppins', 'Poppins-fallback', sans-serif;
+    --font-body: 'Poppins', 'Poppins-fallback', sans-serif;
 
     --background: 0 0% 100%;
     --foreground: 0 0% 8%;
