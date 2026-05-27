@@ -35,7 +35,7 @@ const Footer = () => {
       <div className="container py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <img src={logo} alt="PLÄNTLY" className="h-8 brightness-0 invert" width={160} height={32} />
+           <img src={logo} alt="Plaently (PLÄNTLY)" className="h-8 brightness-0 invert" width={160} height={32} />
             <p className="text-sm text-primary-foreground/60 leading-relaxed">{t("footer.desc")}</p>
           </div>
           <div className="space-y-4">
@@ -79,7 +79,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-primary-foreground/70">© 2026 PLÄNTLY. {t("footer.rights")}</p>
+         <p className="text-xs text-primary-foreground/70">© 2026 Plaently (PLÄNTLY) · plaently.com. {t("footer.rights")}</p>
           <div className="flex gap-6">
             {["LinkedIn", "Instagram", "TikTok", "Facebook"].map((social) => (
               <a key={social} href="#" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">{social}</a>
