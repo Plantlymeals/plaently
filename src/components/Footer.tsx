@@ -35,7 +35,7 @@ const Footer = () => {
       <div className="container py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div className="space-y-4">
-            <img src={logo} alt="PLÄNTLY" className="h-7 brightness-0 invert" width={160} height={32} />
+            <img src={logo} alt="PLÄNTLY" className="h-8 brightness-0 invert" width={160} height={32} />
             <p className="text-sm text-primary-foreground/60 leading-relaxed">{t("footer.desc")}</p>
           </div>
           <div className="space-y-4">
