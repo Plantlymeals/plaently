@@ -7,10 +7,10 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import bolognese from "@/assets/cup-bolognese.png";
-import carbonara from "@/assets/cup-carbonara.png";
-import curry from "@/assets/cup-curry.png";
-import bbq from "@/assets/cup-bbq.png";
+import bolognese from "@/assets/cup-bolognese.webp";
+import carbonara from "@/assets/cup-carbonara.webp";
+import curry from "@/assets/cup-curry.webp";
+import bbq from "@/assets/cup-bbq.webp";
 
 interface Question {
   id: string;
