@@ -3,23 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon.png">
     <meta name="google-site-verification" content="Tth0Q_DkfhDNkjwXNN7UiHJsK6YgyqEXyqCMhhwvmKs" />
     <meta name="google-site-verification" content="ICbt45DRfDMGs_afjB4LHhFssxqiw0sff0R5fc9Vnk0" />
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preload" as="image" href="/images/logo.png" fetchpriority="high">
 
+    <!-- Fonts: non-blocking load -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" /></noscript>
 
-    <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WMLNNYVRSX"></script>
+    <!-- Google Analytics (GA4) — deferred to reduce render-blocking -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-WMLNNYVRSX');
+      window.addEventListener('load', function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WMLNNYVRSX';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-WMLNNYVRSX');
+      });
     </script>
     <title>PLÄNTLY — Växtbaserade proteinmåltider</title>
     <meta name="description" content="PLÄNTLY är en ny generation av växtbaserad snabbmat — högt protein, balanserad näring och bekväma måltider på minuter. 🌱">
