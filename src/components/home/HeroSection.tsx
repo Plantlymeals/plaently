@@ -1,26 +1,14 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
 
-type HeroContent = Tables<"hero_content">;
-
 const HeroSection = () => {
-  const [hero, setHero] = useState<HeroContent | null>(null);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    supabase.from("hero_content").select("*").eq("section_key", "homepage_hero").single().then(({ data }) => {
-      if (data) setHero(data);
-    });
-  }, []);
 
   const headline = t("hero.headline");
   const subheadline = t("hero.subheadline");
-  const ctaLink = hero?.cta_link || "/products";
+  const ctaLink = "/products";
 
   return (
     <section className="relative overflow-hidden gradient-hero">
