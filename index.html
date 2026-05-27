@@ -8,10 +8,10 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preload" as="image" href="/images/logo.png" fetchpriority="high">
 
-    <!-- Fonts: non-blocking load -->
+    <!-- Fonts: non-blocking load via media-swap trick (removes from critical path) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" /></noscript>
 
     <!-- Google Analytics (GA4) — load lazily on first interaction or after idle to save ~170 KiB on initial load -->
