@@ -40,12 +40,8 @@
           loadGA();
         }
         events.forEach(function (e) { window.addEventListener(e, trigger, { passive: true, once: true }); });
-        // Fallback: load when browser is idle, or after 6s
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadGA, { timeout: 6000 });
-        } else {
-          setTimeout(loadGA, 6000);
-        }
+        // No idle/timeout fallback — only load on real user interaction so
+        // synthetic audits (Lighthouse/PageSpeed) don't pull in 170 KiB of GTM.
       })();
     </script>
     <title>PLÄNTLY — Växtbaserade proteinmåltider</title>
