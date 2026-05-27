@@ -63,7 +63,7 @@ const NewsletterPopup = () => {
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
               <div className="bg-primary pt-8 pb-6 px-6 text-center">
-                <img src={logo} alt="PLÄNTLY" className="h-7 mx-auto mb-3 brightness-0 invert" />
+                <img src={logo} alt="PLÄNTLY" className="h-8 mx-auto mb-3 brightness-0 invert" width={160} height={32} />
                 <h2 className="text-xl font-heading font-bold text-primary-foreground">{t("newsletter.title")}</h2>
                 <p className="text-primary-foreground/80 text-sm mt-1">{t("newsletter.subtitle")}</p>
               </div>
