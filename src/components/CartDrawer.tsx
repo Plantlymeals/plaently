@@ -27,7 +27,7 @@ export const CartDrawer = () => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative rounded-full">
+        <Button variant="outline" size="icon" className="relative rounded-full" aria-label={t("cart.title")}>
           <ShoppingCart className="h-5 w-5" />
           {totalItems > 0 && (
             <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">{totalItems}</Badge>
@@ -79,15 +79,15 @@ export const CartDrawer = () => {
                         <p className="font-semibold text-primary">{item.price.currencyCode} {parseFloat(item.price.amount).toFixed(2)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                        <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => removeItem(item.lineId ?? item.variantId)}>
+                        <Button variant="ghost" size="icon" className="h-6 w-6" aria-label={t("cart.remove") || "Remove"} onClick={() => removeItem(item.lineId ?? item.variantId)}>
                           <Trash2 className="h-3 w-3" />
                         </Button>
                         <div className="flex items-center gap-1">
-                          <Button variant="outline" size="icon" className="h-6 w-6 rounded-full" onClick={() => updateQuantity(item.lineId ?? item.variantId, item.quantity - 1)}>
+                          <Button variant="outline" size="icon" className="h-6 w-6 rounded-full" aria-label={t("cart.decrease") || "Decrease quantity"} onClick={() => updateQuantity(item.lineId ?? item.variantId, item.quantity - 1)}>
                             <Minus className="h-3 w-3" />
                           </Button>
                           <span className="w-8 text-center text-sm">{item.quantity}</span>
-                          <Button variant="outline" size="icon" className="h-6 w-6 rounded-full" onClick={() => updateQuantity(item.lineId ?? item.variantId, item.quantity + 1)}>
+                          <Button variant="outline" size="icon" className="h-6 w-6 rounded-full" aria-label={t("cart.increase") || "Increase quantity"} onClick={() => updateQuantity(item.lineId ?? item.variantId, item.quantity + 1)}>
                             <Plus className="h-3 w-3" />
                           </Button>
                         </div>
