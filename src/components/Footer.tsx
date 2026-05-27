@@ -39,7 +39,7 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/60 leading-relaxed">{t("footer.desc")}</p>
           </div>
           <div className="space-y-4">
-            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/40">{t("footer.explore")}</h4>
+            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h3>
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.products"), path: "/products" },
@@ -56,7 +56,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-4">
-            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/40">{t("footer.support")}</h4>
+            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.support")}</h3>
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.faq"), path: "/faq" },
@@ -70,19 +70,19 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-4">
-            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/40">{t("footer.stayUpdated")}</h4>
+            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.stayUpdated")}</h3>
             <p className="text-sm text-primary-foreground/60">{t("footer.newsletterDesc")}</p>
             <form onSubmit={handleSubscribe} className="flex gap-2">
-              <Input type="email" placeholder={t("footer.emailPlaceholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/30 rounded-full" />
+              <Input type="email" aria-label={t("footer.emailPlaceholder")} placeholder={t("footer.emailPlaceholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 rounded-full" />
               <Button type="submit" className="rounded-full px-5 shrink-0" disabled={loading}>{t("footer.join")}</Button>
             </form>
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-primary-foreground/40">© 2026 PLÄNTLY. {t("footer.rights")}</p>
+          <p className="text-xs text-primary-foreground/70">© 2026 PLÄNTLY. {t("footer.rights")}</p>
           <div className="flex gap-6">
             {["LinkedIn", "Instagram", "TikTok", "Facebook"].map((social) => (
-              <a key={social} href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors">{social}</a>
+              <a key={social} href="#" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">{social}</a>
             ))}
           </div>
         </div>
