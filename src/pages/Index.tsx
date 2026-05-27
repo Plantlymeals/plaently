@@ -7,11 +7,12 @@ import ProblemSolution from "@/components/home/ProblemSolution";
 import ProductOverview from "@/components/home/ProductOverview";
 import WhySection from "@/components/home/WhySection";
 import HowItWorks from "@/components/home/HowItWorks";
-import LifestyleSection from "@/components/home/LifestyleSection";
-import BundleSection from "@/components/home/BundleSection";
-import MealFinderQuiz from "@/components/home/MealFinderQuiz";
-import TestimonialsSection from "@/components/home/TestimonialsSection";
-import FinalCTA from "@/components/home/FinalCTA";
+import { lazy, Suspense } from "react";
+const LifestyleSection = lazy(() => import("@/components/home/LifestyleSection"));
+const BundleSection = lazy(() => import("@/components/home/BundleSection"));
+const MealFinderQuiz = lazy(() => import("@/components/home/MealFinderQuiz"));
+const TestimonialsSection = lazy(() => import("@/components/home/TestimonialsSection"));
+const FinalCTA = lazy(() => import("@/components/home/FinalCTA"));
 
 const Index = () => {
   return (
@@ -28,11 +29,13 @@ const Index = () => {
       <ProductOverview />
       <WhySection />
       <HowItWorks />
-      <LifestyleSection />
-      <BundleSection />
-      <MealFinderQuiz />
-      <TestimonialsSection />
-      <FinalCTA />
+      <Suspense fallback={null}>
+        <LifestyleSection />
+        <BundleSection />
+        <MealFinderQuiz />
+        <TestimonialsSection />
+        <FinalCTA />
+      </Suspense>
     </Layout>
   );
 };
