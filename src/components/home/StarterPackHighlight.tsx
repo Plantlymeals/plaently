@@ -56,6 +56,10 @@ const StarterPackHighlight = () => {
                 className="w-full max-w-[280px] mx-auto md:mx-0 object-contain"
                 width={280}
                 height={157}
+                loading="eager"
+                decoding="async"
+                // @ts-expect-error fetchpriority is valid HTML attr
+                fetchpriority="high"
               />
               <h2 className="font-heading text-3xl md:text-5xl font-bold leading-tight">{t("starter.title")}</h2>
               <p className="text-muted-foreground text-lg">{t("starter.subtitle")}</p>
