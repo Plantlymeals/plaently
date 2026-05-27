@@ -5,9 +5,11 @@
 /* Fallback font metrics-matched to Poppins to minimise CLS during font swap */
 @font-face {
   font-family: "Poppins-fallback";
-  size-adjust: 112%;
-  ascent-override: 95%;
   src: local("Arial");
+  size-adjust: 112.16%;
+  ascent-override: 93.10%;
+  descent-override: 30.85%;
+  line-gap-override: 8.78%;
 }
 
 @layer base {
