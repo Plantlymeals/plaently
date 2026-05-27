@@ -14,19 +14,36 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" /></noscript>
 
-    <!-- Google Analytics (GA4) — deferred to reduce render-blocking -->
+    <!-- Google Analytics (GA4) — load lazily on first interaction or after idle to save ~170 KiB on initial load -->
     <script>
-      window.addEventListener('load', function () {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WMLNNYVRSX';
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-WMLNNYVRSX');
-      });
+      (function () {
+        var loaded = false;
+        function loadGA() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-WMLNNYVRSX';
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', 'G-WMLNNYVRSX');
+        }
+        var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
+        function trigger() {
+          events.forEach(function (e) { window.removeEventListener(e, trigger, { passive: true }); });
+          loadGA();
+        }
+        events.forEach(function (e) { window.addEventListener(e, trigger, { passive: true, once: true }); });
+        // Fallback: load when browser is idle, or after 6s
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadGA, { timeout: 6000 });
+        } else {
+          setTimeout(loadGA, 6000);
+        }
+      })();
     </script>
     <title>PLÄNTLY — Växtbaserade proteinmåltider</title>
     <meta name="description" content="PLÄNTLY är en ny generation av växtbaserad snabbmat — högt protein, balanserad näring och bekväma måltider på minuter. 🌱">
