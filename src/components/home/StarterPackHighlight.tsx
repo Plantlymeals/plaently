@@ -7,7 +7,6 @@ import { useTranslation } from "@/lib/i18n";
 import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import heroImage from "@/assets/hero-product.webp";
 
 const SINGLE_MEAL_PRICE = 35;
 const TASTER_MEALS = 4;
@@ -51,11 +50,14 @@ const StarterPackHighlight = () => {
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="space-y-5">
               <img
-                src={heroImage}
+                src="/images/hero-product.webp"
                 alt="PLÄNTLY Taster Pack"
                 className="w-full max-w-[280px] mx-auto md:mx-0 object-contain"
                 width={280}
                 height={157}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
               />
               <h2 className="font-heading text-3xl md:text-5xl font-bold leading-tight">{t("starter.title")}</h2>
               <p className="text-muted-foreground text-lg">{t("starter.subtitle")}</p>
