@@ -33,8 +33,8 @@ const AdminTestimonials = lazy(() => import("./pages/admin/AdminTestimonials"));
 const AdminBundles = lazy(() => import("./pages/admin/AdminBundles"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
-const AdminCampaigns = lazy(() => import("./pages/admin/AdminCampaigns"));
 const CategoryPage = lazy(() => import("./pages/categories/CategoryPage"));
+const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
 
 const queryClient = new QueryClient();
 
@@ -64,6 +64,7 @@ const AppContent = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/kopsvillkor" element={<Terms />} />
         <Route path="/terms-of-service" element={<Terms />} />
+        <Route path="/unsubscribe" element={<Unsubscribe />} />
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
@@ -75,7 +76,6 @@ const AppContent = () => {
           <Route path="bundles" element={<AdminBundles />} />
           <Route path="hero" element={<AdminHero />} />
           <Route path="messages" element={<AdminMessages />} />
-          <Route path="campaigns" element={<AdminCampaigns />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -32,8 +32,8 @@ const NewsletterPopup = () => {
     if (!email.trim() || loading) return;
     setLoading(true);
     const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
-    setLoading(false);
     if (error) {
+      setLoading(false);
       if (error.code === "23505") {
         toast.info(t("newsletter.alreadySubscribed"), { description: t("newsletter.alreadyDesc") });
       } else {
@@ -41,6 +41,17 @@ const NewsletterPopup = () => {
       }
       return;
     }
+    // Fire-and-forget welcome email via Lovable Emails (transactional)
+    supabase.functions
+      .invoke("send-transactional-email", {
+        body: {
+          templateName: "newsletter-welcome",
+          recipientEmail: email.trim().toLowerCase(),
+          idempotencyKey: `newsletter-welcome-${email.trim().toLowerCase()}`,
+        },
+      })
+      .catch((err) => console.error("welcome email failed", err));
+    setLoading(false);
     setSubmitted(true);
     sessionStorage.setItem("newsletter-dismissed", "true");
     setTimeout(() => setIsOpen(false), 2000);
