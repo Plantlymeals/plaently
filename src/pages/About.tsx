@@ -7,7 +7,7 @@ const About = () => {
 
   return (
     <Layout>
-      <SEOHead title="Om PLÄNTLY — Vår historia & vision" description="Lär känna PLÄNTLY — vi skapar växtbaserade proteinmåltider med skandinavisk kvalitet för en hållbar framtid." path="/about" />
+      <SEOHead title="Om PLÄNTLY – Hälsosam & klimatsmart proteinmat för alla | PLÄNTLY" description="PLÄNTLY grundades för att göra hälsosam, proteinrik och klimatsmart mat tillgänglig för alla – inte bara veganer. Snabb, god och utan kompromisser." path="/about" />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
