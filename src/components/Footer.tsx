@@ -81,9 +81,10 @@ const Footer = () => {
         <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
          <p className="text-xs text-primary-foreground/70">© 2026 Plaently (PLÄNTLY) · plaently.com. {t("footer.rights")}</p>
           <div className="flex gap-6">
-            {["LinkedIn", "Instagram", "TikTok", "Facebook"].map((social) => (
-              <a key={social} href="#" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">{social}</a>
-            ))}
+            <a href="https://www.linkedin.com/company/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">LinkedIn</a>
+            <a href="https://www.instagram.com/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">Instagram</a>
+            <a href="https://www.tiktok.com/@plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">TikTok</a>
+            <a href="https://www.facebook.com/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">Facebook</a>
           </div>
         </div>
       </div>
