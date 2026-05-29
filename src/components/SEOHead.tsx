@@ -9,7 +9,7 @@ interface SEOHeadProps {
   jsonLd?: Record<string, unknown>;
 }
 
-const BASE_URL = "https://plantlymeals.com";
+const BASE_URL = "https://plaently.com";
 
 const SEOHead = ({ title, description, path, image, type = "website", jsonLd }: SEOHeadProps) => {
   const url = `${BASE_URL}${path}`;
