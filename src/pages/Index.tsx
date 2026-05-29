@@ -18,8 +18,8 @@ const Index = () => {
   return (
     <Layout>
       <SEOHead
-        title="PLÄNTLY — Växtbaserade proteinmåltider på 5 min"
-        description="Växtbaserade högprotein-måltider klara på 5 minuter. Snabb, näringsrik och bekväm mat för en aktiv vardag."
+        title="PLÄNTLY | Hälsosam proteinmat på 5 min – 20g protein per måltid"
+        description="Snabb, hälsosam och klimatsmart mat med 20g protein per portion. Pasta bolognese, carbonara, yellow curry & rökiga linser – klara på 5 minuter. Fri frakt från 399 kr."
         path="/"
       />
       <HeroSection />
