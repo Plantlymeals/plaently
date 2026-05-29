@@ -135,8 +135,8 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={`${product.title} — PLÄNTLY`}
-        description={product.description || "Högprotein växtbaserad färdigrätt från PLÄNTLY."}
+        title={`${product.title} – 20g protein på 5 min | PLÄNTLY`}
+        description={product.description || `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`}
         path={`/product/${product.handle}`}
         type="product"
         jsonLd={jsonLd}
