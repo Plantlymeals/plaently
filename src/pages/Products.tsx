@@ -202,12 +202,12 @@ const ProductDetail = () => {
           <div className="mt-20 grid md:grid-cols-3 gap-6">
             <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
               <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Flame className="h-5 w-5" /></div>
-              <h3 className="font-heading font-semibold text-base mb-2">{t("productDetail.tasteTitle")}</h3>
+              <h2 className="font-heading font-semibold text-base mb-2">{t("productDetail.tasteTitle")}</h2>
               <p className="text-sm text-muted-foreground leading-relaxed">{t("productDetail.tasteDesc")}</p>
             </div>
             <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
               <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Leaf className="h-5 w-5" /></div>
-              <h3 className="font-heading font-semibold text-base mb-3">{t("productDetail.nutritionTitle")}</h3>
+              <h2 className="font-heading font-semibold text-base mb-3">{t("productDetail.nutritionTitle")}</h2>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex gap-2"><Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />{t("productDetail.nutritionProtein")}</li>
                 <li className="flex gap-2"><Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />{t("productDetail.nutritionMacros")}</li>
@@ -216,7 +216,7 @@ const ProductDetail = () => {
             </div>
             <div className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
               <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4"><Clock className="h-5 w-5" /></div>
-              <h3 className="font-heading font-semibold text-base mb-3">{t("productDetail.prepTitle")}</h3>
+              <h2 className="font-heading font-semibold text-base mb-3">{t("productDetail.prepTitle")}</h2>
               <ol className="space-y-2 text-sm text-muted-foreground list-decimal list-inside">
                 <li>{t("productDetail.prepStep1")}</li>
                 <li>{t("productDetail.prepStep2")}</li>
@@ -320,7 +320,7 @@ const Products = () => {
                           <span className="text-4xl">🍝</span>
                         )}
                       </div>
-                      <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
+                      <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h2>
                       {(() => {
                         const amount = parseFloat(price.amount);
                         const savings = getBundleSavings(product.node.title, amount);
