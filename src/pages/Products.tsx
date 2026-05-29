@@ -288,7 +288,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title="Produkter — PLÄNTLY | Växtbaserade proteinmåltider" description="Utforska PLÄNTLY:s sortiment av högprotein växtbaserade färdigrätter. Snabbt, gott och näringsrikt." path="/products" />
+      <SEOHead title="Produkter – Hälsosam proteinmat på 5 min | PLÄNTLY" description="Utforska PLÄNTLY:s sortiment: hälsosam, proteinrik och klimatsmart färdigmat med 20g protein per portion. Klar på 5 minuter." path="/products" />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
