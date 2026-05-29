@@ -31,11 +31,8 @@ const staticEntries: SitemapEntry[] = [
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   { path: "/faq", changefreq: "monthly", priority: "0.5" },
   { path: "/contact", changefreq: "monthly", priority: "0.5" },
-  { path: "/shipping", changefreq: "yearly", priority: "0.4" },
   { path: "/frakt", changefreq: "yearly", priority: "0.4" },
-  { path: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
   { path: "/integritetspolicy", changefreq: "yearly", priority: "0.3" },
-  { path: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
   { path: "/kopsvillkor", changefreq: "yearly", priority: "0.3" },
 ];
 
