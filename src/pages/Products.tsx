@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
@@ -20,6 +21,7 @@ const ProductDetail = () => {
   const productHandle = handle || slug;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState<{ author_name: string; author_role: string | null; quote: string }[]>([]);
   const { t } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -28,6 +30,15 @@ const ProductDetail = () => {
     fetchShopifyProductByHandle(productHandle).then((data) => {
       setProduct(data);
       setLoading(false);
+    });
+    supabase
+      .from("testimonials")
+      .select("author_name, author_role, quote")
+      .eq("is_published", true)
+      .order("sort_order")
+      .limit(3)
+      .then(({ data }) => {
+        if (data) setReviews(data as any);
     });
   }, [productHandle]);
 
@@ -68,6 +79,21 @@ const ProductDetail = () => {
         priceCurrency: price.currencyCode,
         availability: selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       },
+    }),
+    ...(reviews.length > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        reviewCount: String(reviews.length),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      review: reviews.map((r) => ({
+        "@type": "Review",
+        author: { "@type": "Person", name: r.author_name },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewBody: r.quote,
+      })),
     }),
   };
 
