@@ -78,6 +78,41 @@ const ProductDetail = () => {
         price: parseFloat(price.amount).toFixed(2),
         priceCurrency: price.currencyCode,
         availability: selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+          merchantReturnDays: 14,
+          returnMethod: "https://schema.org/ReturnByMail",
+          returnFees: "https://schema.org/ReturnShippingFees",
+          applicableCountry: "SE",
+        },
+        shippingDetails: {
+          "@type": "OfferShippingDetails",
+          shippingRate: {
+            "@type": "MonetaryAmount",
+            value: "49",
+            currency: "SEK",
+          },
+          shippingDestination: {
+            "@type": "DefinedRegion",
+            addressCountry: "SE",
+          },
+          deliveryTime: {
+            "@type": "ShippingDeliveryTime",
+            handlingTime: {
+              "@type": "QuantitativeValue",
+              minValue: 0,
+              maxValue: 1,
+              unitCode: "d",
+            },
+            transitTime: {
+              "@type": "QuantitativeValue",
+              minValue: 2,
+              maxValue: 4,
+              unitCode: "d",
+            },
+          },
+        },
       },
     }),
     ...(reviews.length > 0 && {
