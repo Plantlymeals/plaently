@@ -17,14 +17,14 @@ const SITE_NAME = 'PLÄNTLY'
 const NewsletterWelcomeEmail = () => (
   <Html lang="sv" dir="ltr">
     <Head />
-    <Preview>Välkommen till {SITE_NAME} — 10% rabatt väntar 🌱</Preview>
+    <Preview>Välkommen till {SITE_NAME} — 10% rabatt på din första beställning</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section style={brandHeader}>
           <Heading style={brand}>{SITE_NAME}</Heading>
         </Section>
         <Section style={card}>
-          <Heading style={h2}>Välkommen till PLÄNTLY! 🌱</Heading>
+          <Heading style={h2}>Välkommen till PLÄNTLY</Heading>
           <Text style={text}>
             Tack för att du prenumererar! Du får nu exklusiva erbjudanden, nya
             recept och 10% rabatt på din första beställning.
@@ -34,7 +34,7 @@ const NewsletterWelcomeEmail = () => (
             recipes, and 10% off your first order.
           </Text>
           <Button href="https://plaently.com/products" style={button}>
-            Handla nu / Shop now
+            Handla nu
           </Button>
         </Section>
       </Container>
@@ -44,7 +44,7 @@ const NewsletterWelcomeEmail = () => (
 
 export const template = {
   component: NewsletterWelcomeEmail,
-  subject: 'Välkommen till PLÄNTLY! 🌱 Welcome to PLÄNTLY!',
+  subject: 'Välkommen till PLÄNTLY',
   displayName: 'Newsletter welcome',
   previewData: {},
 } satisfies TemplateEntry
