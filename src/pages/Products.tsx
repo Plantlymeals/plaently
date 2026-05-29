@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
+import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
@@ -197,6 +197,39 @@ const ProductDetail = () => {
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
             </Button>
           </div>
+
+          {reviews.length > 0 && (
+            <div className="mt-16">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                {[0,1,2,3,4].map((i) => (
+                  <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                ))}
+                <span className="ml-2 font-semibold text-foreground">4.9</span>
+                <span className="text-sm text-muted-foreground">({reviews.length})</span>
+              </div>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-center mb-8">
+                {t("productDetail.reviewsTitle") || "What customers say"}
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {reviews.map((r, i) => (
+                  <div key={i} className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
+                    <div className="flex gap-1 mb-3">
+                      {[0,1,2,3,4].map((s) => (
+                        <Star key={s} className="h-4 w-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <p className="text-sm text-foreground leading-relaxed mb-4">"{r.quote}"</p>
+                    <div>
+                      <p className="font-semibold text-sm text-foreground">{r.author_name}</p>
+                      {r.author_role && (
+                        <p className="text-xs text-muted-foreground">{r.author_role}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
       <MixBuilderDialog {...dialogProps} />
