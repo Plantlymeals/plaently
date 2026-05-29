@@ -26,7 +26,7 @@ const Blog = () => {
 
   return (
     <Layout>
-      <SEOHead title="Blogg — PLÄNTLY" description="Läs om växtbaserad kost, hälsa och hållbarhet. Tips, recept och nyheter från PLÄNTLY." path="/blog" />
+      <SEOHead title="Blogg – Protein, hälsosam mat, klimatsmart & snabba recept | PLÄNTLY" description="Tips, guider och recept om protein, hälsosam snabbmat och klimatsmart kost. För alla som vill äta bättre – utan att det tar tid eller kostar planeten." path="/blog" />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
