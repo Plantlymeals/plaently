@@ -58,15 +58,30 @@ const BlogPostPage = () => {
     image: post.cover_image_url || undefined,
   };
 
+  // Real slug as stored in DB (may include `-sv` suffix for Swedish version).
+  const realSlug = post.slug;
+  const isSv = realSlug.endsWith("-sv");
+  const baseSlug = isSv ? realSlug.slice(0, -3) : realSlug;
+  const svPath = `/blog/${baseSlug}-sv`;
+  const enPath = `/blog/${baseSlug}`;
+  const canonicalPath = `/blog/${realSlug}`;
+  const postLocale: "sv" | "en" = isSv ? "sv" : "en";
+
   return (
     <Layout>
       <SEOHead
         title={`${post.title} — PLÄNTLY`}
         description={post.excerpt || post.title}
-        path={`/blog/${slug}`}
+        path={canonicalPath}
         type="article"
         image={post.cover_image_url || undefined}
         jsonLd={jsonLd}
+        locale={postLocale}
+        alternates={[
+          { hreflang: "sv", path: svPath },
+          { hreflang: "en", path: enPath },
+          { hreflang: "x-default", path: enPath },
+        ]}
       />
       <article className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-8">
