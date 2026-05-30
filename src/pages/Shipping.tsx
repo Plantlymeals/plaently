@@ -26,7 +26,7 @@ const COPY = {
  tableRows: [
  { order: "Enstaka kopp", content: "1–3 koppar", cost: "49 kr", time: "2–4 vardagar", free: false },
  { order: "Trial Pack", content: "4 koppar", cost: "49 kr", time: "2–4 vardagar", free: false },
- { order: "Starter Pack ⭐", content: "12 koppar (399 kr)", cost: "Gratis", time: "2–4 vardagar", free: true },
+ { order: "Starter Pack", content: "12 koppar (399 kr)", cost: "Gratis", time: "2–4 vardagar", free: true },
  { order: "Monthly Box", content: "30 koppar", cost: "Gratis", time: "2–4 vardagar", free: true },
  ],
  partnersLabel: "Fraktpartners",
@@ -44,7 +44,7 @@ const COPY = {
  { n: "2", title: "Vi packar", desc: "Samma dag (beställn. innan kl. 12.00 vardagar)." },
  { n: "3", title: "Spårningsnr.", desc: "Du får ett spårningsnummer via e-post." },
  { n: "4", title: "Leverans", desc: "2–4 vardagar. Hela Sverige." },
- { n: "", title: "Njut!", desc: "Tillsätt vatten. Klart på 5 min." },
+ { n: "5", title: "Njut!", desc: "Tillsätt vatten. Klart på 5 min." },
  ],
  issuesLabel: "Problem med din order?",
  issuesTitle: "Vi löser det — alltid.",
@@ -78,7 +78,7 @@ const COPY = {
  ],
  ctaTitle: "Redo att beställa?",
  ctaSub: "Fri frakt på alla beställningar över 399 kr. Levereras till din dörr på 2–4 vardagar.",
- ctaBtn: "Handla Starter Pack → ",
+ ctaBtn: "Handla Starter Pack",
  },
  en: {
  seoTitle: "Shipping & Delivery — PLÄNTLY",
@@ -96,7 +96,7 @@ const COPY = {
  tableRows: [
  { order: "Single cup", content: "1–3 cups", cost: "SEK 49", time: "2–4 business days", free: false },
  { order: "Trial Pack", content: "4 cups", cost: "SEK 49", time: "2–4 business days", free: false },
- { order: "Starter Pack ⭐", content: "12 cups (SEK 399)", cost: "Free", time: "2–4 business days", free: true },
+ { order: "Starter Pack", content: "12 cups (SEK 399)", cost: "Free", time: "2–4 business days", free: true },
  { order: "Monthly Box", content: "30 cups", cost: "Free", time: "2–4 business days", free: true },
  ],
  partnersLabel: "Shipping partners",
@@ -114,7 +114,7 @@ const COPY = {
  { n: "2", title: "We pack", desc: "Same day (orders before 12:00 on weekdays)." },
  { n: "3", title: "Tracking", desc: "You get a tracking number via email." },
  { n: "4", title: "Delivery", desc: "2–4 business days. All of Sweden." },
- { n: "", title: "Enjoy!", desc: "Just add water. Ready in 5 min." },
+ { n: "5", title: "Enjoy!", desc: "Just add water. Ready in 5 min." },
  ],
  issuesLabel: "Problem with your order?",
  issuesTitle: "We'll fix it — always.",
@@ -148,7 +148,7 @@ const COPY = {
  ],
  ctaTitle: "Ready to order?",
  ctaSub: "Free shipping on all orders over SEK 399. Delivered to your door in 2–4 business days.",
- ctaBtn: "Shop Starter Pack → ",
+ ctaBtn: "Shop Starter Pack",
  },
 } as const;
 
@@ -223,7 +223,7 @@ const Shipping = () => {
  <div className="grid md:grid-cols-2 gap-6">
  {c.partners.map((p) => (
  <div key={p.title} className="rounded-[18px] border border-border bg-card p-8 transition-all duration-300 hover:border-primary hover:-translate-y-1 hover:shadow-elevated">
- <div className={`w-14 h-14 rounded-2xl ${p.iconBg} flex items-center justify-center text-2xl mb-5`}>{p.icon}</div>
+ <div className={`w-14 h-14 rounded-2xl ${p.iconBg} flex items-center justify-center mb-5`}>{(() => { const Icon = PARTNER_ICONS[p.title] || Package; return <Icon className="h-6 w-6 text-foreground" />; })()}</div>
  <h3 className="font-heading font-bold text-lg mb-3">{p.title}</h3>
  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{p.desc}</p>
  <span className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary">{p.tag}</span>
@@ -263,9 +263,9 @@ const Shipping = () => {
  </p>
  </div>
  <div className="grid md:grid-cols-3 gap-6">
- {c.issues.map((i) => (
+ {c.issues.map((i, idx) => (
  <div key={i.title} className="rounded-2xl border border-border bg-card p-7 space-y-4">
- <div className="text-3xl">{i.icon}</div>
+ <div className="text-primary">{(() => { const Icon = ISSUE_ICONS[idx] || Clock; return <Icon className="h-7 w-7" />; })()}</div>
  <h3 className="font-heading font-bold text-lg">{i.title}</h3>
  <p className="text-sm text-muted-foreground leading-relaxed">{i.text}</p>
  <a href="mailto:hello@plaently.com" className="inline-flex text-sm font-semibold text-primary hover:underline">{i.cta}</a>
