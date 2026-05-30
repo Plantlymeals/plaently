@@ -41,9 +41,9 @@ const ProductOverview = () => {
                   <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                     {cupMeta && <CupBadges meta={cupMeta} />}
                     {cupMeta ? (
-                      <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
+                      <img src={cupMeta.src} alt={`${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
                     ) : image ? (
-                      <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" loading="lazy" />
+                      <img src={`${image.url}&width=520`} alt={image.altText || `${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain rounded-xl" loading="lazy" />
                     ) : (
                       <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                     )}

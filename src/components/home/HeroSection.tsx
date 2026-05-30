@@ -21,7 +21,7 @@ const HeroSection = () => {
               ))}
             </h1>
              <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)] font-normal">{subheadline}</p>
-            <ul className="flex flex-wrap justify-center gap-2 pt-1" aria-label="Key product benefits">
+            <ul className="flex flex-wrap justify-center gap-2 pt-1" aria-label={t("hero.badge1") + ", " + t("hero.badge2") + ", " + t("hero.badge3")}>
               {[
                 { icon: Dumbbell, label: t("hero.badge1") },
                 { icon: Clock, label: t("hero.badge2") },

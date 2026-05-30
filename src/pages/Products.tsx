@@ -70,7 +70,7 @@ const ProductDetail = () => {
     name: product.title,
     description: product.description,
     image: image?.url,
-    url: `https://plantlymeals.com/product/${product.handle}`,
+    url: `https://plaently.com/product/${product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(price && {
       offers: {
@@ -150,9 +150,9 @@ const ProductDetail = () => {
             <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
               {cupMeta && <CupBadges meta={cupMeta} size="md" />}
               {cupMeta ? (
-                <img src={cupMeta.src} alt={product.title} className="h-full w-full object-cover" />
+                <img src={cupMeta.src} alt={`${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-cover" />
               ) : image ? (
-                <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || `${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-contain" />
               ) : (
                 <div className="h-20 w-20 rounded-full bg-muted-foreground/10" aria-hidden="true" />
               )}
@@ -313,9 +313,9 @@ const Products = () => {
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                         {cupMeta && <CupBadges meta={cupMeta} />}
                         {cupMeta ? (
-                          <img src={cupMeta.src} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
+                          <img src={cupMeta.src} alt={`${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
                         ) : image ? (
-                          <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" />
+                          <img src={`${image.url}&width=520`} alt={image.altText || `${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                         )}

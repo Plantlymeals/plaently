@@ -1,16 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import Layout from "@/components/Layout";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
+import { BLOG_CATEGORIES, getCategorySlug } from "@/data/blogCategories";
 
 type BlogPost = Tables<"blog_posts">;
 
 const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const { lang, t } = useTranslation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategorySlug = searchParams.get("category");
 
   useEffect(() => {
     supabase
@@ -24,25 +27,104 @@ const Blog = () => {
       });
   }, [lang]);
 
+  const filteredPosts = useMemo(() => {
+    if (!activeCategorySlug) return posts;
+    return posts.filter((p) => getCategorySlug(p.category) === activeCategorySlug);
+  }, [posts, activeCategorySlug]);
+
+  const setCategory = (slug: string | null) => {
+    const next = new URLSearchParams(searchParams);
+    if (slug) next.set("category", slug);
+    else next.delete("category");
+    setSearchParams(next, { replace: true });
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: lang === "sv" ? "Hem" : "Home", item: "https://plaently.com" },
+      { "@type": "ListItem", position: 2, name: lang === "sv" ? "Blogg" : "Blog", item: "https://plaently.com/blog" },
+    ],
+  };
+
   return (
     <Layout>
-      <SEOHead title="Blogg – Protein, hälsosam mat, klimatsmart & snabba recept | PLÄNTLY" description="Tips, guider och recept om protein, hälsosam snabbmat och klimatsmart kost. För alla som vill äta bättre – utan att det tar tid eller kostar planeten." path="/blog" />
+      <SEOHead
+        title={lang === "sv"
+          ? "Blogg — Plantprotein, modern näring & snabbmatens framtid | PLÄNTLY"
+          : "Blog — Plant Protein, Modern Nutrition & The Future of Fast Food | PLÄNTLY"}
+        description={lang === "sv"
+          ? "Editoriellt om plantbaserad näring, snabbmatens framtid och vardagsritualer som faktiskt fungerar. Från PLÄNTLY."
+          : "Editorial on plant-based nutrition, the future of fast food, and the daily rituals that actually work. From PLÄNTLY."}
+        path="/blog"
+        locale={lang}
+        jsonLd={breadcrumbSchema}
+      />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("blog.title")}</h1>
             <p className="text-muted-foreground text-lg">{t("blog.subtitle")}</p>
           </div>
-          {posts.length > 0 ? (
+
+          {/* Category chips */}
+          <div className="flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
+            <button
+              type="button"
+              onClick={() => setCategory(null)}
+              className={`text-xs font-medium rounded-full px-4 py-2 border transition-colors ${
+                !activeCategorySlug
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card border-border/50 text-muted-foreground hover:text-primary hover:border-primary/40"
+              }`}
+            >
+              {lang === "sv" ? "Alla" : "All"}
+            </button>
+            {BLOG_CATEGORIES.map((cat) => {
+              const label = lang === "sv" ? cat.sv : cat.en;
+              const active = activeCategorySlug === cat.slug;
+              return (
+                <button
+                  key={cat.slug}
+                  type="button"
+                  onClick={() => setCategory(cat.slug)}
+                  className={`text-xs font-medium rounded-full px-4 py-2 border transition-colors ${
+                    active
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-card border-border/50 text-muted-foreground hover:text-primary hover:border-primary/40"
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+
+          {filteredPosts.length > 0 ? (
             <div className="grid sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              {posts.map((post) => (
-                <Link key={post.slug} to={`/blog/${post.slug}`} className="group rounded-2xl bg-card border border-border/50 p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up space-y-3">
-                  <p className="text-xs font-medium text-primary uppercase tracking-wider">{post.category}</p>
-                  <h2 className="font-heading text-lg font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
-                  <p className="text-sm text-muted-foreground">{post.excerpt}</p>
-                  <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-US") : ""}</p>
-                </Link>
-              ))}
+              {filteredPosts.map((post) => {
+                const catSlug = getCategorySlug(post.category);
+                return (
+                  <article key={post.slug} className="group rounded-2xl bg-card border border-border/50 p-8 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up space-y-3">
+                    {post.category && catSlug ? (
+                      <Link
+                        to={`/blog/category/${catSlug}`}
+                        className="inline-block text-xs font-medium text-primary uppercase tracking-wider hover:underline"
+                      >
+                        {post.category}
+                      </Link>
+                    ) : post.category ? (
+                      <p className="text-xs font-medium text-primary uppercase tracking-wider">{post.category}</p>
+                    ) : null}
+                    <Link to={`/blog/${post.slug}`} className="block space-y-3">
+                      <h2 className="font-heading text-lg font-semibold group-hover:text-primary transition-colors">{post.title}</h2>
+                      <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+                      <p className="text-xs text-muted-foreground">{post.published_at ? new Date(post.published_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-US") : ""}</p>
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
           ) : (
             <p className="text-center text-muted-foreground">{t("blog.noPosts")}</p>
