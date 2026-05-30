@@ -4,6 +4,10 @@ import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "@/lib/i18n";
+import { Package, Truck, Clock, AlertTriangle, RotateCcw } from "lucide-react";
+
+const PARTNER_ICONS: Record<string, typeof Package> = { PostNord: Package, DHL: Truck };
+const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 
 const COPY = {
  sv: {
