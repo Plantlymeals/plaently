@@ -19,7 +19,7 @@ export interface CategoryContent {
   keywordLabel: string;
 }
 
-type CategoryKey = "high-protein-meals" | "plant-based-meals" | "healthy-instant-meals";
+type CategoryKey = "high-protein-meals" | "plant-based-meals" | "healthy-instant-meals" | "healthy-fast-food";
 
 const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "high-protein-meals": {
