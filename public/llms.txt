@@ -2,7 +2,7 @@
 
 > Växtbaserade högprotein-måltider klara på 5 minuter. Snabb, näringsrik och bekväm mat för en aktiv vardag.
 
-PLÄNTLY tillverkar instant cup-måltider med 20g växtprotein från en blandning av ärt och solros. Sortimentet är mejerifritt, fiberrikt och utvecklat i Sverige.
+PLÄNTLY tillverkar instant cup-måltider med 20g plantprotein från en blandning av ärt och solros. Sortimentet är mejerifritt, fiberrikt och utvecklat i Sverige.
 
 ## Pages
 
@@ -11,10 +11,10 @@ PLÄNTLY tillverkar instant cup-måltider med 20g växtprotein från en blandnin
 - [Näring](/nutrition): Näringsinnehåll, makros och ingredienser.
 - [Lifestyle](/lifestyle): Användningsfall — kontoret, gymmet, resor, studier.
 - [Högprotein måltider](/high-protein-meals): Kategoriguide för högprotein.
-- [Växtbaserade måltider](/plant-based-meals): Kategoriguide för växtbaserat.
+- [Växtbaserade måltider](/plant-based-meals): Kategoriguide för plantbaserat.
 - [Hälsosamma snabbmåltider](/healthy-instant-meals): Kategoriguide för snabbmåltider.
 - [Om oss](/about): PLÄNTLYs uppdrag och historia.
-- [Blogg](/blog): Artiklar om växtbaserad kost, hälsa och hållbarhet.
+- [Blogg](/blog): Artiklar om plantbaserad kost, hälsa och hållbarhet.
 - [FAQ](/faq): Vanliga frågor om produkter och leverans.
 - [Kontakt](/contact): Kontakta oss på hello@plaently.com.
 
