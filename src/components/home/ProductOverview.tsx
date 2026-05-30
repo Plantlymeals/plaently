@@ -45,7 +45,7 @@ const ProductOverview = () => {
                     ) : image ? (
                       <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain rounded-xl" loading="lazy" />
                     ) : (
-                      <span className="text-4xl">🍝</span>
+                      <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                     )}
                   </div>
                   <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
