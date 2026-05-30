@@ -15,7 +15,7 @@ import bbq from "@/assets/cup-bbq.webp";
 interface Question {
   id: string;
   question: string;
-  options: { label: string; value: string; emoji: string }[];
+  options: { label: string; value: string }[];
 }
 
 const BUNDLES_META: Record<string, { name: string; count: number; searchTitle: string; image: string }> = {
@@ -50,30 +50,30 @@ const MealFinderQuiz = () => {
       id: "lifestyle",
       question: t("quiz.q1"),
       options: [
-        { label: t("quiz.q1o1"), value: "relaxed", emoji: "🧘" },
-        { label: t("quiz.q1o2"), value: "active", emoji: "🏃" },
-        { label: t("quiz.q1o3"), value: "professional", emoji: "💼" },
-        { label: t("quiz.q1o4"), value: "team", emoji: "🏢" },
+        { label: t("quiz.q1o1"), value: "relaxed" },
+        { label: t("quiz.q1o2"), value: "active" },
+        { label: t("quiz.q1o3"), value: "professional" },
+        { label: t("quiz.q1o4"), value: "team" },
       ],
     },
     {
       id: "meals_per_week",
       question: t("quiz.q2"),
       options: [
-        { label: t("quiz.q2o1"), value: "few", emoji: "🌱" },
-        { label: t("quiz.q2o2"), value: "daily", emoji: "🥗" },
-        { label: t("quiz.q2o3"), value: "multiple", emoji: "🍽️" },
-        { label: t("quiz.q2o4"), value: "crew", emoji: "👥" },
+        { label: t("quiz.q2o1"), value: "few" },
+        { label: t("quiz.q2o2"), value: "daily" },
+        { label: t("quiz.q2o3"), value: "multiple" },
+        { label: t("quiz.q2o4"), value: "crew" },
       ],
     },
     {
       id: "goal",
       question: t("quiz.q3"),
       options: [
-        { label: t("quiz.q3o1"), value: "explore", emoji: "✨" },
-        { label: t("quiz.q3o2"), value: "performance", emoji: "💪" },
-        { label: t("quiz.q3o3"), value: "work", emoji: "🥦" },
-        { label: t("quiz.q3o4"), value: "group", emoji: "🤝" },
+        { label: t("quiz.q3o1"), value: "explore" },
+        { label: t("quiz.q3o2"), value: "performance" },
+        { label: t("quiz.q3o3"), value: "work" },
+        { label: t("quiz.q3o4"), value: "group" },
       ],
     },
   ];
@@ -179,7 +179,7 @@ const MealFinderQuiz = () => {
                         : "border-border hover:border-primary/40 hover:bg-muted/50"
                     }`}
                   >
-                    <span className="text-2xl">{opt.emoji}</span>
+                    <span className="h-2 w-2 rounded-full bg-primary/40 shrink-0" />
                     <span className="font-medium text-foreground">{opt.label}</span>
                   </button>
                 ))}
