@@ -154,7 +154,7 @@ const ProductDetail = () => {
               ) : image ? (
                 <img src={image.url} alt={image.altText || product.title} className="h-full w-full object-contain" />
               ) : (
-                <span className="text-8xl">🍝</span>
+                <div className="h-20 w-20 rounded-full bg-muted-foreground/10" aria-hidden="true" />
               )}
             </div>
             <div className="space-y-8">
@@ -317,7 +317,7 @@ const Products = () => {
                         ) : image ? (
                           <img src={`${image.url}&width=520`} alt={image.altText || product.node.title} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
-                          <span className="text-4xl">🍝</span>
+                          <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                         )}
                       </div>
                       <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h2>
