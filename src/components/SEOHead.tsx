@@ -6,7 +6,7 @@ interface SEOHeadProps {
   path: string;
   image?: string;
   type?: string;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   locale?: "sv" | "en";
   alternates?: { hreflang: string; path: string }[];
 }
@@ -38,9 +38,11 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
-      {jsonLd ? (
-        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-      ) : null}
+      {jsonLd
+        ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, i) => (
+            <script key={i} type="application/ld+json">{JSON.stringify(schema)}</script>
+          ))
+        : null}
     </Helmet>
   );
 };
