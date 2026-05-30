@@ -54,6 +54,13 @@ const AppContent = () => {
         <Route path="/plant-based-meals" element={<CategoryPage categoryKey="plant-based-meals" />} />
         <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
         <Route path="/healthy-fast-food" element={<CategoryPage categoryKey="healthy-fast-food" />} />
+        <Route path="/protein-cups" element={<CategoryPage categoryKey="protein-cups" />} />
+        {/* Swedish slug aliases for category pages */}
+        <Route path="/proteinrika-maltider" element={<CategoryPage categoryKey="high-protein-meals" />} />
+        <Route path="/plantbaserade-maltider" element={<CategoryPage categoryKey="plant-based-meals" />} />
+        <Route path="/halsosamma-snabbmaltider" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
+        <Route path="/nyttig-snabbmat" element={<CategoryPage categoryKey="healthy-fast-food" />} />
+        <Route path="/proteinkoppar" element={<CategoryPage categoryKey="protein-cups" />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />

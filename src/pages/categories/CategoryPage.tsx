@@ -4,7 +4,12 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
-import { getCategoryContent, type CategoryKey } from "@/data/categoryContent";
+import {
+  getCategoryContent,
+  enSlugByKey,
+  svSlugByKey,
+  type CategoryKey,
+} from "@/data/categoryContent";
 
 interface Props {
   categoryKey: CategoryKey;
@@ -14,7 +19,10 @@ const CategoryPage = ({ categoryKey }: Props) => {
   const { lang } = useTranslation();
   const c = getCategoryContent(categoryKey, lang);
 
-  const jsonLd = {
+  const enSlug = enSlugByKey[categoryKey];
+  const svSlug = svSlugByKey[categoryKey];
+
+  const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: c.faqs.map((f) => ({
@@ -24,13 +32,30 @@ const CategoryPage = ({ categoryKey }: Props) => {
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: lang === "sv" ? "Hem" : "Home", item: "https://plaently.com" },
+      { "@type": "ListItem", position: 2, name: c.breadcrumbName, item: `https://plaently.com/${c.slug}` },
+    ],
+  };
+
+  const alternates = [
+    { hreflang: "en", path: `/${enSlug}` },
+    { hreflang: "sv", path: `/${svSlug}` },
+    { hreflang: "x-default", path: `/${enSlug}` },
+  ];
+
   return (
     <Layout>
       <SEOHead
         title={c.metaTitle}
         description={c.metaDescription}
         path={`/${c.slug}`}
-        jsonLd={jsonLd}
+        locale={lang}
+        alternates={alternates}
+        jsonLd={[faqSchema, breadcrumbSchema]}
       />
 
       {/* Hero */}
@@ -77,6 +102,29 @@ const CategoryPage = ({ categoryKey }: Props) => {
           ))}
         </div>
       </section>
+
+      {/* Related categories — internal linking for SEO */}
+      {c.related.length > 0 && (
+        <section className="pb-16 md:pb-20">
+          <div className="container max-w-3xl">
+            <h2 className="font-heading text-xl md:text-2xl font-bold mb-6">
+              {lang === "sv" ? "Utforska mer" : "Explore more"}
+            </h2>
+            <div className="grid sm:grid-cols-3 gap-4">
+              {c.related.map((r) => (
+                <Link
+                  key={r.slug}
+                  to={r.slug}
+                  className="rounded-2xl bg-card border border-border/50 p-5 shadow-card hover:shadow-elevated transition-all flex items-center justify-between group"
+                >
+                  <span className="font-heading font-semibold text-sm">{r.label}</span>
+                  <ArrowRight className="h-4 w-4 text-primary transition-transform group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-secondary/40">

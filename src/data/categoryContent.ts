@@ -5,6 +5,11 @@ export interface CategorySection {
   body: string[];
 }
 
+export interface RelatedLink {
+  slug: string;
+  label: string;
+}
+
 export interface CategoryContent {
   slug: string;
   metaTitle: string;
@@ -17,256 +22,269 @@ export interface CategoryContent {
   ctaHeadline: string;
   ctaText: string;
   keywordLabel: string;
+  related: RelatedLink[];
+  breadcrumbName: string;
 }
 
-type CategoryKey = "high-protein-meals" | "plant-based-meals" | "healthy-instant-meals" | "healthy-fast-food";
+type CategoryKey =
+  | "high-protein-meals"
+  | "plant-based-meals"
+  | "healthy-instant-meals"
+  | "healthy-fast-food"
+  | "protein-cups";
+
+// SV slugs per category — used for canonical + hreflang on the SV side.
+export const svSlugByKey: Record<CategoryKey, string> = {
+  "high-protein-meals": "proteinrika-maltider",
+  "plant-based-meals": "plantbaserade-maltider",
+  "healthy-instant-meals": "halsosamma-snabbmaltider",
+  "healthy-fast-food": "nyttig-snabbmat",
+  "protein-cups": "proteinkoppar",
+};
+
+export const enSlugByKey: Record<CategoryKey, string> = {
+  "high-protein-meals": "high-protein-meals",
+  "plant-based-meals": "plant-based-meals",
+  "healthy-instant-meals": "healthy-instant-meals",
+  "healthy-fast-food": "healthy-fast-food",
+  "protein-cups": "protein-cups",
+};
+
+const relatedEn = (exclude: CategoryKey): RelatedLink[] => [
+  { slug: "/healthy-fast-food", label: "Healthy fast food" },
+  { slug: "/high-protein-meals", label: "High protein meals" },
+  { slug: "/plant-based-meals", label: "Plant-based meals" },
+  { slug: "/protein-cups", label: "Protein cups" },
+].filter((r) => r.slug !== `/${enSlugByKey[exclude]}`).slice(0, 3);
+
+const relatedSv = (exclude: CategoryKey): RelatedLink[] => [
+  { slug: "/nyttig-snabbmat", label: "Hälsosam snabbmat" },
+  { slug: "/proteinrika-maltider", label: "Proteinrika måltider" },
+  { slug: "/plantbaserade-maltider", label: "Plantbaserade måltider" },
+  { slug: "/proteinkoppar", label: "Proteinkoppar" },
+].filter((r) => r.slug !== `/${svSlugByKey[exclude]}`).slice(0, 3);
 
 const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "high-protein-meals": {
     en: {
       slug: "high-protein-meals",
-      metaTitle: "​Protein Meals — 20g Plant Protein in 5 Min | PLÄNTLY",
-      metaDescription: "​Protein Meals ready in 5 minutes. 20g complete plant protein per serving — for athletes, professionals and busy modern lifestyles.",
-      h1: "​Protein Meals",
+      breadcrumbName: "High Protein Meals",
+      metaTitle: "High Protein Meals | 20g Protein Ready in 5 Minutes | PLÄNTLY",
+      metaDescription: "High protein meals with 20g plant protein per serving. Ready in 5 minutes. No prep, no cooking, no compromise. Developed in Sweden. Crafted in Italy.",
+      h1: "High Protein Meals.",
       keywordLabel: "High protein · Plant-based · Ready in 5 min",
-      intro:
-        "PLÄNTLY high protein meals deliver 20g of complete plant protein in every cup — ready in the time it takes to boil water. Real food, real protein, no compromise.",
+      intro: "20g of plant protein in every meal, ready in 5 minutes. Real food for people who train, work and live at full pace.",
       sections: [
         {
-          heading: "Why high protein matters",
+          heading: "20g protein. Every meal. Every time.",
           body: [
-            "Protein is the single most important macronutrient for muscle repair, satiety and stable energy. Most fast food fails on all three. PLÄNTLY was built to fix that — without forcing you to spend an hour in the kitchen.",
-            "Each PLÄNTLY meal is engineered to hit 20g of complete plant protein from a blend of pea and sunflower protein — a combination that matches whey on amino acid score and bioavailability. You get the muscle-building benefit of animal protein, with the lighter digestion of plants.",
+            "Whether you train twice a week or twice a day — protein is non-negotiable. PLÄNTLY delivers 20g of plant protein per meal, consistently, in 5 minutes.",
+            "Each cup is engineered around a pea and sunflower protein blend with a complete amino acid profile — matching whey on score and bioavailability, with the lighter digestion of plants.",
           ],
         },
         {
-          heading: "Built for active lifestyles",
+          heading: "No prep. No cooking. No excuses.",
           body: [
-            "Whether you train five times a week or simply want to stay sharp through long workdays, your body needs consistent protein intake. Skipping meals or relying on processed snacks puts you in an energy and recovery deficit.",
-            "PLÄNTLY high protein meals fit into any routine: post-workout refuel, desk lunch, late-night dinner. Just add hot water, wait 5 minutes, and you have a balanced meal — not a shake, not a bar, but actual food.",
+            "Meal prep takes time you don't always have. PLÄNTLY is your everyday high protein meal — ready in 5 minutes, wherever you are. Office, gym bag, kitchen counter.",
           ],
         },
         {
-          heading: "Complete plant protein, complete nutrition",
+          heading: "Plant protein that performs.",
           body: [
-            "Beyond protein, every meal includes slow-release carbohydrates, healthy fats from olive oil and nuts, and 5–9g of gut-friendly fibre. The result is steady energy without the post-lunch crash.",
-            "We use real ingredients you can pronounce — lentils, pasta, vegetables, herbs, spices. No artificial flavours, no fillers, no compromise on taste.",
-          ],
-        },
-        {
-          heading: "Our high protein meals",
-          body: [
-            "Choose from four signature recipes — Plant-Based Bolognese, Carbonara, Yellow Curry with Rice, and Smokey Lentils. Each cup is portion-controlled, calorie-balanced and shelf-stable, so you can stock your desk, gym bag or pantry with confidence.",
+            "The protein in PLÄNTLY comes from premium plant sources with a complete amino acid profile. The same performance — without the compromise on sustainability.",
+            "Pair it with slow-release carbohydrates, healthy fats and 5–9g of fibre, and you have a meal designed to sustain focus and recovery — not spike and crash.",
           ],
         },
       ],
       benefits: [
-        { title: "20g plant protein", desc: "Complete amino acid profile from pea and sunflower protein." },
-        { title: "Ready in 5 minutes", desc: "Just add hot water — real food, no waiting." },
-        { title: "Balanced macros", desc: "Slow carbs, healthy fats and fibre in every meal." },
-        { title: "100% plant-based", desc: "No animal products, no artificial additives." },
+        { title: "20g protein per serving", desc: "Complete amino acid profile from pea and sunflower protein." },
+        { title: "5 minutes to ready", desc: "Just add hot water — real food, no waiting." },
+        { title: "4 meals to choose from", desc: "Bolognese, Carbonara, Yellow Curry, Smokey Lentils." },
+        { title: "0 artificial additives", desc: "Real ingredients only, nothing else." },
       ],
       faqs: [
-        { q: "Is plant protein as good as whey?", a: "Yes. Our pea and sunflower protein blend matches whey on amino acid score and bioavailability — with easier digestion." },
-        { q: "How much protein per serving?", a: "Every PLÄNTLY meal contains 20g of complete plant protein per serving." },
-        { q: "Are these meals suitable post-workout?", a: "Absolutely. The 20g protein hit plus balanced carbs make them ideal for muscle recovery within 30–60 minutes of training." },
+        { q: "How much protein is in a PLÄNTLY meal?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to approximately 3 eggs or a medium chicken breast." },
+        { q: "Are PLÄNTLY high protein meals good for muscle building?", a: "Yes. 20g of protein per meal supports muscle protein synthesis. Research recommends 20–40g of protein per meal for optimal muscle building, which PLÄNTLY delivers consistently." },
+        { q: "What protein source does PLÄNTLY use?", a: "PLÄNTLY uses high-quality plant protein sources including pea protein and legumes, carefully combined to deliver a complete amino acid profile." },
       ],
-      ctaHeadline: "Try high protein meals today",
+      ctaHeadline: "20g protein. 5 minutes. No compromise.",
       ctaText: "Shop now",
+      related: relatedEn("high-protein-meals"),
     },
     sv: {
-      slug: "high-protein-meals",
-      metaTitle: "​Protein Måltider — 20g plantprotein på 5 min | PLÄNTLY",
-      metaDescription: "​Protein Måltider klara på 5 minuter. 20g komplett plantprotein per portion — för atleter, yrkesverksamma och moderna livsstilar.",
-      h1: "​Protein Måltider",
-      keywordLabel: "Högprotein · Växtbaserat · Klart på 5 min",
-      intro:
-        "PLÄNTLY högprotein-måltider levererar 20g komplett plantprotein i varje kopp — klara på tiden det tar att koka vatten. Riktig mat, riktigt protein, inga kompromisser.",
+      slug: "proteinrika-maltider",
+      breadcrumbName: "Proteinrika måltider",
+      metaTitle: "Proteinrika måltider | 20g protein på 5 minuter | PLÄNTLY",
+      metaDescription: "Proteinrika måltider med 20g plantprotein per portion. Klart på 5 minuter. Ingen förberedelse, ingen matlagning, ingen kompromiss. Utvecklat i Sverige. Hantverk från Italien.",
+      h1: "Proteinrika måltider.",
+      keywordLabel: "Högprotein · Plantbaserat · Klart på 5 min",
+      intro: "20g plantprotein i varje måltid, klart på 5 minuter. Riktig mat för dig som tränar, jobbar och lever i fullt tempo.",
       sections: [
         {
-          heading: "Varför högt protein spelar roll",
+          heading: "20g protein. Varje måltid. Varje gång.",
           body: [
-            "Protein är det enskilt viktigaste makronäringsämnet för muskelreparation, mättnad och stabil energi. Det mesta av snabbmaten misslyckas på alla tre punkter. PLÄNTLY byggdes för att lösa det — utan att tvinga dig att stå en timme i köket.",
-            "Varje PLÄNTLY-måltid är designad för att leverera 20g komplett plantprotein från en blandning av ärt och solros protein — en kombination som matchar vassle på aminosyraprofil och biotillgänglighet. Du får den muskeluppbyggande effekten med plantans lättare matsmältning.",
+            "Oavsett om du tränar två gånger i veckan eller två gånger om dagen — protein är inte förhandlingsbart. PLÄNTLY levererar 20g plantprotein per måltid, konsekvent, på 5 minuter.",
+            "Varje kopp är byggd kring en blandning av ärt- och solrosprotein med komplett aminosyraprofil — som matchar vassle på poäng och biotillgänglighet, med plantans lättare matsmältning.",
           ],
         },
         {
-          heading: "Byggd för aktiva livsstilar",
+          heading: "Ingen förberedelse. Ingen matlagning. Inga ursäkter.",
           body: [
-            "Oavsett om du tränar fem gånger i veckan eller bara vill hålla skärpan genom långa arbetsdagar behöver kroppen ett jämnt proteinintag. Att hoppa över måltider eller förlita sig på processade snacks skapar både energi- och återhämtningsbrist.",
-            "PLÄNTLY högprotein-måltider passar i alla rutiner: efter träning, lunch vid skrivbordet, sen middag. Tillsätt bara hett vatten, vänta 5 minuter och du har en balanserad måltid — inte en shake eller bar, utan riktig mat.",
+            "Meal prep tar tid du inte alltid har. PLÄNTLY är din vardagsmåltid med högt protein — klar på 5 minuter, var du än är. Kontoret, gympaväskan, köksbänken.",
           ],
         },
         {
-          heading: "Komplett plantprotein, komplett näring",
+          heading: "Plantprotein som presterar.",
           body: [
-            "Utöver protein innehåller varje måltid långsamma kolhydrater, hälsosamma fetter från olivolja och nötter, och 5–9g tarmvänlig fiber. Resultatet är jämn energi utan dipp efter lunch.",
-            "Vi använder riktiga ingredienser du kan uttala — linser, pasta, grönsaker, örter, kryddor. Inga konstgjorda smaker, inga fyllmedel, ingen kompromiss med smaken.",
-          ],
-        },
-        {
-          heading: "Våra högprotein-måltider",
-          body: [
-            "Välj mellan fyra signaturrecept — Växtbaserad Bolognese, Carbonara, Gul Curry med Ris och Smokey Lentils. Varje kopp är portionskontrollerad, kaloribalanserad och hållbar — så du kan fylla på skrivbord, gympaväska eller skafferi med säkerhet.",
+            "Proteinet i PLÄNTLY kommer från premium plantkällor med komplett aminosyraprofil. Samma prestation — utan kompromiss med hållbarheten.",
+            "Kombinera det med långsamma kolhydrater, hälsosamma fetter och 5–9g fiber så har du en måltid designad för fokus och återhämtning — utan toppar och dippar.",
           ],
         },
       ],
       benefits: [
-        { title: "20g plantprotein", desc: "Komplett aminosyraprofil från ärt och solros protein." },
+        { title: "20g protein per portion", desc: "Komplett aminosyraprofil från ärt- och solrosprotein." },
         { title: "Klart på 5 minuter", desc: "Tillsätt bara hett vatten — riktig mat, ingen väntan." },
-        { title: "Balanserade makron", desc: "Långsamma kolhydrater, hälsosamma fetter och fiber." },
-        { title: "100% plantbaserat", desc: "Inga animaliska produkter, inga konstgjorda tillsatser." },
+        { title: "4 måltider att välja mellan", desc: "Bolognese, Carbonara, Gul Curry, Smokey Lentils." },
+        { title: "0 konstgjorda tillsatser", desc: "Bara riktiga ingredienser, inget annat." },
       ],
       faqs: [
-        { q: "Är plantprotein lika bra som vassle?", a: "Ja. Vår blandning av ärt och solros protein matchar vassle på aminosyrapoäng och biotillgänglighet — med lättare matsmältning." },
-        { q: "Hur mycket protein per portion?", a: "Varje PLÄNTLY-måltid innehåller 20g komplett plantprotein per portion." },
-        { q: "Passar måltiderna efter träning?", a: "Absolut. 20g protein plus balanserade kolhydrater gör dem perfekta för muskelåterhämtning inom 30–60 minuter efter passet." },
+        { q: "Hur mycket protein finns i en PLÄNTLY-måltid?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarar ungefär 3 ägg eller en medelstor kycklingfilé." },
+        { q: "Är PLÄNTLY:s proteinrika måltider bra för muskelbyggande?", a: "Ja. 20g protein per måltid stödjer muskelproteinsyntes. Forskning rekommenderar 20–40g protein per måltid för optimalt muskelbyggande — det levererar PLÄNTLY konsekvent." },
+        { q: "Vilken proteinkälla använder PLÄNTLY?", a: "PLÄNTLY använder högkvalitativa plantproteinkällor inklusive ärtprotein och baljväxter, noga kombinerade för en komplett aminosyraprofil." },
       ],
-      ctaHeadline: "Prova högprotein-måltider idag",
+      ctaHeadline: "20g protein. 5 minuter. Ingen kompromiss.",
       ctaText: "Handla nu",
+      related: relatedSv("high-protein-meals"),
     },
   },
   "plant-based-meals": {
     en: {
       slug: "plant-based-meals",
-      metaTitle: "Plant-Based Ready Meals — Real Food in 5 Minutes | PLÄNTLY",
-      metaDescription: "Plant-based ready meals with 20g protein, balanced macros and real ingredients. The healthy fast food alternative for modern lifestyles.",
-      h1: "Plant-Based Ready Meals",
-      keywordLabel: "Plant-based · Real food · Sustainable",
-      intro:
-        "PLÄNTLY plant-based ready meals are real food, made from real plants — engineered for the moments when convenience matters most.",
+      breadcrumbName: "Plant-Based Meals",
+      metaTitle: "Plant-Based Meals | 20g Protein | Ready in 5 Minutes | PLÄNTLY",
+      metaDescription: "Plant-based meals with 20g protein per serving. Not just for plant-based eaters — for everyone who wants to eat smarter. Ready in 5 minutes. Developed in Sweden. Crafted in Italy.",
+      h1: "Plant-Based Meals.",
+      keywordLabel: "Plant-based · Real food · Lower footprint",
+      intro: "Plant-based meals with 20g of protein, ready in 5 minutes. Not a label — a smarter choice.",
       sections: [
         {
-          heading: "What 'plant-based' really means",
+          heading: "Not just for plant-based eaters. For everyone.",
           body: [
-            "Plant-based isn't a label — it's a standard. PLÄNTLY uses 100% plant ingredients: lentils, pulses, vegetables, whole grains, olive oil, herbs and spices. No animal products, no hidden fillers, no compromise.",
-            "We believe plant-based meals should taste better than the alternatives, not worse. That's why every recipe goes through dozens of iterations with our chefs before it ever reaches a cup.",
+            "Eating plant-based is not a statement. It is a smarter choice — for your body, for the planet, for your routine. PLÄNTLY plant-based meals deliver 20g of protein, ready in 5 minutes. No label required.",
           ],
         },
         {
-          heading: "Better for you, better for the planet",
+          heading: "The climate case for plant protein.",
           body: [
-            "A plant-based meal uses up to 90% less water and produces a fraction of the CO₂ emissions of a comparable meat meal. Choosing PLÄNTLY for one lunch a week meaningfully reduces your environmental footprint.",
-            "But sustainability shouldn't be a sacrifice. Our meals are designed to deliver more nutrition per calorie than typical fast food — more protein, more fibre, more micronutrients.",
+            "Plant protein produces up to 90% less CO2 than beef protein. One PLÄNTLY meal instead of a meat-based lunch is one of the highest-impact climate choices you can make today — without changing anything else.",
           ],
         },
         {
-          heading: "Convenience without compromise",
+          heading: "Same protein. Fraction of the footprint.",
           body: [
-            "The biggest barrier to eating well isn't motivation — it's time. PLÄNTLY closes that gap. Cup, hot water, 5 minutes. That's the entire process.",
-            "Stash a few cups at your desk, in your gym bag, or at home. When hunger strikes, you have a real meal ready — not a granola bar, not takeaway, not skipping lunch again.",
+            "Beyond protein, every meal includes slow-release carbohydrates, healthy fats from olive oil and nuts, and 5–9g of gut-friendly fibre. Real ingredients you can pronounce — lentils, pasta, vegetables, herbs, spices.",
           ],
         },
         {
-          heading: "From our kitchen to yours",
+          heading: "Developed in Sweden. Crafted in Italy.",
           body: [
-            "Our four signature meals — Bolognese, Carbonara, Yellow Curry with Rice, and Smokey Lentils — were developed by our team in Stockholm to deliver craveable flavour with serious nutrition.",
-            "Each cup is shelf-stable, portable and recyclable. No fridge, no freezer, no fuss.",
+            "PLÄNTLY was developed in Sweden — where plant-based eating is not a trend, it is a mindset. Every recipe is crafted in Italy, where food quality is non-negotiable.",
           ],
         },
       ],
       benefits: [
-        { title: "100% plant-based", desc: "Real plants, real food, no animal products." },
-        { title: "Lower footprint", desc: "Up to 90% less water than comparable meat meals." },
-        { title: "Shelf-stable", desc: "No fridge or freezer needed — store anywhere." },
-        { title: "Recyclable packaging", desc: "Designed with sustainability in mind." },
+        { title: "20g plant protein per meal", desc: "Complete amino acid profile, every cup." },
+        { title: "Up to 90% lower CO2 vs beef", desc: "One of the highest-impact climate choices." },
+        { title: "5 minutes to ready", desc: "Hot water. Stir. Wait. Eat." },
+        { title: "0 artificial additives", desc: "Real ingredients, nothing else." },
       ],
       faqs: [
-        { q: "Are PLÄNTLY meals 100% vegan?", a: "Yes — all PLÄNTLY meals are 100% plant-based with no animal-derived ingredients." },
-        { q: "Do they need refrigeration?", a: "No. Our cups are shelf-stable for months — perfect for desks, pantries and travel." },
-        { q: "Is the packaging recyclable?", a: "Yes, our cups are designed to be recyclable in standard household streams." },
+        { q: "Are PLÄNTLY plant-based meals only for plant-based eaters?", a: "No. PLÄNTLY plant-based meals are designed for everyone — plant-based, vegetarian, flexitarian, or anyone who simply wants more protein and less environmental impact in their diet." },
+        { q: "Why choose plant-based protein?", a: "Plant-based protein has a fraction of the climate impact of animal protein — while delivering the same 20g of protein per meal. Choosing plant-based once a day is one of the highest-impact food choices you can make." },
+        { q: "Do plant-based meals have enough protein?", a: "Yes. Each PLÄNTLY meal contains 20g of plant protein with a complete amino acid profile — equivalent to a serving of chicken or fish." },
       ],
-      ctaHeadline: "Switch to plant-based",
+      ctaHeadline: "Same protein. Fraction of the footprint.",
       ctaText: "Shop now",
+      related: relatedEn("plant-based-meals"),
     },
     sv: {
-      slug: "plant-based-meals",
-      metaTitle: "Växtbaserade färdigrätter — riktig mat på 5 minuter | PLÄNTLY",
-      metaDescription: "Växtbaserade färdigrätter med 20g protein, balanserade makron och riktiga ingredienser. Det hälsosamma snabbmatsalternativet för moderna livsstilar.",
-      h1: "Växtbaserade färdigrätter",
-      keywordLabel: "Växtbaserat · Riktig mat · Hållbart",
-      intro:
-        "PLÄNTLY plantbaserade färdigrätter är riktig mat, gjord av riktiga växter — utvecklad för de stunder då bekvämligheten betyder mest.",
+      slug: "plantbaserade-maltider",
+      breadcrumbName: "Plantbaserade måltider",
+      metaTitle: "Plantbaserade måltider | 20g protein | Klart på 5 minuter | PLÄNTLY",
+      metaDescription: "Plantbaserade måltider med 20g protein per portion. Inte bara för plantbaserade — för alla som vill äta smartare. Klart på 5 minuter. Utvecklat i Sverige. Hantverk från Italien.",
+      h1: "Plantbaserade måltider.",
+      keywordLabel: "Plantbaserat · Riktig mat · Lägre avtryck",
+      intro: "Plantbaserade måltider med 20g protein, klart på 5 minuter. Inte en etikett — ett smartare val.",
       sections: [
         {
-          heading: "Vad 'plantbaserat' verkligen betyder",
+          heading: "Inte bara för plantbaserade. För alla.",
           body: [
-            "Växtbaserat är inte en etikett — det är en standard. PLÄNTLY använder 100% plantbaserade ingredienser: linser, baljväxter, grönsaker, fullkorn, olivolja, örter och kryddor. Inga animaliska produkter, inga dolda fyllmedel, inga kompromisser.",
-            "Vi tror att plantbaserade måltider ska smaka bättre än alternativen — inte sämre. Därför går varje recept genom dussintals iterationer med våra kockar innan det ens når en kopp.",
+            "Att äta plantbaserat är inte ett ställningstagande. Det är ett smartare val — för kroppen, för planeten, för din rutin. PLÄNTLY:s plantbaserade måltider levererar 20g protein, klart på 5 minuter. Ingen etikett krävs.",
           ],
         },
         {
-          heading: "Bättre för dig, bättre för planeten",
+          heading: "Klimatargumentet för plantprotein.",
           body: [
-            "En plantbaserad måltid använder upp till 90% mindre vatten och ger en bråkdel av CO₂-utsläppen jämfört med en motsvarande köttmåltid. Att välja PLÄNTLY till en lunch i veckan minskar din miljöpåverkan på riktigt.",
-            "Men hållbarhet ska inte vara en uppoffring. Våra måltider är designade för att leverera mer näring per kalori än vanlig snabbmat — mer protein, mer fiber, mer mikronäringsämnen.",
+            "Plantprotein ger upp till 90% mindre CO2 än nötkött. En PLÄNTLY-måltid istället för en köttlunch är ett av de mest effektiva klimatval du kan göra idag — utan att ändra något annat.",
           ],
         },
         {
-          heading: "Bekvämlighet utan kompromiss",
+          heading: "Samma protein. Bråkdel av avtrycket.",
           body: [
-            "Det största hindret för att äta bra är inte motivation — det är tid. PLÄNTLY täpper till det gapet. Kopp, hett vatten, 5 minuter. Det är hela processen.",
-            "Förvara några koppar vid skrivbordet, i gympaväskan eller hemma. När hungern slår till har du en riktig måltid redo — ingen müslibar, ingen takeaway, ingen utebliven lunch igen.",
+            "Utöver protein innehåller varje måltid långsamma kolhydrater, hälsosamma fetter från olivolja och nötter, och 5–9g tarmvänlig fiber. Riktiga ingredienser du kan uttala — linser, pasta, grönsaker, örter, kryddor.",
           ],
         },
         {
-          heading: "Från vårt kök till ditt",
+          heading: "Utvecklat i Sverige. Hantverk från Italien.",
           body: [
-            "Våra fyra signaturmåltider — Bolognese, Carbonara, Gul Curry med Ris och Smokey Lentils — utvecklades av vårt team i Stockholm för att leverera smak du längtar efter, med seriös näring.",
-            "Varje kopp är hållbar, portabel och återvinningsbar. Inget kylskåp, ingen frys, inget krångel.",
+            "PLÄNTLY utvecklades i Sverige — där plantbaserat ätande inte är en trend, utan ett tankesätt. Varje recept har sitt hantverk i Italien, där matkvalitet inte är förhandlingsbar.",
           ],
         },
       ],
       benefits: [
-        { title: "100% plantbaserat", desc: "Riktiga växter, riktig mat, inga animaliska produkter." },
-        { title: "Lägre miljöavtryck", desc: "Upp till 90% mindre vatten än motsvarande köttmåltider." },
-        { title: "Hållbart i hyllan", desc: "Inget kylskåp eller frys behövs — förvara var som helst." },
-        { title: "Återvinningsbar förpackning", desc: "Designad med hållbarhet i åtanke." },
+        { title: "20g plantprotein per måltid", desc: "Komplett aminosyraprofil, varje kopp." },
+        { title: "Upp till 90% lägre CO2 vs nötkött", desc: "Ett av de mest effektiva klimatvalen." },
+        { title: "Klart på 5 minuter", desc: "Hett vatten. Rör. Vänta. Ät." },
+        { title: "0 konstgjorda tillsatser", desc: "Riktiga ingredienser, inget annat." },
       ],
       faqs: [
-        { q: "Är PLÄNTLY-måltider 100% veganska?", a: "Ja — alla PLÄNTLY-måltider är 100% plantbaserade utan animaliska ingredienser." },
-        { q: "Behöver de kylas?", a: "Nej. Våra koppar är hållbara i månader — perfekt för skrivbord, skafferi och resor." },
-        { q: "Är förpackningen återvinningsbar?", a: "Ja, våra koppar är designade för att kunna återvinnas i vanlig hushållssortering." },
+        { q: "Är PLÄNTLY:s plantbaserade måltider bara för plantbaserade?", a: "Nej. PLÄNTLY:s plantbaserade måltider är designade för alla — plantbaserade, vegetarianer, flexitarianer eller alla som vill ha mer protein och mindre klimatpåverkan i kosten." },
+        { q: "Varför välja plantprotein?", a: "Plantprotein har en bråkdel av klimatpåverkan jämfört med animaliskt protein — och levererar samma 20g protein per måltid. Att välja plantbaserat en gång om dagen är ett av de mest effektiva matval du kan göra." },
+        { q: "Innehåller plantbaserade måltider tillräckligt med protein?", a: "Ja. Varje PLÄNTLY-måltid innehåller 20g plantprotein med komplett aminosyraprofil — motsvarande en portion kyckling eller fisk." },
       ],
-      ctaHeadline: "Byt till plantbaserat",
+      ctaHeadline: "Samma protein. Bråkdel av avtrycket.",
       ctaText: "Handla nu",
+      related: relatedSv("plant-based-meals"),
     },
   },
   "healthy-instant-meals": {
     en: {
       slug: "healthy-instant-meals",
-      metaTitle: "Healthy Instant Meals — Real Food, Ready in 5 Min | PLÄNTLY",
-      metaDescription: "Healthy instant meals with 20g plant protein and balanced nutrition. The smart alternative to instant noodles and processed fast food.",
-      h1: "Healthy Instant Meals",
+      breadcrumbName: "Healthy Instant Meals",
+      metaTitle: "Healthy Instant Meals | Real Food in 5 Minutes | PLÄNTLY",
+      metaDescription: "Healthy instant meals with 20g plant protein and balanced nutrition. The smart way to eat fast without sacrificing real food.",
+      h1: "Healthy Instant Meals.",
       keywordLabel: "Instant · Healthy · Real ingredients",
-      intro:
-        "PLÄNTLY proves that 'instant' and 'healthy' belong in the same sentence. Real ingredients, 20g of plant protein, ready in 5 minutes.",
+      intro: "PLÄNTLY proves that 'instant' and 'healthy' belong in the same sentence. Real ingredients, 20g of plant protein, ready in 5 minutes.",
       sections: [
         {
-          heading: "The instant food problem — solved",
+          heading: "The instant food problem — solved.",
           body: [
-            "For decades, instant meals meant a trade-off: speed in exchange for sodium bombs, refined carbs and zero protein. The category got faster, but it never got better.",
-            "PLÄNTLY rebuilds the instant meal from scratch. Same convenience, completely different nutrition profile. 20g of complete plant protein, balanced macros, real ingredients — all in the time it takes to boil a kettle.",
+            "For decades, instant meals meant a trade-off: speed in exchange for sodium bombs, refined carbs and low protein. The category got faster, but it never got better.",
+            "PLÄNTLY rebuilds the instant meal from scratch. Same convenience, completely different nutrition profile — 20g of complete plant protein, balanced macros, real ingredients.",
           ],
         },
         {
-          heading: "Healthy fast food, finally",
+          heading: "Healthy fast food, finally.",
           body: [
-            "Most fast food forces you to choose between speed, taste and nutrition. PLÄNTLY refuses that trade-off. Our meals are designed to deliver all three — without packaged shortcuts that compromise quality.",
-            "Whether you're working late, between meetings, or hungry after a workout, you shouldn't have to settle for something that leaves you sluggish. PLÄNTLY keeps you fuelled and focused.",
+            "PLÄNTLY refuses the trade-off between speed, taste and nutrition. Our meals are designed to deliver all three — without packaged shortcuts that compromise quality.",
+            "Whether you're working late, between meetings or hungry after a workout, you shouldn't settle for something that leaves you sluggish.",
           ],
         },
         {
-          heading: "Perfect for the modern day",
+          heading: "Perfect for the modern day.",
           body: [
             "Office desks, hotel rooms, university dorms, gym bags — PLÄNTLY fits anywhere a kettle does. No kitchen, no cooking skills, no shopping trips. Just real food when you need it.",
-            "We hear the same story from athletes, entrepreneurs, parents and students: PLÄNTLY is the meal they reach for when they don't want to compromise on health or time.",
-          ],
-        },
-        {
-          heading: "Try the healthy instant meal",
-          body: [
-            "Start with our 12-meal Starter Pack and try all four flavours. Most people find a favourite within the first week — and never go back to instant noodles.",
           ],
         },
       ],
@@ -281,43 +299,37 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { q: "How long do they take to prepare?", a: "5 minutes. Add hot water, stir, wait, eat." },
         { q: "Do I need anything besides water?", a: "Just a cup of boiling water — that's it. No cooking, no microwave, no extra ingredients." },
       ],
-      ctaHeadline: "Try healthy instant meals",
+      ctaHeadline: "Try healthy instant meals.",
       ctaText: "Shop now",
+      related: relatedEn("healthy-instant-meals"),
     },
     sv: {
-      slug: "healthy-instant-meals",
-      metaTitle: "Hälsosamma snabbmåltider — riktig mat på 5 min | PLÄNTLY",
-      metaDescription: "Hälsosamma snabbmåltider med 20g plantprotein och balanserad näring. Det smarta alternativet till snabbnudlar och processad snabbmat.",
-      h1: "Hälsosamma snabbmåltider",
+      slug: "halsosamma-snabbmaltider",
+      breadcrumbName: "Hälsosamma snabbmåltider",
+      metaTitle: "Hälsosamma snabbmåltider | Riktig mat på 5 min | PLÄNTLY",
+      metaDescription: "Hälsosamma snabbmåltider med 20g plantprotein och balanserad näring. Det smarta sättet att äta snabbt — utan att offra riktig mat.",
+      h1: "Hälsosamma snabbmåltider.",
       keywordLabel: "Snabb · Hälsosam · Riktiga ingredienser",
-      intro:
-        "PLÄNTLY bevisar att 'snabb' och 'hälsosam' hör hemma i samma mening. Riktiga ingredienser, 20g plantprotein, klart på 5 minuter.",
+      intro: "PLÄNTLY bevisar att 'snabb' och 'hälsosam' hör hemma i samma mening. Riktiga ingredienser, 20g plantprotein, klart på 5 minuter.",
       sections: [
         {
-          heading: "Snabbmatsproblemet — löst",
+          heading: "Snabbmatsproblemet — löst.",
           body: [
-            "I årtionden har snabbmåltider betytt en kompromiss: hastighet i utbyte mot saltbomber, raffinerade kolhydrater och noll protein. Kategorin blev snabbare men aldrig bättre.",
-            "PLÄNTLY bygger om snabbmåltiden från grunden. Samma bekvämlighet, helt annan näringsprofil. 20g komplett plantprotein, balanserade makron, riktiga ingredienser — allt på tiden det tar att koka en kanna vatten.",
+            "I årtionden har snabbmåltider betytt en kompromiss: hastighet i utbyte mot saltbomber, raffinerade kolhydrater och lågt protein. Kategorin blev snabbare men aldrig bättre.",
+            "PLÄNTLY bygger om snabbmåltiden från grunden. Samma bekvämlighet, helt annan näringsprofil — 20g komplett plantprotein, balanserade makron, riktiga ingredienser.",
           ],
         },
         {
-          heading: "Hälsosam snabbmat, äntligen",
+          heading: "Hälsosam snabbmat, äntligen.",
           body: [
-            "Det mesta av snabbmaten tvingar dig att välja mellan hastighet, smak och näring. PLÄNTLY vägrar den kompromissen. Våra måltider är designade att leverera alla tre — utan genvägar som sänker kvaliteten.",
-            "Oavsett om du jobbar sent, är mellan möten eller hungrig efter träning ska du inte behöva nöja dig med något som gör dig trög. PLÄNTLY håller dig mätt och fokuserad.",
+            "PLÄNTLY vägrar kompromissen mellan hastighet, smak och näring. Våra måltider är designade att leverera alla tre — utan genvägar som sänker kvaliteten.",
+            "Oavsett om du jobbar sent, är mellan möten eller hungrig efter träning ska du inte behöva nöja dig med något som gör dig trög.",
           ],
         },
         {
-          heading: "Perfekt för det moderna livet",
+          heading: "Perfekt för det moderna livet.",
           body: [
-            "Kontorsskrivbord, hotellrum, studentkorridorer, gympaväskor — PLÄNTLY passar överallt där en vattenkokare passar. Inget kök, inga matlagningskunskaper, ingen butiksrunda. Bara riktig mat när du behöver den.",
-            "Vi hör samma historia från atleter, entreprenörer, föräldrar och studenter: PLÄNTLY är måltiden de greppar efter när de inte vill kompromissa med hälsa eller tid.",
-          ],
-        },
-        {
-          heading: "Prova den hälsosamma snabbmåltiden",
-          body: [
-            "Börja med vårt 12-måltiders Starter Pack och prova alla fyra smakerna. De flesta hittar en favorit inom första veckan — och går aldrig tillbaka till snabbnudlar.",
+            "Kontorsskrivbord, hotellrum, studentkorridorer, gympaväskor — PLÄNTLY passar överallt där en vattenkokare passar. Inget kök, inga matlagningskunskaper, ingen butiksrunda.",
           ],
         },
       ],
@@ -332,45 +344,37 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { q: "Hur lång tid tar det att tillaga?", a: "5 minuter. Tillsätt hett vatten, rör om, vänta, ät." },
         { q: "Behöver jag något annat än vatten?", a: "Bara en kopp kokande vatten — det är allt. Ingen matlagning, ingen mikro, inga extra ingredienser." },
       ],
-      ctaHeadline: "Prova hälsosamma snabbmåltider",
+      ctaHeadline: "Prova hälsosamma snabbmåltider.",
       ctaText: "Handla nu",
+      related: relatedSv("healthy-instant-meals"),
     },
   },
   "healthy-fast-food": {
     en: {
       slug: "healthy-fast-food",
+      breadcrumbName: "Healthy Fast Food",
       metaTitle: "Healthy Fast Food | 20g Protein in 5 Minutes | PLÄNTLY",
       metaDescription: "Healthy fast food that actually delivers. 20g protein per meal, ready in 5 minutes. Developed in Sweden. Crafted in Italy. No compromise.",
       h1: "Healthy Fast Food.",
       keywordLabel: "A new category · Plant protein · 5 minutes",
-      intro:
-        "PLÄNTLY is rewriting the rules of fast food. Real meals, 20g of plant protein, ready in the time it takes to boil water.",
+      intro: "PLÄNTLY is rewriting the rules of fast food. Real meals, 20g of plant protein, ready in the time it takes to boil water.",
       sections: [
         {
-          heading: "A new category, not a compromise",
+          heading: "Fast food. Rewritten.",
           body: [
-            "Fast food was designed for speed — and stopped there. The result was a category built on processed ingredients, low protein and high regret. PLÄNTLY exists to move that category forward, not patch it.",
-            "We are not a lighter version of fast food. We are what fast food becomes once nutrition, time and craft are treated as equal priorities.",
+            "Fast food was never the problem. Compromise was. PLÄNTLY meals are ready in 5 minutes — the same time as any fast food — but with 20g of protein, real ingredients, and zero regret.",
           ],
         },
         {
-          heading: "20g plant protein in every meal",
+          heading: "20g protein. 5 minutes. No compromise.",
           body: [
-            "Every cup delivers 20g of complete plant protein from a pea and sunflower blend — a profile that matches whey on amino acid score and bioavailability, with the lighter digestion of plants.",
-            "Pair that with slow-release carbohydrates, healthy fats and 5–9g of fibre and you have a meal designed to sustain focus and recovery, not spike and crash.",
+            "Every PLÄNTLY meal is engineered around one rule: it has to be as fast as fast food, and as good as a proper meal. Developed in Sweden. Crafted in Italy.",
           ],
         },
         {
-          heading: "Ready in 5 minutes",
+          heading: "The future of convenience food.",
           body: [
-            "Add hot water. Wait 5 minutes. Eat real food. No microwave, no kitchen, no shortcuts that sacrifice quality. PLÄNTLY fits where a kettle fits — your desk, your gym bag, your hotel room.",
-          ],
-        },
-        {
-          heading: "Developed in Sweden. Crafted in Italy.",
-          body: [
-            "Scandinavian nutrition standards meet Italian craftsmanship. Every recipe is engineered in Sweden for macro balance and developed with Italian producers who treat pasta, lentils and sauce as a craft.",
-            "The outcome is fast food that respects your time and your standards — global by design, premium by default.",
+            "Convenience and nutrition have always been traded against each other. We ended that trade. PLÄNTLY is healthy fast food — not a compromise between the two.",
           ],
         },
       ],
@@ -387,41 +391,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       ctaHeadline: "The future of fast food. Today.",
       ctaText: "Shop meals",
+      related: relatedEn("healthy-fast-food"),
     },
     sv: {
-      slug: "healthy-fast-food",
+      slug: "nyttig-snabbmat",
+      breadcrumbName: "Hälsosam snabbmat",
       metaTitle: "Hälsosam snabbmat | 20g protein på 5 minuter | PLÄNTLY",
-      metaDescription: "20g plantprotein på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromiss.",
+      metaDescription: "Hälsosam snabbmat som faktiskt levererar. 20g protein per måltid, klart på 5 minuter. Utvecklat i Sverige. Hantverk från Italien. Ingen kompromiss.",
       h1: "Hälsosam snabbmat.",
-      keywordLabel: "En ny kategori · Växtprotein · 5 minuter",
-      intro:
-        "PLÄNTLY skriver om reglerna för snabbmat. Riktiga måltider, 20g plantprotein, klart på tiden det tar att koka vatten.",
+      keywordLabel: "En ny kategori · Plantprotein · 5 minuter",
+      intro: "PLÄNTLY skriver om reglerna för snabbmat. Riktiga måltider, 20g plantprotein, klart på tiden det tar att koka vatten.",
       sections: [
         {
-          heading: "En ny kategori, inte en kompromiss",
+          heading: "Snabbmat. Omskriven.",
           body: [
-            "Snabbmat designades för hastighet — och stannade där. Resultatet blev en kategori byggd på processade ingredienser, lågt protein och hög ånger. PLÄNTLY finns för att flytta kategorin framåt, inte lappa ihop den.",
-            "Vi är inte en lättare version av snabbmat. Vi är vad snabbmat blir när näring, tid och hantverk får samma prioritet.",
+            "Snabbmat var aldrig problemet. Kompromissen var det. PLÄNTLY-måltider är klara på 5 minuter — samma tid som vilken snabbmat som helst — men med 20g protein, riktiga ingredienser och noll ånger.",
           ],
         },
         {
-          heading: "20g plantprotein i varje måltid",
+          heading: "20g protein. 5 minuter. Ingen kompromiss.",
           body: [
-            "Varje kopp levererar 20g komplett plantprotein från en blandning av ärt och solros — en profil som matchar vassle på aminosyror och biotillgänglighet, med plantans lättare matsmältning.",
-            "Kombinera det med långsamma kolhydrater, hälsosamma fetter och 5–9g fiber så har du en måltid designad för fokus och återhämtning — utan toppar och dippar.",
+            "Varje PLÄNTLY-måltid är byggd kring en regel: den ska vara lika snabb som snabbmat och lika bra som en riktig måltid. Utvecklat i Sverige. Hantverk från Italien.",
           ],
         },
         {
-          heading: "Klart på 5 minuter",
+          heading: "Framtidens bekvämlighetsmat.",
           body: [
-            "Tillsätt hett vatten. Vänta 5 minuter. Ät riktig mat. Ingen mikro, inget kök, inga genvägar som offrar kvalitet. PLÄNTLY får plats där en vattenkokare får plats — skrivbordet, gymväskan, hotellrummet.",
-          ],
-        },
-        {
-          heading: "Utvecklat i Sverige. Hantverk från Italien.",
-          body: [
-            "Skandinavisk näringsstandard möter italienskt hantverk. Varje recept är utvecklat i Sverige för balanserade makron och producerat med italienska partners som behandlar pasta, linser och sås som ett hantverk.",
-            "Resultatet är snabbmat som respekterar din tid och dina standarder — global i design, premium i utförande.",
+            "Bekvämlighet och näring har alltid bytts mot varandra. Vi avslutade det bytet. PLÄNTLY är hälsosam snabbmat — inte en kompromiss mellan de två.",
           ],
         },
       ],
@@ -432,12 +428,115 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Hantverk från Italien", desc: "Tillverkat med italienska producenter som ser mat som hantverk." },
       ],
       faqs: [
-        { q: "Vad gör detta till hälsosam snabbmat?", a: "Riktiga ingredienser, 20g komplett plantprotein, balanserade makron och 5 minuters tillagning — designat som en måltid, inte ett mellanmål." },
-        { q: "Är PLÄNTLY bara för atleter?", a: "Nej. PLÄNTLY är byggt för alla som värdesätter sin tid och sin hälsa — yrkesverksamma, föräldrar, studenter och atleter." },
-        { q: "Var tillverkas PLÄNTLY?", a: "Recepten utvecklas i Sverige och produceras i Italien med utvalda partners." },
+        { q: "Vad är hälsosam snabbmat?", a: "Hälsosam snabbmat är bekväm, snabb mat som inte kompromissar med näringen. PLÄNTLY-måltider är klara på 5 minuter och innehåller 20g plantprotein per portion — inga konstgjorda tillsatser, inga tomma kalorier." },
+        { q: "Hur mycket protein innehåller PLÄNTLY:s hälsosamma snabbmat?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarande en kycklingfilé, klart på 5 minuter." },
+        { q: "Passar PLÄNTLY:s hälsosamma snabbmat för alla?", a: "Ja. PLÄNTLY är designad för alla som vill äta bra utan att lägga tid på matlagning — atleter, yrkesverksamma, studenter och alla som värdesätter både hälsa och bekvämlighet." },
       ],
       ctaHeadline: "Framtidens snabbmat. Idag.",
       ctaText: "Handla måltider",
+      related: relatedSv("healthy-fast-food"),
+    },
+  },
+  "protein-cups": {
+    en: {
+      slug: "protein-cups",
+      breadcrumbName: "Protein Cups",
+      metaTitle: "Protein Cups | 20g Protein Instant Meals | PLÄNTLY",
+      metaDescription: "PLÄNTLY Protein Cups — 20g plant protein per cup, ready in 5 minutes. The smartest protein meal you can keep in your desk drawer, gym bag or kitchen.",
+      h1: "Protein Cups.",
+      keywordLabel: "Protein cup · 20g protein · Add water",
+      intro: "Add hot water. Wait 5 minutes. A proper meal with 20g of plant protein — the cup format built for your real life.",
+      sections: [
+        {
+          heading: "Add water. Wait 5 minutes. 20g protein.",
+          body: [
+            "The PLÄNTLY Protein Cup was designed around one insight: great food should not require time, equipment, or planning. Add hot water. Wait 5 minutes. A proper meal with 20g of plant protein.",
+          ],
+        },
+        {
+          heading: "Keep one everywhere.",
+          body: [
+            "Desk drawer. Gym bag. Car. Kitchen cabinet. The PLÄNTLY Protein Cup is built for your life — not the life you planned, but the one you actually live.",
+          ],
+        },
+        {
+          heading: "Four meals. One format.",
+          body: [
+            "Fusilli Bolognese, Pasta Carbonara, Yellow Curry with Rice, and Smokey Lentils — each cup delivers 20g of plant protein and is portion-controlled, calorie-balanced and shelf-stable.",
+          ],
+        },
+        {
+          heading: "The Taster Pack.",
+          body: [
+            "New to PLÄNTLY? The Taster Pack lets you try every flavour — enough to find your favourite, and enough to make 20g protein the easiest decision of your week.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g protein per cup", desc: "Complete amino acid profile from plant sources." },
+        { title: "Ready in 5 minutes", desc: "Hot water is the only equipment required." },
+        { title: "Four flavours", desc: "Bolognese, Carbonara, Yellow Curry, Smokey Lentils." },
+        { title: "Shelf-stable", desc: "Stash in your desk, gym bag or pantry." },
+      ],
+      faqs: [
+        { q: "What is a PLÄNTLY Protein Cup?", a: "A PLÄNTLY Protein Cup is an instant meal cup containing 20g of plant protein, ready in 5 minutes with just hot water. Available in four flavours: Fusilli Bolognese, Pasta Carbonara, Yellow Curry with Rice, and Smokey Lentils." },
+        { q: "How do you prepare a PLÄNTLY Protein Cup?", a: "Add hot water to the fill line, stir, wait 5 minutes, eat. No cooking required, no prep, no equipment beyond hot water." },
+        { q: "Where can I buy PLÄNTLY Protein Cups?", a: "PLÄNTLY Protein Cups are available online at plaently.com. A Taster Pack is available to try every flavour at once." },
+        { q: "How long do PLÄNTLY Protein Cups last?", a: "PLÄNTLY Protein Cups have a long shelf life, making them ideal for desk drawers, gym bags, and pantry storage. Check individual packaging for best-before dates." },
+      ],
+      ctaHeadline: "20g protein in a cup. Anywhere.",
+      ctaText: "Shop the Taster Pack",
+      related: relatedEn("protein-cups"),
+    },
+    sv: {
+      slug: "proteinkoppar",
+      breadcrumbName: "Proteinkoppar",
+      metaTitle: "Proteinkoppar | 20g protein i en kopp | PLÄNTLY",
+      metaDescription: "PLÄNTLY Proteinkoppar — 20g plantprotein per kopp, klart på 5 minuter. Den smartaste proteinmåltiden för skrivbordet, gympaväskan eller köket.",
+      h1: "Proteinkoppar.",
+      keywordLabel: "Proteinkopp · 20g protein · Häll i vatten",
+      intro: "Häll i hett vatten. Vänta 5 minuter. En riktig måltid med 20g plantprotein — kopp-formatet byggt för ditt verkliga liv.",
+      sections: [
+        {
+          heading: "Häll i vatten. Vänta 5 minuter. 20g protein.",
+          body: [
+            "PLÄNTLY Proteinkopp är designad kring en insikt: bra mat ska inte kräva tid, utrustning eller planering. Häll i hett vatten. Vänta 5 minuter. En riktig måltid med 20g plantprotein.",
+          ],
+        },
+        {
+          heading: "Ha en överallt.",
+          body: [
+            "Skrivbordslådan. Gympaväskan. Bilen. Köksskåpet. PLÄNTLY Proteinkopp är byggd för ditt liv — inte det du planerade, utan det du faktiskt lever.",
+          ],
+        },
+        {
+          heading: "Fyra måltider. Ett format.",
+          body: [
+            "Fusilli Bolognese, Pasta Carbonara, Gul Curry med Ris och Smokey Lentils — varje kopp levererar 20g plantprotein och är portionskontrollerad, kaloribalanserad och hållbar i hyllan.",
+          ],
+        },
+        {
+          heading: "Taster Pack.",
+          body: [
+            "Ny till PLÄNTLY? Med Taster Pack provar du alla smaker — tillräckligt för att hitta din favorit och göra 20g protein till veckans enklaste beslut.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g protein per kopp", desc: "Komplett aminosyraprofil från plantkällor." },
+        { title: "Klart på 5 minuter", desc: "Hett vatten är all utrustning du behöver." },
+        { title: "Fyra smaker", desc: "Bolognese, Carbonara, Gul Curry, Smokey Lentils." },
+        { title: "Hållbar i hyllan", desc: "Förvara i skrivbordet, gympaväskan eller skafferiet." },
+      ],
+      faqs: [
+        { q: "Vad är en PLÄNTLY Proteinkopp?", a: "En PLÄNTLY Proteinkopp är en färdig måltid i kopp med 20g plantprotein, klar på 5 minuter med bara hett vatten. Finns i fyra smaker: Fusilli Bolognese, Pasta Carbonara, Gul Curry med Ris och Smokey Lentils." },
+        { q: "Hur tillagar man en PLÄNTLY Proteinkopp?", a: "Häll hett vatten upp till markeringen, rör om, vänta 5 minuter, ät. Ingen matlagning krävs, ingen förberedelse, ingen utrustning utöver hett vatten." },
+        { q: "Var kan jag köpa PLÄNTLY Proteinkoppar?", a: "PLÄNTLY Proteinkoppar finns online på plaently.com. Vårt Taster Pack låter dig prova alla smaker på en gång." },
+        { q: "Hur länge håller PLÄNTLY Proteinkoppar?", a: "PLÄNTLY Proteinkoppar har lång hållbarhet — perfekt för skrivbordslådan, gympaväskan och skafferiet. Se förpackningen för bäst-före-datum." },
+      ],
+      ctaHeadline: "20g protein i en kopp. Var som helst.",
+      ctaText: "Handla Taster Pack",
+      related: relatedSv("protein-cups"),
     },
   },
 };
