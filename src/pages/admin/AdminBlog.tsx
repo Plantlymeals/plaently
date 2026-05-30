@@ -3,9 +3,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
+import { BLOG_CATEGORIES } from "@/data/blogCategories";
 
 type BlogPost = Tables<"blog_posts">;
 
@@ -24,7 +26,7 @@ const AdminBlog = () => {
 
   const startNew = () => {
     setEditing("new"); setIsNew(true);
-    setForm({ slug: "", title: "", excerpt: "", content: "", cover_image_url: "", author: "", category: "", is_published: false });
+    setForm({ slug: "", title: "", excerpt: "", content: "", cover_image_url: "", author: "", category: "", language: "en", is_published: false });
   };
 
   const startEdit = (p: BlogPost) => { setEditing(p.id); setForm({ ...p }); setIsNew(false); };
@@ -35,6 +37,7 @@ const AdminBlog = () => {
     const payload = {
       slug: form.slug, title: form.title, excerpt: form.excerpt, content: form.content,
       cover_image_url: form.cover_image_url, author: form.author, category: form.category,
+      language: form.language || "en",
       is_published: form.is_published, published_at: form.is_published ? new Date().toISOString() : null,
     };
     if (isNew) {
