@@ -9,7 +9,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { getCategorySlug } from "@/data/blogCategories";
 
-type BlogPost = Tables<"blog_posts">;
+type BlogPost = Tables<"blog_posts"> & { translation_slug?: string | null };
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -17,35 +17,42 @@ const BlogPostPage = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [related, setRelated] = useState<BlogPost[]>([]);
-  const { lang, t } = useTranslation();
+  const { lang, t, setLang } = useTranslation();
 
-  // When the UI language changes, navigate to the equivalent slug in that language.
+  // Load the post by its exact slug (slugs are unique across languages).
   useEffect(() => {
     if (!slug) return;
-    const isSvSlug = slug.endsWith("-sv");
-    if (lang === "sv" && !isSvSlug) {
-      navigate(`/blog/${slug}-sv`, { replace: true });
-    } else if (lang === "en" && isSvSlug) {
-      navigate(`/blog/${slug.slice(0, -3)}`, { replace: true });
-    }
-  }, [lang, slug, navigate]);
-
-  useEffect(() => {
-    if (!slug) return;
-    // Try language-specific slug first, fall back to base slug
-    const trySlug = lang === "sv" ? `${slug}-sv` : slug;
-    supabase.from("blog_posts").select("*").eq("slug", trySlug).eq("is_published", true).maybeSingle().then(({ data }) => {
-      if (data) {
-        setPost(data);
+    setLoading(true);
+    supabase
+      .from("blog_posts")
+      .select("*")
+      .eq("slug", slug)
+      .eq("is_published", true)
+      .maybeSingle()
+      .then(({ data }) => {
+        setPost(data as BlogPost | null);
         setLoading(false);
-      } else {
-        supabase.from("blog_posts").select("*").eq("slug", slug).eq("is_published", true).maybeSingle().then(({ data: d2 }) => {
-          setPost(d2);
-          setLoading(false);
-        });
-      }
-    });
-  }, [slug, lang]);
+      });
+  }, [slug]);
+
+  // Keep the UI language in sync with the post's language so the chrome/translations
+  // match the content the user is reading.
+  useEffect(() => {
+    if (post && (post.language === "sv" || post.language === "en") && post.language !== lang) {
+      setLang(post.language);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [post?.slug]);
+
+  // When the user toggles the header language while reading a post, navigate to
+  // the translated version if one exists.
+  useEffect(() => {
+    if (!post) return;
+    if (post.language === lang) return;
+    if (post.translation_slug) {
+      navigate(`/blog/${post.translation_slug}`, { replace: true });
+    }
+  }, [lang, post, navigate]);
 
   // Load related posts in same category + language
   useEffect(() => {
@@ -82,14 +89,13 @@ const BlogPostPage = () => {
     );
   }
 
-  // Real slug as stored in DB (may include `-sv` suffix for Swedish version).
+  // Real slug as stored in DB.
   const realSlug = post.slug;
-  const isSv = realSlug.endsWith("-sv");
-  const baseSlug = isSv ? realSlug.slice(0, -3) : realSlug;
-  const svPath = `/blog/${baseSlug}-sv`;
-  const enPath = `/blog/${baseSlug}`;
+  const postLocale: "sv" | "en" = post.language === "sv" ? "sv" : "en";
   const canonicalPath = `/blog/${realSlug}`;
-  const postLocale: "sv" | "en" = isSv ? "sv" : "en";
+  const translationSlug = post.translation_slug ?? null;
+  const svPath = postLocale === "sv" ? canonicalPath : translationSlug ? `/blog/${translationSlug}` : canonicalPath;
+  const enPath = postLocale === "en" ? canonicalPath : translationSlug ? `/blog/${translationSlug}` : canonicalPath;
   const canonicalUrl = `https://plaently.com${canonicalPath}`;
   const categorySlug = getCategorySlug(post.category);
 
