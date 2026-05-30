@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
@@ -13,10 +13,22 @@ type BlogPost = Tables<"blog_posts">;
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [related, setRelated] = useState<BlogPost[]>([]);
   const { lang, t } = useTranslation();
+
+  // When the UI language changes, navigate to the equivalent slug in that language.
+  useEffect(() => {
+    if (!slug) return;
+    const isSvSlug = slug.endsWith("-sv");
+    if (lang === "sv" && !isSvSlug) {
+      navigate(`/blog/${slug}-sv`, { replace: true });
+    } else if (lang === "en" && isSvSlug) {
+      navigate(`/blog/${slug.slice(0, -3)}`, { replace: true });
+    }
+  }, [lang, slug, navigate]);
 
   useEffect(() => {
     if (!slug) return;
@@ -148,7 +160,7 @@ const BlogPostPage = () => {
             {post.excerpt && <p className="text-lg text-muted-foreground">{post.excerpt}</p>}
             <p className="text-sm text-muted-foreground">
               {post.author && <>{post.author} · </>}
-              {post.published_at ? new Date(post.published_at).toLocaleDateString(lang === "sv" ? "sv-SE" : "en-US") : ""}
+              {post.published_at ? new Date(post.published_at).toLocaleDateString(postLocale === "sv" ? "sv-SE" : "en-GB") : ""}
             </p>
           </header>
           {post.cover_image_url && (

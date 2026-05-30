@@ -81,6 +81,46 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://plaently.com/blog/category/future-of-fast-food</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/modern-nutrition</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/fuel-your-day</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/plant-protein-101</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/behind-plantly</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/conscious-living</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/quick-and-real</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/category/performance-and-recovery</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://plaently.com/faq</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -107,61 +147,61 @@
   </url>
   <url>
     <loc>https://plaently.com/blog/healthy-instant-meals-for-busy-people</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://plaently.com/blog/healthy-instant-meals-for-busy-people-sv</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://plaently.com/blog/quick-healthy-lunch-ideas-sv</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/quick-healthy-lunch-ideas</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work</loc>
-    <lastmod>2026-05-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/why-meal-cups-beat-powders-and-shakes</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://plaently.com/blog/best-high-protein-vegan-meals</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://plaently.com/blog/darfor-slar-maltidskoppar-pulver-och-shakes</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work-sv</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://plaently.com/blog/quick-healthy-lunch-ideas</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/why-meal-cups-beat-powders-and-shakes</loc>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://plaently.com/blog/best-high-protein-vegan-meals-sv</loc>
-    <lastmod>2026-05-12</lastmod>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work-sv</loc>
+    <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
