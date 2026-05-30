@@ -76,18 +76,18 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
     },
     sv: {
       slug: "high-protein-meals",
-      metaTitle: "​Protein Måltider — 20g växtprotein på 5 min | PLÄNTLY",
-      metaDescription: "​Protein Måltider klara på 5 minuter. 20g komplett växtprotein per portion — för atleter, yrkesverksamma och moderna livsstilar.",
+      metaTitle: "​Protein Måltider — 20g plantprotein på 5 min | PLÄNTLY",
+      metaDescription: "​Protein Måltider klara på 5 minuter. 20g komplett plantprotein per portion — för atleter, yrkesverksamma och moderna livsstilar.",
       h1: "​Protein Måltider",
       keywordLabel: "Högprotein · Växtbaserat · Klart på 5 min",
       intro:
-        "PLÄNTLY högprotein-måltider levererar 20g komplett växtprotein i varje kopp — klara på tiden det tar att koka vatten. Riktig mat, riktigt protein, inga kompromisser.",
+        "PLÄNTLY högprotein-måltider levererar 20g komplett plantprotein i varje kopp — klara på tiden det tar att koka vatten. Riktig mat, riktigt protein, inga kompromisser.",
       sections: [
         {
           heading: "Varför högt protein spelar roll",
           body: [
             "Protein är det enskilt viktigaste makronäringsämnet för muskelreparation, mättnad och stabil energi. Det mesta av snabbmaten misslyckas på alla tre punkter. PLÄNTLY byggdes för att lösa det — utan att tvinga dig att stå en timme i köket.",
-            "Varje PLÄNTLY-måltid är designad för att leverera 20g komplett växtprotein från en blandning av ärt och solros protein — en kombination som matchar vassle på aminosyraprofil och biotillgänglighet. Du får den muskeluppbyggande effekten med plantans lättare matsmältning.",
+            "Varje PLÄNTLY-måltid är designad för att leverera 20g komplett plantprotein från en blandning av ärt och solros protein — en kombination som matchar vassle på aminosyraprofil och biotillgänglighet. Du får den muskeluppbyggande effekten med plantans lättare matsmältning.",
           ],
         },
         {
@@ -98,7 +98,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           ],
         },
         {
-          heading: "Komplett växtprotein, komplett näring",
+          heading: "Komplett plantprotein, komplett näring",
           body: [
             "Utöver protein innehåller varje måltid långsamma kolhydrater, hälsosamma fetter från olivolja och nötter, och 5–9g tarmvänlig fiber. Resultatet är jämn energi utan dipp efter lunch.",
             "Vi använder riktiga ingredienser du kan uttala — linser, pasta, grönsaker, örter, kryddor. Inga konstgjorda smaker, inga fyllmedel, ingen kompromiss med smaken.",
@@ -112,14 +112,14 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         },
       ],
       benefits: [
-        { title: "20g växtprotein", desc: "Komplett aminosyraprofil från ärt och solros protein." },
+        { title: "20g plantprotein", desc: "Komplett aminosyraprofil från ärt och solros protein." },
         { title: "Klart på 5 minuter", desc: "Tillsätt bara hett vatten — riktig mat, ingen väntan." },
         { title: "Balanserade makron", desc: "Långsamma kolhydrater, hälsosamma fetter och fiber." },
-        { title: "100% växtbaserat", desc: "Inga animaliska produkter, inga konstgjorda tillsatser." },
+        { title: "100% plantbaserat", desc: "Inga animaliska produkter, inga konstgjorda tillsatser." },
       ],
       faqs: [
-        { q: "Är växtprotein lika bra som vassle?", a: "Ja. Vår blandning av ärt och solros protein matchar vassle på aminosyrapoäng och biotillgänglighet — med lättare matsmältning." },
-        { q: "Hur mycket protein per portion?", a: "Varje PLÄNTLY-måltid innehåller 20g komplett växtprotein per portion." },
+        { q: "Är plantprotein lika bra som vassle?", a: "Ja. Vår blandning av ärt och solros protein matchar vassle på aminosyrapoäng och biotillgänglighet — med lättare matsmältning." },
+        { q: "Hur mycket protein per portion?", a: "Varje PLÄNTLY-måltid innehåller 20g komplett plantprotein per portion." },
         { q: "Passar måltiderna efter träning?", a: "Absolut. 20g protein plus balanserade kolhydrater gör dem perfekta för muskelåterhämtning inom 30–60 minuter efter passet." },
       ],
       ctaHeadline: "Prova högprotein-måltider idag",
@@ -186,19 +186,19 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       h1: "Växtbaserade färdigrätter",
       keywordLabel: "Växtbaserat · Riktig mat · Hållbart",
       intro:
-        "PLÄNTLY växtbaserade färdigrätter är riktig mat, gjord av riktiga växter — utvecklad för de stunder då bekvämligheten betyder mest.",
+        "PLÄNTLY plantbaserade färdigrätter är riktig mat, gjord av riktiga växter — utvecklad för de stunder då bekvämligheten betyder mest.",
       sections: [
         {
-          heading: "Vad 'växtbaserat' verkligen betyder",
+          heading: "Vad 'plantbaserat' verkligen betyder",
           body: [
-            "Växtbaserat är inte en etikett — det är en standard. PLÄNTLY använder 100% växtbaserade ingredienser: linser, baljväxter, grönsaker, fullkorn, olivolja, örter och kryddor. Inga animaliska produkter, inga dolda fyllmedel, inga kompromisser.",
-            "Vi tror att växtbaserade måltider ska smaka bättre än alternativen — inte sämre. Därför går varje recept genom dussintals iterationer med våra kockar innan det ens når en kopp.",
+            "Växtbaserat är inte en etikett — det är en standard. PLÄNTLY använder 100% plantbaserade ingredienser: linser, baljväxter, grönsaker, fullkorn, olivolja, örter och kryddor. Inga animaliska produkter, inga dolda fyllmedel, inga kompromisser.",
+            "Vi tror att plantbaserade måltider ska smaka bättre än alternativen — inte sämre. Därför går varje recept genom dussintals iterationer med våra kockar innan det ens når en kopp.",
           ],
         },
         {
           heading: "Bättre för dig, bättre för planeten",
           body: [
-            "En växtbaserad måltid använder upp till 90% mindre vatten och ger en bråkdel av CO₂-utsläppen jämfört med en motsvarande köttmåltid. Att välja PLÄNTLY till en lunch i veckan minskar din miljöpåverkan på riktigt.",
+            "En plantbaserad måltid använder upp till 90% mindre vatten och ger en bråkdel av CO₂-utsläppen jämfört med en motsvarande köttmåltid. Att välja PLÄNTLY till en lunch i veckan minskar din miljöpåverkan på riktigt.",
             "Men hållbarhet ska inte vara en uppoffring. Våra måltider är designade för att leverera mer näring per kalori än vanlig snabbmat — mer protein, mer fiber, mer mikronäringsämnen.",
           ],
         },
@@ -218,17 +218,17 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         },
       ],
       benefits: [
-        { title: "100% växtbaserat", desc: "Riktiga växter, riktig mat, inga animaliska produkter." },
+        { title: "100% plantbaserat", desc: "Riktiga växter, riktig mat, inga animaliska produkter." },
         { title: "Lägre miljöavtryck", desc: "Upp till 90% mindre vatten än motsvarande köttmåltider." },
         { title: "Hållbart i hyllan", desc: "Inget kylskåp eller frys behövs — förvara var som helst." },
         { title: "Återvinningsbar förpackning", desc: "Designad med hållbarhet i åtanke." },
       ],
       faqs: [
-        { q: "Är PLÄNTLY-måltider 100% veganska?", a: "Ja — alla PLÄNTLY-måltider är 100% växtbaserade utan animaliska ingredienser." },
+        { q: "Är PLÄNTLY-måltider 100% veganska?", a: "Ja — alla PLÄNTLY-måltider är 100% plantbaserade utan animaliska ingredienser." },
         { q: "Behöver de kylas?", a: "Nej. Våra koppar är hållbara i månader — perfekt för skrivbord, skafferi och resor." },
         { q: "Är förpackningen återvinningsbar?", a: "Ja, våra koppar är designade för att kunna återvinnas i vanlig hushållssortering." },
       ],
-      ctaHeadline: "Byt till växtbaserat",
+      ctaHeadline: "Byt till plantbaserat",
       ctaText: "Handla nu",
     },
   },
@@ -287,17 +287,17 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
     sv: {
       slug: "healthy-instant-meals",
       metaTitle: "Hälsosamma snabbmåltider — riktig mat på 5 min | PLÄNTLY",
-      metaDescription: "Hälsosamma snabbmåltider med 20g växtprotein och balanserad näring. Det smarta alternativet till snabbnudlar och processad snabbmat.",
+      metaDescription: "Hälsosamma snabbmåltider med 20g plantprotein och balanserad näring. Det smarta alternativet till snabbnudlar och processad snabbmat.",
       h1: "Hälsosamma snabbmåltider",
       keywordLabel: "Snabb · Hälsosam · Riktiga ingredienser",
       intro:
-        "PLÄNTLY bevisar att 'snabb' och 'hälsosam' hör hemma i samma mening. Riktiga ingredienser, 20g växtprotein, klart på 5 minuter.",
+        "PLÄNTLY bevisar att 'snabb' och 'hälsosam' hör hemma i samma mening. Riktiga ingredienser, 20g plantprotein, klart på 5 minuter.",
       sections: [
         {
           heading: "Snabbmatsproblemet — löst",
           body: [
             "I årtionden har snabbmåltider betytt en kompromiss: hastighet i utbyte mot saltbomber, raffinerade kolhydrater och noll protein. Kategorin blev snabbare men aldrig bättre.",
-            "PLÄNTLY bygger om snabbmåltiden från grunden. Samma bekvämlighet, helt annan näringsprofil. 20g komplett växtprotein, balanserade makron, riktiga ingredienser — allt på tiden det tar att koka en kanna vatten.",
+            "PLÄNTLY bygger om snabbmåltiden från grunden. Samma bekvämlighet, helt annan näringsprofil. 20g komplett plantprotein, balanserade makron, riktiga ingredienser — allt på tiden det tar att koka en kanna vatten.",
           ],
         },
         {
@@ -324,11 +324,11 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       benefits: [
         { title: "Riktiga ingredienser", desc: "Inga fyllmedel, inga konstgjorda smaker, inga genvägar." },
         { title: "5 minuters tillagning", desc: "Tillsätt bara hett vatten — vattenkokaren är allt du behöver." },
-        { title: "20g växtprotein", desc: "Mer protein än de flesta måltider lagade från grunden." },
+        { title: "20g plantprotein", desc: "Mer protein än de flesta måltider lagade från grunden." },
         { title: "Portabel", desc: "Ta med den var som helst — skrivbord, gym, resa, hemma." },
       ],
       faqs: [
-        { q: "Hur skiljer sig detta från snabbnudlar?", a: "PLÄNTLY innehåller riktiga ingredienser, 20g växtprotein, balanserade makron och noll konstgjorda fyllmedel — snabbnudlar erbjuder inget av detta." },
+        { q: "Hur skiljer sig detta från snabbnudlar?", a: "PLÄNTLY innehåller riktiga ingredienser, 20g plantprotein, balanserade makron och noll konstgjorda fyllmedel — snabbnudlar erbjuder inget av detta." },
         { q: "Hur lång tid tar det att tillaga?", a: "5 minuter. Tillsätt hett vatten, rör om, vänta, ät." },
         { q: "Behöver jag något annat än vatten?", a: "Bara en kopp kokande vatten — det är allt. Ingen matlagning, ingen mikro, inga extra ingredienser." },
       ],
@@ -391,11 +391,11 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
     sv: {
       slug: "healthy-fast-food",
       metaTitle: "Hälsosam snabbmat | 20g protein på 5 minuter | PLÄNTLY",
-      metaDescription: "20g växtprotein på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromiss.",
+      metaDescription: "20g plantprotein på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromiss.",
       h1: "Hälsosam snabbmat.",
       keywordLabel: "En ny kategori · Växtprotein · 5 minuter",
       intro:
-        "PLÄNTLY skriver om reglerna för snabbmat. Riktiga måltider, 20g växtprotein, klart på tiden det tar att koka vatten.",
+        "PLÄNTLY skriver om reglerna för snabbmat. Riktiga måltider, 20g plantprotein, klart på tiden det tar att koka vatten.",
       sections: [
         {
           heading: "En ny kategori, inte en kompromiss",
@@ -405,9 +405,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           ],
         },
         {
-          heading: "20g växtprotein i varje måltid",
+          heading: "20g plantprotein i varje måltid",
           body: [
-            "Varje kopp levererar 20g komplett växtprotein från en blandning av ärt och solros — en profil som matchar vassle på aminosyror och biotillgänglighet, med plantans lättare matsmältning.",
+            "Varje kopp levererar 20g komplett plantprotein från en blandning av ärt och solros — en profil som matchar vassle på aminosyror och biotillgänglighet, med plantans lättare matsmältning.",
             "Kombinera det med långsamma kolhydrater, hälsosamma fetter och 5–9g fiber så har du en måltid designad för fokus och återhämtning — utan toppar och dippar.",
           ],
         },
@@ -426,13 +426,13 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         },
       ],
       benefits: [
-        { title: "20g växtprotein", desc: "Komplett aminosyraprofil i varje måltid." },
+        { title: "20g plantprotein", desc: "Komplett aminosyraprofil i varje måltid." },
         { title: "Klar på 5 minuter", desc: "Tillsätt bara hett vatten. Riktig mat, ingen väntan." },
         { title: "Utvecklat i Sverige", desc: "Konstruerat enligt skandinavisk näringsstandard." },
         { title: "Hantverk från Italien", desc: "Tillverkat med italienska producenter som ser mat som hantverk." },
       ],
       faqs: [
-        { q: "Vad gör detta till hälsosam snabbmat?", a: "Riktiga ingredienser, 20g komplett växtprotein, balanserade makron och 5 minuters tillagning — designat som en måltid, inte ett mellanmål." },
+        { q: "Vad gör detta till hälsosam snabbmat?", a: "Riktiga ingredienser, 20g komplett plantprotein, balanserade makron och 5 minuters tillagning — designat som en måltid, inte ett mellanmål." },
         { q: "Är PLÄNTLY bara för atleter?", a: "Nej. PLÄNTLY är byggt för alla som värdesätter sin tid och sin hälsa — yrkesverksamma, föräldrar, studenter och atleter." },
         { q: "Var tillverkas PLÄNTLY?", a: "Recepten utvecklas i Sverige och produceras i Italien med utvalda partners." },
       ],

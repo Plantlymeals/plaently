@@ -52,7 +52,7 @@ const Contact = () => {
 
   return (
     <Layout>
-      <SEOHead title="Kontakt — PLÄNTLY" description="Kontakta oss på PLÄNTLY. Frågor om våra växtbaserade proteinmåltider? Vi finns här för dig." path="/contact" />
+      <SEOHead title="Kontakt — PLÄNTLY" description="Kontakta oss på PLÄNTLY. Frågor om våra plantbaserade proteinmåltider? Vi finns här för dig." path="/contact" />
       <section className="py-12 md:py-20">
         <div className="container max-w-2xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

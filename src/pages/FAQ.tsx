@@ -40,7 +40,7 @@ const FAQPage = () => {
 
   return (
     <Layout>
-      <SEOHead title="Vanliga frågor — PLÄNTLY" description="Svar på vanliga frågor om PLÄNTLY:s växtbaserade proteinmåltider, leverans, ingredienser och mer." path="/faq" jsonLd={jsonLd} />
+      <SEOHead title="Vanliga frågor — PLÄNTLY" description="Svar på vanliga frågor om PLÄNTLY:s plantbaserade proteinmåltider, leverans, ingredienser och mer." path="/faq" jsonLd={jsonLd} />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

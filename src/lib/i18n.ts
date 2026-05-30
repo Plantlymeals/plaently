@@ -31,14 +31,14 @@ const translations: Record<string, Record<Lang, string>> = {
  "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
  "hero.badge1": { sv: "20g protein", en: "20g protein" },
  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
- "hero.badge3": { sv: "100% växtbaserat", en: "100% plant-based" },
+ "hero.badge3": { sv: "100% plantbaserat", en: "100% plant-based" },
 
  // Problem → Solution
  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
  "ps.problemTitle": { sv: "Snabbmat är ohälsosamt.", en: "Fast food is unhealthy." },
  "ps.problemDesc": { sv: "Hälsosam mat tar tid du inte har.\n\n", en: "Healthy food takes time you don't have." },
  "ps.solutionTitle": { sv: "PLÄNTLY = hälsosam snabbmat.", en: "PLÄNTLY = healthy fast food." },
- "ps.solutionDesc": { sv: "Riktiga måltider med 20g växtprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
+ "ps.solutionDesc": { sv: "Riktiga måltider med 20g plantprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
 
  // Starter Pack highlight
  "starter.badge": { sv: "Begränsat erbjudande", en: "Limited offer" },
@@ -64,9 +64,9 @@ const translations: Record<string, Record<Lang, string>> = {
  "why.title": { sv: "Varför PLÄNTLY?", en: "Why PLÄNTLY?" },
  "why.subtitle": { sv: "Allt du behöver i en måltid. Inget du inte behöver.", en: "Everything you need in a meal. Nothing you don't." },
  "why.highProtein": { sv: "Högprotein", en: "High Protein" },
- "why.highProteinDesc": { sv: "20g växtprotein per portion", en: "20g plant protein per serving" },
+ "why.highProteinDesc": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
  "why.plantBased": { sv: "Växtbaserat", en: "Plant-Based" },
- "why.plantBasedDesc": { sv: "100% växtbaserad protein", en: "100% plant-based protein" },
+ "why.plantBasedDesc": { sv: "100% plantbaserad protein", en: "100% plant-based protein" },
  "why.lowSugar": { sv: "Lågt socker", en: "Low Sugar" },
  "why.lowSugarDesc": { sv: "Vissa tillsatta sockerarter eller sötningsmedel", en: "Some added sugars or sweeteners" },
  "why.readyInMinutes": { sv: "Klart på minuter", en: "Ready in Minutes" },
@@ -84,7 +84,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "how.step2Title": { sv: "Tillsätt hett vatten", en: "Add hot water" },
  "how.step2Desc": { sv: "Häll i kokande vatten, rör om och vänta 5 minuter.", en: "Pour in boiling water, stir and wait 5 minutes." },
  "how.step3Title": { sv: "Njut av riktigt protein", en: "Enjoy real protein" },
- "how.step3Desc": { sv: "En komplett, balanserad måltid med 20g växtprotein.", en: "A complete, balanced meal with 20g plant protein." },
+ "how.step3Desc": { sv: "En komplett, balanserad måltid med 20g plantprotein.", en: "A complete, balanced meal with 20g plant protein." },
 
  // Lifestyle section
  "lifestyle.title": { sv: "Byggd för det moderna livet", en: "Built for modern life" },
@@ -92,7 +92,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "lifestyle.office": { sv: "Kontorsluncher", en: "Office Lunches" },
  "lifestyle.officeDesc": { sv: "Näringsrika måltider vid skrivbordet utan dåligt samvete.", en: "Nutritious desk meals without the guilt." },
  "lifestyle.postWorkout": { sv: "Efter träningen", en: "Post Workout" },
- "lifestyle.postWorkoutDesc": { sv: "Fyll på med 20g växtprotein efter varje pass.", en: "Refuel with 20g plant protein after every session." },
+ "lifestyle.postWorkoutDesc": { sv: "Fyll på med 20g plantprotein efter varje pass.", en: "Refuel with 20g plant protein after every session." },
  "lifestyle.travel": { sv: "Resedagar", en: "Travel Days" },
  "lifestyle.travelDesc": { sv: "Lätta, behöver ingen kyl — perfekta måltider för dig som är på språng.", en: "Lightweight, no fridge needed — perfect meals on the go." },
  "lifestyle.dinner": { sv: "Snabb hälsosam middag", en: "Quick Healthy Dinner" },
@@ -116,7 +116,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "productDetail.tasteTitle": { sv: "Smaken först", en: "Taste first" },
  "productDetail.tasteDesc": { sv: "Utvecklad av kockar i Stockholm för att leverera riktig, tillfredsställande smak — inte ett kompromissalternativ.", en: "Developed by chefs in Stockholm to deliver real, satisfying flavour — not a compromise option." },
  "productDetail.nutritionTitle": { sv: "Näringshöjdpunkter", en: "Nutrition highlights" },
- "productDetail.nutritionProtein": { sv: "20g växtprotein per portion", en: "20g plant protein per serving" },
+ "productDetail.nutritionProtein": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
  "productDetail.nutritionMacros": { sv: "Balanserade makron och 5–9g fiber", en: "Balanced macros and 5–9g fibre" },
  "productDetail.nutritionClean": { sv: "Riktiga ingredienser, inga konstgjorda tillsatser", en: "Real ingredients, no artificial additives" },
  "productDetail.prepTitle": { sv: "Klart på 5 minuter", en: "Ready in 5 minutes" },
@@ -124,7 +124,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "productDetail.prepStep2": { sv: "Tillsätt hett vatten till markeringen", en: "Add hot water to the line" },
  "productDetail.prepStep3": { sv: "Rör om och vänta 5 min", en: "Stir and wait 5 min" },
  "productDetail.benefitsTitle": { sv: "Hälsosam snabbmat", en: "Healthy fast food" },
- "productDetail.benefitsDesc": { sv: "100% växtbaserad protein, balanserade makron och riktiga ingredienser — på tiden det tar att koka vatten.", en: "100% plant-based protein, balanced macros and real ingredients — in the time it takes to boil water." },
+ "productDetail.benefitsDesc": { sv: "100% plantbaserad protein, balanserade makron och riktiga ingredienser — på tiden det tar att koka vatten.", en: "100% plant-based protein, balanced macros and real ingredients — in the time it takes to boil water." },
  "productDetail.ctaSubscribe": { sv: "Starta prenumeration", en: "Start subscription" },
 
  // Bundles
@@ -135,9 +135,9 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.bestValue": { sv: "Bäst värde", en: "Best Value" },
  "bundles.save": { sv: "Spara", en: "Save" },
  "bundles.desc.starter": { sv: "Börja med vårt taster pack och prova alla fyra smakerna. De flesta hittar en favorit inom första veckan — och går aldrig tillbaka till snabbnudlar.", en: "Start with our taster pack and try all four flavours. Most people find a favourite within the first week — and never go back to instant noodles." },
- "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 växtbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
- "bundles.desc.office": { sv: "Mat till hela teamet. 60 växtbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 60 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
- "bundles.desc.bigoffice": { sv: "Bäst värde. 120 växtbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
+ "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 plantbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
+ "bundles.desc.office": { sv: "Mat till hela teamet. 60 plantbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 60 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
+ "bundles.desc.bigoffice": { sv: "Bäst värde. 120 plantbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
  "bundles.freeShipping": { sv: "Fri frakt i Sverige", en: "Free shipping in Sweden" },
  "bundles.tryFirst": { sv: "Prova först", en: "Try first" },
  "bundles.youSave": { sv: "Du sparar", en: "You save" },
@@ -170,7 +170,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Nutrition preview
  "nutrition.title": { sv: "Vetenskapligt baserad näring", en: "Science-Backed Nutrition" },
- "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är designad av nutritionister för att leverera optimala makronäringsämnen från 100% växtbaserade källor. Högt i komplett protein, balanserade kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is designed by nutritionists to deliver optimal macronutrients from 100% plant-based sources. High in complete protein, balanced carbs and healthy fats." },
+ "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är designad av nutritionister för att leverera optimala makronäringsämnen från 100% plantbaserade källor. Högt i komplett protein, balanserade kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is designed by nutritionists to deliver optimal macronutrients from 100% plant-based sources. High in complete protein, balanced carbs and healthy fats." },
  "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
  "nutrition.protein": { sv: "Protein", en: "Protein" },
  "nutrition.carbs": { sv: "Kolhydrater", en: "Carbohydrates" },
@@ -189,7 +189,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "nutritionPage.fiberValue": { sv: "5–9g", en: "5–9g" },
  "nutritionPage.fiberDesc": { sv: "Tarmvänlig fiber för mättnad och matsmältning.", en: "Gut-friendly fibre for satiety and digestion." },
  "nutritionPage.caloriesDesc": { sv: "Balanserat kaloriinnehåll anpassat för en komplett måltid.", en: "Balanced calorie content designed for a complete meal." },
- "nutritionPage.whyTitle": { sv: "Varför växtprotein?", en: "Why plant protein?" },
+ "nutritionPage.whyTitle": { sv: "Varför plantprotein?", en: "Why plant protein?" },
  "nutritionPage.whyP1": { sv: "Växtbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.", en: "Plant-based proteins offer a complete amino acid profile when combined correctly, while being easier to digest and significantly more sustainable than animal sources." },
  "nutritionPage.whyP2": { sv: "PLÄNTLY använder en egen blandning av ärt och solros protein för att uppnå ett komplett aminosyravärde som matchar vassleprotein i biotillgänglighet.", en: "PLÄNTLY uses a proprietary blend of pea and sunflower protein to achieve a complete amino acid score matching whey protein in bioavailability." },
  "nutritionPage.whyP3": { sv: "Utöver protein är våra måltider rika på mikronäringsämnen, antioxidanter och fiber — näringsämnen som ofta saknas i processad snabbmat.", en: "Beyond protein, our meals are rich in micronutrients, antioxidants and fibre — nutrients often missing from processed fast food." },
@@ -203,7 +203,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Final CTA
  "cta.headline": { sv: "Ät smartare. Lev bättre.", en: "Eat smarter. Live better." },
- "cta.subheadline": { sv: "Gå med tusentals som valt riktiga, växtbaserade proteinmåltider.", en: "Join thousands who chose real, plant-based protein meals." },
+ "cta.subheadline": { sv: "Gå med tusentals som valt riktiga, plantbaserade proteinmåltider.", en: "Join thousands who chose real, plant-based protein meals." },
  "cta.button": { sv: "Handla PLÄNTLY", en: "Shop PLÄNTLY" },
 
  // Cart
@@ -230,13 +230,13 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Newsletter popup
  "newsletter.title": { sv: "Gå med i PLÄNTLY-familjen", en: "Join the PLÄNTLY family" },
- "newsletter.subtitle": { sv: "Få exklusiva erbjudanden & växtbaserad inspiration.", en: "Get exclusive offers & plant-based inspiration." },
+ "newsletter.subtitle": { sv: "Få exklusiva erbjudanden & plantbaserad inspiration.", en: "Get exclusive offers & plant-based inspiration." },
  "newsletter.benefit1Title": { sv: "10% rabatt på din första beställning", en: "10% off your first order" },
  "newsletter.benefit1Desc": { sv: "Exklusiv rabatt för nya prenumeranter.", en: "Exclusive discount for new subscribers." },
  "newsletter.benefit2Title": { sv: "Gratis fraktuppdateringar", en: "Free shipping updates" },
  "newsletter.benefit2Desc": { sv: "Bli först med att veta om leveranserbjudanden.", en: "Be the first to know about delivery offers." },
  "newsletter.benefit3Title": { sv: "Recept & tips", en: "Recipes & tips" },
- "newsletter.benefit3Desc": { sv: "Veckovis växtbaserad näringsinspiration.", en: "Weekly plant-based nutrition inspiration." },
+ "newsletter.benefit3Desc": { sv: "Veckovis plantbaserad näringsinspiration.", en: "Weekly plant-based nutrition inspiration." },
  "newsletter.placeholder": { sv: "din@epost.se", en: "your@email.com" },
  "newsletter.submit": { sv: "Prenumerera & spara 10%", en: "Subscribe & save 10%" },
  "newsletter.submitting": { sv: "Prenumererar…", en: "Subscribing…" },
@@ -254,8 +254,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "about.subtitle": { sv: "Växtbaserade proteinmåltider — enkelt, gott och hållbart för det moderna livet.", en: "Plant-based protein meals — simple, delicious and sustainable for modern life." },
  "about.p1": { sv: "PLÄNTLY föddes i Skandinavien ur en enkel frustration: varför är det så svårt att äta bra när man har ont om tid? Snabbmat är ofta skräp, och hälsosam mat tar tid som de flesta inte har.", en: "PLÄNTLY was born in Scandinavia out of a simple frustration: why is it so hard to eat well when you're short on time? Fast food is often junk, and healthy food takes time most people don't have." },
  "about.p2": { sv: "Vi bestämde oss för att skapa något annorlunda — riktiga måltider, med riktigt protein, från riktiga växter. Inga pulver, inga shakes, inga kompromisser. Bara mat som är lika bra för dig som den smakar, klar på tiden det tar att koka vatten.", en: "We decided to create something different — real meals, with real protein, from real plants. No powders, no shakes, no compromises. Just food that's as good for you as it tastes, ready in the time it takes to boil water." },
- "about.p3": { sv: "Vårt team av kockar och nutritionister lade över ett år på att utveckla recept som levererar 20g växtprotein per portion, med balanserade makron, ärliga ingredienser och smaker man faktiskt längtar efter.", en: "Our team of chefs and nutritionists spent over a year developing recipes that deliver 20g plant protein per serving, with balanced macros, honest ingredients and flavours you actually crave." },
- "about.p4": { sv: "Idag litar atleter, kontor, entreprenörer och alla som vägrar välja mellan hälsa och bekvämlighet på PLÄNTLY. Vi är på ett uppdrag att göra växtbaserat protein till det enklaste valet för det moderna livet.", en: "Today, athletes, offices, entrepreneurs and everyone who refuses to choose between health and convenience trust PLÄNTLY. We're on a mission to make plant-based protein the easiest choice for modern life." },
+ "about.p3": { sv: "Vårt team av kockar och nutritionister lade över ett år på att utveckla recept som levererar 20g plantprotein per portion, med balanserade makron, ärliga ingredienser och smaker man faktiskt längtar efter.", en: "Our team of chefs and nutritionists spent over a year developing recipes that deliver 20g plant protein per serving, with balanced macros, honest ingredients and flavours you actually crave." },
+ "about.p4": { sv: "Idag litar atleter, kontor, entreprenörer och alla som vägrar välja mellan hälsa och bekvämlighet på PLÄNTLY. Vi är på ett uppdrag att göra plantbaserat protein till det enklaste valet för det moderna livet.", en: "Today, athletes, offices, entrepreneurs and everyone who refuses to choose between health and convenience trust PLÄNTLY. We're on a mission to make plant-based protein the easiest choice for modern life." },
  "about.founded": { sv: "Grundat i Stockholm", en: "Founded in Stockholm" },
  "about.mealsServed": { sv: "Serverade måltider", en: "Meals served" },
  "about.plantBasedStat": { sv: "Växtbaserat-Protein", en: "Plant-based Protein" },
@@ -323,7 +323,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "quiz.q1o2": { sv: "Aktiv & på språng", en: "Active & on the go" },
  "quiz.q1o3": { sv: "Upptagen yrkesperson", en: "Busy professional" },
  "quiz.q1o4": { sv: "Team / kontorskultur", en: "Team / office culture" },
- "quiz.q2": { sv: "Hur många växtbaserade måltider vill du ha per vecka?", en: "How many plant-based meals do you want per week?" },
+ "quiz.q2": { sv: "Hur många plantbaserade måltider vill du ha per vecka?", en: "How many plant-based meals do you want per week?" },
  "quiz.q2o1": { sv: "Några (2–3)", en: "A few (2–3)" },
  "quiz.q2o2": { sv: "Dagligen (5–7)", en: "Daily (5–7)" },
  "quiz.q2o3": { sv: "Flera per dag", en: "Multiple per day" },
