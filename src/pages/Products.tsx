@@ -70,7 +70,7 @@ const ProductDetail = () => {
     name: product.title,
     description: product.description,
     image: image?.url,
-    url: `https://plantlymeals.com/product/${product.handle}`,
+    url: `https://plaently.com/product/${product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(price && {
       offers: {
