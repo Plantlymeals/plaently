@@ -27,6 +27,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/high-protein-meals", changefreq: "monthly", priority: "0.85" },
   { path: "/plant-based-meals", changefreq: "monthly", priority: "0.85" },
   { path: "/healthy-instant-meals", changefreq: "monthly", priority: "0.85" },
+  { path: "/healthy-fast-food", changefreq: "monthly", priority: "0.9" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   { path: "/faq", changefreq: "monthly", priority: "0.5" },

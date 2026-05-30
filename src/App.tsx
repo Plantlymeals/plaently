@@ -53,6 +53,7 @@ const AppContent = () => {
         <Route path="/high-protein-meals" element={<CategoryPage categoryKey="high-protein-meals" />} />
         <Route path="/plant-based-meals" element={<CategoryPage categoryKey="plant-based-meals" />} />
         <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
+        <Route path="/healthy-fast-food" element={<CategoryPage categoryKey="healthy-fast-food" />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogPost />} />

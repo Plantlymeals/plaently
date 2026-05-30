@@ -19,7 +19,7 @@ export interface CategoryContent {
   keywordLabel: string;
 }
 
-type CategoryKey = "high-protein-meals" | "plant-based-meals" | "healthy-instant-meals";
+type CategoryKey = "high-protein-meals" | "plant-based-meals" | "healthy-instant-meals" | "healthy-fast-food";
 
 const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "high-protein-meals": {
@@ -334,6 +334,110 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       ctaHeadline: "Prova hälsosamma snabbmåltider",
       ctaText: "Handla nu",
+    },
+  },
+  "healthy-fast-food": {
+    en: {
+      slug: "healthy-fast-food",
+      metaTitle: "Healthy Fast Food | 20g Protein Meals in 5 Minutes | PLÄNTLY",
+      metaDescription: "20g plant protein meals ready in 5 minutes. Developed in Sweden and crafted in Italy. Healthy fast food without compromise.",
+      h1: "Healthy Fast Food.",
+      keywordLabel: "A new category · Plant protein · 5 minutes",
+      intro:
+        "PLÄNTLY is rewriting the rules of fast food. Real meals, 20g of plant protein, ready in the time it takes to boil water.",
+      sections: [
+        {
+          heading: "A new category, not a compromise",
+          body: [
+            "Fast food was designed for speed — and stopped there. The result was a category built on processed ingredients, low protein and high regret. PLÄNTLY exists to move that category forward, not patch it.",
+            "We are not a lighter version of fast food. We are what fast food becomes once nutrition, time and craft are treated as equal priorities.",
+          ],
+        },
+        {
+          heading: "20g plant protein in every meal",
+          body: [
+            "Every cup delivers 20g of complete plant protein from a pea and sunflower blend — a profile that matches whey on amino acid score and bioavailability, with the lighter digestion of plants.",
+            "Pair that with slow-release carbohydrates, healthy fats and 5–9g of fibre and you have a meal designed to sustain focus and recovery, not spike and crash.",
+          ],
+        },
+        {
+          heading: "Ready in 5 minutes",
+          body: [
+            "Add hot water. Wait 5 minutes. Eat real food. No microwave, no kitchen, no shortcuts that sacrifice quality. PLÄNTLY fits where a kettle fits — your desk, your gym bag, your hotel room.",
+          ],
+        },
+        {
+          heading: "Developed in Sweden. Crafted in Italy.",
+          body: [
+            "Scandinavian nutrition standards meet Italian craftsmanship. Every recipe is engineered in Sweden for macro balance and developed with Italian producers who treat pasta, lentils and sauce as a craft.",
+            "The outcome is fast food that respects your time and your standards — global by design, premium by default.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g plant protein", desc: "Complete amino acid profile in every meal." },
+        { title: "Ready in 5 minutes", desc: "Just add hot water. Real food, no waiting." },
+        { title: "Developed in Sweden", desc: "Engineered to Scandinavian nutrition standards." },
+        { title: "Crafted in Italy", desc: "Made with Italian producers who treat food as craft." },
+      ],
+      faqs: [
+        { q: "What makes this healthy fast food?", a: "Real ingredients, 20g of complete plant protein, balanced macros and 5 minutes of preparation — designed as a meal, not a snack." },
+        { q: "Is PLÄNTLY only for athletes?", a: "No. PLÄNTLY is built for anyone who values their time and their health — professionals, parents, students and athletes alike." },
+        { q: "Where is PLÄNTLY made?", a: "Recipes are developed in Sweden and produced in Italy with selected partners." },
+      ],
+      ctaHeadline: "The future of fast food. Today.",
+      ctaText: "Shop meals",
+    },
+    sv: {
+      slug: "healthy-fast-food",
+      metaTitle: "Hälsosam snabbmat | 20g protein på 5 minuter | PLÄNTLY",
+      metaDescription: "20g växtprotein på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromiss.",
+      h1: "Hälsosam snabbmat.",
+      keywordLabel: "En ny kategori · Växtprotein · 5 minuter",
+      intro:
+        "PLÄNTLY skriver om reglerna för snabbmat. Riktiga måltider, 20g växtprotein, klart på tiden det tar att koka vatten.",
+      sections: [
+        {
+          heading: "En ny kategori, inte en kompromiss",
+          body: [
+            "Snabbmat designades för hastighet — och stannade där. Resultatet blev en kategori byggd på processade ingredienser, lågt protein och hög ånger. PLÄNTLY finns för att flytta kategorin framåt, inte lappa ihop den.",
+            "Vi är inte en lättare version av snabbmat. Vi är vad snabbmat blir när näring, tid och hantverk får samma prioritet.",
+          ],
+        },
+        {
+          heading: "20g växtprotein i varje måltid",
+          body: [
+            "Varje kopp levererar 20g komplett växtprotein från en blandning av ärt och solros — en profil som matchar vassle på aminosyror och biotillgänglighet, med plantans lättare matsmältning.",
+            "Kombinera det med långsamma kolhydrater, hälsosamma fetter och 5–9g fiber så har du en måltid designad för fokus och återhämtning — utan toppar och dippar.",
+          ],
+        },
+        {
+          heading: "Klart på 5 minuter",
+          body: [
+            "Tillsätt hett vatten. Vänta 5 minuter. Ät riktig mat. Ingen mikro, inget kök, inga genvägar som offrar kvalitet. PLÄNTLY får plats där en vattenkokare får plats — skrivbordet, gymväskan, hotellrummet.",
+          ],
+        },
+        {
+          heading: "Utvecklat i Sverige. Hantverk från Italien.",
+          body: [
+            "Skandinavisk näringsstandard möter italienskt hantverk. Varje recept är utvecklat i Sverige för balanserade makron och producerat med italienska partners som behandlar pasta, linser och sås som ett hantverk.",
+            "Resultatet är snabbmat som respekterar din tid och dina standarder — global i design, premium i utförande.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g växtprotein", desc: "Komplett aminosyraprofil i varje måltid." },
+        { title: "Klar på 5 minuter", desc: "Tillsätt bara hett vatten. Riktig mat, ingen väntan." },
+        { title: "Utvecklat i Sverige", desc: "Konstruerat enligt skandinavisk näringsstandard." },
+        { title: "Hantverk från Italien", desc: "Tillverkat med italienska producenter som ser mat som hantverk." },
+      ],
+      faqs: [
+        { q: "Vad gör detta till hälsosam snabbmat?", a: "Riktiga ingredienser, 20g komplett växtprotein, balanserade makron och 5 minuters tillagning — designat som en måltid, inte ett mellanmål." },
+        { q: "Är PLÄNTLY bara för atleter?", a: "Nej. PLÄNTLY är byggt för alla som värdesätter sin tid och sin hälsa — yrkesverksamma, föräldrar, studenter och atleter." },
+        { q: "Var tillverkas PLÄNTLY?", a: "Recepten utvecklas i Sverige och produceras i Italien med utvalda partners." },
+      ],
+      ctaHeadline: "Framtidens snabbmat. Idag.",
+      ctaText: "Handla måltider",
     },
   },
 };
