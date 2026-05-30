@@ -339,8 +339,8 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "healthy-fast-food": {
     en: {
       slug: "healthy-fast-food",
-      metaTitle: "Healthy Fast Food | 20g Protein Meals in 5 Minutes | PLÄNTLY",
-      metaDescription: "20g plant protein meals ready in 5 minutes. Developed in Sweden and crafted in Italy. Healthy fast food without compromise.",
+      metaTitle: "Healthy Fast Food | 20g Protein in 5 Minutes | PLÄNTLY",
+      metaDescription: "Healthy fast food that actually delivers. 20g protein per meal, ready in 5 minutes. Developed in Sweden. Crafted in Italy. No compromise.",
       h1: "Healthy Fast Food.",
       keywordLabel: "A new category · Plant protein · 5 minutes",
       intro:
@@ -381,9 +381,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Crafted in Italy", desc: "Made with Italian producers who treat food as craft." },
       ],
       faqs: [
-        { q: "What makes this healthy fast food?", a: "Real ingredients, 20g of complete plant protein, balanced macros and 5 minutes of preparation — designed as a meal, not a snack." },
-        { q: "Is PLÄNTLY only for athletes?", a: "No. PLÄNTLY is built for anyone who values their time and their health — professionals, parents, students and athletes alike." },
-        { q: "Where is PLÄNTLY made?", a: "Recipes are developed in Sweden and produced in Italy with selected partners." },
+        { q: "What is healthy fast food?", a: "Healthy fast food is convenient, quick food that doesn't compromise on nutrition. PLÄNTLY meals are ready in 5 minutes and contain 20g of plant protein per serving — no artificial additives, no empty calories." },
+        { q: "How much protein does PLÄNTLY healthy fast food contain?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to a chicken breast, ready in 5 minutes." },
+        { q: "Is PLÄNTLY healthy fast food suitable for everyone?", a: "Yes. PLÄNTLY is designed for everyone who wants to eat well without spending time cooking — athletes, professionals, students, and anyone who values both health and convenience." },
       ],
       ctaHeadline: "The future of fast food. Today.",
       ctaText: "Shop meals",
