@@ -65,7 +65,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "why.subtitle": { sv: "Allt du behöver i en måltid. Inget du inte behöver.", en: "Everything you need in a meal. Nothing you don't." },
  "why.highProtein": { sv: "Högprotein", en: "High Protein" },
  "why.highProteinDesc": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
- "why.plantBased": { sv: "Växtbaserat", en: "Plant-Based" },
+ "why.plantBased": { sv: "Plantbaserat", en: "Plant-Based" },
  "why.plantBasedDesc": { sv: "100% plantbaserad protein", en: "100% plant-based protein" },
  "why.lowSugar": { sv: "Lågt socker", en: "Low Sugar" },
  "why.lowSugarDesc": { sv: "Vissa tillsatta sockerarter eller sötningsmedel", en: "Some added sugars or sweeteners" },
@@ -100,12 +100,12 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Product overview
  "products.title": { sv: "Våra måltider", en: "Our Meals" },
- "products.subtitle": { sv: "Växtbaserade måltider fyllda med protein och fibrer. \nTillsätt bara hett vatten.", en: "Plant-based meals packed with protein and fibre. \nJust add hot water." },
+ "products.subtitle": { sv: "Plantbaserade måltider fyllda med protein och fibrer. \nTillsätt bara hett vatten.", en: "Plant-based meals packed with protein and fibre. \nJust add hot water." },
  "products.addToCart": { sv: "Lägg i varukorg", en: "Add to cart" },
  "products.addedToCart": { sv: "Tillagd i varukorgen!", en: "Added to cart!" },
 
  // Products page
- "products.pageTitle": { sv: "Växtbaserade proteinmåltider", en: "Plant-Based Protein Meals" },
+ "products.pageTitle": { sv: "Plantbaserade proteinmåltider", en: "Plant-Based Protein Meals" },
  "products.pageSubtitle": { sv: "Plantbaserade proteinmåltider klar på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
  "products.noProducts": { sv: "Inga produkter hittades.", en: "No products found." },
  "products.notFound": { sv: "Produkten hittades inte", en: "Product not found" },
@@ -178,8 +178,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "nutrition.calories": { sv: "Kalorier", en: "Calories" },
 
  // Nutrition page
- "nutritionPage.title": { sv: "Växtbaserad proteinnäring", en: "Plant-Based Protein Nutrition" },
- "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% växt baserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
+ "nutritionPage.title": { sv: "Plantbaserad proteinnäring", en: "Plant-Based Protein Nutrition" },
+ "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% plantbaserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
  "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
  "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
  "nutritionPage.carbsValue": { sv: "25–37g", en: "25–37g" },
@@ -190,7 +190,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "nutritionPage.fiberDesc": { sv: "Tarmvänlig fiber för mättnad och matsmältning.", en: "Gut-friendly fibre for satiety and digestion." },
  "nutritionPage.caloriesDesc": { sv: "Balanserat kaloriinnehåll anpassat för en komplett måltid.", en: "Balanced calorie content designed for a complete meal." },
  "nutritionPage.whyTitle": { sv: "Varför plantprotein?", en: "Why plant protein?" },
- "nutritionPage.whyP1": { sv: "Växtbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.", en: "Plant-based proteins offer a complete amino acid profile when combined correctly, while being easier to digest and significantly more sustainable than animal sources." },
+ "nutritionPage.whyP1": { sv: "Plantbaserade proteiner erbjuder en komplett aminosyraprofil när de kombineras rätt, samtidigt som de är lättare att smälta och betydligt mer hållbara än animaliska källor.", en: "Plant-based proteins offer a complete amino acid profile when combined correctly, while being easier to digest and significantly more sustainable than animal sources." },
  "nutritionPage.whyP2": { sv: "PLÄNTLY använder en egen blandning av ärt och solros protein för att uppnå ett komplett aminosyravärde som matchar vassleprotein i biotillgänglighet.", en: "PLÄNTLY uses a proprietary blend of pea and sunflower protein to achieve a complete amino acid score matching whey protein in bioavailability." },
  "nutritionPage.whyP3": { sv: "Utöver protein är våra måltider rika på mikronäringsämnen, antioxidanter och fiber — näringsämnen som ofta saknas i processad snabbmat.", en: "Beyond protein, our meals are rich in micronutrients, antioxidants and fibre — nutrients often missing from processed fast food." },
  "nutritionPage.sustainTitle": { sv: "Hållbarhetseffekt", en: "Sustainability Impact" },
@@ -216,7 +216,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "cart.checkout": { sv: "Till kassan", en: "Checkout" },
 
  // Footer
- "footer.desc": { sv: "Växtbaserade proteinmåltider för det moderna livet. Skandinavisk enkelhet möter riktig näring.", en: "Plant-based protein meals for modern life. Scandinavian simplicity meets real nutrition." },
+ "footer.desc": { sv: "Plantbaserade proteinmåltider för det moderna livet. Skandinavisk enkelhet möter riktig näring.", en: "Plant-based protein meals for modern life. Scandinavian simplicity meets real nutrition." },
  "footer.explore": { sv: "Utforska", en: "Explore" },
  "footer.support": { sv: "Support", en: "Support" },
  "footer.shipping": { sv: "Frakt", en: "Shipping" },
@@ -251,14 +251,14 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // About
  "about.title": { sv: "Om PLÄNTLY", en: "About PLÄNTLY" },
- "about.subtitle": { sv: "Växtbaserade proteinmåltider — enkelt, gott och hållbart för det moderna livet.", en: "Plant-based protein meals — simple, delicious and sustainable for modern life." },
+ "about.subtitle": { sv: "Plantbaserade proteinmåltider — enkelt, gott och hållbart för det moderna livet.", en: "Plant-based protein meals — simple, delicious and sustainable for modern life." },
  "about.p1": { sv: "PLÄNTLY föddes i Skandinavien ur en enkel frustration: varför är det så svårt att äta bra när man har ont om tid? Snabbmat är ofta skräp, och hälsosam mat tar tid som de flesta inte har.", en: "PLÄNTLY was born in Scandinavia out of a simple frustration: why is it so hard to eat well when you're short on time? Fast food is often junk, and healthy food takes time most people don't have." },
  "about.p2": { sv: "Vi bestämde oss för att skapa något annorlunda — riktiga måltider, med riktigt protein, från riktiga växter. Inga pulver, inga shakes, inga kompromisser. Bara mat som är lika bra för dig som den smakar, klar på tiden det tar att koka vatten.", en: "We decided to create something different — real meals, with real protein, from real plants. No powders, no shakes, no compromises. Just food that's as good for you as it tastes, ready in the time it takes to boil water." },
  "about.p3": { sv: "Vårt team av kockar och nutritionister lade över ett år på att utveckla recept som levererar 20g plantprotein per portion, med balanserade makron, ärliga ingredienser och smaker man faktiskt längtar efter.", en: "Our team of chefs and nutritionists spent over a year developing recipes that deliver 20g plant protein per serving, with balanced macros, honest ingredients and flavours you actually crave." },
  "about.p4": { sv: "Idag litar atleter, kontor, entreprenörer och alla som vägrar välja mellan hälsa och bekvämlighet på PLÄNTLY. Vi är på ett uppdrag att göra plantbaserat protein till det enklaste valet för det moderna livet.", en: "Today, athletes, offices, entrepreneurs and everyone who refuses to choose between health and convenience trust PLÄNTLY. We're on a mission to make plant-based protein the easiest choice for modern life." },
  "about.founded": { sv: "Grundat i Stockholm", en: "Founded in Stockholm" },
  "about.mealsServed": { sv: "Serverade måltider", en: "Meals served" },
- "about.plantBasedStat": { sv: "Växtbaserat-Protein", en: "Plant-based Protein" },
+ "about.plantBasedStat": { sv: "Plantbaserat-Protein", en: "Plant-based Protein" },
 
  // Blog
  "blog.title": { sv: "Blogg", en: "Blog" },
