@@ -131,7 +131,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.title": { sv: "Välj ditt paket", en: "Choose your pack" },
  "bundles.subtitle": { sv: "Spara mer när du köper mer.", en: "Save more when you buy more." },
  "bundles.orderNow": { sv: "Beställ nu", en: "Order now" },
- "bundles.mostPopular": { sv: "⭐ Populärast", en: "⭐ Most Popular" },
+  "bundles.mostPopular": { sv: "Populärast", en: "Most Popular" },
  "bundles.bestValue": { sv: "Bäst värde", en: "Best Value" },
  "bundles.save": { sv: "Spara", en: "Save" },
  "bundles.desc.starter": { sv: "Börja med vårt taster pack och prova alla fyra smakerna. De flesta hittar en favorit inom första veckan — och går aldrig tillbaka till snabbnudlar.", en: "Start with our taster pack and try all four flavours. Most people find a favourite within the first week — and never go back to instant noodles." },
