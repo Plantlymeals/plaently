@@ -72,7 +72,28 @@ const AdminBlog = () => {
             <div className="space-y-1"><label className="text-xs font-medium">Title *</label><Input value={form.title ?? ""} onChange={e => setForm({ ...form, title: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Slug *</label><Input value={form.slug ?? ""} onChange={e => setForm({ ...form, slug: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Author</label><Input value={form.author ?? ""} onChange={e => setForm({ ...form, author: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Category</label><Input value={form.category ?? ""} onChange={e => setForm({ ...form, category: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1">
+              <label className="text-xs font-medium">Language *</label>
+              <Select value={form.language ?? "en"} onValueChange={(v) => setForm({ ...form, language: v, category: "" })}>
+                <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="sv">Svenska</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1 sm:col-span-2">
+              <label className="text-xs font-medium">Category</label>
+              <Select value={form.category ?? ""} onValueChange={(v) => setForm({ ...form, category: v })}>
+                <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select a category" /></SelectTrigger>
+                <SelectContent>
+                  {BLOG_CATEGORIES.map((c) => {
+                    const label = (form.language ?? "en") === "sv" ? c.sv : c.en;
+                    return <SelectItem key={c.slug} value={label}>{label}</SelectItem>;
+                  })}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="space-y-1 sm:col-span-2"><label className="text-xs font-medium">Cover Image URL</label><Input value={form.cover_image_url ?? ""} onChange={e => setForm({ ...form, cover_image_url: e.target.value })} className="rounded-xl" /></div>
           </div>
           <div className="space-y-1"><label className="text-xs font-medium">Excerpt</label><Textarea value={form.excerpt ?? ""} onChange={e => setForm({ ...form, excerpt: e.target.value })} className="rounded-xl" rows={2} /></div>
