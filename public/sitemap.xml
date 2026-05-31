@@ -158,12 +158,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://plaently.com/blog/quick-healthy-lunch-ideas-sv</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://plaently.com/blog/best-high-protein-vegan-meals</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
@@ -188,7 +182,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://plaently.com/blog/why-meal-cups-beat-powders-and-shakes</loc>
+    <loc>https://plaently.com/blog/quick-healthy-lunch-ideas-sv</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -201,6 +195,12 @@
   </url>
   <url>
     <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work-sv</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/blog/why-meal-cups-beat-powders-and-shakes</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
