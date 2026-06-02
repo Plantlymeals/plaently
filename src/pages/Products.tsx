@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock, Star } from "lucide-react";
+import { Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
@@ -22,7 +22,6 @@ const ProductDetail = () => {
   const productHandle = handle || slug;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState<{ author_name: string; author_role: string | null; quote: string }[]>([]);
   const { t } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -31,15 +30,6 @@ const ProductDetail = () => {
     fetchShopifyProductByHandle(productHandle).then((data) => {
       setProduct(data);
       setLoading(false);
-    });
-    supabase
-      .from("testimonials")
-      .select("author_name, author_role, quote")
-      .eq("is_published", true)
-      .order("sort_order")
-      .limit(3)
-      .then(({ data }) => {
-        if (data) setReviews(data as any);
     });
   }, [productHandle]);
 
