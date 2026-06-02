@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
+import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
