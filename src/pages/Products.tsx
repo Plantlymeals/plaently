@@ -115,21 +115,8 @@ const ProductDetail = () => {
         },
       },
     }),
-    ...(reviews.length > 0 && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "4.9",
-        reviewCount: String(reviews.length),
-        bestRating: "5",
-        worstRating: "1",
-      },
-      review: reviews.map((r) => ({
-        "@type": "Review",
-        author: { "@type": "Person", name: r.author_name },
-        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
-        reviewBody: r.quote,
-      })),
-    }),
+    // aggregateRating/review intentionally omitted until verified reviews exist.
+    // Google penalises self-serving / placeholder ratings.
   };
 
   return (
