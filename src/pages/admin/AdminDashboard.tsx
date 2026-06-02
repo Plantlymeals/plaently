@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { LayoutDashboard, ShoppingBag, FileText, MessageSquare, HelpCircle, Quote, Image, Package, LogOut, Menu } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, FileText, MessageSquare, HelpCircle, Quote, Image, Package, LogOut, Menu, Tag } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { label: "FAQs", path: "/admin/faqs", icon: HelpCircle },
   { label: "Testimonials", path: "/admin/testimonials", icon: Quote },
   { label: "Bundles", path: "/admin/bundles", icon: Package },
+  { label: "Discounts", path: "/admin/discounts", icon: Tag },
   { label: "Hero Content", path: "/admin/hero", icon: Image },
   { label: "Messages", path: "/admin/messages", icon: MessageSquare },
 ];
