@@ -34,6 +34,7 @@ const AdminTestimonials = lazy(() => import("./pages/admin/AdminTestimonials"));
 const AdminBundles = lazy(() => import("./pages/admin/AdminBundles"));
 const AdminHero = lazy(() => import("./pages/admin/AdminHero"));
 const AdminMessages = lazy(() => import("./pages/admin/AdminMessages"));
+const AdminDiscounts = lazy(() => import("./pages/admin/AdminDiscounts"));
 const CategoryPage = lazy(() => import("./pages/categories/CategoryPage"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
 
@@ -86,6 +87,7 @@ const AppContent = () => {
           <Route path="bundles" element={<AdminBundles />} />
           <Route path="hero" element={<AdminHero />} />
           <Route path="messages" element={<AdminMessages />} />
+          <Route path="discounts" element={<AdminDiscounts />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
