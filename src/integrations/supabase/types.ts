@@ -314,6 +314,48 @@ export type Database = {
         }
         Relationships: []
       }
+      product_reviews: {
+        Row: {
+          approved_at: string | null
+          author_email: string
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+          product_slug: string
+          rating: number
+          status: Database["public"]["Enums"]["review_status"]
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          approved_at?: string | null
+          author_email: string
+          author_name: string
+          body: string
+          created_at?: string
+          id?: string
+          product_slug: string
+          rating: number
+          status?: Database["public"]["Enums"]["review_status"]
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          approved_at?: string | null
+          author_email?: string
+          author_name?: string
+          body?: string
+          created_at?: string
+          id?: string
+          product_slug?: string
+          rating?: number
+          status?: Database["public"]["Enums"]["review_status"]
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           allergens: string | null
@@ -490,6 +532,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      review_status: "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -618,6 +661,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      review_status: ["pending", "approved", "rejected"],
     },
   },
 } as const
