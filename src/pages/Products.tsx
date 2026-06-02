@@ -15,6 +15,7 @@ import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
+import ProductReviews from "@/components/ProductReviews";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -220,38 +221,7 @@ const ProductDetail = () => {
             </Button>
           </div>
 
-          {reviews.length > 0 && (
-            <div className="mt-16">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                {[0,1,2,3,4].map((i) => (
-                  <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                ))}
-                <span className="ml-2 font-semibold text-foreground">4.9</span>
-                <span className="text-sm text-muted-foreground">({reviews.length})</span>
-              </div>
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-center mb-8">
-                {t("productDetail.reviewsTitle") || "What customers say"}
-              </h2>
-              <div className="grid md:grid-cols-3 gap-6">
-                {reviews.map((r, i) => (
-                  <div key={i} className="rounded-2xl bg-card border border-border/50 p-6 shadow-card">
-                    <div className="flex gap-1 mb-3">
-                      {[0,1,2,3,4].map((s) => (
-                        <Star key={s} className="h-4 w-4 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <p className="text-sm text-foreground leading-relaxed mb-4">"{r.quote}"</p>
-                    <div>
-                      <p className="font-semibold text-sm text-foreground">{r.author_name}</p>
-                      {r.author_role && (
-                        <p className="text-xs text-muted-foreground">{r.author_role}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <ProductReviews productSlug={product.handle} title={product.title} />
         </div>
       </section>
       <MixBuilderDialog {...dialogProps} />
