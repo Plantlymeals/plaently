@@ -496,6 +496,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_reviews: {
+        Args: { _status: Database["public"]["Enums"]["review_status"] }
+        Returns: {
+          approved_at: string | null
+          author_email: string
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+          product_slug: string
+          rating: number
+          status: Database["public"]["Enums"]["review_status"]
+          title: string | null
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "product_reviews"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
