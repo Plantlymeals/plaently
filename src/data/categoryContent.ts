@@ -466,9 +466,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           ],
         },
         {
-          heading: "The Taster Pack.",
+          heading: "The Starter Pack.",
           body: [
-            "New to PLÄNTLY? The Taster Pack lets you try every flavour — enough to find your favourite, and enough to make 20g protein the easiest decision of your week.",
+            "New to PLÄNTLY? The Starter Pack lets you try every flavour — enough to find your favourite, and enough to make 20g protein the easiest decision of your week.",
           ],
         },
       ],
@@ -481,11 +481,11 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       faqs: [
         { q: "What is a PLÄNTLY Protein Cup?", a: "A PLÄNTLY Protein Cup is an instant meal cup containing 20g of plant protein, ready in 5 minutes with just hot water. Available in four flavours: Fusilli Bolognese, Pasta Carbonara, Yellow Curry with Rice, and Smokey Lentils." },
         { q: "How do you prepare a PLÄNTLY Protein Cup?", a: "Add hot water to the fill line, stir, wait 5 minutes, eat. No cooking required, no prep, no equipment beyond hot water." },
-        { q: "Where can I buy PLÄNTLY Protein Cups?", a: "PLÄNTLY Protein Cups are available online at plaently.com. A Taster Pack is available to try every flavour at once." },
+        { q: "Where can I buy PLÄNTLY Protein Cups?", a: "PLÄNTLY Protein Cups are available online at plaently.com. A Starter Pack is available to try every flavour at once." },
         { q: "How long do PLÄNTLY Protein Cups last?", a: "PLÄNTLY Protein Cups have a long shelf life, making them ideal for desk drawers, gym bags, and pantry storage. Check individual packaging for best-before dates." },
       ],
       ctaHeadline: "20g protein in a cup. Anywhere.",
-      ctaText: "Shop the Taster Pack",
+      ctaText: "Shop the Starter Pack",
       related: relatedEn("protein-cups"),
     },
     sv: {
@@ -516,9 +516,9 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
           ],
         },
         {
-          heading: "Taster Pack.",
+          heading: "Starter Pack.",
           body: [
-            "Ny till PLÄNTLY? Med Taster Pack provar du alla smaker — tillräckligt för att hitta din favorit och göra 20g protein till veckans enklaste beslut.",
+            "Ny till PLÄNTLY? Med Starter Pack provar du alla smaker — tillräckligt för att hitta din favorit och göra 20g protein till veckans enklaste beslut.",
           ],
         },
       ],
@@ -531,11 +531,11 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       faqs: [
         { q: "Vad är en PLÄNTLY Proteinkopp?", a: "En PLÄNTLY Proteinkopp är en färdig måltid i kopp med 20g plantprotein, klar på 5 minuter med bara hett vatten. Finns i fyra smaker: Fusilli Bolognese, Pasta Carbonara, Gul Curry med Ris och Smokey Lentils." },
         { q: "Hur tillagar man en PLÄNTLY Proteinkopp?", a: "Häll hett vatten upp till markeringen, rör om, vänta 5 minuter, ät. Ingen matlagning krävs, ingen förberedelse, ingen utrustning utöver hett vatten." },
-        { q: "Var kan jag köpa PLÄNTLY Proteinkoppar?", a: "PLÄNTLY Proteinkoppar finns online på plaently.com. Vårt Taster Pack låter dig prova alla smaker på en gång." },
+        { q: "Var kan jag köpa PLÄNTLY Proteinkoppar?", a: "PLÄNTLY Proteinkoppar finns online på plaently.com. Vårt Starter Pack låter dig prova alla smaker på en gång." },
         { q: "Hur länge håller PLÄNTLY Proteinkoppar?", a: "PLÄNTLY Proteinkoppar har lång hållbarhet — perfekt för skrivbordslådan, gympaväskan och skafferiet. Se förpackningen för bäst-före-datum." },
       ],
       ctaHeadline: "20g protein i en kopp. Var som helst.",
-      ctaText: "Handla Taster Pack",
+      ctaText: "Handla Starter Pack",
       related: relatedSv("protein-cups"),
     },
   },

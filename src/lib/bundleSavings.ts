@@ -1,14 +1,12 @@
 export const SINGLE_MEAL_PRICE = 35;
 
 // Order matters: "big office" must come before "office" to avoid partial match.
-// Also handle taster pack (4 cups).
 const BUNDLE_MEAL_COUNTS: [string, number][] = [
   ["big office", 120],
   ["office", 60],
   ["athlete", 24],
   ["monthly", 24],
   ["starter", 12],
-  ["taster", 4],
 ];
 
 export function getBundleMealCount(title: string): number | null {
