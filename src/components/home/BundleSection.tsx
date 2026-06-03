@@ -53,7 +53,8 @@ const BundleSection = () => {
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
       if (data) {
-        const sorted = [...data].sort(
+        const filtered = data.filter((b) => !b.node.title.toLowerCase().includes("taster"));
+        const sorted = [...filtered].sort(
           (a, b) =>
             parseFloat(a.node.priceRange.minVariantPrice.amount) -
             parseFloat(b.node.priceRange.minVariantPrice.amount)
