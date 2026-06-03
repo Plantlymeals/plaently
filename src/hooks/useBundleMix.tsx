@@ -4,9 +4,9 @@ import { type ShopifyProduct } from "@/lib/shopify";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
 
-const BUNDLE_KEYS = ["big office", "office", "monthly", "athlete", "starter", "taster"] as const;
+const BUNDLE_KEYS = ["big office", "office", "monthly", "athlete", "starter"] as const;
 const CUPS: Record<string, number> = {
-  taster: 4, starter: 12, athlete: 24, monthly: 24, office: 60, "big office": 120,
+  starter: 12, athlete: 24, monthly: 24, office: 60, "big office": 120,
 };
 
 export function getBundleCupsFromTitle(title: string): number | null {

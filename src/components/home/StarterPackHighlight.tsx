@@ -9,7 +9,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 const SINGLE_MEAL_PRICE = 35;
-const TASTER_MEALS = 4;
+const STARTER_MEALS = 12;
 
 const StarterPackHighlight = () => {
   const [pack, setPack] = useState<ShopifyProduct | null>(null);
@@ -19,7 +19,7 @@ const StarterPackHighlight = () => {
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
       if (!data) return;
-      const starter = data.find((b) => b.node.title.toLowerCase().includes("taster")) || data[0];
+      const starter = data.find((b) => b.node.title.toLowerCase().includes("starter")) || data[0];
       if (starter) setPack(starter);
     });
   }, []);
@@ -29,7 +29,7 @@ const StarterPackHighlight = () => {
   const variant = pack.node.variants.edges[0]?.node;
   const price = pack.node.priceRange.minVariantPrice;
   const bundlePrice = parseFloat(price.amount);
-  const fullPrice = TASTER_MEALS * SINGLE_MEAL_PRICE;
+  const fullPrice = STARTER_MEALS * SINGLE_MEAL_PRICE;
   const savingsPercent = fullPrice > bundlePrice ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100) : 0;
 
   const handleOrder = () => handleAdd(pack);
@@ -51,7 +51,7 @@ const StarterPackHighlight = () => {
             <div className="space-y-5">
               <img
                 src="/images/hero-product.webp"
-                alt="PLÄNTLY Taster Pack"
+                alt="PLÄNTLY Starter Pack"
                 className="w-full max-w-[280px] mx-auto md:mx-0 object-contain"
                 width={280}
                 height={157}
