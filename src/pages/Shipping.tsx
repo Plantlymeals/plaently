@@ -155,10 +155,17 @@ const COPY = {
 const Shipping = () => {
  const { lang } = useTranslation();
  const c = COPY[lang === "sv" ? "sv" : "en"];
+ const isEn = lang !== "sv";
+ const path = isEn ? "/shipping" : "/frakt";
+ const alternates = [
+   { hreflang: "en", path: "/shipping" },
+   { hreflang: "sv", path: "/frakt" },
+   { hreflang: "x-default", path: "/shipping" },
+ ];
 
  return (
  <Layout>
- <SEOHead title={c.seoTitle} description={c.seoDesc} path="/shipping" />
+ <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} />
 
  <section className="bg-foreground text-background py-20 md:py-28">
  <div className="container max-w-4xl text-center space-y-6">
