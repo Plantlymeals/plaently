@@ -68,7 +68,7 @@ export function useBundleMix() {
         setOpen(o);
         if (!o) setActive(null);
       },
-      bundleTitle: active?.node.title.replace(/—.*$/, "").trim() || "",
+      bundleTitle: active?.node.title || "",
       totalCups: cups,
       isLoading,
       onConfirm,
