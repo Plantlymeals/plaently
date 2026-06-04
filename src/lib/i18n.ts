@@ -137,7 +137,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.desc.starter": { sv: "Börja med vårt Starter Pack och prova alla fyra smakerna. De flesta hittar en favorit inom första veckan — och går aldrig tillbaka till snabbnudlar.", en: "Start with our Starter Pack and try all four flavours. Most people find a favourite within the first week — and never go back to instant noodles." },
  "bundles.desc.athlete": { sv: "Vårt mest populära paket. 24 plantbaserade proteinmåltider för din träning. Förstahandsvalet för en aktiv livsstil.", en: "Our most popular pack. 24 high-protein plant-based meals to fuel your training. The go-to choice for active lifestyles." },
  "bundles.desc.office": { sv: "Mat till hela teamet. 48 plantbaserade proteinmåltider — perfekt för kontorsköket. Enkla och hälsosamma luncher.", en: "Feed the whole team. 48 plant-based protein meals — perfect for the office kitchen. Healthy lunches made easy." },
- "bundles.desc.bigoffice": { sv: "Bäst värde. 120 plantbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 120 plant-based protein meals for the biggest savings. Stock up and never run out." },
+  "bundles.desc.bigoffice": { sv: "Bäst värde. 96 plantbaserade proteinmåltider för störst besparing. Fyll på och ha alltid hemma.", en: "Best value. 96 plant-based protein meals for the biggest savings. Stock up and never run out." },
  "bundles.freeShipping": { sv: "Fri frakt i Sverige", en: "Free shipping in Sweden" },
  "bundles.tryFirst": { sv: "Prova först", en: "Try first" },
  "bundles.youSave": { sv: "Du sparar", en: "You save" },
@@ -338,7 +338,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "quiz.starterExplanation": { sv: "Perfekt för att prova PLÄNTLY — 12 måltider för att utforska alla våra smaker i din egen takt.", en: "Perfect for trying PLÄNTLY — 12 meals to explore all our flavours at your own pace." },
  "quiz.athleteExplanation": { sv: "Designad för aktiva livsstilar — 24 proteinrika måltider som håller dig laddad genom varje pass.", en: "Designed for active lifestyles — 24 high-protein meals to keep you fuelled through every session." },
  "quiz.officeExplanation": { sv: "Hälsosamma luncher fixade — 48 måltider för den upptagna yrkespersonen som vill ha näring utan krångel.", en: "Healthy lunches sorted — 48 meals for the busy professional who wants nutrition without the hassle." },
- "quiz.bigOfficeExplanation": { sv: "Mätta hela teamet — 120 måltider till bästa pris per portion. Perfekt för kontor och grupper.", en: "Feed the whole team — 120 meals at the best price per serving. Perfect for offices and groups." },
+  "quiz.bigOfficeExplanation": { sv: "Mätta hela teamet — 96 måltider till bästa pris per portion. Perfekt för kontor och grupper.", en: "Feed the whole team — 96 meals at the best price per serving. Perfect for offices and groups." },
 };
 
 export const useLangStore = create<LangStore>()(

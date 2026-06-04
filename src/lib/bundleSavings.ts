@@ -2,7 +2,7 @@ export const SINGLE_MEAL_PRICE = 35;
 
 // Order matters: "big office" must come before "office" to avoid partial match.
 const BUNDLE_MEAL_COUNTS: [string, number][] = [
-  ["big office", 120],
+  ["big office", 96],
   ["office", 48],
   ["athlete", 24],
   ["monthly", 24],
