@@ -22,16 +22,6 @@ const CategoryPage = ({ categoryKey }: Props) => {
   const enSlug = enSlugByKey[categoryKey];
   const svSlug = svSlugByKey[categoryKey];
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: c.faqs.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
-
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -55,7 +45,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
         path={`/${c.slug}`}
         locale={lang}
         alternates={alternates}
-        jsonLd={[faqSchema, breadcrumbSchema]}
+        jsonLd={breadcrumbSchema}
       />
 
       {/* Hero */}
