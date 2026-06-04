@@ -83,6 +83,11 @@ const Terms = () => {
   const c = COPY[isEn ? "en" : "sv"];
   const path = isEn ? "/terms-of-service" : "/kopsvillkor";
   const privacyPath = isEn ? "/privacy-policy" : "/integritetspolicy";
+  const alternates = [
+    { hreflang: "en", path: "/terms-of-service" },
+    { hreflang: "sv", path: "/kopsvillkor" },
+    { hreflang: "x-default", path: "/terms-of-service" },
+  ];
 
   const baseUrl = "https://plantlymeals.com";
   const jsonLd = {
@@ -113,7 +118,7 @@ const Terms = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">
