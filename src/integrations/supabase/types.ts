@@ -493,7 +493,42 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_product_reviews: {
+        Row: {
+          approved_at: string | null
+          author_name: string | null
+          body: string | null
+          created_at: string | null
+          id: string | null
+          product_slug: string | null
+          rating: number | null
+          status: Database["public"]["Enums"]["review_status"] | null
+          title: string | null
+        }
+        Insert: {
+          approved_at?: string | null
+          author_name?: string | null
+          body?: string | null
+          created_at?: string | null
+          id?: string | null
+          product_slug?: string | null
+          rating?: number | null
+          status?: Database["public"]["Enums"]["review_status"] | null
+          title?: string | null
+        }
+        Update: {
+          approved_at?: string | null
+          author_name?: string | null
+          body?: string | null
+          created_at?: string | null
+          id?: string | null
+          product_slug?: string | null
+          rating?: number | null
+          status?: Database["public"]["Enums"]["review_status"] | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       admin_list_reviews: {
