@@ -50,6 +50,9 @@ const staticEntries: SitemapEntry[] = [
   { path: "/frakt", changefreq: "yearly", priority: "0.4" },
   { path: "/integritetspolicy", changefreq: "yearly", priority: "0.3" },
   { path: "/kopsvillkor", changefreq: "yearly", priority: "0.3" },
+  { path: "/shipping", changefreq: "yearly", priority: "0.4" },
+  { path: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
+  { path: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
 ];
 
 async function fetchBlogSlugs(): Promise<SitemapEntry[]> {
