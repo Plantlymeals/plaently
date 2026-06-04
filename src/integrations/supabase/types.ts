@@ -504,6 +504,7 @@ export type Database = {
           rating: number | null
           status: Database["public"]["Enums"]["review_status"] | null
           title: string | null
+          updated_at: string | null
         }
         Insert: {
           approved_at?: string | null
@@ -515,6 +516,7 @@ export type Database = {
           rating?: number | null
           status?: Database["public"]["Enums"]["review_status"] | null
           title?: string | null
+          updated_at?: string | null
         }
         Update: {
           approved_at?: string | null
@@ -526,6 +528,7 @@ export type Database = {
           rating?: number | null
           status?: Database["public"]["Enums"]["review_status"] | null
           title?: string | null
+          updated_at?: string | null
         }
         Relationships: []
       }
