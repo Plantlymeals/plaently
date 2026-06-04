@@ -30,7 +30,7 @@ const BUNDLE_META: Record<BundleKey, {
   athlete:      { cups: 24,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
   monthly:      { cups: 24,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "subscription", freeShipping: true },
   office:       { cups: 48,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
-  "big office": { cups: 120, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
+  "big office": { cups: 96, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
 };
 
 const SUBTITLE_KEYS: Record<BundleKey, string> = {
