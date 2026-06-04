@@ -146,6 +146,21 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://plaently.com/shipping</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/privacy-policy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/terms-of-service</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://plaently.com/blog/healthy-instant-meals-for-busy-people</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
