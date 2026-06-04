@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import { fetchShopifyProducts, type ShopifyProduct, cleanProductTitle } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Check, Loader2, Star, Heart } from "lucide-react";
@@ -160,7 +160,7 @@ const BundleSection = () => {
                 </div>
 
                 {/* Title + subtitle */}
-                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.node.title.replace(/—.*$/, "").trim() || b.node.title}</h3>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.node.title}</h3>
                 {cups && (
                   <p className="text-sm text-white/75 mb-6">
                     {cups} {t("bundles.cups")}
@@ -232,7 +232,7 @@ const BundleSection = () => {
           setMixOpen(o);
           if (!o) setActiveBundle(null);
         }}
-        bundleTitle={activeBundle?.node.title.replace(/—.*$/, "").trim() || ""}
+        bundleTitle={activeBundle?.node.title || ""}
         totalCups={activeBundleCups}
         isLoading={isLoading}
         onConfirm={handleMixConfirm}
