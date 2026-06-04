@@ -21,7 +21,7 @@ interface Question {
 const BUNDLES_META: Record<string, { name: string; count: number; searchTitle: string; image: string }> = {
   starter: { name: "Starter Pack", count: 12, searchTitle: "Starter", image: bolognese },
   athlete: { name: "Athlete Pack", count: 24, searchTitle: "Athlete", image: bbq },
-  office: { name: "Office Pack", count: 60, searchTitle: "Office", image: curry },
+  office: { name: "Office Pack", count: 48, searchTitle: "Office", image: curry },
   "big-office": { name: "Big Office Pack", count: 120, searchTitle: "Big Office", image: carbonara },
 };
 
