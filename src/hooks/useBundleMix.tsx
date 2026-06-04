@@ -6,7 +6,7 @@ import { useTranslation } from "@/lib/i18n";
 
 const BUNDLE_KEYS = ["big office", "office", "monthly", "athlete", "starter"] as const;
 const CUPS: Record<string, number> = {
-  starter: 12, athlete: 24, monthly: 24, office: 48, "big office": 120,
+  starter: 12, athlete: 24, monthly: 24, office: 48, "big office": 96,
 };
 
 export function getBundleCupsFromTitle(title: string): number | null {
