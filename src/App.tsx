@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import Index from "./pages/Index";
 
 const Products = lazy(() => import("./pages/Products").then(m => ({ default: m.Products })));
@@ -46,6 +47,7 @@ const AppContent = () => {
 
   return (
     <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
+      <LegacyQueryRedirect />
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/products" element={<Products />} />
