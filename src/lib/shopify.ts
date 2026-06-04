@@ -179,14 +179,35 @@ const PRODUCT_BY_HANDLE_QUERY = `
   }
 `;
 
+export function cleanProductTitle(title: string): string {
+  if (!title) return "";
+  const lower = title.toLowerCase();
+  if (lower === "starter-pack-12-cups" || lower === "starter-pack-12-cups-1") {
+    return "Starter Pack";
+  }
+  // Remove anything after — or - that looks like a suffix (e.g. - 12 cups)
+  return title.replace(/[—].*$/, "").trim();
+}
+
 export async function fetchShopifyProducts(first = 20, query?: string): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(STOREFRONT_QUERY, { first, query });
-  return data?.data?.products?.edges || [];
+  const products = data?.data?.products?.edges || [];
+  return products.map((p: any) => ({
+    ...p,
+    node: {
+      ...p.node,
+      title: cleanProductTitle(p.node.title)
+    }
+  }));
 }
 
 export async function fetchShopifyProductByHandle(handle: string): Promise<ShopifyProduct["node"] | null> {
   const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle });
-  return data?.data?.productByHandle || null;
+  const product = data?.data?.productByHandle || null;
+  if (product) {
+    product.title = cleanProductTitle(product.title);
+  }
+  return product;
 }
 
 // Cart mutations
