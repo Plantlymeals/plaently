@@ -22,6 +22,7 @@ const ProductDetail = () => {
   const productHandle = handle || slug;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const { t } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -31,6 +32,23 @@ const ProductDetail = () => {
       setProduct(data);
       setLoading(false);
     });
+  }, [productHandle]);
+
+  useEffect(() => {
+    if (!productHandle) return;
+    supabase
+      .from("product_reviews")
+      .select("author_name, rating, title, body, created_at")
+      .eq("product_slug", productHandle)
+      .eq("status", "approved")
+      .order("created_at", { ascending: false })
+      .limit(20)
+      .then(({ data }) => {
+        if (!data || data.length === 0) return;
+        const items = data as any[];
+        const avg = items.reduce((s, r) => s + r.rating, 0) / items.length;
+        setReviewData({ count: items.length, avg: Math.round(avg * 10) / 10, items });
+      });
   }, [productHandle]);
 
   if (loading) {
@@ -106,8 +124,28 @@ const ProductDetail = () => {
         },
       },
     }),
-    // aggregateRating/review intentionally omitted until verified reviews exist.
-    // Google penalises self-serving / placeholder ratings.
+    ...(reviewData.count > 0 && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: reviewData.avg.toFixed(1),
+        reviewCount: reviewData.count,
+        bestRating: "5",
+        worstRating: "1",
+      },
+      review: reviewData.items.slice(0, 10).map((r) => ({
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.rating,
+          bestRating: "5",
+          worstRating: "1",
+        },
+        author: { "@type": "Person", name: r.author_name },
+        datePublished: r.created_at,
+        ...(r.title && { name: r.title }),
+        reviewBody: r.body,
+      })),
+    }),
   };
 
   return (
