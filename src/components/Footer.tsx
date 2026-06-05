@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { BLOG_CATEGORIES } from "@/data/blogCategories";
 const logo = "/images/logo.png";
 
 const Footer = () => {
@@ -78,7 +79,62 @@ const Footer = () => {
             </form>
           </div>
         </div>
-        <div className="mt-16 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
+
+        {/* HTML sitemap — gives Googlebot a direct crawl path to every public landing page from any page on the site. */}
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="space-y-3">
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Kategorier" : "Categories"}</h3>
+            <nav className="flex flex-wrap gap-x-4 gap-y-2">
+              {BLOG_CATEGORIES.map((c) => (
+                <Link key={c.slug} to={`/blog/category/${c.slug}`} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">
+                  {lang === "sv" ? c.sv : c.en}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          <div className="space-y-3">
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Utforska" : "Explore"}</h3>
+            <nav className="flex flex-wrap gap-x-4 gap-y-2">
+              {(lang === "sv"
+                ? [
+                    { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
+                    { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
+                    { label: "Hälsosamma snabbmåltider", path: "/halsosamma-snabbmaltider" },
+                    { label: "Nyttig snabbmat", path: "/nyttig-snabbmat" },
+                    { label: "Proteinkoppar", path: "/proteinkoppar" },
+                  ]
+                : [
+                    { label: "High Protein Meals", path: "/high-protein-meals" },
+                    { label: "Plant-Based Meals", path: "/plant-based-meals" },
+                    { label: "Healthy Instant Meals", path: "/healthy-instant-meals" },
+                    { label: "Healthy Fast Food", path: "/healthy-fast-food" },
+                    { label: "Protein Cups", path: "/protein-cups" },
+                  ]
+              ).map((item) => (
+                <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
+              ))}
+            </nav>
+          </div>
+          <div className="space-y-3">
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Smaker & paket" : "Flavors & packs"}</h3>
+            <nav className="flex flex-wrap gap-x-4 gap-y-2">
+              {[
+                { label: "Fusilli Bolognese", path: "/product/plant-based-fusilli-bolognese" },
+                { label: "Pasta Carbonara", path: "/product/plant-based-pasta-carbonara" },
+                { label: "Smoky BBQ Lentils", path: "/product/plant-based-smoky-bbq-lentils" },
+                { label: "Yellow Curry & Rice", path: "/product/plant-based-yellow-curry-rice" },
+                { label: "Starter Pack", path: "/product/starter-pack-12-cups-1" },
+                { label: "Monthly Box", path: "/product/monthly-box-30-cups" },
+                { label: "Office Pack", path: "/product/office-pack-60-cups" },
+                { label: "Big Office Pack", path: "/product/big-office-pack-120-cups" },
+              ].map((item) => (
+                <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
          <p className="text-xs text-primary-foreground/70">© 2026 Plaently (PLÄNTLY) · plaently.com. {t("footer.rights")}</p>
           <div className="flex gap-6">
             <a href="https://www.linkedin.com/company/111443346/" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">LinkedIn</a>
