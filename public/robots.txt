@@ -20,5 +20,9 @@ Disallow: /*?page_id=
 Disallow: /*?p=
 Disallow: /*?preview=
 Disallow: /*?replytocom=
+Disallow: /*?cat=
+Disallow: /*?feed=
+Disallow: /*?m=
+Disallow: /*?author=
 
 Sitemap: https://plaently.com/sitemap.xml
