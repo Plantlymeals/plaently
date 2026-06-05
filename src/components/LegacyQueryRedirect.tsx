@@ -3,7 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 // Strips legacy WordPress-style query params (page_id, p, preview, replytocom)
 // so Google doesn't index duplicate URLs like /?page_id=2.
-const LEGACY_PARAMS = ["page_id", "p", "preview", "replytocom"];
+// Strip legacy WordPress-style query params so Google doesn't index duplicate
+// URLs like /?page_id=2, /?cat=1, /?p=1, /?feed=rss2 (seen in Search Console).
+const LEGACY_PARAMS = ["page_id", "p", "preview", "replytocom", "cat", "feed", "m", "author"];
 
 const LegacyQueryRedirect = () => {
   const location = useLocation();
