@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { LayoutDashboard, ShoppingBag, FileText, MessageSquare, HelpCircle, Quote, Image, Package, LogOut, Menu, Tag, Star } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, FileText, MessageSquare, HelpCircle, Quote, Image, Package, LogOut, Menu, Tag, Star, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -17,6 +17,7 @@ const navItems = [
   { label: "Discounts", path: "/admin/discounts", icon: Tag },
   { label: "Hero Content", path: "/admin/hero", icon: Image },
   { label: "Messages", path: "/admin/messages", icon: MessageSquare },
+  { label: "SEO & Indexing", path: "/admin/seo", icon: Search },
 ];
 
 const SidebarNav = ({ currentPath, onNavigate, signOut }: { currentPath: string; onNavigate?: () => void; signOut: () => void }) => (
