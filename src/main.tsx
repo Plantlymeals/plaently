@@ -20,4 +20,10 @@ window.addEventListener("unhandledrejection", (e) =>
   handleChunkError(String((e.reason as Error)?.message || e.reason || ""))
 );
 
+// Clear the reload guard once the app has successfully mounted, so a future
+// stale-chunk error (after the next deploy) can also trigger a one-shot reload.
+window.addEventListener("load", () => {
+  setTimeout(() => sessionStorage.removeItem(RELOAD_KEY), 2000);
+});
+
 createRoot(document.getElementById("root")!).render(<App />);
