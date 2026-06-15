@@ -14,7 +14,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
     "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
-    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserad sunflower, ris med plantbaserad gul currysås."],
+    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat."],
 
   // Allergen labels
   [/<strong>\s*Contains:\s*<\/strong>/gi, "<strong>Innehåller:</strong>"],
