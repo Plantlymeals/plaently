@@ -6,6 +6,16 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/Shake closed cup\.\s*Remove lid,\s*add\s*(\d+)\s*ml\s*boiling water,\s*stir well with a fork\.\s*Wait 5 minutes,\s*stir again and enjoy!/gi,
     "Skaka den stängda koppen. Ta av locket, tillsätt $1 ml kokande vatten och rör om väl med en gaffel. Vänta 5 minuter, rör om igen och njut!"],
 
+  // Short marketing intros (run BEFORE word-level replacements so they match raw English)
+  [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with vegan bolognese sauce\./gi,
+    "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
+  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
+    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinrik fusilli med plantbaserad carbonarasås."],
+  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
+    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
+  [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
+    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinrikt ris med plantbaserad gul currysås."],
+
   // Allergen labels
   [/<strong>\s*Contains:\s*<\/strong>/gi, "<strong>Innehåller:</strong>"],
   [/<strong>\s*May contain:\s*<\/strong>/gi, "<strong>Kan innehålla:</strong>"],
@@ -96,15 +106,6 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/\bmilk\b/gi, "mjölk"],
   [/\band\b/g, "och"],
 
-  // Short marketing intros (per product)
-  [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with vegan bolognese sauce\./gi,
-    "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
-  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
-    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinrik fusilli med plantbaserad carbonarasås."],
-  [/Smoky BBQ with smoked paprika,\s*caramelised (?:onion|lök) and (?:garlic|vitlök)\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
-    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås"],
-  [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
-    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinrikt ris med plantbaserad gul currysås."],
 ];
 
 export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
