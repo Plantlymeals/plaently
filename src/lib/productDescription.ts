@@ -40,7 +40,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/(\d+)\s*months\b/gi, "$1 månader"],
 
   // Ingredient terms
-  [/durum wheat semolina/gi, "durumvetegryn"],
+  [/durum wheat semolina/gi, "durumvete"],
   [/pea protein isolate/gi, "ärtproteinisolat"],
   [/texturized pea proteins?/gi, "texturerat ärtprotein"],
   [/texturised pea proteins?/gi, "texturerat ärtprotein"],
