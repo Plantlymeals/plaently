@@ -9,6 +9,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
+import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import Index from "./pages/Index";
 
 const Products = lazy(() => import("./pages/Products").then(m => ({ default: m.Products })));
@@ -54,57 +55,59 @@ const AppContent = () => {
   useCartSync();
 
   return (
-    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
-      <LegacyQueryRedirect />
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/products/:slug" element={<LegacyProductRedirect />} />
-        <Route path="/product/:handle" element={<ProductDetail />} />
-        <Route path="/nutrition" element={<Nutrition />} />
-        <Route path="/lifestyle" element={<Lifestyle />} />
-        <Route path="/high-protein-meals" element={<CategoryPage categoryKey="high-protein-meals" />} />
-        <Route path="/plant-based-meals" element={<CategoryPage categoryKey="plant-based-meals" />} />
-        <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
-        <Route path="/healthy-fast-food" element={<CategoryPage categoryKey="healthy-fast-food" />} />
-        <Route path="/protein-cups" element={<CategoryPage categoryKey="protein-cups" />} />
-        {/* Swedish slug aliases for category pages */}
-        <Route path="/proteinrika-maltider" element={<CategoryPage categoryKey="high-protein-meals" />} />
-        <Route path="/plantbaserade-maltider" element={<CategoryPage categoryKey="plant-based-meals" />} />
-        <Route path="/halsosamma-snabbmaltider" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
-        <Route path="/nyttig-snabbmat" element={<CategoryPage categoryKey="healthy-fast-food" />} />
-        <Route path="/proteinkoppar" element={<CategoryPage categoryKey="protein-cups" />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/category/:slug" element={<BlogCategory />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/shipping" element={<Shipping />} />
-        <Route path="/frakt" element={<Shipping />} />
-        <Route path="/integritetspolicy" element={<PrivacyPolicy />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/kopsvillkor" element={<Terms />} />
-        <Route path="/terms-of-service" element={<Terms />} />
-        <Route path="/unsubscribe" element={<Unsubscribe />} />
-        <Route path="/admin/login" element={<AdminLogin />} />
+    <ChunkErrorBoundary>
+      <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" /></div>}>
+        <LegacyQueryRedirect />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:slug" element={<LegacyProductRedirect />} />
+          <Route path="/product/:handle" element={<ProductDetail />} />
+          <Route path="/nutrition" element={<Nutrition />} />
+          <Route path="/lifestyle" element={<Lifestyle />} />
+          <Route path="/high-protein-meals" element={<CategoryPage categoryKey="high-protein-meals" />} />
+          <Route path="/plant-based-meals" element={<CategoryPage categoryKey="plant-based-meals" />} />
+          <Route path="/healthy-instant-meals" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
+          <Route path="/healthy-fast-food" element={<CategoryPage categoryKey="healthy-fast-food" />} />
+          <Route path="/protein-cups" element={<CategoryPage categoryKey="protein-cups" />} />
+          {/* Swedish slug aliases for category pages */}
+          <Route path="/proteinrika-maltider" element={<CategoryPage categoryKey="high-protein-meals" />} />
+          <Route path="/plantbaserade-maltider" element={<CategoryPage categoryKey="plant-based-meals" />} />
+          <Route path="/halsosamma-snabbmaltider" element={<CategoryPage categoryKey="healthy-instant-meals" />} />
+          <Route path="/nyttig-snabbmat" element={<CategoryPage categoryKey="healthy-fast-food" />} />
+          <Route path="/proteinkoppar" element={<CategoryPage categoryKey="protein-cups" />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/category/:slug" element={<BlogCategory />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/frakt" element={<Shipping />} />
+          <Route path="/integritetspolicy" element={<PrivacyPolicy />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/kopsvillkor" element={<Terms />} />
+          <Route path="/terms-of-service" element={<Terms />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
-          <Route index element={<AdminOverview />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="blog" element={<AdminBlog />} />
-          <Route path="faqs" element={<AdminFAQs />} />
-          <Route path="testimonials" element={<AdminTestimonials />} />
-          <Route path="bundles" element={<AdminBundles />} />
-          <Route path="hero" element={<AdminHero />} />
-          <Route path="messages" element={<AdminMessages />} />
-          <Route path="discounts" element={<AdminDiscounts />} />
-          <Route path="reviews" element={<AdminReviews />} />
-          <Route path="seo" element={<AdminSEO />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Suspense>
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
+            <Route index element={<AdminOverview />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="blog" element={<AdminBlog />} />
+            <Route path="faqs" element={<AdminFAQs />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="bundles" element={<AdminBundles />} />
+            <Route path="hero" element={<AdminHero />} />
+            <Route path="messages" element={<AdminMessages />} />
+            <Route path="discounts" element={<AdminDiscounts />} />
+            <Route path="reviews" element={<AdminReviews />} />
+            <Route path="seo" element={<AdminSEO />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </ChunkErrorBoundary>
   );
 };
 
