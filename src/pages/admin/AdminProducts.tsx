@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
+import { translateProductHtml } from "@/lib/productDescription";
 
 type Product = Tables<"products">;
 
@@ -20,6 +21,9 @@ const AdminProducts = () => {
   const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, any>>({});
   const [isNew, setIsNew] = useState(false);
+  const [previewInput, setPreviewInput] = useState<string>(
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with vegan yellow curry sauce."
+  );
 
   const fetch = async () => {
     const { data } = await supabase.from("products").select("*").order("sort_order");
@@ -149,6 +153,57 @@ const AdminProducts = () => {
           </div>
         ))}
         {products.length === 0 && <p className="text-muted-foreground text-sm text-center py-8">No products yet.</p>}
+      </div>
+
+      <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
+        <div>
+          <h2 className="font-heading font-semibold">Description Translation Preview</h2>
+          <p className="text-xs text-muted-foreground mt-1">
+            Paste any English (or mixed) product copy / HTML below to see exactly how it will render in Swedish on the live site, using the current translation rules. Useful for verifying changes like Yellow Curry before publishing.
+          </p>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="text-xs font-medium">Source (EN or HTML)</label>
+            <Textarea
+              value={previewInput}
+              onChange={e => setPreviewInput(e.target.value)}
+              className="rounded-xl font-mono text-xs min-h-[220px]"
+              rows={10}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium">Swedish preview (live)</label>
+            <div
+              className="rounded-xl border border-border/50 bg-background p-4 min-h-[220px] text-sm prose prose-sm max-w-none"
+              dangerouslySetInnerHTML={{ __html: translateProductHtml(previewInput, "sv") }}
+            />
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-4">
+          <div className="space-y-1">
+            <label className="text-xs font-medium">English preview (as-is)</label>
+            <div
+              className="rounded-xl border border-border/50 bg-background p-4 min-h-[80px] text-sm prose prose-sm max-w-none"
+              dangerouslySetInnerHTML={{ __html: translateProductHtml(previewInput, "en") }}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium">Quick samples</label>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { label: "Yellow Curry", text: "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with vegan yellow curry sauce." },
+                { label: "Smoky BBQ", text: "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce." },
+                { label: "Bolognese", text: "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce." },
+                { label: "Carbonara", text: "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with vegan carbonara sauce." },
+              ].map(s => (
+                <Button key={s.label} type="button" variant="outline" size="sm" className="rounded-full text-xs" onClick={() => setPreviewInput(s.text)}>
+                  {s.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
