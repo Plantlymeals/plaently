@@ -63,7 +63,7 @@ const translations: Record<string, Record<Lang, string>> = {
  // Why
  "why.title": { sv: "Varför PLÄNTLY?", en: "Why PLÄNTLY?" },
  "why.subtitle": { sv: "Allt du behöver i en måltid. Inget du inte behöver.", en: "Everything you need in a meal. Nothing you don't." },
- "why.highProtein": { sv: "Högprotein", en: "High Protein" },
+ "why.highProtein": { sv: "Protein måltider", en: "High Protein" },
  "why.highProteinDesc": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
  "why.plantBased": { sv: "Plantbaserat", en: "Plant-Based" },
  "why.plantBasedDesc": { sv: "100% plantbaserad protein", en: "100% plant-based protein" },
