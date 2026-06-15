@@ -24,8 +24,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
-  const { t } = useTranslation();
-  const { lang } = useTranslation();
+  const { t, lang } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
