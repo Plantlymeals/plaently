@@ -52,7 +52,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "starter.from": { sv: "Från", en: "From" },
 
  // Trust
- "trust.rating": { sv: "4.8/5 från 1 000+ recensioner", en: "4.8/5 from 1,000+ reviews" },
+ "trust.rating": { sv: "4.8/5 från 500 + recensioner", en: "4.8/5 from 500+ reviews" },
  "trust.loved": { sv: "Älskad av yrkesverksamma, atleter och moderna arbetsplatser.", en: "Loved by professionals, athletes and modern workplaces." },
  "trust.offices": { sv: "Kontor", en: "Offices" },
  "trust.athletes": { sv: "Atleter", en: "Athletes" },
