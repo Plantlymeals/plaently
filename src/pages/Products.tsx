@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
+import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
@@ -23,7 +24,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
@@ -70,6 +71,8 @@ const ProductDetail = () => {
   const image = product.images.edges[0]?.node;
   const cupMeta = getCupMeta(product.title);
   const price = selectedVariant?.price;
+  const translatedHtml = translateProductHtml(product.descriptionHtml, lang);
+  const translatedDesc = translateProductText(product.description, lang);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
@@ -151,8 +154,12 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={`${product.title} – 20g protein på 5 min | PLÄNTLY`}
-        description={product.description || `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`}
+        title={lang === "sv"
+          ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
+          : `${product.title} – 20g protein in 5 min | PLÄNTLY`}
+        description={translatedDesc || (lang === "sv"
+          ? `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
+          : `Healthy ${product.title.toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
         path={`/product/${product.handle}`}
         type="product"
         jsonLd={jsonLd}
@@ -205,10 +212,10 @@ const ProductDetail = () => {
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
-              {product.descriptionHtml && (
+              {translatedHtml && (
                 <div
                   className="prose prose-sm max-w-none [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2 [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50 [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30 [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_strong]:text-foreground"
-                  dangerouslySetInnerHTML={{ __html: product.descriptionHtml }}
+                  dangerouslySetInnerHTML={{ __html: translatedHtml }}
                 />
               )}
             </div>
