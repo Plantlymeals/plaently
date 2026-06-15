@@ -54,8 +54,8 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   // Ingredient terms (longest first)
   [/un-hydrogenated sunflower oil high oleic/gi, "icke-härdad högoljesyra solrosolja"],
   [/sunflower oil in powder/gi, "solrosolja i pulverform"],
-  [/texturized sunflower proteins?/gi, "texturerat solrosprotein"],
-  [/texturised sunflower proteins?/gi, "texturerat solrosprotein"],
+  [/texturized sunflower proteins?/gi, "Texturerat solrosprotein"],
+  [/texturised sunflower proteins?/gi, "Texturerat solrosprotein"],
   [/precooked green lentils/gi, "förkokta gröna linser"],
   [/precooked rice/gi, "förkokt ris"],
   [/processed cheese powder/gi, "smältostpulver"],
