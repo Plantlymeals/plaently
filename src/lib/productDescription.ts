@@ -101,8 +101,8 @@ const EN_TO_SV: Array<[RegExp, string]> = [
     "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
   [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
     "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinrik fusilli med plantbaserad carbonarasås."],
-  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
-    "Rökig BBQ med rökt paprika, karamelliserad lök och vitlök — fyllig linstextur, maximal mättnad. Proteinrika gröna linser med plantbaserad rökig BBQ-sås."],
+  [/Smoky BBQ with smoked paprika,\s*caramelised (?:onion|lök) and (?:garlic|vitlök)\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
+    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås"],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
     "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinrikt ris med plantbaserad gul currysås."],
 ];
