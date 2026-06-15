@@ -9,8 +9,9 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   // Allergen labels
   [/<strong>\s*Contains:\s*<\/strong>/gi, "<strong>Innehåller:</strong>"],
   [/<strong>\s*May contain:\s*<\/strong>/gi, "<strong>Kan innehålla:</strong>"],
-  [/\bContains:\s*/g, "Innehåller: "],
-  [/\bMay contain:\s*/g, "Kan innehålla: "],
+  [/\bContains:\s*/gi, "Innehåller: "],
+  [/\bcontains\b/gi, "innehåller"],
+  [/\bMay contain:\s*/gi, "Kan innehålla: "],
   [/None \(allergen free\)\./gi, "Inga (allergenfritt)."],
 
   // Headings
