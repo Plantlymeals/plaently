@@ -63,7 +63,7 @@ const Header = () => {
           <button
             onClick={toggleLang}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors"
-            aria-label="Switch language"
+            aria-label={t("header.switchLang")}
           >
             <Globe className="h-3.5 w-3.5" />
             {lang === "sv" ? "EN" : "SE"}
@@ -76,7 +76,7 @@ const Header = () => {
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            aria-label="Öppna meny"
+            aria-label={t("header.openMenu")}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
