@@ -54,7 +54,7 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
       .eq("product_slug", productSlug)
       .order("created_at", { ascending: false })
       .limit(20);
-    if (data) setReviews(data as Review[]);
+    if (data) setReviews(data as unknown as Review[]);
   };
 
   useEffect(() => { fetchReviews(); }, [productSlug]);
