@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "fs";
 import { resolve } from "path";
+import {
+  findEnglishLeaks,
+  findSwedishLeaks,
+  hasStraySwedishChars,
+} from "./languagePurity";
 
 /**
  * Language purity check for the i18n dictionary.
@@ -10,51 +15,6 @@ import { resolve } from "path";
  * stopwords / characters (å, ä, ö). Brand names, product names and shared
  * tokens are allow-listed.
  */
-
-const ALLOWLIST = new Set([
-  // Brand & company
-  "pläntly", "plantly", "plaently", "se559400472201",
-  "vretensborgsvägen", "hägersten", "hello@plaently.com",
-  // Product / pack names (kept identical in both languages)
-  "starter", "pack", "monthly", "box", "office", "big",
-  "fusilli", "bolognese", "pasta", "carbonara", "smoky",
-  "bbq", "lentils", "yellow", "curry", "rice",
-  // Shared abbreviations / units
-  "faq", "20g", "5", "min", "kr", "sek", "eu", "ai",
-  "linkedin", "instagram", "tiktok", "facebook",
-  // Cognates / identical in both languages
-  "protein", "proteins",
-]);
-
-// Words that strongly indicate English text. Used to detect leakage into SV.
-const ENGLISH_STOPWORDS = [
-  "the", "and", "with", "your", "you", "our", "for", "from",
-  "this", "that", "what", "when", "how", "why", "ready",
-  "shop", "now", "meals", "meal", "healthy", "plant-based",
-  "shipping", "free", "subscribe", "subscription", "about",
-  "contact", "home", "nutrition", "lifestyle", "blog",
-  "products", "discover", "learn", "more", "join", "today",
-  "available", "delivered", "minutes", "protein",
-];
-
-// Words that strongly indicate Swedish text. Used to detect leakage into EN.
-const SWEDISH_STOPWORDS = [
-  "och", "eller", "men", "att", "som", "med", "för", "från",
-  "den", "det", "är", "var", "vad", "när", "hur", "varför",
-  "handla", "köp", "måltid", "måltider", "frakt", "fri",
-  "näring", "livsstil", "produkter", "hem", "kontakt",
-  "klart", "minuter", "hälsosam", "hälsosamma", "plantbaserad",
-  "plantbaserat", "prenumerera", "prenumeration", "erbjudande",
-  "tillagad", "ingår", "vad ingår", "beställningar", "nu",
-];
-
-function tokenize(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[^\p{L}\p{N}@.-]+/gu, " ")
-    .split(/\s+/)
-    .filter(Boolean);
-}
 
 function parseDict(): { key: string; sv: string; en: string }[] {
   const src = readFileSync(resolve(__dirname, "../lib/i18n.ts"), "utf8");
@@ -82,8 +42,7 @@ describe("i18n language purity", () => {
   it("has no English stopwords inside Swedish translations", () => {
     const leaks: string[] = [];
     for (const e of entries) {
-      const tokens = tokenize(e.sv).filter((t) => !ALLOWLIST.has(t));
-      const bad = tokens.filter((t) => ENGLISH_STOPWORDS.includes(t));
+      const bad = findEnglishLeaks(e.sv);
       if (bad.length) leaks.push(`${e.key}: "${e.sv}" → [${bad.join(", ")}]`);
     }
     if (leaks.length) {
@@ -96,8 +55,7 @@ describe("i18n language purity", () => {
   it("has no Swedish stopwords inside English translations", () => {
     const leaks: string[] = [];
     for (const e of entries) {
-      const tokens = tokenize(e.en).filter((t) => !ALLOWLIST.has(t));
-      const bad = tokens.filter((t) => SWEDISH_STOPWORDS.includes(t));
+      const bad = findSwedishLeaks(e.en);
       if (bad.length) leaks.push(`${e.key}: "${e.en}" → [${bad.join(", ")}]`);
     }
     if (leaks.length) {
@@ -110,17 +68,7 @@ describe("i18n language purity", () => {
   it("has no å/ä/ö characters inside English translations", () => {
     const leaks: string[] = [];
     for (const e of entries) {
-      // Strip allow-listed tokens (brand names like PLÄNTLY, PLÄNTLY's) before scanning.
-      const cleaned = e.en
-        .split(/\s+/)
-        .filter((w) => {
-          const norm = w.toLowerCase().replace(/['’"().,!?:;-]/g, "").replace(/s$/, "");
-          return !ALLOWLIST.has(norm) && !ALLOWLIST.has(norm + "s");
-        })
-        .join(" ");
-      if (/[åäöÅÄÖ]/.test(cleaned)) {
-        leaks.push(`${e.key}: "${e.en}"`);
-      }
+      if (hasStraySwedishChars(e.en)) leaks.push(`${e.key}: "${e.en}"`);
     }
     if (leaks.length) {
       throw new Error(
