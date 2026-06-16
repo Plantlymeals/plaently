@@ -45,14 +45,27 @@ function featuresForBundle(cups: number, isSubscription: boolean): string[] {
   ];
 }
 
-function findShopifyMatch(name: string, products: ShopifyProduct[]): ShopifyProduct | null {
-  const n = name.toLowerCase().trim();
+function findShopifyMatch(
+  bundle: BundleRow,
+  products: ShopifyProduct[]
+): ShopifyProduct | null {
+  // Explicit Shopify link from the admin is the source of truth.
+  if (bundle.shopify_product_id) {
+    const direct = products.find((p) => p.node.id === bundle.shopify_product_id);
+    if (direct) return direct;
+  }
+  // Fallback: loose name match for legacy bundles without a link yet.
+  const n = bundle.name.toLowerCase().trim();
   if (!n) return null;
-  // Try exact title match first, then includes either way.
   const exact = products.find((p) => p.node.title.toLowerCase().trim() === n);
   if (exact) return exact;
-  const contains = products.find((p) => p.node.title.toLowerCase().includes(n) || n.includes(p.node.title.toLowerCase()));
-  return contains ?? null;
+  return (
+    products.find(
+      (p) =>
+        p.node.title.toLowerCase().includes(n) ||
+        n.includes(p.node.title.toLowerCase())
+    ) ?? null
+  );
 }
 
 const BundleSection = () => {
@@ -124,7 +137,7 @@ const BundleSection = () => {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {bundles.map((b) => {
-            const shopifyProduct = findShopifyMatch(b.name, shopifyBundles);
+            const shopifyProduct = findShopifyMatch(b, shopifyBundles);
             const currencyCode =
               shopifyProduct?.node.priceRange.minVariantPrice.currencyCode ?? "SEK";
             const cmsPrice = parsePriceNumber(b.price);
