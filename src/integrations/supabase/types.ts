@@ -78,6 +78,7 @@ export type Database = {
           name: string
           per_meal_price: string | null
           price: string | null
+          shopify_product_id: string | null
           sort_order: number | null
           updated_at: string
         }
@@ -93,6 +94,7 @@ export type Database = {
           name: string
           per_meal_price?: string | null
           price?: string | null
+          shopify_product_id?: string | null
           sort_order?: number | null
           updated_at?: string
         }
@@ -108,6 +110,7 @@ export type Database = {
           name?: string
           per_meal_price?: string | null
           price?: string | null
+          shopify_product_id?: string | null
           sort_order?: number | null
           updated_at?: string
         }
