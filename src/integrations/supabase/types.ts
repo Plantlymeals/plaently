@@ -302,6 +302,47 @@ export type Database = {
         }
         Relationships: []
       }
+      message_replies: {
+        Row: {
+          admin_email: string | null
+          admin_id: string | null
+          body: string
+          created_at: string
+          email_sent: boolean
+          id: string
+          submission_id: string
+          updated_at: string
+        }
+        Insert: {
+          admin_email?: string | null
+          admin_id?: string | null
+          body: string
+          created_at?: string
+          email_sent?: boolean
+          id?: string
+          submission_id: string
+          updated_at?: string
+        }
+        Update: {
+          admin_email?: string | null
+          admin_id?: string | null
+          body?: string
+          created_at?: string
+          email_sent?: boolean
+          id?: string
+          submission_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_replies_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "contact_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
