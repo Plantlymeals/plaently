@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import { supabase } from "@/integrations/supabase/client";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
@@ -49,6 +50,7 @@ const BundleSection = () => {
   const [mixOpen, setMixOpen] = useState(false);
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
+  const [mixableNames, setMixableNames] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
@@ -62,6 +64,22 @@ const BundleSection = () => {
         setBundles(sorted);
       }
     });
+  }, []);
+
+  useEffect(() => {
+    supabase
+      .from("bundles")
+      .select("name,is_mixable")
+      .then(({ data }) => {
+        if (!data) return;
+        setMixableNames(
+          new Set(
+            data
+              .filter((b: any) => b.is_mixable)
+              .map((b: any) => String(b.name).toLowerCase())
+          )
+        );
+      });
   }, []);
 
   if (bundles.length === 0) return null;
@@ -210,7 +228,15 @@ const BundleSection = () => {
 
                 {/* CTA */}
                 <Button
-                  onClick={() => (cups && cups > 1 ? openMixFor(b, cups) : handleAddToCart(b))}
+                  onClick={() => {
+                    const title = b.node.title.toLowerCase();
+                    const isMixable = Array.from(mixableNames).some((n) => title.includes(n));
+                    if (isMixable && cups && cups > 1) {
+                      openMixFor(b, cups);
+                    } else {
+                      handleAddToCart(b);
+                    }
+                  }}
                   disabled={isLoading}
                   className={`w-full rounded-full font-semibold h-12 text-base ${
                     isPopular
