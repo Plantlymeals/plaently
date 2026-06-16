@@ -113,9 +113,16 @@ const EN_TO_SV: Array<[RegExp, string]> = [
 
 export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
   if (!html) return "";
-  if (lang !== "sv") return html;
+  if (lang !== "sv") {
+    // Basic cleanup for English if needed (e.g. normalizing the bundle string if it comes from the DB already Swedish)
+    return html;
+  }
   let out = html;
   for (const [re, rep] of EN_TO_SV) out = out.replace(re, rep);
+  
+  // Specific fix for the requested variations
+  out = out.replace("Din mix av alla 4 smaker. 12 växtbaserade proteinmåltider — fri frakt i Sverige, levereras inom 2–4 dagar.", "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar.");
+  
   return out;
 }
 
