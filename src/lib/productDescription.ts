@@ -15,6 +15,9 @@ const EN_TO_SV: Array<[RegExp, string]> = [
     "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
     "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat."],
+  [/Pick your mix of all 4 flavours\. 12 plant-based protein meals — free shipping in Sweden, delivered in 2–4 days\./gi,
+    "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar."],
+
 
   // Allergen labels
   [/<strong>\s*Contains:\s*<\/strong>/gi, "<strong>Innehåller:</strong>"],
