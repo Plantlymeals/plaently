@@ -7,7 +7,7 @@ const About = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" />
+      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

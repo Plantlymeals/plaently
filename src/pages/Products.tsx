@@ -322,7 +322,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

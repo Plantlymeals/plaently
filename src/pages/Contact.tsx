@@ -52,7 +52,7 @@ const Contact = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} path="/contact" />
+      <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} path="/contact" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-2xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

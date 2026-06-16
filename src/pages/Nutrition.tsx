@@ -15,7 +15,7 @@ const Nutrition = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" />
+      <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">

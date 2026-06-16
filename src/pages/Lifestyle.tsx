@@ -15,7 +15,7 @@ const Lifestyle = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" />
+      <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
           <div className="text-center space-y-4 animate-fade-up">
