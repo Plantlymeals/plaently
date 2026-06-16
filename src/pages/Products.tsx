@@ -57,7 +57,9 @@ const ProductDetail = () => {
   useEffect(() => {
     if (!product) return;
     const titleLower = product.title.toLowerCase();
+    setDebugBundle("effect-start");
     (async () => {
+      setDebugBundle("await-start");
       const { data, error } = await supabase
         .from("bundles")
         .select("name,is_mixable,components")
