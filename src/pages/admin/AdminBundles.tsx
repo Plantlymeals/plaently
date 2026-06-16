@@ -22,13 +22,13 @@ const AdminBundles = () => {
 
   useEffect(() => { fetchBundles(); }, []);
 
-  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true }); };
+  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false }); };
   const startEdit = (b: Bundle) => { setEditing(b.id); setForm({ ...b }); setIsNew(false); };
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
     if (!form.name?.trim()) { toast.error("Name is required"); return; }
-    const payload = { name: form.name, meal_count: form.meal_count, price: form.price, per_meal_price: form.per_meal_price, badge: form.badge || null, description: form.description, sort_order: form.sort_order ?? 0, is_published: form.is_published };
+    const payload = { name: form.name, meal_count: form.meal_count, price: form.price, per_meal_price: form.per_meal_price, badge: form.badge || null, description: form.description, sort_order: form.sort_order ?? 0, is_published: form.is_published, is_mixable: form.is_mixable ?? false };
     if (isNew) {
       const { error } = await supabase.from("bundles").insert(payload);
       if (error) { toast.error(error.message); return; }
@@ -69,6 +69,10 @@ const AdminBundles = () => {
           <div className="flex items-center gap-2">
             <input type="checkbox" checked={form.is_published ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
             <label className="text-sm">Published</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input type="checkbox" checked={form.is_mixable ?? false} onChange={e => setForm({ ...form, is_mixable: e.target.checked })} />
+            <label className="text-sm">Allow customers to mix &amp; match contents</label>
           </div>
           <div className="flex gap-2">
             <Button onClick={save} className="rounded-full gap-2"><Check className="h-4 w-4" /> Save</Button>
