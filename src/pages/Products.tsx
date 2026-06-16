@@ -239,7 +239,7 @@ const ProductDetail = () => {
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
                   <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-3">
-                    {lang === "sv" ? "Vad ingår" : "What's inside"}
+                    {t("bundles.whatsInside")}
                   </p>
                   <ul className="space-y-2">
                     {bundleContents.map((c, i) => (

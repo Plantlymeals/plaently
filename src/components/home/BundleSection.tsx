@@ -128,7 +128,7 @@ const BundleSection = () => {
     <section className="py-20 md:py-28 bg-[#0a0a0a] text-white">
       <div className="container space-y-14">
         <div className="text-center space-y-3 animate-fade-up">
-          <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">Bundles</p>
+          <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">{t("bundles.eyebrow")}</p>
           <h2 className="font-heading text-4xl md:text-6xl font-bold leading-tight">{t("bundles.title")}</h2>
           <p className="text-white/80 text-base md:text-lg">{t("bundles.subtitle")}</p>
         </div>
@@ -239,7 +239,7 @@ const BundleSection = () => {
                 {showContents && (
                   <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
                     <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-white/60 mb-2">
-                      What's inside
+                      {t("bundles.whatsInside")}
                     </p>
                     <ul className="space-y-1.5">
                       {contents.map((c, i) => (
