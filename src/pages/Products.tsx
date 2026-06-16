@@ -61,12 +61,10 @@ const ProductDetail = () => {
         .from("bundles")
         .select("name,is_mixable,components")
         .eq("is_published", true);
-      console.log("[bundleContents] fetch", { titleLower, error, data });
-      if (!data) return;
+      if (error || !data) return;
       const match = data.find((b: any) =>
         titleLower.includes(String(b.name).toLowerCase())
       );
-      console.log("[bundleContents] match", match);
       if (!match || match.is_mixable) {
         setBundleContents([]);
         return;
@@ -79,7 +77,6 @@ const ProductDetail = () => {
             }))
             .filter((c) => c.name.length > 0 && c.quantity > 0)
         : [];
-      console.log("[bundleContents] comps", comps);
       setBundleContents(comps);
     })();
   }, [product]);
