@@ -44,9 +44,9 @@ const Footer = () => {
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.products"), path: "/products" },
-                { label: lang === "sv" ? "Högprotein" : "High Protein", path: "/high-protein-meals" },
-                { label: lang === "sv" ? "Plantbaserat" : "Plant-Based", path: "/plant-based-meals" },
-                { label: lang === "sv" ? "Snabbmåltider" : "Instant Meals", path: "/healthy-instant-meals" },
+                { label: t("footer.highProtein"), path: "/high-protein-meals" },
+                { label: t("footer.plantBased"), path: "/plant-based-meals" },
+                { label: t("footer.instantMeals"), path: "/healthy-instant-meals" },
                 { label: t("nav.nutrition"), path: "/nutrition" },
                 { label: t("nav.lifestyle"), path: "/lifestyle" },
                 { label: t("nav.about"), path: "/about" },
@@ -83,7 +83,7 @@ const Footer = () => {
         {/* HTML sitemap — gives Googlebot a direct crawl path to every public landing page from any page on the site. */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Kategorier" : "Categories"}</h3>
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.categories")}</h3>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {BLOG_CATEGORIES.map((c) => (
                 <Link key={c.slug} to={`/blog/category/${c.slug}`} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">
@@ -93,7 +93,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Utforska" : "Explore"}</h3>
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h3>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {(lang === "sv"
                 ? [
@@ -116,7 +116,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{lang === "sv" ? "Smaker & paket" : "Flavors & packs"}</h3>
+            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.flavoursPacks")}</h3>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {[
                 { label: "Fusilli Bolognese", path: "/product/plant-based-fusilli-bolognese" },
