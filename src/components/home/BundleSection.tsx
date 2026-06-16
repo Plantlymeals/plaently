@@ -1,89 +1,79 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { fetchShopifyProducts, type ShopifyProduct, cleanProductTitle } from "@/lib/shopify";
+import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import { fetchPublishedBundles } from "@/lib/bundlesApi";
+import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
-type BundleKey = "starter" | "athlete" | "monthly" | "office" | "big office";
+type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
-// Order matters: "big office" must come before "office" to avoid partial match.
-const BUNDLE_KEYS: BundleKey[] = ["big office", "office", "monthly", "athlete", "starter"];
-
-function matchBundleKey(title: string): BundleKey | null {
-  const lower = title.toLowerCase();
-  return BUNDLE_KEYS.find((k) => lower.includes(k)) ?? null;
+function parsePriceNumber(value: string | null | undefined): number | null {
+  if (!value) return null;
+  const cleaned = String(value).replace(/[^\d.,-]/g, "").replace(",", ".");
+  const n = parseFloat(cleaned);
+  return Number.isFinite(n) ? n : null;
 }
 
-const BUNDLE_META: Record<BundleKey, {
-  cups: number;
-  subtitleKey?: string;
-  features: string[];
-  highlight: "trial" | "popular" | "value" | "subscription";
-  freeShipping: boolean;
-}> = {
-  starter:      { cups: 12,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
-  athlete:      { cups: 24,  features: ["bundles.feat.mix4", "bundles.feat.freeShipSe", "bundles.feat.delivered"], highlight: "popular", freeShipping: true },
-  monthly:      { cups: 24,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "subscription", freeShipping: true },
-  office:       { cups: 48,  features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
-  "big office": { cups: 96, features: ["bundles.feat.monthlyMix", "bundles.feat.freeShipAlways", "bundles.feat.cancelAnytime", "bundles.feat.priorityCs"], highlight: "value", freeShipping: true },
-};
+function badgeToHighlight(badge: string | null | undefined): Highlight {
+  const b = (badge ?? "").toLowerCase();
+  if (!b) return null;
+  if (b.includes("popular")) return "popular";
+  if (b.includes("subscription") || b.includes("sub ")) return "subscription";
+  if (b.includes("value")) return "value";
+  if (b.includes("trial") || b.includes("try")) return "trial";
+  return null;
+}
 
-const SUBTITLE_KEYS: Record<BundleKey, string> = {
-  starter: "bundles.desc.starter",
-  athlete: "bundles.desc.athlete",
-  monthly: "bundles.desc.office",
-  office: "bundles.desc.office",
-  "big office": "bundles.desc.bigoffice",
-};
+function featuresForBundle(cups: number, isSubscription: boolean): string[] {
+  if (isSubscription || cups >= 48) {
+    return [
+      "bundles.feat.monthlyMix",
+      "bundles.feat.freeShipAlways",
+      "bundles.feat.cancelAnytime",
+      "bundles.feat.priorityCs",
+    ];
+  }
+  return [
+    "bundles.feat.mix4",
+    "bundles.feat.freeShipSe",
+    "bundles.feat.delivered",
+  ];
+}
+
+function findShopifyMatch(name: string, products: ShopifyProduct[]): ShopifyProduct | null {
+  const n = name.toLowerCase().trim();
+  if (!n) return null;
+  // Try exact title match first, then includes either way.
+  const exact = products.find((p) => p.node.title.toLowerCase().trim() === n);
+  if (exact) return exact;
+  const contains = products.find((p) => p.node.title.toLowerCase().includes(n) || n.includes(p.node.title.toLowerCase()));
+  return contains ?? null;
+}
 
 const BundleSection = () => {
-  const [bundles, setBundles] = useState<ShopifyProduct[]>([]);
+  const [bundles, setBundles] = useState<BundleRow[]>([]);
+  const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
   const { t } = useTranslation();
   const [mixOpen, setMixOpen] = useState(false);
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
-  const [mixableNames, setMixableNames] = useState<Set<string>>(new Set());
-  const [contentsByName, setContentsByName] = useState<Map<string, Array<{ name: string; quantity: number }>>>(new Map());
-
-  useEffect(() => {
-    fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
-      if (data) {
-        const filtered = data.filter((b) => !b.node.title.toLowerCase().includes("taster"));
-        const sorted = [...filtered].sort(
-          (a, b) =>
-            parseFloat(a.node.priceRange.minVariantPrice.amount) -
-            parseFloat(b.node.priceRange.minVariantPrice.amount)
-        );
-        setBundles(sorted);
-      }
-    });
-  }, []);
 
   useEffect(() => {
     fetchPublishedBundles().then((data) => {
-      setMixableNames(
-        new Set(
-          data.filter((b) => b.is_mixable).map((b) => String(b.name).toLowerCase())
-        )
+      const sorted = [...data].sort(
+        (a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0)
       );
-      const map = new Map<string, Array<{ name: string; quantity: number }>>();
-      data.forEach((b) => {
-        const comps = Array.isArray(b.components)
-          ? b.components
-              .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
-              .filter((c) => c.name.length > 0 && c.quantity > 0)
-          : [];
-        if (comps.length > 0) map.set(String(b.name).toLowerCase(), comps);
-      });
-      setContentsByName(map);
+      setBundles(sorted);
+    });
+    fetchShopifyProducts(20, "product_type:Bundle").then((data) => {
+      if (data) setShopifyBundles(data);
     });
   }, []);
 
@@ -134,28 +124,44 @@ const BundleSection = () => {
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {bundles.map((b) => {
-            const price = b.node.priceRange.minVariantPrice;
-            const bundlePrice = parseFloat(price.amount);
-            const key = matchBundleKey(b.node.title);
-            const meta = key ? BUNDLE_META[key] : null;
-            const cups = meta?.cups ?? null;
-            const perCup = cups ? bundlePrice / cups : null;
-            const fullPrice = cups ? cups * SINGLE_MEAL_PRICE : null;
-            const savings = fullPrice && fullPrice > bundlePrice ? Math.round(fullPrice - bundlePrice) : 0;
-            const subtitleKey = key ? SUBTITLE_KEYS[key] : null;
-            const isPopular = meta?.highlight === "popular";
-            const isValue = meta?.highlight === "value";
-            const isTrial = meta?.highlight === "trial";
-            const isSubscription = meta?.highlight === "subscription";
-            const titleLower = b.node.title.toLowerCase();
-            const isMixable = Array.from(mixableNames).some((n) => titleLower.includes(n));
-            const contentsKey = Array.from(contentsByName.keys()).find((n) => titleLower.includes(n));
-            const contents = contentsKey ? contentsByName.get(contentsKey) ?? [] : [];
+            const shopifyProduct = findShopifyMatch(b.name, shopifyBundles);
+            const currencyCode =
+              shopifyProduct?.node.priceRange.minVariantPrice.currencyCode ?? "SEK";
+            const cmsPrice = parsePriceNumber(b.price);
+            const shopifyPrice = shopifyProduct
+              ? parseFloat(shopifyProduct.node.priceRange.minVariantPrice.amount)
+              : null;
+            const bundlePrice = cmsPrice ?? shopifyPrice ?? 0;
+            const cups = b.meal_count;
+            const perCup =
+              parsePriceNumber(b.per_meal_price) ??
+              (cups > 0 ? bundlePrice / cups : null);
+            const fullPrice = cups > 0 ? cups * SINGLE_MEAL_PRICE : null;
+            const savings =
+              fullPrice && fullPrice > bundlePrice
+                ? Math.round(fullPrice - bundlePrice)
+                : 0;
+            const highlight = badgeToHighlight(b.badge);
+            const isPopular = highlight === "popular";
+            const isValue = highlight === "value";
+            const isTrial = highlight === "trial";
+            const isSubscription = highlight === "subscription";
+            const isMixable = !!b.is_mixable;
+            const contents = Array.isArray(b.components)
+              ? b.components
+                  .map((c: any) => ({
+                    name: String(c?.name ?? "").trim(),
+                    quantity: Number(c?.quantity) || 0,
+                  }))
+                  .filter((c) => c.name.length > 0 && c.quantity > 0)
+              : [];
             const showContents = !isMixable && contents.length > 0;
+            const features = featuresForBundle(cups, isSubscription);
+            const canBuy = !!shopifyProduct;
 
             return (
               <div
-                key={b.node.id}
+                key={b.id}
                 className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 animate-fade-up hover:border-primary/40 transition-colors flex flex-col"
               >
                 {/* Top badges */}
@@ -185,10 +191,15 @@ const BundleSection = () => {
                       {t("bundles.freeShipping")}
                     </span>
                   )}
+                  {!highlight && b.badge && (
+                    <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
+                      {b.badge}
+                    </span>
+                  )}
                 </div>
 
                 {/* Title + subtitle */}
-                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.node.title}</h3>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold mb-2">{b.name}</h3>
                 {cups && (
                   <p className="text-sm text-white/75 mb-6">
                     {cups} {t("bundles.cups")}
@@ -198,7 +209,7 @@ const BundleSection = () => {
                 {/* Price block */}
                 <div className="mb-5">
                   <p className="font-heading text-5xl md:text-6xl font-bold leading-none">
-                    {bundlePrice.toFixed(0)} <span className="text-2xl font-bold align-top">{price.currencyCode}</span>
+                    {bundlePrice.toFixed(0)} <span className="text-2xl font-bold align-top">{currencyCode}</span>
                   </p>
                   {perCup && (
                     <p className="text-sm text-white/80 mt-3">
@@ -212,15 +223,15 @@ const BundleSection = () => {
                   <div className="mb-5">
                     {isTrial ? (
                       <p className="text-sm text-white/70 line-through">
-                        {t("bundles.value")} {fullPrice} {price.currencyCode}
+                        {t("bundles.value")} {fullPrice} {currencyCode}
                       </p>
                     ) : isValue || isSubscription ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1 text-xs font-semibold">
-                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {price.currencyCode}
+                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {currencyCode}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary px-3 py-1 text-xs font-semibold">
-                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {price.currencyCode}
+                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {currencyCode}
                       </span>
                     )}
                   </div>
@@ -228,7 +239,7 @@ const BundleSection = () => {
 
                 {/* Features */}
                 <ul className="space-y-2.5 mb-7 flex-1">
-                  {(meta?.features ?? []).map((fk) => (
+                  {features.map((fk) => (
                     <li key={fk} className="flex items-start gap-2.5 text-sm text-white/85">
                       <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
                       <span>{t(fk)}</span>
@@ -255,21 +266,33 @@ const BundleSection = () => {
                 {/* CTA */}
                 <Button
                   onClick={() => {
-                    if (isMixable && cups && cups > 1) {
-                      openMixFor(b, cups);
+                    if (!shopifyProduct) return;
+                    if (isMixable && cups > 1) {
+                      openMixFor(shopifyProduct, cups);
                     } else {
-                      handleAddToCart(b);
+                      handleAddToCart(shopifyProduct);
                     }
                   }}
-                  disabled={isLoading}
+                  disabled={isLoading || !canBuy}
                   className={`w-full rounded-full font-semibold h-12 text-base ${
                     isPopular
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "bg-white/10 text-white hover:bg-white/20 border border-white/15"
                   }`}
                 >
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("bundles.orderNow")}
+                  {isLoading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : canBuy ? (
+                    t("bundles.orderNow")
+                  ) : (
+                    "Coming soon"
+                  )}
                 </Button>
+                {!canBuy && (
+                  <p className="mt-2 text-[11px] text-white/50 text-center">
+                    Not yet linked to a Shopify product
+                  </p>
+                )}
               </div>
             );
           })}
