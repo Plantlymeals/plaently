@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
+import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Check } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { getCupImage } from "@/lib/productImages";
 import { useTranslation } from "@/lib/i18n";
+import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,8 +14,21 @@ export const CartDrawer = () => {
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
   const { t } = useTranslation();
+  const [bundles, setBundles] = useState<BundleRow[]>([]);
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
+  useEffect(() => { if (isOpen && bundles.length === 0) fetchPublishedBundles().then(setBundles); }, [isOpen, bundles.length]);
+
+  const getBundleComponents = (title: string): Array<{ name: string; quantity: number }> => {
+    const titleLower = title.toLowerCase();
+    const match = bundles.find((b) => titleLower.includes(String(b.name).toLowerCase()));
+    if (!match || match.is_mixable) return [];
+    return Array.isArray(match.components)
+      ? (match.components as any[])
+          .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
+          .filter((c) => c.name.length > 0 && c.quantity > 0)
+      : [];
+  };
 
   const handleCheckout = () => {
     const checkoutUrl = getCheckoutUrl();
@@ -76,6 +90,28 @@ export const CartDrawer = () => {
                               ))}
                           </ul>
                         )}
+                        {(() => {
+                          const comps = getBundleComponents(item.product.node.title);
+                          if (comps.length === 0) return null;
+                          return (
+                            <div className="mt-2 rounded-md bg-background/60 border border-border/50 p-2">
+                              <p className="text-[10px] font-bold tracking-wider uppercase text-muted-foreground mb-1">
+                                {t("bundles.whatsInside")}
+                              </p>
+                              <ul className="space-y-0.5">
+                                {comps.map((c, i) => (
+                                  <li key={i} className="flex items-center justify-between text-[11px] text-muted-foreground">
+                                    <span className="flex items-center gap-1 truncate">
+                                      <Check className="h-3 w-3 text-primary shrink-0" />
+                                      <span className="truncate">{c.name}</span>
+                                    </span>
+                                    <span className="tabular-nums font-medium text-foreground">× {c.quantity * item.quantity}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          );
+                        })()}
                         <p className="font-semibold text-primary">{item.price.currencyCode} {parseFloat(item.price.amount).toFixed(2)}</p>
                       </div>
                       <div className="flex flex-col items-end gap-2 flex-shrink-0">
