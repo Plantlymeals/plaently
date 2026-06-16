@@ -24,6 +24,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
+  const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -51,6 +52,28 @@ const ProductDetail = () => {
         setReviewData({ count: items.length, avg: Math.round(avg * 10) / 10, items });
       });
   }, [productHandle]);
+
+  useEffect(() => {
+    if (!product) return;
+    const titleLower = product.title.toLowerCase();
+    supabase
+      .from("bundles")
+      .select("name,is_mixable,components")
+      .then(({ data }) => {
+        if (!data) return;
+        const match = data.find((b: any) => titleLower.includes(String(b.name).toLowerCase()));
+        if (!match || match.is_mixable) {
+          setBundleContents([]);
+          return;
+        }
+        const comps = Array.isArray(match.components)
+          ? match.components
+              .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
+              .filter((c) => c.name.length > 0 && c.quantity > 0)
+          : [];
+        setBundleContents(comps);
+      });
+  }, [product]);
 
   if (loading) {
     return <Layout><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
@@ -212,6 +235,24 @@ const ProductDetail = () => {
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
+              {bundleContents.length > 0 && (
+                <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
+                  <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-3">
+                    {lang === "sv" ? "Vad ingår" : "What's inside"}
+                  </p>
+                  <ul className="space-y-2">
+                    {bundleContents.map((c, i) => (
+                      <li key={i} className="flex items-center justify-between text-sm">
+                        <span className="flex items-center gap-2">
+                          <Check className="h-4 w-4 text-primary shrink-0" />
+                          {c.name}
+                        </span>
+                        <span className="font-semibold tabular-nums">× {c.quantity}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {translatedHtml && (
                 <div
                   className="prose prose-sm max-w-none [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2 [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50 [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30 [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_strong]:text-foreground"
