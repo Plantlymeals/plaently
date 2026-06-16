@@ -371,6 +371,7 @@ export type Database = {
           prep_time: string | null
           price: string | null
           protein: string | null
+          sku: string | null
           slug: string
           sort_order: number | null
           updated_at: string
@@ -389,6 +390,7 @@ export type Database = {
           prep_time?: string | null
           price?: string | null
           protein?: string | null
+          sku?: string | null
           slug: string
           sort_order?: number | null
           updated_at?: string
@@ -407,6 +409,7 @@ export type Database = {
           prep_time?: string | null
           price?: string | null
           protein?: string | null
+          sku?: string | null
           slug?: string
           sort_order?: number | null
           updated_at?: string
