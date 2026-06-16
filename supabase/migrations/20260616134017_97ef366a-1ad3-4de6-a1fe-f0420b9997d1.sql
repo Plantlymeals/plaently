@@ -1,0 +1,2 @@
+ALTER TABLE public.bundles ADD COLUMN IF NOT EXISTS components jsonb NOT NULL DEFAULT '[]'::jsonb;
+COMMENT ON COLUMN public.bundles.components IS 'Array of { name: string, quantity: number } describing the fixed items included in a non-mixable bundle.';

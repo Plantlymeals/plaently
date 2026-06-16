@@ -68,6 +68,7 @@ export type Database = {
       bundles: {
         Row: {
           badge: string | null
+          components: Json
           created_at: string
           description: string | null
           id: string
@@ -82,6 +83,7 @@ export type Database = {
         }
         Insert: {
           badge?: string | null
+          components?: Json
           created_at?: string
           description?: string | null
           id?: string
@@ -96,6 +98,7 @@ export type Database = {
         }
         Update: {
           badge?: string | null
+          components?: Json
           created_at?: string
           description?: string | null
           id?: string
