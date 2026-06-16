@@ -11,7 +11,7 @@ import { translateProductHtml } from "@/lib/productDescription";
 type Product = Tables<"products">;
 
 const emptyProduct: Partial<TablesInsert<"products">> = {
-  slug: "", name: "", description: "", protein: "", calories: "", prep_time: "5 min",
+  slug: "", sku: "", name: "", description: "", protein: "", calories: "", prep_time: "5 min",
   price: "", ingredients: "", allergens: "", image_url: "", is_published: true, sort_order: 0,
   nutrition: { protein: "", carbs: "", fat: "", saturated_fat: "", fiber: "", sugar: "", salt: "" },
 };
@@ -47,12 +47,21 @@ const AdminProducts = () => {
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
-    if (!form.name?.trim() || !form.slug?.trim()) {
-      toast.error("Name and slug are required");
-      return;
-    }
+    const name = (form.name ?? "").trim();
+    const slug = (form.slug ?? "").trim();
+    const sku = (form.sku ?? "").trim();
+    if (!name) { toast.error("Name is required"); return; }
+    if (!slug) { toast.error("Slug is required"); return; }
+    if (!sku) { toast.error("SKU / article number is required"); return; }
+
+    // Uniqueness check against other products (exclude self when editing)
+    const dupSlug = products.find(p => p.slug.trim().toLowerCase() === slug.toLowerCase() && (isNew || p.id !== editing));
+    if (dupSlug) { toast.error(`Slug "${slug}" is already used by "${dupSlug.name}"`); return; }
+    const dupSku = products.find(p => (p.sku ?? "").trim().toLowerCase() === sku.toLowerCase() && (isNew || p.id !== editing));
+    if (dupSku) { toast.error(`SKU "${sku}" is already used by "${dupSku.name}"`); return; }
+
     const payload = {
-      slug: form.slug, name: form.name, description: form.description,
+      slug, sku, name, description: form.description,
       protein: form.protein, calories: form.calories, prep_time: form.prep_time,
       price: form.price, ingredients: form.ingredients, allergens: form.allergens,
       nutrition: form.nutrition, image_url: form.image_url,
@@ -61,11 +70,19 @@ const AdminProducts = () => {
 
     if (isNew) {
       const { error } = await supabase.from("products").insert(payload);
-      if (error) { toast.error(error.message); return; }
+      if (error) {
+        if (error.code === "23505") toast.error("Slug or SKU already exists in the database");
+        else toast.error(error.message);
+        return;
+      }
       toast.success("Product created");
     } else {
       const { error } = await supabase.from("products").update(payload).eq("id", editing!);
-      if (error) { toast.error(error.message); return; }
+      if (error) {
+        if (error.code === "23505") toast.error("Slug or SKU already exists in the database");
+        else toast.error(error.message);
+        return;
+      }
       toast.success("Product updated");
     }
     cancel();
@@ -96,6 +113,7 @@ const AdminProducts = () => {
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1"><label className="text-xs font-medium">Name *</label><Input value={form.name ?? ""} onChange={e => setForm({ ...form, name: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Slug *</label><Input value={form.slug ?? ""} onChange={e => setForm({ ...form, slug: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">SKU / Article # *</label><Input value={form.sku ?? ""} onChange={e => setForm({ ...form, sku: e.target.value })} className="rounded-xl" placeholder="e.g. 1001" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Price</label><Input value={form.price ?? ""} onChange={e => setForm({ ...form, price: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Protein</label><Input value={form.protein ?? ""} onChange={e => setForm({ ...form, protein: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Calories</label><Input value={form.calories ?? ""} onChange={e => setForm({ ...form, calories: e.target.value })} className="rounded-xl" /></div>
@@ -144,7 +162,7 @@ const AdminProducts = () => {
           <div key={p.id} className="bg-card rounded-xl border border-border/50 p-4 flex items-center justify-between shadow-card">
             <div>
               <p className="font-semibold text-sm">{p.name}</p>
-              <p className="text-xs text-muted-foreground">{p.slug} · {p.price} · {p.protein} protein{!p.is_published && " · Draft"}</p>
+              <p className="text-xs text-muted-foreground">{p.slug} · SKU {p.sku ?? "—"} · {p.price} · {p.protein} protein{!p.is_published && " · Draft"}</p>
             </div>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" onClick={() => startEdit(p)}><Pencil className="h-4 w-4" /></Button>
