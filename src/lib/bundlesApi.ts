@@ -1,0 +1,34 @@
+import { supabase } from "@/integrations/supabase/client";
+
+export type BundleRow = {
+  name: string;
+  is_mixable: boolean;
+  components: Array<{ name: string; quantity: number }>;
+};
+
+// Workaround: the supabase-js client's request promise can hang inside the
+// Lovable preview iframe (auth init never resolves under third-party cookie
+// restrictions). Use a direct REST call for this public-read query.
+export async function fetchPublishedBundles(): Promise<BundleRow[]> {
+  try {
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=name,is_mixable,components&is_published=eq.true`;
+    const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+    const res = await fetch(url, {
+      headers: { apikey: key, Authorization: `Bearer ${key}` },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? (data as BundleRow[]) : [];
+  } catch {
+    // Fallback to supabase-js if env vars are missing (e.g. during SSR/tests).
+    try {
+      const { data } = await supabase
+        .from("bundles")
+        .select("name,is_mixable,components")
+        .eq("is_published", true);
+      return (data as any) ?? [];
+    } catch {
+      return [];
+    }
+  }
+}

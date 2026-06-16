@@ -9,6 +9,7 @@ import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct 
 import { useTranslation } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchPublishedBundles } from "@/lib/bundlesApi";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
@@ -57,14 +58,8 @@ const ProductDetail = () => {
     if (!product) return;
     const titleLower = product.title.toLowerCase();
     (async () => {
-      const { data, error } = await supabase
-        .from("bundles")
-        .select("name,is_mixable,components")
-        .eq("is_published", true);
-      if (error || !data) return;
-      const match = data.find((b: any) =>
-        titleLower.includes(String(b.name).toLowerCase())
-      );
+      const data = await fetchPublishedBundles();
+      const match = data.find((b) => titleLower.includes(String(b.name).toLowerCase()));
       if (!match || match.is_mixable) {
         setBundleContents([]);
         return;
