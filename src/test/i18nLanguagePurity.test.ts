@@ -22,6 +22,8 @@ const ALLOWLIST = new Set([
   // Shared abbreviations / units
   "faq", "20g", "5", "min", "kr", "sek", "eu", "ai",
   "linkedin", "instagram", "tiktok", "facebook",
+  // Cognates / identical in both languages
+  "protein", "proteins",
 ]);
 
 // Words that strongly indicate English text. Used to detect leakage into SV.
@@ -108,10 +110,13 @@ describe("i18n language purity", () => {
   it("has no å/ä/ö characters inside English translations", () => {
     const leaks: string[] = [];
     for (const e of entries) {
-      // Strip allow-listed tokens (brand names like PLÄNTLY) before scanning.
+      // Strip allow-listed tokens (brand names like PLÄNTLY, PLÄNTLY's) before scanning.
       const cleaned = e.en
         .split(/\s+/)
-        .filter((w) => !ALLOWLIST.has(w.toLowerCase().replace(/[.,!?:;]/g, "")))
+        .filter((w) => {
+          const norm = w.toLowerCase().replace(/['’"().,!?:;-]/g, "").replace(/s$/, "");
+          return !ALLOWLIST.has(norm) && !ALLOWLIST.has(norm + "s");
+        })
         .join(" ");
       if (/[åäöÅÄÖ]/.test(cleaned)) {
         leaks.push(`${e.key}: "${e.en}"`);
