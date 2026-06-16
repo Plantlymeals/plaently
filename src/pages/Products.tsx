@@ -9,6 +9,7 @@ import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct 
 import { useTranslation } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
+import { fetchPublishedBundles } from "@/lib/bundlesApi";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
@@ -25,7 +26,6 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
-  const [debugBundle, setDebugBundle] = useState<string>("init");
   const { t, lang } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -57,21 +57,9 @@ const ProductDetail = () => {
   useEffect(() => {
     if (!product) return;
     const titleLower = product.title.toLowerCase();
-    setDebugBundle("effect-start");
     (async () => {
-      setDebugBundle("await-start");
-      let data: any = null; let error: any = null;
-      try {
-        const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=name,is_mixable,components&is_published=eq.true`;
-        const res = await fetch(url, { headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` } });
-        data = await res.json();
-      } catch (e: any) { error = e; }
-      setDebugBundle(`err=${error?.message||'none'} rows=${data?.length ?? 'null'}`);
-      if (error || !data) return;
-      const match = data.find((b: any) =>
-        titleLower.includes(String(b.name).toLowerCase())
-      );
-      console.warn("[bundles] match:", JSON.stringify(match));
+      const data = await fetchPublishedBundles();
+      const match = data.find((b) => titleLower.includes(String(b.name).toLowerCase()));
       if (!match || match.is_mixable) {
         setBundleContents([]);
         return;
@@ -247,9 +235,6 @@ const ProductDetail = () => {
                 <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
-              </div>
-              <div style={{padding:8, background:'yellow', color:'black', fontSize:12}}>
-                DEBUG len={bundleContents.length} title={product.title} | {debugBundle}
               </div>
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
