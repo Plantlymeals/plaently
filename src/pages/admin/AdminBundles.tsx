@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
+import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 
 type Bundle = Tables<"bundles">;
 type Component = { name: string; quantity: number };
@@ -22,22 +23,40 @@ const AdminBundles = () => {
   const [editing, setEditing] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, any>>({});
   const [isNew, setIsNew] = useState(false);
+  const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
 
   const fetchBundles = async () => {
     const { data } = await supabase.from("bundles").select("*").order("sort_order");
     if (data) setBundles(data);
   };
 
-  useEffect(() => { fetchBundles(); }, []);
+  useEffect(() => {
+    fetchBundles();
+    fetchShopifyProducts(50, "product_type:Bundle").then((data) => {
+      if (data) setShopifyBundles(data);
+    });
+  }, []);
 
-  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false, components: [] }); };
+  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false, components: [], shopify_product_id: "" }); };
   const startEdit = (b: Bundle) => { setEditing(b.id); setForm({ ...b, components: toComponents(b.components) }); setIsNew(false); };
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
     if (!form.name?.trim()) { toast.error("Name is required"); return; }
     const cleanedComponents = toComponents(form.components);
-    const payload = { name: form.name, meal_count: form.meal_count, price: form.price, per_meal_price: form.per_meal_price, badge: form.badge || null, description: form.description, sort_order: form.sort_order ?? 0, is_published: form.is_published, is_mixable: form.is_mixable ?? false, components: cleanedComponents };
+    const payload = {
+      name: form.name,
+      meal_count: form.meal_count,
+      price: form.price,
+      per_meal_price: form.per_meal_price,
+      badge: form.badge || null,
+      description: form.description,
+      sort_order: form.sort_order ?? 0,
+      is_published: form.is_published,
+      is_mixable: form.is_mixable ?? false,
+      components: cleanedComponents,
+      shopify_product_id: form.shopify_product_id?.trim() || null,
+    };
     if (isNew) {
       const { error } = await supabase.from("bundles").insert(payload);
       if (error) { toast.error(error.message); return; }
@@ -75,6 +94,25 @@ const AdminBundles = () => {
             <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
           </div>
           <div className="space-y-1"><label className="text-xs font-medium">Description</label><Textarea value={form.description ?? ""} onChange={e => setForm({ ...form, description: e.target.value })} className="rounded-xl" rows={2} /></div>
+          <div className="space-y-1">
+            <label className="text-xs font-medium">Shopify product (required to be buyable)</label>
+            <select
+              value={form.shopify_product_id ?? ""}
+              onChange={(e) => setForm({ ...form, shopify_product_id: e.target.value })}
+              className="w-full rounded-xl border border-input bg-background h-10 px-3 text-sm"
+            >
+              <option value="">— Not linked (Coming soon) —</option>
+              {shopifyBundles.map((p) => (
+                <option key={p.node.id} value={p.node.id}>
+                  {p.node.title}
+                </option>
+              ))}
+            </select>
+            <p className="text-[11px] text-muted-foreground">
+              Pick which Shopify product is sold when customers click "Order now".
+              Bundles without a link still appear on the site but show "Coming soon".
+            </p>
+          </div>
           <div className="flex items-center gap-2">
             <input type="checkbox" checked={form.is_published ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
             <label className="text-sm">Published</label>
@@ -151,7 +189,11 @@ const AdminBundles = () => {
           <div key={b.id} className="bg-card rounded-xl border border-border/50 p-4 flex items-center justify-between shadow-card">
             <div>
               <p className="font-semibold text-sm">{b.name} {b.badge && <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full ml-2">{b.badge}</span>}</p>
-              <p className="text-xs text-muted-foreground">{b.meal_count} meals · {b.price}{!b.is_published && " · Draft"}</p>
+              <p className="text-xs text-muted-foreground">
+                {b.meal_count} meals · {b.price}
+                {!b.is_published && " · Draft"}
+                {!b.shopify_product_id && " · ⚠ Not linked to Shopify"}
+              </p>
             </div>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" onClick={() => startEdit(b)}><Pencil className="h-4 w-4" /></Button>
