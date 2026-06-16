@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { type ShopifyProduct } from "@/lib/shopify";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
+import { supabase } from "@/integrations/supabase/client";
 
 const BUNDLE_KEYS = ["big office", "office", "monthly", "athlete", "starter"] as const;
 const CUPS: Record<string, number> = {
@@ -21,7 +22,24 @@ export function useBundleMix() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<ShopifyProduct | null>(null);
   const [cups, setCups] = useState(0);
+  const [mixableNames, setMixableNames] = useState<Set<string>>(new Set());
   const { t } = useTranslation();
+
+  useEffect(() => {
+    supabase
+      .from("bundles")
+      .select("name,is_mixable")
+      .then(({ data }) => {
+        if (!data) return;
+        setMixableNames(
+          new Set(
+            data
+              .filter((b: any) => b.is_mixable)
+              .map((b: any) => String(b.name).toLowerCase())
+          )
+        );
+      });
+  }, []);
 
   const addPlain = async (
     product: ShopifyProduct,
@@ -42,7 +60,16 @@ export function useBundleMix() {
   };
 
   const handleAdd = async (product: ShopifyProduct) => {
-    await addPlain(product);
+    const title = product.node.title.toLowerCase();
+    const c = getBundleCupsFromTitle(product.node.title);
+    const isMixable = Array.from(mixableNames).some((n) => title.includes(n));
+    if (isMixable && c && c > 1) {
+      setActive(product);
+      setCups(c);
+      setOpen(true);
+    } else {
+      await addPlain(product);
+    }
   };
 
   const onConfirm = async (attrs: Array<{ key: string; value: string }>) => {
