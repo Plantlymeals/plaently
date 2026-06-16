@@ -214,6 +214,13 @@ const translations: Record<string, Record<Lang, string>> = {
  "cart.inCart": { sv: "i din varukorg", en: "in your cart" },
  "cart.total": { sv: "Totalt", en: "Total" },
  "cart.checkout": { sv: "Till kassan", en: "Checkout" },
+ "cart.remove": { sv: "Ta bort", en: "Remove" },
+ "cart.decrease": { sv: "Minska antal", en: "Decrease quantity" },
+ "cart.increase": { sv: "Öka antal", en: "Increase quantity" },
+
+ // Bundles extras
+ "bundles.eyebrow": { sv: "Paket", en: "Bundles" },
+ "bundles.whatsInside": { sv: "Vad ingår", en: "What's inside" },
 
  // Footer
  "footer.desc": { sv: "Plantbaserade proteinmåltider för det moderna livet. Skandinavisk enkelhet möter riktig näring.", en: "Plant-based protein meals for modern life. Scandinavian simplicity meets real nutrition." },
@@ -227,6 +234,53 @@ const translations: Record<string, Record<Lang, string>> = {
  "footer.emailPlaceholder": { sv: "Din e-post", en: "Your email" },
  "footer.join": { sv: "Gå med", en: "Join" },
  "footer.rights": { sv: "Alla rättigheter förbehållna.", en: "All rights reserved." },
+ "footer.highProtein": { sv: "Högprotein", en: "High Protein" },
+ "footer.plantBased": { sv: "Plantbaserat", en: "Plant-Based" },
+ "footer.instantMeals": { sv: "Snabbmåltider", en: "Instant Meals" },
+ "footer.categories": { sv: "Kategorier", en: "Categories" },
+ "footer.flavoursPacks": { sv: "Smaker & paket", en: "Flavors & packs" },
+
+ // Header a11y
+ "header.switchLang": { sv: "Byt språk", en: "Switch language" },
+ "header.openMenu": { sv: "Öppna meny", en: "Open menu" },
+
+ // Reviews
+ "reviews.title": { sv: "Kundrecensioner", en: "Customer reviews" },
+ "reviews.write": { sv: "Skriv en recension", en: "Write a review" },
+ "reviews.cancel": { sv: "Avbryt", en: "Cancel" },
+ "reviews.noReviews": { sv: "Inga recensioner ännu — bli först.", en: "No reviews yet — be the first." },
+ "reviews.countOne": { sv: "recension", en: "review" },
+ "reviews.countMany": { sv: "recensioner", en: "reviews" },
+ "reviews.formTitle": { sv: "Recensera", en: "Review" },
+ "reviews.labelRating": { sv: "Ditt betyg *", en: "Your rating *" },
+ "reviews.labelName": { sv: "Namn *", en: "Name *" },
+ "reviews.labelEmail": { sv: "E-post * (publiceras inte)", en: "Email * (not published)" },
+ "reviews.labelTitle": { sv: "Rubrik", en: "Title" },
+ "reviews.placeholderOptional": { sv: "Valfritt", en: "Optional" },
+ "reviews.labelBody": { sv: "Din recension *", en: "Your review *" },
+ "reviews.submit": { sv: "Skicka recension", en: "Submit review" },
+ "reviews.approvalNote": { sv: "Din recension visas efter admin-godkännande.", en: "Your review will be visible after admin approval." },
+ "reviews.submitSuccess": { sv: "Tack! Din recension visas när den godkänts.", en: "Thanks! Your review will appear once approved." },
+ "reviews.errNameRequired": { sv: "Namn krävs", en: "Name is required" },
+ "reviews.errInvalidEmail": { sv: "Ogiltig e-post", en: "Invalid email" },
+ "reviews.errPickRating": { sv: "Välj ett betyg", en: "Pick a rating" },
+ "reviews.errBodyMin": { sv: "Recensionen måste vara minst 5 tecken", en: "Review must be at least 5 characters" },
+
+ // SEO per page
+ "seo.home.title": { sv: "Hälsosam snabbmat | 20g Protein på 5 minuter | PLÄNTLY", en: "Healthy Fast Food | 20g Protein Meals in 5 Minutes | PLÄNTLY" },
+ "seo.home.description": { sv: "20g växtprotein klart på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromisser.", en: "20g plant protein meals ready in 5 minutes. Developed in Sweden, crafted in Italy. Healthy fast food without compromise." },
+ "seo.products.title": { sv: "Produkter – Hälsosam proteinmat på 5 min | PLÄNTLY", en: "Products – Healthy protein meals in 5 min | PLÄNTLY" },
+ "seo.products.description": { sv: "Utforska PLÄNTLY:s sortiment: hälsosam, proteinrik och klimatsmart färdigmat med 20g protein per portion. Klar på 5 minuter.", en: "Explore PLÄNTLY's range: healthy, high-protein and climate-smart ready meals with 20g protein per serving. Ready in 5 minutes." },
+ "seo.nutrition.title": { sv: "Näring — PLÄNTLY | Högprotein plantbaserad näring", en: "Nutrition — PLÄNTLY | High-protein plant-based nutrition" },
+ "seo.nutrition.description": { sv: "Se näringsinnehållet i PLÄNTLY:s måltider — 20g+ protein, balanserade makros och naturliga ingredienser.", en: "See the nutrition in PLÄNTLY meals — 20g+ protein, balanced macros and natural ingredients." },
+ "seo.lifestyle.title": { sv: "Livsstil — PLÄNTLY | Måltider för din livsstil", en: "Lifestyle — PLÄNTLY | Meals for your lifestyle" },
+ "seo.lifestyle.description": { sv: "Upptäck hur PLÄNTLY passar din livsstil — för atleter, kontorsarbetare, entreprenörer och alla däremellan.", en: "Discover how PLÄNTLY fits your lifestyle — for athletes, office workers, entrepreneurs and everyone in between." },
+ "seo.about.title": { sv: "Om PLÄNTLY – Hälsosam & klimatsmart proteinmat för alla | PLÄNTLY", en: "About PLÄNTLY – Healthy & climate-smart protein meals for everyone | PLÄNTLY" },
+ "seo.about.description": { sv: "PLÄNTLY grundades för att göra hälsosam, proteinrik och klimatsmart mat tillgänglig för alla – inte bara veganer. Snabb, god och utan kompromisser.", en: "PLÄNTLY was founded to make healthy, high-protein and climate-smart food accessible to everyone — not just vegans. Fast, delicious and uncompromising." },
+ "seo.faq.title": { sv: "Vanliga frågor — PLÄNTLY", en: "Frequently Asked Questions — PLÄNTLY" },
+ "seo.faq.description": { sv: "Svar på vanliga frågor om PLÄNTLY:s plantbaserade proteinmåltider, leverans, ingredienser och mer.", en: "Answers to common questions about PLÄNTLY's plant-based protein meals, delivery, ingredients and more." },
+ "seo.contact.title": { sv: "Kontakt — PLÄNTLY", en: "Contact — PLÄNTLY" },
+ "seo.contact.description": { sv: "Kontakta oss på PLÄNTLY. Frågor om våra plantbaserade proteinmåltider? Vi finns här för dig.", en: "Contact PLÄNTLY. Questions about our plant-based protein meals? We're here for you." },
 
  // Newsletter popup
  "newsletter.title": { sv: "Gå med i PLÄNTLY-familjen", en: "Join the PLÄNTLY family" },
