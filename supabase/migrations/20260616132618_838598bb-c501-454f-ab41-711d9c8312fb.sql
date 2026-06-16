@@ -1,0 +1,1 @@
+ALTER TABLE public.bundles ADD COLUMN IF NOT EXISTS is_mixable boolean NOT NULL DEFAULT false;

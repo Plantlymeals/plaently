@@ -71,6 +71,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          is_mixable: boolean
           is_published: boolean | null
           meal_count: number
           name: string
@@ -84,6 +85,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          is_mixable?: boolean
           is_published?: boolean | null
           meal_count: number
           name: string
@@ -97,6 +99,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          is_mixable?: boolean
           is_published?: boolean | null
           meal_count?: number
           name?: string
