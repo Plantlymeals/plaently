@@ -60,11 +60,12 @@ const ProductDetail = () => {
     setDebugBundle("effect-start");
     (async () => {
       setDebugBundle("await-start");
-      const { data, error } = await supabase
-        .from("bundles")
-        .select("name,is_mixable,components")
-        .eq("is_published", true);
-      console.warn("[bundles] title:", product.title, "data:", JSON.stringify(data), "error:", error);
+      let data: any = null; let error: any = null;
+      try {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=name,is_mixable,components&is_published=eq.true`;
+        const res = await fetch(url, { headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` } });
+        data = await res.json();
+      } catch (e: any) { error = e; }
       setDebugBundle(`err=${error?.message||'none'} rows=${data?.length ?? 'null'}`);
       if (error || !data) return;
       const match = data.find((b: any) =>
