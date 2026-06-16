@@ -1,9 +1,17 @@
 import { supabase } from "@/integrations/supabase/client";
 
 export type BundleRow = {
+  id: string;
   name: string;
   is_mixable: boolean;
   components: Array<{ name: string; quantity: number }>;
+  meal_count: number;
+  price: string | null;
+  per_meal_price: string | null;
+  badge: string | null;
+  description: string | null;
+  sort_order: number | null;
+  is_published: boolean | null;
 };
 
 // Workaround: the supabase-js client's request promise can hang inside the
@@ -11,7 +19,7 @@ export type BundleRow = {
 // restrictions). Use a direct REST call for this public-read query.
 export async function fetchPublishedBundles(): Promise<BundleRow[]> {
   try {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=name,is_mixable,components&is_published=eq.true`;
+    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=id,name,is_mixable,components,meal_count,price,per_meal_price,badge,description,sort_order,is_published&is_published=eq.true&order=sort_order.asc`;
     const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
     const res = await fetch(url, {
       headers: { apikey: key, Authorization: `Bearer ${key}` },
@@ -24,8 +32,9 @@ export async function fetchPublishedBundles(): Promise<BundleRow[]> {
     try {
       const { data } = await supabase
         .from("bundles")
-        .select("name,is_mixable,components")
-        .eq("is_published", true);
+        .select("id,name,is_mixable,components,meal_count,price,per_meal_price,badge,description,sort_order,is_published")
+        .eq("is_published", true)
+        .order("sort_order", { ascending: true });
       return (data as any) ?? [];
     } catch {
       return [];
