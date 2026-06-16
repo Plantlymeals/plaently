@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const About = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   return (
     <Layout>

@@ -4,7 +4,7 @@ import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 const Lifestyle = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const personas = [
     { icon: Dumbbell, title: t("lifestylePage.athleteTitle"), desc: t("lifestylePage.athleteDesc") },

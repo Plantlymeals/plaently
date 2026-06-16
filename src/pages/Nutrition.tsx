@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const Nutrition = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const macros = [
     { label: t("nutrition.protein"), value: "20–21g", desc: t("nutritionPage.proteinDesc") },

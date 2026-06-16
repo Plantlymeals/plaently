@@ -310,7 +310,7 @@ const ProductDetail = () => {
 const Products = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
