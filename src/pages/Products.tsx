@@ -56,23 +56,29 @@ const ProductDetail = () => {
   useEffect(() => {
     if (!product) return;
     const titleLower = product.title.toLowerCase();
-    supabase
-      .from("bundles")
-      .select("name,is_mixable,components")
-      .then(({ data }) => {
-        if (!data) return;
-        const match = data.find((b: any) => titleLower.includes(String(b.name).toLowerCase()));
-        if (!match || match.is_mixable) {
-          setBundleContents([]);
-          return;
-        }
-        const comps = Array.isArray(match.components)
-          ? match.components
-              .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
-              .filter((c) => c.name.length > 0 && c.quantity > 0)
-          : [];
-        setBundleContents(comps);
-      });
+    (async () => {
+      const { data, error } = await supabase
+        .from("bundles")
+        .select("name,is_mixable,components")
+        .eq("is_published", true);
+      if (error || !data) return;
+      const match = data.find((b: any) =>
+        titleLower.includes(String(b.name).toLowerCase())
+      );
+      if (!match || match.is_mixable) {
+        setBundleContents([]);
+        return;
+      }
+      const comps = Array.isArray(match.components)
+        ? (match.components as any[])
+            .map((c: any) => ({
+              name: String(c?.name ?? "").trim(),
+              quantity: Number(c?.quantity) || 0,
+            }))
+            .filter((c) => c.name.length > 0 && c.quantity > 0)
+        : [];
+      setBundleContents(comps);
+    })();
   }, [product]);
 
   if (loading) {
