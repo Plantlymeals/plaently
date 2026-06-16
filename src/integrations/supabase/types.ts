@@ -548,40 +548,31 @@ export type Database = {
     Views: {
       public_product_reviews: {
         Row: {
-          approved_at: string | null
           author_name: string | null
           body: string | null
           created_at: string | null
           id: string | null
           product_slug: string | null
           rating: number | null
-          status: Database["public"]["Enums"]["review_status"] | null
           title: string | null
-          updated_at: string | null
         }
         Insert: {
-          approved_at?: string | null
           author_name?: string | null
           body?: string | null
           created_at?: string | null
           id?: string | null
           product_slug?: string | null
           rating?: number | null
-          status?: Database["public"]["Enums"]["review_status"] | null
           title?: string | null
-          updated_at?: string | null
         }
         Update: {
-          approved_at?: string | null
           author_name?: string | null
           body?: string | null
           created_at?: string | null
           id?: string | null
           product_slug?: string | null
           rating?: number | null
-          status?: Database["public"]["Enums"]["review_status"] | null
           title?: string | null
-          updated_at?: string | null
         }
         Relationships: []
       }

@@ -49,13 +49,12 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
 
   const fetchReviews = async () => {
     const { data } = await supabase
-      .from("product_reviews")
+      .from("public_product_reviews" as any)
       .select("id, author_name, rating, title, body, created_at")
       .eq("product_slug", productSlug)
-      .eq("status", "approved")
       .order("created_at", { ascending: false })
       .limit(20);
-    if (data) setReviews(data as Review[]);
+    if (data) setReviews(data as unknown as Review[]);
   };
 
   useEffect(() => { fetchReviews(); }, [productSlug]);

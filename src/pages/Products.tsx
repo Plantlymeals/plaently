@@ -40,10 +40,9 @@ const ProductDetail = () => {
   useEffect(() => {
     if (!productHandle) return;
     supabase
-      .from("product_reviews")
+      .from("public_product_reviews" as any)
       .select("author_name, rating, title, body, created_at")
       .eq("product_slug", productHandle)
-      .eq("status", "approved")
       .order("created_at", { ascending: false })
       .limit(20)
       .then(({ data }) => {
