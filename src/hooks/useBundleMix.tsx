@@ -42,14 +42,7 @@ export function useBundleMix() {
   };
 
   const handleAdd = async (product: ShopifyProduct) => {
-    const c = getBundleCupsFromTitle(product.node.title);
-    if (c && c > 1) {
-      setActive(product);
-      setCups(c);
-      setOpen(true);
-    } else {
-      await addPlain(product);
-    }
+    await addPlain(product);
   };
 
   const onConfirm = async (attrs: Array<{ key: string; value: string }>) => {
