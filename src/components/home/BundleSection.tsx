@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import { supabase } from "@/integrations/supabase/client";
+import { fetchPublishedBundles } from "@/lib/bundlesApi";
 
 const SINGLE_MEAL_PRICE = 35; // SEK per single meal
 
@@ -68,29 +68,23 @@ const BundleSection = () => {
   }, []);
 
   useEffect(() => {
-    supabase
-      .from("bundles")
-      .select("name,is_mixable,components")
-      .then(({ data }) => {
-        if (!data) return;
-        setMixableNames(
-          new Set(
-            data
-              .filter((b: any) => b.is_mixable)
-              .map((b: any) => String(b.name).toLowerCase())
-          )
-        );
-        const map = new Map<string, Array<{ name: string; quantity: number }>>();
-        data.forEach((b: any) => {
-          const comps = Array.isArray(b.components)
-            ? b.components
-                .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
-                .filter((c) => c.name.length > 0 && c.quantity > 0)
-            : [];
-          if (comps.length > 0) map.set(String(b.name).toLowerCase(), comps);
-        });
-        setContentsByName(map);
+    fetchPublishedBundles().then((data) => {
+      setMixableNames(
+        new Set(
+          data.filter((b) => b.is_mixable).map((b) => String(b.name).toLowerCase())
+        )
+      );
+      const map = new Map<string, Array<{ name: string; quantity: number }>>();
+      data.forEach((b) => {
+        const comps = Array.isArray(b.components)
+          ? b.components
+              .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
+              .filter((c) => c.name.length > 0 && c.quantity > 0)
+          : [];
+        if (comps.length > 0) map.set(String(b.name).toLowerCase(), comps);
       });
+      setContentsByName(map);
+    });
   }, []);
 
   if (bundles.length === 0) return null;
