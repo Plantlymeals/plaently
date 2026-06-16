@@ -61,12 +61,12 @@ const ProductDetail = () => {
         .from("bundles")
         .select("name,is_mixable,components")
         .eq("is_published", true);
-      console.log("[bundles] title:", product.title, "data:", data, "error:", error);
+      console.warn("[bundles] title:", product.title, "data:", JSON.stringify(data), "error:", error);
       if (error || !data) return;
       const match = data.find((b: any) =>
         titleLower.includes(String(b.name).toLowerCase())
       );
-      console.log("[bundles] match:", match);
+      console.warn("[bundles] match:", JSON.stringify(match));
       if (!match || match.is_mixable) {
         setBundleContents([]);
         return;
