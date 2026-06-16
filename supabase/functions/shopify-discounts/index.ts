@@ -3,13 +3,12 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 
 const SHOPIFY_STORE_DOMAIN = 'plantly-website-cms-fyvdr.myshopify.com';
 const SHOPIFY_ADMIN_API = `https://${SHOPIFY_STORE_DOMAIN}/admin/api/2025-07`;
-const SHOPIFY_ACCESS_TOKEN = Deno.env.get('SHOPIFY_ACCESS_TOKEN') ?? '';
 
-async function shopify(path: string, init: RequestInit = {}) {
+async function shopify(path: string, token: string, init: RequestInit = {}) {
   const res = await fetch(`${SHOPIFY_ADMIN_API}${path}`, {
     ...init,
     headers: {
-      'X-Shopify-Access-Token': SHOPIFY_ACCESS_TOKEN,
+      'X-Shopify-Access-Token': token,
       'Content-Type': 'application/json',
       ...(init.headers || {}),
     },
@@ -47,16 +46,23 @@ Deno.serve(async (req) => {
     const { data: isAdmin } = await supabase.rpc('has_role', { _user_id: userData.user.id, _role: 'admin' });
     if (!isAdmin) return json({ error: 'Forbidden' }, 403);
 
+    // Prefer per-user online Shopify token (from the Shopify connector); fall back to static token.
+    const onlineToken = Deno.env.get(`SHOPIFY_ONLINE_ACCESS_TOKEN:user:${userData.user.id}`);
+    const shopifyToken = onlineToken || Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
+    if (!shopifyToken) {
+      return json({ error: 'No Shopify access token available. Please reconnect Shopify in the admin.' }, 401);
+    }
+
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
     const action = body.action as string;
 
     switch (action) {
       case 'list': {
-        const rules = await shopify('/price_rules.json?limit=100');
+        const rules = await shopify('/price_rules.json?limit=100', shopifyToken);
         const enriched = await Promise.all(
           (rules.price_rules || []).map(async (r: any) => {
             try {
-              const codes = await shopify(`/price_rules/${r.id}/discount_codes.json`);
+              const codes = await shopify(`/price_rules/${r.id}/discount_codes.json`, shopifyToken);
               return { ...r, discount_codes: codes.discount_codes || [] };
             } catch {
               return { ...r, discount_codes: [] };
@@ -67,13 +73,13 @@ Deno.serve(async (req) => {
       }
       case 'create': {
         const { rule, code } = body;
-        const created = await shopify('/price_rules.json', {
+        const created = await shopify('/price_rules.json', shopifyToken, {
           method: 'POST',
           body: JSON.stringify({ price_rule: rule }),
         });
         const ruleId = created.price_rule.id;
         if (code) {
-          await shopify(`/price_rules/${ruleId}/discount_codes.json`, {
+          await shopify(`/price_rules/${ruleId}/discount_codes.json`, shopifyToken, {
             method: 'POST',
             body: JSON.stringify({ discount_code: { code } }),
           });
@@ -82,7 +88,7 @@ Deno.serve(async (req) => {
       }
       case 'update': {
         const { price_rule_id, rule } = body;
-        const updated = await shopify(`/price_rules/${price_rule_id}.json`, {
+        const updated = await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, {
           method: 'PUT',
           body: JSON.stringify({ price_rule: { id: price_rule_id, ...rule } }),
         });
@@ -92,7 +98,7 @@ Deno.serve(async (req) => {
         const { price_rule_id } = body;
         // Set ends_at to now to disable
         const endsAt = new Date().toISOString();
-        const updated = await shopify(`/price_rules/${price_rule_id}.json`, {
+        const updated = await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, {
           method: 'PUT',
           body: JSON.stringify({ price_rule: { id: price_rule_id, ends_at: endsAt } }),
         });
@@ -100,7 +106,7 @@ Deno.serve(async (req) => {
       }
       case 'delete': {
         const { price_rule_id } = body;
-        await shopify(`/price_rules/${price_rule_id}.json`, { method: 'DELETE' });
+        await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, { method: 'DELETE' });
         return json({ ok: true });
       }
       default:
