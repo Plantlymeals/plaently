@@ -8,6 +8,14 @@ import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 
 type Bundle = Tables<"bundles">;
+type Component = { name: string; quantity: number };
+
+const toComponents = (val: unknown): Component[] => {
+  if (!Array.isArray(val)) return [];
+  return val
+    .map((c: any) => ({ name: String(c?.name ?? ""), quantity: Number(c?.quantity) || 0 }))
+    .filter((c) => c.name.trim().length > 0);
+};
 
 const AdminBundles = () => {
   const [bundles, setBundles] = useState<Bundle[]>([]);
@@ -22,13 +30,14 @@ const AdminBundles = () => {
 
   useEffect(() => { fetchBundles(); }, []);
 
-  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false }); };
-  const startEdit = (b: Bundle) => { setEditing(b.id); setForm({ ...b }); setIsNew(false); };
+  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false, components: [] }); };
+  const startEdit = (b: Bundle) => { setEditing(b.id); setForm({ ...b, components: toComponents(b.components) }); setIsNew(false); };
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
     if (!form.name?.trim()) { toast.error("Name is required"); return; }
-    const payload = { name: form.name, meal_count: form.meal_count, price: form.price, per_meal_price: form.per_meal_price, badge: form.badge || null, description: form.description, sort_order: form.sort_order ?? 0, is_published: form.is_published, is_mixable: form.is_mixable ?? false };
+    const cleanedComponents = toComponents(form.components);
+    const payload = { name: form.name, meal_count: form.meal_count, price: form.price, per_meal_price: form.per_meal_price, badge: form.badge || null, description: form.description, sort_order: form.sort_order ?? 0, is_published: form.is_published, is_mixable: form.is_mixable ?? false, components: cleanedComponents };
     if (isNew) {
       const { error } = await supabase.from("bundles").insert(payload);
       if (error) { toast.error(error.message); return; }
@@ -73,6 +82,62 @@ const AdminBundles = () => {
           <div className="flex items-center gap-2">
             <input type="checkbox" checked={form.is_mixable ?? false} onChange={e => setForm({ ...form, is_mixable: e.target.checked })} />
             <label className="text-sm">Allow customers to mix &amp; match contents</label>
+          </div>
+          <div className="space-y-2 border-t border-border/50 pt-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="text-sm font-medium">Bundle contents</label>
+                <p className="text-xs text-muted-foreground">Shown on the customer card so they know what's inside. Used when mixing is disabled.</p>
+              </div>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="rounded-full gap-1"
+                onClick={() => setForm({ ...form, components: [...toComponents(form.components), { name: "", quantity: 1 }] })}
+              >
+                <Plus className="h-3.5 w-3.5" /> Add item
+              </Button>
+            </div>
+            {(toComponents(form.components).length === 0 && !(Array.isArray(form.components) && form.components.length > 0)) && (
+              <p className="text-xs text-muted-foreground italic">No items yet.</p>
+            )}
+            {(Array.isArray(form.components) ? form.components : []).map((c: any, idx: number) => (
+              <div key={idx} className="flex gap-2 items-center">
+                <Input
+                  value={c?.name ?? ""}
+                  placeholder="Item name (e.g. Curry)"
+                  onChange={e => {
+                    const next = [...(form.components as any[])];
+                    next[idx] = { ...next[idx], name: e.target.value };
+                    setForm({ ...form, components: next });
+                  }}
+                  className="rounded-xl flex-1"
+                />
+                <Input
+                  type="number"
+                  min={1}
+                  value={c?.quantity ?? 1}
+                  onChange={e => {
+                    const next = [...(form.components as any[])];
+                    next[idx] = { ...next[idx], quantity: parseInt(e.target.value) || 0 };
+                    setForm({ ...form, components: next });
+                  }}
+                  className="rounded-xl w-24"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => {
+                    const next = (form.components as any[]).filter((_, i) => i !== idx);
+                    setForm({ ...form, components: next });
+                  }}
+                >
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </Button>
+              </div>
+            ))}
           </div>
           <div className="flex gap-2">
             <Button onClick={save} className="rounded-full gap-2"><Check className="h-4 w-4" /> Save</Button>

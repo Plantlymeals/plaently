@@ -51,6 +51,7 @@ const BundleSection = () => {
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
   const [mixableNames, setMixableNames] = useState<Set<string>>(new Set());
+  const [contentsByName, setContentsByName] = useState<Map<string, Array<{ name: string; quantity: number }>>>(new Map());
 
   useEffect(() => {
     fetchShopifyProducts(10, "product_type:Bundle").then((data) => {
@@ -69,7 +70,7 @@ const BundleSection = () => {
   useEffect(() => {
     supabase
       .from("bundles")
-      .select("name,is_mixable")
+      .select("name,is_mixable,components")
       .then(({ data }) => {
         if (!data) return;
         setMixableNames(
@@ -79,6 +80,16 @@ const BundleSection = () => {
               .map((b: any) => String(b.name).toLowerCase())
           )
         );
+        const map = new Map<string, Array<{ name: string; quantity: number }>>();
+        data.forEach((b: any) => {
+          const comps = Array.isArray(b.components)
+            ? b.components
+                .map((c: any) => ({ name: String(c?.name ?? "").trim(), quantity: Number(c?.quantity) || 0 }))
+                .filter((c) => c.name.length > 0 && c.quantity > 0)
+            : [];
+          if (comps.length > 0) map.set(String(b.name).toLowerCase(), comps);
+        });
+        setContentsByName(map);
       });
   }, []);
 
@@ -142,6 +153,11 @@ const BundleSection = () => {
             const isValue = meta?.highlight === "value";
             const isTrial = meta?.highlight === "trial";
             const isSubscription = meta?.highlight === "subscription";
+            const titleLower = b.node.title.toLowerCase();
+            const isMixable = Array.from(mixableNames).some((n) => titleLower.includes(n));
+            const contentsKey = Array.from(contentsByName.keys()).find((n) => titleLower.includes(n));
+            const contents = contentsKey ? contentsByName.get(contentsKey) ?? [] : [];
+            const showContents = !isMixable && contents.length > 0;
 
             return (
               <div
@@ -226,11 +242,25 @@ const BundleSection = () => {
                   ))}
                 </ul>
 
+                {showContents && (
+                  <div className="mb-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-white/60 mb-2">
+                      What's inside
+                    </p>
+                    <ul className="space-y-1.5">
+                      {contents.map((c, i) => (
+                        <li key={i} className="flex items-center justify-between text-sm text-white/90">
+                          <span>{c.name}</span>
+                          <span className="font-semibold tabular-nums">× {c.quantity}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {/* CTA */}
                 <Button
                   onClick={() => {
-                    const title = b.node.title.toLowerCase();
-                    const isMixable = Array.from(mixableNames).some((n) => title.includes(n));
                     if (isMixable && cups && cups > 1) {
                       openMixFor(b, cups);
                     } else {
