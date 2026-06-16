@@ -322,7 +322,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title="Produkter – Hälsosam proteinmat på 5 min | PLÄNTLY" description="Utforska PLÄNTLY:s sortiment: hälsosam, proteinrik och klimatsmart färdigmat med 20g protein per portion. Klar på 5 minuter." path="/products" />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
