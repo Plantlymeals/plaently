@@ -243,6 +243,9 @@ const ProductDetail = () => {
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
+              <div style={{padding:8, background:'yellow', color:'black', fontSize:12}}>
+                DEBUG bundleContents.length={bundleContents.length} title={product.title}
+              </div>
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
                   <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-3">
