@@ -25,6 +25,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
+  const [debugBundle, setDebugBundle] = useState<string>("init");
   const { t, lang } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -62,6 +63,7 @@ const ProductDetail = () => {
         .select("name,is_mixable,components")
         .eq("is_published", true);
       console.warn("[bundles] title:", product.title, "data:", JSON.stringify(data), "error:", error);
+      setDebugBundle(`err=${error?.message||'none'} rows=${data?.length ?? 'null'}`);
       if (error || !data) return;
       const match = data.find((b: any) =>
         titleLower.includes(String(b.name).toLowerCase())
@@ -244,7 +246,7 @@ const ProductDetail = () => {
                 </Button>
               </div>
               <div style={{padding:8, background:'yellow', color:'black', fontSize:12}}>
-                DEBUG bundleContents.length={bundleContents.length} title={product.title}
+                DEBUG len={bundleContents.length} title={product.title} | {debugBundle}
               </div>
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
