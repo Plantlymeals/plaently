@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { useTranslation } from "@/lib/i18n";
+import { useLangStore } from "@/lib/i18n";
 
 // UI regression test: guards the bundle text rendered by BundleSection
 // (via BUNDLE_META feature keys) against accidental i18n changes.
@@ -45,8 +45,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
 };
 
 function translate(lang: "sv" | "en", key: string): string {
-  useTranslation.setState({ lang });
-  return useTranslation.getState().t(key);
+  useLangStore.setState({ lang });
+  return useLangStore.getState().t(key);
 }
 
 describe("BundleSection i18n text regression", () => {
