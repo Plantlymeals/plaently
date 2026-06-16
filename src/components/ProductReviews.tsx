@@ -7,6 +7,7 @@ import { Star, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
+import { useTranslation } from "@/lib/i18n";
 
 interface Review {
   id: string;
@@ -17,12 +18,12 @@ interface Review {
   created_at: string;
 }
 
-const reviewSchema = z.object({
-  author_name: z.string().trim().min(1, "Name is required").max(100),
-  author_email: z.string().trim().email("Invalid email").max(255),
-  rating: z.number().int().min(1, "Pick a rating").max(5),
+const makeReviewSchema = (t: (k: string) => string) => z.object({
+  author_name: z.string().trim().min(1, t("reviews.errNameRequired")).max(100),
+  author_email: z.string().trim().email(t("reviews.errInvalidEmail")).max(255),
+  rating: z.number().int().min(1, t("reviews.errPickRating")).max(5),
   title: z.string().trim().max(150).optional().or(z.literal("")),
-  body: z.string().trim().min(5, "Review must be at least 5 characters").max(2000),
+  body: z.string().trim().min(5, t("reviews.errBodyMin")).max(2000),
 });
 
 const StarRow = ({ value, size = 4 }: { value: number; size?: number }) => (
@@ -40,6 +41,7 @@ const StarRow = ({ value, size = 4 }: { value: number; size?: number }) => (
 );
 
 const ProductReviews = ({ productSlug, title }: { productSlug: string; title: string }) => {
+  const { t } = useTranslation();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -59,7 +61,7 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
   useEffect(() => { fetchReviews(); }, [productSlug]);
 
   const submit = async () => {
-    const parsed = reviewSchema.safeParse(form);
+    const parsed = makeReviewSchema(t).safeParse(form);
     if (!parsed.success) {
       toast.error(parsed.error.issues[0].message);
       return;
@@ -75,7 +77,7 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
     });
     setSubmitting(false);
     if (error) { toast.error(error.message); return; }
-    toast.success("Thanks! Your review will appear once approved.");
+    toast.success(t("reviews.submitSuccess"));
     setForm({ author_name: "", author_email: "", rating: 0, title: "", body: "" });
     setShowForm(false);
   };
@@ -91,23 +93,23 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
           <>
             <StarRow value={Math.round(parseFloat(avg))} size={5} />
             <p className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">{avg}</span> · {reviews.length} review{reviews.length === 1 ? "" : "s"}
+              <span className="font-semibold text-foreground">{avg}</span> · {reviews.length} {reviews.length === 1 ? t("reviews.countOne") : t("reviews.countMany")}
             </p>
           </>
         ) : (
-          <p className="text-sm text-muted-foreground">No reviews yet — be the first.</p>
+          <p className="text-sm text-muted-foreground">{t("reviews.noReviews")}</p>
         )}
-        <h2 className="font-heading text-2xl md:text-3xl font-bold">Customer reviews</h2>
+        <h2 className="font-heading text-2xl md:text-3xl font-bold">{t("reviews.title")}</h2>
         <Button onClick={() => setShowForm((s) => !s)} variant="outline" className="rounded-full mt-2">
-          {showForm ? "Cancel" : "Write a review"}
+          {showForm ? t("reviews.cancel") : t("reviews.write")}
         </Button>
       </div>
 
       {showForm && (
         <div className="max-w-xl mx-auto bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4 mb-10">
-          <h3 className="font-heading font-semibold">Review {title}</h3>
+          <h3 className="font-heading font-semibold">{t("reviews.formTitle")} {title}</h3>
           <div className="space-y-1">
-            <label className="text-xs font-medium">Your rating *</label>
+            <label className="text-xs font-medium">{t("reviews.labelRating")}</label>
             <div className="flex gap-1">
               {[1, 2, 3, 4, 5].map((s) => (
                 <button
@@ -124,26 +126,26 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-xs font-medium">Name *</label>
+              <label className="text-xs font-medium">{t("reviews.labelName")}</label>
               <Input value={form.author_name} maxLength={100} onChange={(e) => setForm({ ...form, author_name: e.target.value })} className="rounded-xl" />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-medium">Email * (not published)</label>
+              <label className="text-xs font-medium">{t("reviews.labelEmail")}</label>
               <Input type="email" value={form.author_email} maxLength={255} onChange={(e) => setForm({ ...form, author_email: e.target.value })} className="rounded-xl" />
             </div>
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium">Title</label>
-            <Input value={form.title} maxLength={150} onChange={(e) => setForm({ ...form, title: e.target.value })} className="rounded-xl" placeholder="Optional" />
+            <label className="text-xs font-medium">{t("reviews.labelTitle")}</label>
+            <Input value={form.title} maxLength={150} onChange={(e) => setForm({ ...form, title: e.target.value })} className="rounded-xl" placeholder={t("reviews.placeholderOptional")} />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-medium">Your review *</label>
+            <label className="text-xs font-medium">{t("reviews.labelBody")}</label>
             <Textarea value={form.body} maxLength={2000} rows={4} onChange={(e) => setForm({ ...form, body: e.target.value })} className="rounded-xl" />
           </div>
           <Button onClick={submit} disabled={submitting} className="rounded-full w-full font-semibold">
-            {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Submit review"}
+            {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : t("reviews.submit")}
           </Button>
-          <p className="text-[11px] text-muted-foreground text-center">Your review will be visible after admin approval.</p>
+          <p className="text-[11px] text-muted-foreground text-center">{t("reviews.approvalNote")}</p>
         </div>
       )}
 
