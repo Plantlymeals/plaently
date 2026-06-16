@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import { useTranslation } from "@/lib/i18n";
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
 import StarterPackHighlight from "@/components/home/StarterPackHighlight";
@@ -15,12 +16,14 @@ const TestimonialsSection = lazy(() => import("@/components/home/TestimonialsSec
 const FinalCTA = lazy(() => import("@/components/home/FinalCTA"));
 
 const Index = () => {
+  const { t, lang } = useTranslation();
   return (
     <Layout>
       <SEOHead
-        title="Healthy Fast Food | 20g Protein Meals in 5 Minutes | PLÄNTLY"
-        description="20g plant protein meals ready in 5 minutes. Developed in Sweden and crafted in Italy. Healthy fast food without compromise."
+        title={t("seo.home.title")}
+        description={t("seo.home.description")}
         path="/"
+        locale={lang}
       />
       <HeroSection />
       <StarterPackHighlight />

@@ -4,7 +4,7 @@ import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 const Lifestyle = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const personas = [
     { icon: Dumbbell, title: t("lifestylePage.athleteTitle"), desc: t("lifestylePage.athleteDesc") },
@@ -15,7 +15,7 @@ const Lifestyle = () => {
 
   return (
     <Layout>
-      <SEOHead title="Livsstil — PLÄNTLY | Måltider för din livsstil" description="Upptäck hur PLÄNTLY passar din livsstil — för atleter, kontorsarbetare, entreprenörer och alla däremellan." path="/lifestyle" />
+      <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
           <div className="text-center space-y-4 animate-fade-up">

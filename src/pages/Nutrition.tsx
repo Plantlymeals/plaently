@@ -3,7 +3,7 @@ import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const Nutrition = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const macros = [
     { label: t("nutrition.protein"), value: "20–21g", desc: t("nutritionPage.proteinDesc") },
@@ -15,7 +15,7 @@ const Nutrition = () => {
 
   return (
     <Layout>
-      <SEOHead title="Näring — PLÄNTLY | Högprotein plantbaserad näring" description="Se näringsinnehållet i PLÄNTLY:s måltider — 20g+ protein, balanserade makros och naturliga ingredienser." path="/nutrition" />
+      <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <div className="text-center space-y-4 animate-fade-up">

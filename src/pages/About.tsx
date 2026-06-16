@@ -3,11 +3,11 @@ import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 
 const About = () => {
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   return (
     <Layout>
-      <SEOHead title="Om PLÄNTLY – Hälsosam & klimatsmart proteinmat för alla | PLÄNTLY" description="PLÄNTLY grundades för att göra hälsosam, proteinrik och klimatsmart mat tillgänglig för alla – inte bara veganer. Snabb, god och utan kompromisser." path="/about" />
+      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

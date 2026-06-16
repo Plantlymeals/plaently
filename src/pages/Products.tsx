@@ -239,7 +239,7 @@ const ProductDetail = () => {
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
                   <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-3">
-                    {lang === "sv" ? "Vad ingår" : "What's inside"}
+                    {t("bundles.whatsInside")}
                   </p>
                   <ul className="space-y-2">
                     {bundleContents.map((c, i) => (
@@ -310,7 +310,7 @@ const ProductDetail = () => {
 const Products = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
   const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
@@ -322,7 +322,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title="Produkter – Hälsosam proteinmat på 5 min | PLÄNTLY" description="Utforska PLÄNTLY:s sortiment: hälsosam, proteinrik och klimatsmart färdigmat med 20g protein per portion. Klar på 5 minuter." path="/products" />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <div className="text-center space-y-4 animate-fade-up">

@@ -12,7 +12,7 @@ const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const Contact = () => {
 
   return (
     <Layout>
-      <SEOHead title="Kontakt — PLÄNTLY" description="Kontakta oss på PLÄNTLY. Frågor om våra plantbaserade proteinmåltider? Vi finns här för dig." path="/contact" />
+      <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} path="/contact" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-2xl space-y-12">
           <div className="text-center space-y-4 animate-fade-up">
