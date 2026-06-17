@@ -28,8 +28,15 @@ function generateToken(): string {
 }
 
 // Auth note: this function uses verify_jwt = true in config.toml, so Supabase's
-// gateway validates the caller's JWT (anon or service_role) before the request
-// reaches this code. No in-function auth check is needed.
+// gateway validates the caller's JWT signature, but the anon JWT is itself valid.
+// We therefore enforce per-template authorization in code: sensitive templates
+// require an authenticated admin user, and the public newsletter-welcome template
+// only fires for an email that was just inserted into newsletter_subscribers.
+
+// Templates that may only be invoked by an authenticated admin user.
+const ADMIN_ONLY_TEMPLATES = new Set<string>(['contact-reply'])
+// Templates that the public can trigger, scoped to a recently-created subscriber row.
+const PUBLIC_NEWSLETTER_TEMPLATES = new Set<string>(['newsletter-welcome'])
 
 Deno.serve(async (req) => {
   // Handle CORS preflight
@@ -39,8 +46,9 @@ Deno.serve(async (req) => {
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')
   const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl || !supabaseServiceKey || !supabaseAnonKey) {
     console.error('Missing required environment variables')
     return new Response(
       JSON.stringify({ error: 'Server configuration error' }),
@@ -92,14 +100,84 @@ Deno.serve(async (req) => {
   if (!template) {
     console.error('Template not found in registry', { templateName })
     return new Response(
-      JSON.stringify({
-        error: `Template '${templateName}' not found. Available: ${Object.keys(TEMPLATES).join(', ')}`,
-      }),
+      JSON.stringify({ error: 'Template not found' }),
       {
         status: 404,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       }
     )
+  }
+
+  // Authorization gate — verify caller is allowed to send this template.
+  const authHeader = req.headers.get('Authorization') || ''
+  const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : ''
+  const isServiceRole = bearer && bearer === supabaseServiceKey
+
+  if (!isServiceRole) {
+    if (ADMIN_ONLY_TEMPLATES.has(templateName)) {
+      // Must be an authenticated admin user.
+      if (!bearer) {
+        return new Response(
+          JSON.stringify({ error: 'Unauthorized' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+      const userClient = createClient(supabaseUrl, supabaseAnonKey, {
+        global: { headers: { Authorization: `Bearer ${bearer}` } },
+      })
+      const { data: claimsData, error: claimsErr } = await userClient.auth.getClaims(bearer)
+      const uid = claimsData?.claims?.sub
+      if (claimsErr || !uid) {
+        return new Response(
+          JSON.stringify({ error: 'Unauthorized' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+      const adminClient = createClient(supabaseUrl, supabaseServiceKey)
+      const { data: isAdmin, error: roleErr } = await adminClient.rpc('has_role', {
+        _user_id: uid,
+        _role: 'admin',
+      })
+      if (roleErr || !isAdmin) {
+        return new Response(
+          JSON.stringify({ error: 'Forbidden' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+    } else if (PUBLIC_NEWSLETTER_TEMPLATES.has(templateName)) {
+      // Public-callable, but only for an email that just signed up to the newsletter
+      // within the last 5 minutes. Blocks arbitrary recipients / spam.
+      const requestedRecipient = (template.to || recipientEmail || '').toLowerCase()
+      if (!requestedRecipient) {
+        return new Response(
+          JSON.stringify({ error: 'recipientEmail is required' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+      const adminClient = createClient(supabaseUrl, supabaseServiceKey)
+      const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString()
+      const { data: sub, error: subErr } = await adminClient
+        .from('newsletter_subscribers')
+        .select('email, created_at')
+        .eq('email', requestedRecipient)
+        .gte('created_at', fiveMinAgo)
+        .maybeSingle()
+      if (subErr || !sub) {
+        console.warn('Newsletter welcome blocked — recipient not a recent subscriber', {
+          requestedRecipient,
+        })
+        return new Response(
+          JSON.stringify({ error: 'Forbidden' }),
+          { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+    } else {
+      // Unknown / unlisted templates are not callable by clients.
+      return new Response(
+        JSON.stringify({ error: 'Forbidden' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
   }
 
   // Resolve effective recipient: template-level `to` takes precedence over
