@@ -335,6 +335,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "contact.submit": { sv: "Skicka meddelande", en: "Send message" },
  "contact.submitting": { sv: "Skickar…", en: "Sending…" },
  "contact.fillAll": { sv: "Vänligen fyll i alla fält", en: "Please fill in all fields" },
+  "contact.messageTooShort": { sv: "Meddelandet måste vara minst 5 tecken", en: "Message must be at least 5 characters" },
  "contact.success": { sv: "Tack för ditt meddelande! Vi återkommer snart.", en: "Thanks for your message! We'll get back to you soon." },
  "contact.error": { sv: "Något gick fel. Försök igen.", en: "Something went wrong. Please try again." },
  "contact.orEmail": { sv: "Eller maila oss direkt på", en: "Or email us directly at" },
