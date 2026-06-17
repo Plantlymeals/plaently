@@ -23,6 +23,11 @@ const Contact = () => {
       return;
     }
 
+    if (form.message.trim().length < 5) {
+      toast.error(t("contact.messageTooShort"));
+      return;
+    }
+
     setLoading(true);
     try {
       const { error } = await supabase.from("contact_submissions").insert({
