@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import DOMPurify from "dompurify";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -194,7 +195,7 @@ const AdminProducts = () => {
             <label className="text-xs font-medium">Swedish preview (live)</label>
             <div
               className="rounded-xl border border-border/50 bg-background p-4 min-h-[220px] text-sm prose prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: translateProductHtml(previewInput, "sv") }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(translateProductHtml(previewInput, "sv")) }}
             />
           </div>
         </div>
@@ -203,7 +204,7 @@ const AdminProducts = () => {
             <label className="text-xs font-medium">English preview (as-is)</label>
             <div
               className="rounded-xl border border-border/50 bg-background p-4 min-h-[80px] text-sm prose prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: translateProductHtml(previewInput, "en") }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(translateProductHtml(previewInput, "en")) }}
             />
           </div>
           <div className="space-y-1">
