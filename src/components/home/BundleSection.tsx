@@ -302,7 +302,7 @@ const BundleSection = () => {
                   )}
                 </Button>
                 {!canBuy && (
-                  <p className="mt-2 text-[11px] text-white/50 text-center">
+                  <p className="mt-2 text-[11px] text-white/80 text-center">
                     Not yet linked to a Shopify product
                   </p>
                 )}
