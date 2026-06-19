@@ -124,7 +124,7 @@ const Terms = () => {
         <div className="container py-20 md:py-28">
           <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">{c.label}</p>
           <h1 className="font-heading font-extrabold text-4xl md:text-6xl tracking-tight mb-6">{c.h1}</h1>
-          <p className="text-lg font-light text-primary-foreground/55 max-w-[520px] leading-relaxed">{c.sub}</p>
+          <p className="text-lg font-light text-primary-foreground/85 max-w-[520px] leading-relaxed">{c.sub}</p>
         </div>
       </section>
 
