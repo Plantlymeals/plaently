@@ -466,6 +466,57 @@ export type Database = {
         }
         Relationships: []
       }
+      review_requests: {
+        Row: {
+          attempts: number
+          created_at: string
+          customer_email: string
+          customer_name: string | null
+          discount_code: string | null
+          error: string | null
+          id: string
+          line_items: Json
+          order_number: string | null
+          send_at: string
+          sent_at: string | null
+          shopify_order_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          customer_email: string
+          customer_name?: string | null
+          discount_code?: string | null
+          error?: string | null
+          id?: string
+          line_items?: Json
+          order_number?: string | null
+          send_at: string
+          sent_at?: string | null
+          shopify_order_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          customer_email?: string
+          customer_name?: string | null
+          discount_code?: string | null
+          error?: string | null
+          id?: string
+          line_items?: Json
+          order_number?: string | null
+          send_at?: string
+          sent_at?: string | null
+          shopify_order_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
