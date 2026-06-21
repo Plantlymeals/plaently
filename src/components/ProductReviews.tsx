@@ -59,6 +59,17 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
 
   useEffect(() => { fetchReviews(); }, [productSlug]);
 
+  // Auto-open the form and scroll into view when user arrives from a review-request email link.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("review") !== "1") return;
+    setShowForm(true);
+    requestAnimationFrame(() => {
+      document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [productSlug]);
+
   const submit = async () => {
     const parsed = makeReviewSchema(t).safeParse(form);
     if (!parsed.success) {
@@ -86,7 +97,7 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
     : null;
 
   return (
-    <div className="mt-16">
+    <div className="mt-16" id="reviews">
       <div className="flex flex-col items-center text-center gap-2 mb-8">
         {avg ? (
           <>
