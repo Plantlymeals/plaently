@@ -135,7 +135,7 @@ const BundleSection = () => {
           <h2 className="font-heading text-4xl md:text-6xl font-bold leading-tight">{t("bundles.title")}</h2>
           <p className="text-white/80 text-base md:text-lg">{t("bundles.subtitle")}</p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
           {bundles.map((b) => {
             const shopifyProduct = findShopifyMatch(b, shopifyBundles);
             const currencyCode =
@@ -175,7 +175,7 @@ const BundleSection = () => {
             return (
               <div
                 key={b.id}
-                className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 animate-fade-up hover:border-primary/40 transition-colors flex flex-col"
+                className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 animate-fade-up hover:border-primary/40 transition-colors flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
                 {/* Top badges */}
                 <div className="flex flex-wrap gap-2 mb-6">
@@ -267,9 +267,9 @@ const BundleSection = () => {
                     </p>
                     <ul className="space-y-1.5">
                       {contents.map((c, i) => (
-                        <li key={i} className="flex items-center justify-between text-sm text-white/90">
-                          <span>{c.name}</span>
-                          <span className="font-semibold tabular-nums">× {c.quantity}</span>
+                        <li key={i} className="flex items-center justify-between gap-3 text-sm text-white/90">
+                          <span className="min-w-0 break-words">{c.name}</span>
+                          <span className="font-semibold tabular-nums shrink-0 whitespace-nowrap">× {c.quantity}</span>
                         </li>
                       ))}
                     </ul>
