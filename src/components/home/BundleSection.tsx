@@ -267,9 +267,9 @@ const BundleSection = () => {
                     </p>
                     <ul className="space-y-1.5">
                       {contents.map((c, i) => (
-                        <li key={i} className="flex items-center justify-between text-sm text-white/90">
-                          <span>{c.name}</span>
-                          <span className="font-semibold tabular-nums">× {c.quantity}</span>
+                        <li key={i} className="flex items-center justify-between gap-3 text-sm text-white/90">
+                          <span className="min-w-0 break-words">{c.name}</span>
+                          <span className="font-semibold tabular-nums shrink-0 whitespace-nowrap">× {c.quantity}</span>
                         </li>
                       ))}
                     </ul>
