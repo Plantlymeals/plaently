@@ -29,7 +29,7 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container flex items-center justify-between h-16 md:h-20">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="PLÄNTLY" className="h-8" width={160} height={32} fetchPriority="high" />
+          <img src={logo} alt="PLÄNTLY" className="h-8" width={160} height={32} />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
