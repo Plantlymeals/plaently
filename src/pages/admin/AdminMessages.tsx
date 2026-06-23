@@ -24,6 +24,47 @@ const AdminMessages = () => {
   const [openId, setOpenId] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  const [testSending, setTestSending] = useState(false);
+  const [latestTest, setLatestTest] = useState<{ status: string; created_at: string } | null>(null);
+
+  const TEST_EMAIL = "ahmet@plaently.com";
+
+  const fetchLatestTest = async () => {
+    const { data } = await supabase
+      .from("email_send_log")
+      .select("status, created_at")
+      .eq("recipient_email", TEST_EMAIL)
+      .eq("template_name", "contact-reply")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    if (data) setLatestTest(data as any);
+  };
+
+  const sendTestEmail = async () => {
+    setTestSending(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-transactional-email", {
+        body: {
+          templateName: "contact-reply",
+          recipientEmail: TEST_EMAIL,
+          templateData: {
+            recipientName: "Ahmet",
+            replyBody: `Test email triggered from admin panel at ${new Date().toLocaleString()}.`,
+            originalMessage: "(test ping from admin dashboard)",
+          },
+        },
+      });
+      if (error) throw error;
+      toast.success(`Test email queued to ${TEST_EMAIL}`);
+      // give the queue a moment, then refresh
+      setTimeout(fetchLatestTest, 1500);
+    } catch (e: any) {
+      toast.error(e?.message ?? "Failed to send test email");
+    } finally {
+      setTestSending(false);
+    }
+  };
 
   const fetchMessages = async () => {
     const { data } = await supabase.from("contact_submissions").select("*").order("created_at", { ascending: false });
@@ -44,7 +85,7 @@ const AdminMessages = () => {
     }
   };
 
-  useEffect(() => { fetchMessages(); fetchReplies(); }, []);
+  useEffect(() => { fetchMessages(); fetchReplies(); fetchLatestTest(); }, []);
 
   const markRead = async (id: string, read: boolean) => {
     await supabase.from("contact_submissions").update({ is_read: read }).eq("id", id);
@@ -117,6 +158,18 @@ const AdminMessages = () => {
         <h1 className="font-heading text-3xl font-bold">
           Messages {unreadCount > 0 && <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded-full ml-2">{unreadCount} new</span>}
         </h1>
+        <div className="flex items-center gap-3">
+          {latestTest && (
+            <div className="text-xs text-muted-foreground text-right">
+              <div>Last test: <span className={latestTest.status === "sent" ? "text-primary font-medium" : latestTest.status === "pending" ? "text-amber-600 font-medium" : "text-destructive font-medium"}>{latestTest.status}</span></div>
+              <div>{new Date(latestTest.created_at).toLocaleString()}</div>
+            </div>
+          )}
+          <Button onClick={sendTestEmail} disabled={testSending} variant="outline" size="sm" className="rounded-full gap-2">
+            {testSending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
+            Send test email
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-3">
