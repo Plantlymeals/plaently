@@ -37,7 +37,7 @@ const StarterPackHighlight = () => {
   const features = [
     { icon: Check, label: t("starter.meals") },
     { icon: Dumbbell, label: t("starter.protein") },
-    { icon: Truck, label: t("starter.shipping") },
+    { icon: Truck, label: t("starter.cookTime") },
   ];
 
   return (
