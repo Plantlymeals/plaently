@@ -169,7 +169,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "mix.flavourCol": { sv: "Smak", en: "Flavour" },
 
  // Nutrition preview
- "nutrition.title": { sv: "Vetenskapligt baserad näring", en: "Science-Backed Nutrition" },
+ "nutrition.title": { sv: "NÄRING SOM FAKTISKT RÄKNAS", en: "NUTRITION THAT ACTUALLY COUNTS" },
  "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är formulerad för att leverera balanserade makronäringsämnen från växtbaserade källor — högt i protein, med kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is formulated to deliver balanced macronutrients from plant-based sources — high in protein, with carbs and healthy fats." },
  "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
  "nutrition.protein": { sv: "Protein", en: "Protein" },
