@@ -170,7 +170,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Nutrition preview
  "nutrition.title": { sv: "Vetenskapligt baserad näring", en: "Science-Backed Nutrition" },
- "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är designad av nutritionister för att leverera optimala makronäringsämnen från 100% plantbaserade källor. Högt i komplett protein, balanserade kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is designed by nutritionists to deliver optimal macronutrients from 100% plant-based sources. High in complete protein, balanced carbs and healthy fats." },
+ "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är formulerad för att leverera balanserade makronäringsämnen från växtbaserade källor — högt i protein, med kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is formulated to deliver balanced macronutrients from plant-based sources — high in protein, with carbs and healthy fats." },
  "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
  "nutrition.protein": { sv: "Protein", en: "Protein" },
  "nutrition.carbs": { sv: "Kolhydrater", en: "Carbohydrates" },
