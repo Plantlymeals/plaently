@@ -168,14 +168,15 @@ const translations: Record<string, Record<Lang, string>> = {
  "mix.tooFew": { sv: "Lägg till fler koppar för att fylla paketet.", en: "Add more cups to fill the pack." },
  "mix.flavourCol": { sv: "Smak", en: "Flavour" },
 
- // Nutrition preview
- "nutrition.title": { sv: "NÄRING SOM FAKTISKT RÄKNAS", en: "NUTRITION THAT ACTUALLY COUNTS" },
- "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är formulerad för att leverera balanserade makronäringsämnen från växtbaserade källor — högt i protein, med kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is formulated to deliver balanced macronutrients from plant-based sources — high in protein, with carbs and healthy fats." },
- "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
- "nutrition.protein": { sv: "Protein", en: "Protein" },
- "nutrition.carbs": { sv: "Kolhydrater", en: "Carbohydrates" },
- "nutrition.fat": { sv: "Fett", en: "Fat" },
- "nutrition.calories": { sv: "Kalorier", en: "Calories" },
+  // Nutrition preview
+  "nutrition.title": { sv: "NÄRING SOM FAKTISKT RÄKNAS", en: "NUTRITION THAT ACTUALLY COUNTS" },
+  "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är formulerad för att leverera balanserade makronäringsämnen från växtbaserade källor — högt i protein, med kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is formulated to deliver balanced macronutrients from plant-based sources — high in protein, with carbs and healthy fats." },
+  "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
+  "nutrition.cta": { sv: "Läs mer om näringen", en: "Learn more about nutrition" },
+  "nutrition.protein": { sv: "Protein", en: "Protein" },
+  "nutrition.carbs": { sv: "Kolhydrater", en: "Carbohydrates" },
+  "nutrition.fat": { sv: "Fett", en: "Fat" },
+  "nutrition.calories": { sv: "Kalorier", en: "Calories" },
 
  // Nutrition page
  "nutritionPage.title": { sv: "Plantbaserad proteinnäring", en: "Plant-Based Protein Nutrition" },

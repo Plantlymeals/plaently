@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 
 const NutritionPreview = () => {
@@ -23,6 +25,9 @@ const NutritionPreview = () => {
             <h2 className="font-heading text-3xl md:text-5xl font-bold">{t("nutrition.title")}</h2>
             <p className="text-muted-foreground text-lg leading-relaxed">{t("nutrition.desc")}</p>
             <p className="text-muted-foreground text-sm">{t("nutrition.average")}</p>
+            <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold">
+              <Link to="/nutrition">{t("nutrition.cta")}</Link>
+            </Button>
           </div>
           <div className="space-y-6 animate-fade-up-delay-1">
             {macros.map(({ label, value, percent, color }) => (
