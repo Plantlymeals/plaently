@@ -72,6 +72,7 @@ export type Database = {
           created_at: string
           description: string | null
           id: string
+          image_url: string | null
           is_mixable: boolean
           is_published: boolean | null
           meal_count: number
@@ -88,6 +89,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           is_mixable?: boolean
           is_published?: boolean | null
           meal_count: number
@@ -104,6 +106,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          image_url?: string | null
           is_mixable?: boolean
           is_published?: boolean | null
           meal_count?: number
