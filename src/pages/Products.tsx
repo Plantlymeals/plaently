@@ -25,6 +25,7 @@ const ProductDetail = () => {
   const productHandle = handle || slug;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [imageOverride, setImageOverride] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
@@ -36,6 +37,18 @@ const ProductDetail = () => {
       setProduct(data);
       setLoading(false);
     });
+  }, [productHandle]);
+
+  useEffect(() => {
+    if (!productHandle) return;
+    supabase
+      .from("products")
+      .select("image_url")
+      .eq("slug", productHandle)
+      .maybeSingle()
+      .then(({ data }) => {
+        setImageOverride((data as any)?.image_url ?? null);
+      });
   }, [productHandle]);
 
   useEffect(() => {
@@ -196,7 +209,9 @@ const ProductDetail = () => {
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
               {cupMeta && <CupBadges meta={cupMeta} size="md" />}
-              {cupMeta ? (
+              {imageOverride ? (
+                <img src={imageOverride} alt={product.title} className="h-full w-full object-cover" />
+              ) : cupMeta ? (
                 <img src={cupMeta.src} alt={`${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-cover" />
               ) : image ? (
                 <img src={image.url} alt={image.altText || `${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-contain" />
@@ -310,6 +325,7 @@ const ProductDetail = () => {
 const Products = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
   const { t, lang } = useTranslation();
   const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
@@ -318,6 +334,16 @@ const Products = () => {
       setProducts(data);
       setLoading(false);
     });
+    supabase
+      .from("products")
+      .select("slug,image_url")
+      .not("image_url", "is", null)
+      .then(({ data }) => {
+        if (!data) return;
+        const map: Record<string, string> = {};
+        for (const r of data as any[]) if (r.image_url) map[r.slug] = r.image_url;
+        setImageOverrides(map);
+      });
   }, []);
 
   return (
@@ -343,13 +369,16 @@ const Products = () => {
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const cupMeta = getCupMeta(product.node.title);
+                const override = imageOverrides[product.node.handle];
                 const price = product.node.priceRange.minVariantPrice;
                 return (
                   <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                         {cupMeta && <CupBadges meta={cupMeta} />}
-                        {cupMeta ? (
+                        {override ? (
+                          <img src={override} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
+                        ) : cupMeta ? (
                           <img src={cupMeta.src} alt={`${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
                         ) : image ? (
                           <img src={`${image.url}&width=520`} alt={image.altText || `${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain" loading="lazy" />

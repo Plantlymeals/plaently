@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 type Bundle = Tables<"bundles">;
 type Component = { name: string; quantity: number };
@@ -37,7 +38,7 @@ const AdminBundles = () => {
     });
   }, []);
 
-  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false, components: [], shopify_product_id: "" }); };
+  const startNew = () => { setEditing("new"); setIsNew(true); setForm({ name: "", meal_count: 12, price: "", per_meal_price: "", badge: "", description: "", sort_order: bundles.length + 1, is_published: true, is_mixable: false, components: [], shopify_product_id: "", image_url: "" }); };
   const startEdit = (b: Bundle) => { setEditing(b.id); setForm({ ...b, components: toComponents(b.components) }); setIsNew(false); };
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
@@ -56,6 +57,7 @@ const AdminBundles = () => {
       is_mixable: form.is_mixable ?? false,
       components: cleanedComponents,
       shopify_product_id: form.shopify_product_id?.trim() || null,
+      image_url: form.image_url?.trim() ? form.image_url : null,
     };
     if (isNew) {
       const { error } = await supabase.from("bundles").insert(payload);
@@ -94,6 +96,11 @@ const AdminBundles = () => {
             <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
           </div>
           <div className="space-y-1"><label className="text-xs font-medium">Description</label><Textarea value={form.description ?? ""} onChange={e => setForm({ ...form, description: e.target.value })} className="rounded-xl" rows={2} /></div>
+          <ImageUpload
+            label="Bundle image (shown on cards)"
+            value={form.image_url ?? ""}
+            onChange={(url) => setForm({ ...form, image_url: url ?? "" })}
+          />
           <div className="space-y-1">
             <label className="text-xs font-medium">Shopify product (required to be buyable)</label>
             <select

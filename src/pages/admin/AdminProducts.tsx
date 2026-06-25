@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { translateProductHtml } from "@/lib/productDescription";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 type Product = Tables<"products">;
 
@@ -119,9 +120,13 @@ const AdminProducts = () => {
             <div className="space-y-1"><label className="text-xs font-medium">Protein</label><Input value={form.protein ?? ""} onChange={e => setForm({ ...form, protein: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Calories</label><Input value={form.calories ?? ""} onChange={e => setForm({ ...form, calories: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Prep Time</label><Input value={form.prep_time ?? ""} onChange={e => setForm({ ...form, prep_time: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Image URL</label><Input value={form.image_url ?? ""} onChange={e => setForm({ ...form, image_url: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
           </div>
+          <ImageUpload
+            label="Product image (overrides default cup image)"
+            value={form.image_url ?? ""}
+            onChange={(url) => setForm({ ...form, image_url: url ?? "" })}
+          />
           <div className="space-y-1"><label className="text-xs font-medium">Description</label><Textarea value={form.description ?? ""} onChange={e => setForm({ ...form, description: e.target.value })} className="rounded-xl" rows={2} /></div>
           <div className="space-y-1"><label className="text-xs font-medium">Ingredients</label><Textarea value={form.ingredients ?? ""} onChange={e => setForm({ ...form, ingredients: e.target.value })} className="rounded-xl" rows={2} /></div>
           <div className="space-y-1"><label className="text-xs font-medium">Allergens</label><Input value={form.allergens ?? ""} onChange={e => setForm({ ...form, allergens: e.target.value })} className="rounded-xl" /></div>

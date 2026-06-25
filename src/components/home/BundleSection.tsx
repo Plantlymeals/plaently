@@ -177,6 +177,16 @@ const BundleSection = () => {
                 key={b.id}
                 className="relative rounded-3xl bg-[#1a1a1a] border border-white/10 p-7 md:p-8 animate-fade-up hover:border-primary/40 transition-colors flex flex-col w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
               >
+                {b.image_url && (
+                  <div className="-mt-2 mb-5 -mx-2 rounded-2xl overflow-hidden bg-white/5 aspect-[4/3] flex items-center justify-center">
+                    <img
+                      src={b.image_url}
+                      alt={b.name}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
                 {/* Top badges */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {isTrial && (
