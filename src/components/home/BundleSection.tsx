@@ -265,7 +265,11 @@ const BundleSection = () => {
                   {features.map((fk) => {
                     let label = t(fk);
                     if (fk === "bundles.feat.mix4" && b.name.toLowerCase().includes("box")) {
-                      const flavor = b.name.replace(/\s*Box$/i, "");
+                      let flavor = b.name.replace(/\s*Box$/i, "");
+                      // Special case: Add "Pasta" for Italian flavors if requested
+                      if (flavor.toLowerCase() === "bolognese" || flavor.toLowerCase() === "carbonara") {
+                        flavor = `Pasta\u00A0${flavor}`;
+                      }
                       label = t("bundles.feat.singleFlavor")
                         .replace("{count}", String(cups))
                         .replace("{name}", flavor);
