@@ -11,8 +11,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
     en: "Mix of all 4 flavors",
   },
   "bundles.feat.singleFlavor": {
-    sv: "{count} stycken Pasta\u00A0{name}",
-    en: "{count} packs of Pasta\u00A0{name}",
+    sv: "{count} stycken {name}",
+    en: "{count} packs of {name}",
   },
   "bundles.feat.freeShipSe": {
     sv: "Fri frakt (Sverige)",
