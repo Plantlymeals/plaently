@@ -14,7 +14,6 @@ const HANDLE_REDIRECTS: Record<string, string> = {
   "office-pack-60-cups": "office-pack-48-cups",
   "big-office-pack-120-cups": "big-office-pack-96-cups",
   "monthly-box-30-cups": "monthly-box-24-cups",
-  "plant-based-smoky-bbq-lentils": "smoky-bbq-lentils",
 };
 
 const LegacyQueryRedirect = () => {
