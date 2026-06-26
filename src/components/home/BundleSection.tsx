@@ -262,12 +262,25 @@ const BundleSection = () => {
 
                 {/* Features */}
                 <ul className="space-y-2.5 mb-7 flex-1">
-                  {features.map((fk) => (
-                    <li key={fk} className="flex items-start gap-2.5 text-sm text-white/85">
-                      <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                      <span>{t(fk)}</span>
-                    </li>
-                  ))}
+                  {features.map((fk) => {
+                    let label = t(fk);
+                    if (fk === "bundles.feat.mix4" && b.name.toLowerCase().includes("box")) {
+                      let flavor = b.name.replace(/\s*Box$/i, "");
+                      // Special case: Add "Pasta" for Italian flavors if requested
+                      if (flavor.toLowerCase() === "bolognese" || flavor.toLowerCase() === "carbonara") {
+                        flavor = `Pasta\u00A0${flavor}`;
+                      }
+                      label = t("bundles.feat.singleFlavor")
+                        .replace("{count}", String(cups))
+                        .replace("{name}", flavor);
+                    }
+                    return (
+                      <li key={fk} className="flex items-start gap-2.5 text-sm text-white/85">
+                        <Check className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                        <span>{label}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 {showContents && (

@@ -7,8 +7,12 @@ import { useLangStore } from "@/lib/i18n";
 
 const EXPECTED: Record<string, { sv: string; en: string }> = {
   "bundles.feat.mix4": {
-    sv: "12 stycken Pasta Bolognese",
-    en: "12 packs of Pasta Bolognese",
+    sv: "Mix av alla 4 smaker",
+    en: "Mix of all 4 flavors",
+  },
+  "bundles.feat.singleFlavor": {
+    sv: "{count} stycken {name}",
+    en: "{count} packs of {name}",
   },
   "bundles.feat.freeShipSe": {
     sv: "Fri frakt (Sverige)",
