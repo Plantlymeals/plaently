@@ -121,7 +121,7 @@ const Footer = () => {
               {[
                 { label: "Fusilli Bolognese", path: "/product/plant-based-fusilli-bolognese" },
                 { label: "Pasta Carbonara", path: "/product/plant-based-pasta-carbonara" },
-                { label: "Smoky BBQ Lentils", path: "/product/plant-based-smoky-bbq-lentils" },
+                { label: "Smoky BBQ Lentils", path: "/product/smoky-bbq-lentils" },
                 { label: "Yellow Curry & Rice", path: "/product/plant-based-yellow-curry-rice" },
                 { label: "Starter Pack", path: "/product/starter-pack-12-cups-1" },
                 { label: "Monthly Box", path: "/product/monthly-box-30-cups" },
