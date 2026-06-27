@@ -12,7 +12,7 @@ const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 const COPY = {
  sv: {
  seoTitle: "Frakt & Leverans — PLÄNTLY",
- seoDesc: "Fri frakt över 399 kr. Vi skickar med PostNord och DHL inom 1-2 vardagar. Spårning, ångerrätt och reklamation enligt svensk lag.",
+ seoDesc: "Fri frakt över 399 kr. Vi skickar med PostNord och DHL inom 1-2\u00a0vardagar. Spårning, ångerrätt och reklamation enligt svensk lag.",
  label: "Frakt & Leverans",
  h1a: "Enkelt, snabbt och ",
  h1b: "transparent.",
@@ -43,7 +43,7 @@ const COPY = {
  { n: "1", title: "Du beställer", desc: "Order bekräftas direkt via e-post." },
  { n: "2", title: "Vi packar", desc: "Samma dag (beställn. innan kl. 12.00 vardagar)." },
  { n: "3", title: "Spårningsnr.", desc: "Du får ett spårningsnummer via e-post." },
- { n: "4", title: "Leverans", desc: "1-2 vardagar. Hela Sverige." },
+ { n: "4", title: "Leverans", desc: "1-2\u00a0vardagar. Hela Sverige." },
  { n: "5", title: "Njut!", desc: "Tillsätt vatten. Klart på 5 min." },
  ],
  issuesLabel: "Problem med din order?",
@@ -77,7 +77,7 @@ const COPY = {
  { q: "Hur länge håller produkterna?", a: "Alla PLÄNTLY-produkter har lång hållbarhet — minst 12 månader från tillverkningsdatum. Bäst-före-datum finns tryckt på varje kopp." },
  ],
  ctaTitle: "Redo att beställa?",
- ctaSub: "Fri frakt på alla beställningar över 399 kr. Levereras till din dörr på 1-2 vardagar.",
+ ctaSub: "Fri frakt på alla beställningar över 399 kr. Levereras till din dörr på 1-2\u00a0vardagar.",
  ctaBtn: "Handla Starter Pack",
  },
  en: {
