@@ -7,7 +7,7 @@ const SHOPIFY_ONLINE_TOKEN_PREFIX = 'SHOPIFY_ONLINE_ACCESS_TOKEN:user:';
 
 function getShopifyToken(userId: string) {
   const exactOnlineToken = Deno.env.get(`${SHOPIFY_ONLINE_TOKEN_PREFIX}${userId}`);
-  if (exactOnlineToken) return exactOnlineToken;
+  if (exactOnlineToken) return { token: exactOnlineToken, source: 'exact-online' };
 
   // Shopify connector online tokens are keyed by the connector user id, not by
   // the app auth user UUID. This admin-only function can safely use the active
@@ -16,7 +16,9 @@ function getShopifyToken(userId: string) {
     ([key, value]) => key.startsWith(SHOPIFY_ONLINE_TOKEN_PREFIX) && Boolean(value),
   )?.[1];
 
-  return connectorOnlineToken || Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
+  if (connectorOnlineToken) return { token: connectorOnlineToken, source: 'connector-online' };
+  const staticToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
+  return { token: staticToken, source: staticToken ? 'static' : 'missing' };
 }
 
 async function shopify(path: string, token: string, init: RequestInit = {}) {
@@ -62,7 +64,8 @@ Deno.serve(async (req) => {
     if (!isAdmin) return json({ error: 'Forbidden' }, 403);
 
     // Prefer a live Shopify connector online token; fall back to static token only if needed.
-    const shopifyToken = getShopifyToken(userData.user.id);
+    const { token: shopifyToken, source: shopifyTokenSource } = getShopifyToken(userData.user.id);
+    console.log(`shopify-discounts token source: ${shopifyTokenSource}`);
     if (!shopifyToken) {
       return json({ error: 'No Shopify access token available. Please reconnect Shopify in the admin.' }, 401);
     }
