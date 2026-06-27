@@ -124,9 +124,9 @@ const Footer = () => {
                 { label: "Smoky BBQ Lentils", path: "/product/plant-based-smoky-bbq-lentils" },
                 { label: "Yellow Curry & Rice", path: "/product/plant-based-yellow-curry-rice" },
                 { label: "Starter Pack", path: "/product/starter-pack-12-cups-1" },
-                { label: "Monthly Box", path: "/product/monthly-box-30-cups" },
-                { label: "Office Pack", path: "/product/office-pack-60-cups" },
-                { label: "Big Office Pack", path: "/product/big-office-pack-120-cups" },
+                { label: "Monthly Box", path: "/product/monthly-box-24-cups" },
+                { label: "Office Pack", path: "/product/office-pack-48-cups" },
+                { label: "Big Office Pack", path: "/product/big-office-pack-96-cups" },
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
               ))}
