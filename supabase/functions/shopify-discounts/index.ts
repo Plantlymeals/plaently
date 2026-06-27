@@ -14,6 +14,11 @@ function getShopifyTokenCandidates(userId: string) {
     candidates.push({ token, source });
   };
 
+  // Prefer a permanent Admin API token if one is configured. The managed
+  // Shopify connector tokens can expire or be revoked when account access
+  // changes, but admin discount management needs stable backend credentials.
+  addCandidate(Deno.env.get('SHOPIFY_ADMIN_API_ACCESS_TOKEN'), 'admin-api');
+  addCandidate(Deno.env.get('SHOPIFY_ADMIN_ACCESS_TOKEN'), 'admin');
   addCandidate(Deno.env.get(`${SHOPIFY_ONLINE_TOKEN_PREFIX}${userId}`), 'exact-online');
 
   // Shopify connector online tokens are keyed by the connector user id, not by
