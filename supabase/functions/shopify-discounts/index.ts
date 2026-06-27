@@ -3,6 +3,21 @@ import { createClient } from 'npm:@supabase/supabase-js@2';
 
 const SHOPIFY_STORE_DOMAIN = 'plantly-website-cms-fyvdr.myshopify.com';
 const SHOPIFY_ADMIN_API = `https://${SHOPIFY_STORE_DOMAIN}/admin/api/2025-07`;
+const SHOPIFY_ONLINE_TOKEN_PREFIX = 'SHOPIFY_ONLINE_ACCESS_TOKEN:user:';
+
+function getShopifyToken(userId: string) {
+  const exactOnlineToken = Deno.env.get(`${SHOPIFY_ONLINE_TOKEN_PREFIX}${userId}`);
+  if (exactOnlineToken) return exactOnlineToken;
+
+  // Shopify connector online tokens are keyed by the connector user id, not by
+  // the app auth user UUID. This admin-only function can safely use the active
+  // connector token when the exact auth-keyed lookup is not present.
+  const connectorOnlineToken = Object.entries(Deno.env.toObject()).find(
+    ([key, value]) => key.startsWith(SHOPIFY_ONLINE_TOKEN_PREFIX) && Boolean(value),
+  )?.[1];
+
+  return connectorOnlineToken || Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
+}
 
 async function shopify(path: string, token: string, init: RequestInit = {}) {
   const res = await fetch(`${SHOPIFY_ADMIN_API}${path}`, {
@@ -46,9 +61,8 @@ Deno.serve(async (req) => {
     const { data: isAdmin } = await supabase.rpc('has_role', { _user_id: userData.user.id, _role: 'admin' });
     if (!isAdmin) return json({ error: 'Forbidden' }, 403);
 
-    // Prefer per-user online Shopify token (from the Shopify connector); fall back to static token.
-    const onlineToken = Deno.env.get(`SHOPIFY_ONLINE_ACCESS_TOKEN:user:${userData.user.id}`);
-    const shopifyToken = onlineToken || Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
+    // Prefer a live Shopify connector online token; fall back to static token only if needed.
+    const shopifyToken = getShopifyToken(userData.user.id);
     if (!shopifyToken) {
       return json({ error: 'No Shopify access token available. Please reconnect Shopify in the admin.' }, 401);
     }
