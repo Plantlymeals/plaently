@@ -8,7 +8,7 @@ import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 
-const SINGLE_MEAL_PRICE = 35; // SEK per single meal
+const SINGLE_MEAL_PRICE = 39; // SEK per single meal
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
