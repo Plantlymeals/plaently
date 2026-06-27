@@ -5,23 +5,29 @@ const SHOPIFY_STORE_DOMAIN = 'plantly-website-cms-fyvdr.myshopify.com';
 const SHOPIFY_ADMIN_API = `https://${SHOPIFY_STORE_DOMAIN}/admin/api/2025-07`;
 const SHOPIFY_ONLINE_TOKEN_PREFIX = 'SHOPIFY_ONLINE_ACCESS_TOKEN:user:';
 
-function getShopifyToken(userId: string) {
-  const exactOnlineToken = Deno.env.get(`${SHOPIFY_ONLINE_TOKEN_PREFIX}${userId}`);
-  if (exactOnlineToken) return { token: exactOnlineToken, source: 'exact-online' };
+class ShopifyAuthError extends Error {}
+
+function getShopifyTokenCandidates(userId: string) {
+  const candidates: Array<{ token: string; source: string }> = [];
+  const addCandidate = (token: string | undefined | null, source: string) => {
+    if (!token || candidates.some((candidate) => candidate.token === token)) return;
+    candidates.push({ token, source });
+  };
+
+  addCandidate(Deno.env.get(`${SHOPIFY_ONLINE_TOKEN_PREFIX}${userId}`), 'exact-online');
 
   // Shopify connector online tokens are keyed by the connector user id, not by
-  // the app auth user UUID. This admin-only function can safely use the active
+  // the app auth user UUID. This admin-only function can safely try the active
   // connector token when the exact auth-keyed lookup is not present.
-  const connectorOnlineToken = Object.entries(Deno.env.toObject()).find(
-    ([key, value]) => key.startsWith(SHOPIFY_ONLINE_TOKEN_PREFIX) && Boolean(value),
-  )?.[1];
+  for (const [key, value] of Object.entries(Deno.env.toObject())) {
+    if (key.startsWith(SHOPIFY_ONLINE_TOKEN_PREFIX)) addCandidate(value, 'connector-online');
+  }
 
-  if (connectorOnlineToken) return { token: connectorOnlineToken, source: 'connector-online' };
-  const staticToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN') || '';
-  return { token: staticToken, source: staticToken ? 'static' : 'missing' };
+  addCandidate(Deno.env.get('SHOPIFY_ACCESS_TOKEN'), 'static');
+  return candidates;
 }
 
-async function shopify(path: string, token: string, init: RequestInit = {}) {
+async function shopify(path: string, token: string, source: string, init: RequestInit = {}) {
   const res = await fetch(`${SHOPIFY_ADMIN_API}${path}`, {
     ...init,
     headers: {
@@ -34,9 +40,32 @@ async function shopify(path: string, token: string, init: RequestInit = {}) {
   let json: any = null;
   try { json = text ? JSON.parse(text) : null; } catch { json = { raw: text }; }
   if (!res.ok) {
+    if (res.status === 401 || res.status === 403) {
+      throw new ShopifyAuthError(`Shopify authorization failed for ${source}: ${res.status}`);
+    }
     throw new Error(`Shopify ${res.status}: ${JSON.stringify(json)}`);
   }
   return json;
+}
+
+async function shopifyWithFallback(path: string, candidates: Array<{ token: string; source: string }>, init: RequestInit = {}) {
+  let authFailures = 0;
+  for (const candidate of candidates) {
+    try {
+      const data = await shopify(path, candidate.token, candidate.source, init);
+      console.log(`shopify-discounts token source: ${candidate.source}`);
+      return data;
+    } catch (error) {
+      if (!(error instanceof ShopifyAuthError)) throw error;
+      authFailures++;
+      console.warn((error as Error).message);
+    }
+  }
+
+  if (authFailures > 0) {
+    throw new ShopifyAuthError('Shopify authorization expired. Please reconnect your Shopify account and try again.');
+  }
+  throw new ShopifyAuthError('No Shopify access token available. Please reconnect Shopify and try again.');
 }
 
 function json(body: unknown, status = 200) {
@@ -63,23 +92,20 @@ Deno.serve(async (req) => {
     const { data: isAdmin } = await supabase.rpc('has_role', { _user_id: userData.user.id, _role: 'admin' });
     if (!isAdmin) return json({ error: 'Forbidden' }, 403);
 
-    // Prefer a live Shopify connector online token; fall back to static token only if needed.
-    const { token: shopifyToken, source: shopifyTokenSource } = getShopifyToken(userData.user.id);
-    console.log(`shopify-discounts token source: ${shopifyTokenSource}`);
-    if (!shopifyToken) {
-      return json({ error: 'No Shopify access token available. Please reconnect Shopify in the admin.' }, 401);
-    }
+    // Try live Shopify connector tokens before falling back to the static token.
+    const shopifyTokens = getShopifyTokenCandidates(userData.user.id);
+    if (shopifyTokens.length === 0) return json({ error: 'No Shopify access token available. Please reconnect Shopify and try again.' }, 401);
 
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
     const action = body.action as string;
 
     switch (action) {
       case 'list': {
-        const rules = await shopify('/price_rules.json?limit=100', shopifyToken);
+        const rules = await shopifyWithFallback('/price_rules.json?limit=100', shopifyTokens);
         const enriched = await Promise.all(
           (rules.price_rules || []).map(async (r: any) => {
             try {
-              const codes = await shopify(`/price_rules/${r.id}/discount_codes.json`, shopifyToken);
+              const codes = await shopifyWithFallback(`/price_rules/${r.id}/discount_codes.json`, shopifyTokens);
               return { ...r, discount_codes: codes.discount_codes || [] };
             } catch {
               return { ...r, discount_codes: [] };
@@ -90,13 +116,13 @@ Deno.serve(async (req) => {
       }
       case 'create': {
         const { rule, code } = body;
-        const created = await shopify('/price_rules.json', shopifyToken, {
+        const created = await shopifyWithFallback('/price_rules.json', shopifyTokens, {
           method: 'POST',
           body: JSON.stringify({ price_rule: rule }),
         });
         const ruleId = created.price_rule.id;
         if (code) {
-          await shopify(`/price_rules/${ruleId}/discount_codes.json`, shopifyToken, {
+          await shopifyWithFallback(`/price_rules/${ruleId}/discount_codes.json`, shopifyTokens, {
             method: 'POST',
             body: JSON.stringify({ discount_code: { code } }),
           });
@@ -105,7 +131,7 @@ Deno.serve(async (req) => {
       }
       case 'update': {
         const { price_rule_id, rule } = body;
-        const updated = await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, {
+        const updated = await shopifyWithFallback(`/price_rules/${price_rule_id}.json`, shopifyTokens, {
           method: 'PUT',
           body: JSON.stringify({ price_rule: { id: price_rule_id, ...rule } }),
         });
@@ -115,7 +141,7 @@ Deno.serve(async (req) => {
         const { price_rule_id } = body;
         // Set ends_at to now to disable
         const endsAt = new Date().toISOString();
-        const updated = await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, {
+        const updated = await shopifyWithFallback(`/price_rules/${price_rule_id}.json`, shopifyTokens, {
           method: 'PUT',
           body: JSON.stringify({ price_rule: { id: price_rule_id, ends_at: endsAt } }),
         });
@@ -123,7 +149,7 @@ Deno.serve(async (req) => {
       }
       case 'delete': {
         const { price_rule_id } = body;
-        await shopify(`/price_rules/${price_rule_id}.json`, shopifyToken, { method: 'DELETE' });
+        await shopifyWithFallback(`/price_rules/${price_rule_id}.json`, shopifyTokens, { method: 'DELETE' });
         return json({ ok: true });
       }
       default:
@@ -131,6 +157,7 @@ Deno.serve(async (req) => {
     }
   } catch (e) {
     console.error('shopify-discounts error:', e);
+    if (e instanceof ShopifyAuthError) return json({ error: (e as Error).message }, 401);
     return json({ error: (e as Error).message }, 500);
   }
 });
