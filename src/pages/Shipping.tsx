@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "@/lib/i18n";
 import { Package, Truck, Clock, AlertTriangle, RotateCcw } from "lucide-react";
+import { MARKETS, marketLabel, type Market } from "@/lib/markets";
+import { useMarketStore } from "@/stores/marketStore";
 
 const PARTNER_ICONS: Record<string, typeof Package> = { PostNord: Package, DHL: Truck };
 const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
@@ -156,6 +158,15 @@ const Shipping = () => {
  const { lang } = useTranslation();
  const c = COPY[lang === "sv" ? "sv" : "en"];
  const isEn = lang !== "sv";
+  const currentMarket = useMarketStore((s) => s.market);
+  const setMarket = useMarketStore((s) => s.setMarket);
+  const compareTitle = isEn ? "Shipping by market" : "Frakt per marknad";
+  const compareSub = isEn
+    ? "We ship to Sweden, the EU and the United Kingdom. Tap a market to see your pricing."
+    : "Vi levererar till Sverige, EU och Storbritannien. Tryck på en marknad för att se ditt pris.";
+  const yourMarket = isEn ? "Your market" : "Din marknad";
+  const standardLabel = isEn ? "Standard shipping" : "Standardfrakt";
+  const freeOverLabel = isEn ? "Free shipping over" : "Fri frakt över";
  const path = isEn ? "/shipping" : "/frakt";
  const alternates = [
    { hreflang: "en", path: "/shipping" },
@@ -182,6 +193,52 @@ const Shipping = () => {
  <p className="text-primary-foreground font-bold text-base md:text-lg">{c.banner}</p>
  </div>
  </section>
+
+  <section className="py-16 bg-background">
+    <div className="container max-w-5xl space-y-8">
+      <div className="text-center space-y-3">
+        <h2 className="font-heading text-3xl md:text-4xl font-bold">{compareTitle}</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">{compareSub}</p>
+      </div>
+      <div className="grid sm:grid-cols-3 gap-4">
+        {(Object.keys(MARKETS) as Market[]).map((m) => {
+          const cfg = MARKETS[m];
+          const active = currentMarket === m;
+          return (
+            <button
+              key={m}
+              onClick={() => setMarket(m)}
+              className={`text-left rounded-2xl border p-6 transition-all ${
+                active
+                  ? "border-primary bg-primary/5 shadow-elevated"
+                  : "border-border bg-card hover:border-primary/40"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-3xl leading-none">{cfg.flag}</span>
+                {active && (
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-1">
+                    {yourMarket}
+                  </span>
+                )}
+              </div>
+              <h3 className="font-heading font-bold text-lg mb-3">{marketLabel(m, isEn ? "en" : "sv")}</h3>
+              <dl className="space-y-2 text-sm">
+                <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">{standardLabel}</dt>
+                  <dd className="font-semibold">{cfg.shippingCost} {cfg.currency}</dd>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <dt className="text-muted-foreground">{freeOverLabel}</dt>
+                  <dd className="font-semibold text-primary">{cfg.freeShippingThreshold} {cfg.currency}</dd>
+                </div>
+              </dl>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  </section>
 
  <section className="py-20 bg-background">
  <div className="container max-w-5xl space-y-10">

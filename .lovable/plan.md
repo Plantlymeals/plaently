@@ -1,64 +1,57 @@
-## Goal
 
-Send a branded "leave a review" email **5 days** after Shopify marks an order as fulfilled. Each email contains a unique single-use 10%-off discount code (60-day expiry) and a per-product review link that deep-links to the existing review form.
+# Marknadsanpassad frakt på landingpage
 
-## Flow
+## Mål
+Visa rätt fraktpris och fri-frakt-tröskel beroende på vilken marknad besökaren kommer ifrån — Sverige, EU eller UK — på startsidan och i relaterade frakt-texter.
 
-```text
-Shopify order fulfilled
-        │ webhook (HMAC-signed)
-        ▼
-edge: shopify-fulfillment-webhook
-  - verify HMAC
-  - insert row into review_requests (status=scheduled, send_at=now+5d)
-        │
-        ▼ (pg_cron every 15 min)
-edge: process-review-requests
-  - pick rows where send_at <= now and status=scheduled
-  - create unique Shopify discount code via Admin API
-  - send email via Resend (one per order, listing all line items)
-  - mark status=sent
-```
+## Fraktmatris
 
-## Pieces to build
+| Marknad     | Standardfrakt | Fri frakt över |
+|-------------|---------------|----------------|
+| Sverige 🇸🇪 | 49 SEK        | 399 SEK        |
+| EU 🇪🇺      | 69 SEK        | 599 SEK        |
+| UK 🇬🇧      | 79 SEK        | 699 SEK        |
 
-1. **Migration** — `review_requests` table:
-   `id, shopify_order_id (unique), customer_email, customer_name, line_items jsonb, discount_code, send_at, status (scheduled|sent|failed|skipped), error, attempts, created_at, sent_at`. RLS: service-role only writes, admins can read. GRANTs included.
+## Marknadsdetektion (hybrid)
+1. **Automatisk** via `Intl.DateTimeFormat().resolvedOptions().timeZone` + `navigator.language` → mappa till `SE | EU | UK | OTHER` (OTHER faller tillbaka på EU). Detta är klient-sidan, gratis, inget extra API-anrop, ingen GDPR-cookie krävs.
+2. **Manuell override**: en liten landväljare (flagga + landnamn) i toppen av landingpage och i Footer. Valet sparas i `localStorage` så det är persistent.
+3. Valt land sparas i en ny Zustand-store `useMarketStore` så alla komponenter delar samma värde.
 
-2. **Shared Shopify price rule** — created once via `shopify--create_price_rule`: 10% off entire order, one-use per code, min spend 0. Its ID is stored as secret `SHOPIFY_REVIEW_PRICE_RULE_ID` so the worker mints child codes against it.
+## Vad ändras visuellt
+- **HeroSection / StarterPackHighlight**: liten "Fri frakt över X kr i {marknad}"-rad under CTA.
+- **BundleSection**: badgen `bundles.freeShipping` triggas dynamiskt baserat på vald marknads tröskel istället för hårdkodade 499 kr. Featurelistan `bundles.feat.freeShipSe` byts ut mot dynamisk text "Fri frakt i {marknad}".
+- **Shipping-sidan (`/frakt`)**: ny tabellsektion högst upp som visar alla tre marknader sida vid sida, med vald marknad markerad.
+- Ny komponent `MarketSelector` (flag-dropdown) som syns i Header och Footer.
 
-3. **Edge function `shopify-fulfillment-webhook`** (verify_jwt = false):
-   - Verifies `X-Shopify-Hmac-Sha256` against `SHOPIFY_WEBHOOK_SECRET`.
-   - On `orders/fulfilled`: upsert row with `send_at = now + 5 days`, dedupe on `shopify_order_id`.
-   - Skips orders with no customer email or addresses already in `suppressed_emails`.
+## Texter & i18n
+Lägg till nya nycklar i `src/lib/i18n.ts`:
+- `market.se`, `market.eu`, `market.uk`
+- `shipping.freeOver` → "Fri frakt över {amount} {currency} i {market}"
+- `shipping.standardCost` → "Frakt {amount} {currency}"
+- `market.changeCountry` → "Byt land"
 
-4. **Edge function `process-review-requests`** (scheduled via pg_cron every 15 min):
-   - Reads due rows.
-   - Mints `PLANTLY-REVIEW-{8 random chars}` via Shopify Admin API using existing `SHOPIFY_ACCESS_TOKEN`.
-   - Sends email via Resend gateway with `from: "PLÄNTLY <hello@plaently.com>"`.
-   - Marks sent / failed (retry cap 3).
+Allt två-språkigt (sv/en).
 
-5. **Email template** (inline HTML, PLÄNTLY green gradient, Poppins-fallback):
-   - Subject: "How were your meals, {{firstName}}? 🌱"
-   - Body: thanks → per-product "Leave a review" buttons → discount code block ("Here's 10% off your next box — code expires in 60 days") → small "Reviews must be honest — the code is yours either way" disclaimer.
+## Filer som skapas/ändras
 
-6. **Frontend tweak** — `src/pages/Products.tsx` (product detail): when `?review=1` is in URL, scroll to `#reviews` and auto-open the review form. Presentation-only.
+**Nya filer**
+- `src/lib/markets.ts` — konstanter (matrisen ovan), detekteringsfunktion, typ `Market = "SE" | "EU" | "UK"`.
+- `src/stores/marketStore.ts` — Zustand-store med `persist`-middleware.
+- `src/components/MarketSelector.tsx` — dropdown med flaggor.
+- `src/components/ShippingBadge.tsx` — liten återanvändbar badge ("Fri frakt över X kr i Y").
 
-7. **Cron** — `pg_cron` job calling `process-review-requests` every 15 minutes using the standard `net.http_post` pattern with `INTERNAL_WEBHOOK_SECRET` header.
+**Uppdateras**
+- `src/lib/i18n.ts` — nya nycklar.
+- `src/components/home/HeroSection.tsx` — visa `ShippingBadge` under CTA.
+- `src/components/home/StarterPackHighlight.tsx` — visa dynamisk fraktinfo.
+- `src/components/home/BundleSection.tsx` — dynamisk tröskel + landnamn i features.
+- `src/components/Header.tsx` + `src/components/Footer.tsx` — placera `MarketSelector`.
+- `src/pages/Shipping.tsx` — ny jämförelsetabell SE/EU/UK.
 
-8. **Webhook registration** — one-time: I'll surface the webhook URL + the value to paste into Shopify Admin → Settings → Notifications → Webhooks (topic: `orders/fulfilled`, format JSON), then add the secret via `add_secret`.
+## Viktig avgränsning
+Detta är **endast presentation** på sajten. Faktiska fraktpriser i Shopify-kassan måste konfigureras separat i Shopify Admin → Settings → Shipping & delivery (zoner för SE, EU, UK med matchande priser och thresholds). Jag inkluderar en checklista i slutet av implementationen för det manuella Shopify-steget så att texten på sajten alltid matchar verkligheten i kassan.
 
-## Secrets to add
-
-- `SHOPIFY_WEBHOOK_SECRET` — pasted from Shopify after webhook creation.
-- `SHOPIFY_REVIEW_PRICE_RULE_ID` — set after creating the price rule.
-
-`RESEND_API_KEY`, `SHOPIFY_ACCESS_TOKEN`, `INTERNAL_WEBHOOK_SECRET` already exist.
-
-## Out of scope
-
-- No marketing/bulk sends, no nag-resends.
-- No changes to review moderation (`/admin/reviews` stays).
-- No per-user OAuth, no attachments.
-
-Approve and I'll build it.
+## Öppna frågor (default-val)
+Du svarade inte på de andra två frågorna, så jag går vidare med:
+- **Detektion**: hybrid (auto via tidszon/språk + manuell väljare). Säg till om du hellre vill ha bara manuell väljare eller IP-baserad detektion via en edge function.
+- **Checkout-påverkan**: bara text på sajten (checkout sköts av Shopify). Säg till om du också vill att jag ska guida dig genom Shopify shipping zone-uppsättningen.

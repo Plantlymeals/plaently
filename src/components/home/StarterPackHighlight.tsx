@@ -7,6 +7,7 @@ import { useTranslation } from "@/lib/i18n";
 import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import ShippingBadge from "@/components/ShippingBadge";
 
 const SINGLE_MEAL_PRICE = 35;
 const STARTER_MEALS = 12;
@@ -94,6 +95,7 @@ const StarterPackHighlight = () => {
                 <Button asChild variant="ghost" className="rounded-full font-medium">
                   <Link to={`/product/${pack.node.handle}`}>{t("products.title")} →</Link>
                 </Button>
+                <ShippingBadge variant="muted" className="self-center md:self-end" />
               </div>
             </div>
           </div>

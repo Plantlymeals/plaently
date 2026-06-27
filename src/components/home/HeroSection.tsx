@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
+import ShippingBadge from "@/components/ShippingBadge";
 
 const HeroSection = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const HeroSection = () => {
                 <Link to={ctaLink} className="text-secondary-foreground">{t("hero.ctaTry")}</Link>
               </Button>
             </div>
+            <ShippingBadge variant="light" />
           </div>
         </div>
       </div>

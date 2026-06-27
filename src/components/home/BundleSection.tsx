@@ -7,6 +7,8 @@ import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
+import { useMarketConfig } from "@/stores/marketStore";
+import { marketLabel } from "@/lib/markets";
 
 const SINGLE_MEAL_PRICE = 39; // SEK per single meal
 
@@ -73,7 +75,10 @@ const BundleSection = () => {
   const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
-  const { t } = useTranslation();
+  const { t, lang } = useTranslation();
+  const marketCfg = useMarketConfig();
+  const marketName = marketLabel(marketCfg.code, lang);
+  const freeShipText = `${t("bundles.freeShipping")} (${marketName})`;
   const [mixOpen, setMixOpen] = useState(false);
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
@@ -209,9 +214,9 @@ const BundleSection = () => {
                       {t("bundles.subSave")}
                     </span>
                   )}
-                  {bundlePrice >= 499 && (
+                  {bundlePrice >= marketCfg.freeShippingThreshold && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
-                      {t("bundles.freeShipping")}
+                      {freeShipText}
                     </span>
                   )}
                   {!highlight && b.badge && (
@@ -273,6 +278,13 @@ const BundleSection = () => {
                       label = t("bundles.feat.singleFlavor")
                         .replace("{count}", String(cups))
                         .replace("{name}", flavor);
+                    }
+                    if (fk === "bundles.feat.freeShipSe" || fk === "bundles.feat.freeShipAlways") {
+                      label = bundlePrice >= marketCfg.freeShippingThreshold
+                        ? `${t("bundles.freeShipping")} (${marketName})`
+                        : t("shipping.standardCost")
+                            .replace("{amount}", String(marketCfg.shippingCost))
+                            .replace("{currency}", marketCfg.currency);
                     }
                     return (
                       <li key={fk} className="flex items-start gap-2.5 text-sm text-white/85">
