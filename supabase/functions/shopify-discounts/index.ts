@@ -68,9 +68,9 @@ async function shopifyWithFallback(path: string, candidates: Array<{ token: stri
   }
 
   if (authFailures > 0) {
-    throw new ShopifyAuthError('Shopify authorization expired. Please reconnect your Shopify account and try again.');
+    throw new ShopifyAuthError('Shopify authorization failed. Add a valid Shopify Admin API access token for this store (the custom-app token starts with shpat_) and try again.');
   }
-  throw new ShopifyAuthError('No Shopify access token available. Please reconnect Shopify and try again.');
+  throw new ShopifyAuthError('No Shopify Admin API access token available. Add a valid Shopify Admin API access token for this store and try again.');
 }
 
 function json(body: unknown, status = 200) {
@@ -99,7 +99,7 @@ Deno.serve(async (req) => {
 
     // Try live Shopify connector tokens before falling back to the static token.
     const shopifyTokens = getShopifyTokenCandidates(userData.user.id);
-    if (shopifyTokens.length === 0) return json({ error: 'No Shopify access token available. Please reconnect Shopify and try again.' }, 401);
+    if (shopifyTokens.length === 0) return json({ error: 'No Shopify Admin API access token available. Add a valid Shopify Admin API access token for this store and try again.' }, 401);
 
     const body = req.method === 'POST' ? await req.json().catch(() => ({})) : {};
     const action = body.action as string;
