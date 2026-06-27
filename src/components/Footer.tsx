@@ -6,6 +6,7 @@ import { useTranslation } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
+import MarketSelector from "@/components/MarketSelector";
 const logo = "/images/logo.png";
 
 const Footer = () => {
@@ -136,7 +137,8 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 flex flex-col md:flex-row justify-between items-center gap-4">
          <p className="text-xs text-primary-foreground/70">© 2026 Plaently (PLÄNTLY) · plaently.com. {t("footer.rights")}</p>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
+            <MarketSelector variant="footer" />
             <a href="https://www.linkedin.com/company/111443346/" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">LinkedIn</a>
             <a href="https://www.instagram.com/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">Instagram</a>
             <a href="https://www.tiktok.com/@plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">TikTok</a>

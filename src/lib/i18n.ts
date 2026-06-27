@@ -246,6 +246,26 @@ const translations: Record<string, Record<Lang, string>> = {
  "header.switchLang": { sv: "Byt språk", en: "Switch language" },
  "header.openMenu": { sv: "Öppna meny", en: "Open menu" },
 
+ // Markets / shipping
+ "market.changeCountry": { sv: "Byt land", en: "Change country" },
+ "market.shippingTo": { sv: "Frakt till", en: "Shipping to" },
+ "shipping.freeOver": {
+   sv: "Fri frakt över {amount} {currency} i {market}",
+   en: "Free shipping over {amount} {currency} in {market}",
+ },
+ "shipping.standardCost": {
+   sv: "Frakt {amount} {currency}",
+   en: "Shipping {amount} {currency}",
+ },
+ "shipping.compareTitle": { sv: "Frakt per marknad", en: "Shipping by market" },
+ "shipping.compareSub": {
+   sv: "Vi levererar till Sverige, EU och Storbritannien. Välj din marknad för att se rätt pris.",
+   en: "We ship to Sweden, the EU and the United Kingdom. Select your market to see the right price.",
+ },
+ "shipping.standardLabel": { sv: "Standardfrakt", en: "Standard shipping" },
+ "shipping.freeOverLabel": { sv: "Fri frakt över", en: "Free shipping over" },
+ "shipping.currentMarket": { sv: "Din marknad", en: "Your market" },
+
  // Reviews
  "reviews.title": { sv: "Kundrecensioner", en: "Customer reviews" },
  "reviews.write": { sv: "Skriv en recension", en: "Write a review" },

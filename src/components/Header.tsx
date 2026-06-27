@@ -4,6 +4,7 @@ import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useTranslation } from "@/lib/i18n";
+import MarketSelector from "@/components/MarketSelector";
 const logo = "/images/logo.png";
 
 const Header = () => {
@@ -60,6 +61,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2">
+          <MarketSelector variant="header" />
           <button
             onClick={toggleLang}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors"
