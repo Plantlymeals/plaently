@@ -11,6 +11,7 @@ import { useTranslation } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
+import SavingsBadge from "@/components/SavingsBadge";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
@@ -227,18 +228,17 @@ const ProductDetail = () => {
                 (() => {
                   const amount = parseFloat(price.amount);
                   const savings = getBundleSavings(product.title, amount);
+                  const hasSavings = !!savings && savings.savingsAmount > 0;
                   return (
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-3xl font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</span>
-                      {savings && savings.savingsPercent > 0 ? (
-                        <>
-                          <span className="text-sm text-muted-foreground line-through">
-                            {price.currencyCode} {savings.fullPrice.toFixed(2)}
-                          </span>
-                          <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                            {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
-                          </span>
-                        </>
+                      {hasSavings ? (
+                        <SavingsBadge
+                          title={product.title}
+                          bundlePrice={amount}
+                          currencyCode={price.currencyCode}
+                          showFullPrice
+                        />
                       ) : (
                         <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
                       )}
@@ -389,20 +389,15 @@ const Products = () => {
                       <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h2>
                       {(() => {
                         const amount = parseFloat(price.amount);
-                        const savings = getBundleSavings(product.node.title, amount);
                         return (
                           <div className="mb-3 space-y-1">
                             <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
-                            {savings && savings.savingsPercent > 0 && (
-                              <div className="flex items-center gap-2">
-                                <span className="text-xs text-muted-foreground line-through">
-                                  {price.currencyCode} {savings.fullPrice.toFixed(2)}
-                                </span>
-                                <span className="inline-block text-[10px] font-semibold text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                                  {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
-                                </span>
-                              </div>
-                            )}
+                            <SavingsBadge
+                              title={product.node.title}
+                              bundlePrice={amount}
+                              currencyCode={price.currencyCode}
+                              showFullPrice
+                            />
                           </div>
                         );
                       })()}
