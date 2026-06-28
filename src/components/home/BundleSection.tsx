@@ -7,10 +7,9 @@ import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
+import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
-
-const SINGLE_MEAL_PRICE = 39; // SEK per single meal
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
