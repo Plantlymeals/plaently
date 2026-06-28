@@ -22,12 +22,12 @@ export const MarketSelector = ({ variant = "header" }: Props) => {
   const trigger =
     variant === "header" ? (
       <button
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors"
+        className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors shrink-0"
         aria-label={t("market.changeCountry")}
       >
         <span className="text-base leading-none">{current.flag}</span>
-        <span>{market}</span>
-        <ChevronDown className="h-3 w-3" />
+        <span className="hidden sm:inline">{market}</span>
+        <ChevronDown className="h-3 w-3 hidden sm:block" />
       </button>
     ) : (
       <button
