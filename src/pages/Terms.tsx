@@ -14,14 +14,14 @@ const COPY = {
     quick: [
       { icon: RotateCcw, label: "Ångerrätt", value: "14 dagar" },
       { icon: ShieldCheck, label: "Reklamation", value: "3 år" },
-      { icon: Truck, label: "Fri frakt", value: "399 kr+" },
+      { icon: Truck, label: "Fri frakt", value: "från 399 kr" },
       { icon: Scale, label: "Tvistlösning", value: "ARN" },
     ],
     payments: ["Klarna", "Swish", "Visa", "Mastercard", "PayPal"],
     deliveryTh: ["Order", "Frakt", "Leveranstid"],
     deliveryRows: [
       { order: "Under 399 kr", cost: "49 kr", time: "2–4 vardagar" },
-      { order: "399 kr eller mer", cost: "Fri frakt", time: "2–4 vardagar" },
+      { order: "Från 399 kr", cost: "Fri frakt", time: "2–4 vardagar" },
     ],
     s1: { t: "1. Om oss", lines: ["PLÄNTLY AB · Org.nr SE559400472201", "Vretensborgsvägen 5, 126 30 Hägersten, Sverige"] },
     s2: { t: "2. Tillämpning", p1: "Dessa köpvillkor gäller för alla köp som görs via plaently.com. Genom att genomföra ett köp accepterar du dessa villkor i sin helhet. Villkoren gäller mellan dig som kund och PLÄNTLY AB.", p2: "Vi förbehåller oss rätten att ändra villkoren. Den version som gällde vid ditt köptillfälle är den som tillämpas på din order." },
@@ -49,14 +49,14 @@ const COPY = {
     quick: [
       { icon: RotateCcw, label: "Withdrawal", value: "14 days" },
       { icon: ShieldCheck, label: "Complaint", value: "3 years" },
-      { icon: Truck, label: "Free shipping", value: "SEK 399+" },
+      { icon: Truck, label: "Free shipping", value: "from SEK 399" },
       { icon: Scale, label: "Disputes", value: "ARN" },
     ],
     payments: ["Klarna", "Swish", "Visa", "Mastercard", "PayPal"],
     deliveryTh: ["Order", "Shipping", "Delivery time"],
     deliveryRows: [
       { order: "Under SEK 399", cost: "SEK 49", time: "2–4 business days" },
-      { order: "SEK 399 or more", cost: "Free shipping", time: "2–4 business days" },
+      { order: "From SEK 399", cost: "Free shipping", time: "2–4 business days" },
     ],
     s1: { t: "1. About us", lines: ["PLÄNTLY AB · Reg. no. SE559400472201", "Vretensborgsvägen 5, 126 30 Hägersten, Sweden"] },
     s2: { t: "2. Application", p1: "These terms apply to all purchases made via plaently.com. By completing a purchase, you accept these terms in full. The terms apply between you as a customer and PLÄNTLY AB.", p2: "We reserve the right to change the terms. The version in force at the time of your purchase is the one that applies to your order." },
