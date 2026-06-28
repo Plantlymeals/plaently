@@ -7,7 +7,7 @@ import { useTranslation } from "@/lib/i18n";
 const COPY = {
   sv: {
     seoTitle: "Köpvillkor | PLÄNTLY",
-    seoDesc: "PLÄNTLY köpvillkor: priser i SEK inkl. moms, fri frakt över 399 kr, 14 dagars ångerrätt, 3 års reklamationsrätt och tvistlösning via ARN enligt svensk lag.",
+    seoDesc: "PLÄNTLY köpvillkor: priser i SEK inkl. moms, fri frakt från 399 kr, 14 dagars ångerrätt, 3 års reklamationsrätt och tvistlösning via ARN enligt svensk lag.",
     label: "Köpvillkor",
     h1: "Tydliga villkor. Inga överraskningar.",
     sub: "Dessa villkor gäller för alla köp på plaently.com. Senast uppdaterad: maj 2026 · Version 1.0",
@@ -42,7 +42,7 @@ const COPY = {
   },
   en: {
     seoTitle: "Terms & Conditions | PLÄNTLY",
-    seoDesc: "PLÄNTLY purchase terms: prices in SEK incl. VAT, free shipping over SEK 399, 14-day right of withdrawal, 3-year complaint period and ARN dispute resolution under Swedish law.",
+    seoDesc: "PLÄNTLY purchase terms: prices in SEK incl. VAT, free shipping from SEK 399, 14-day right of withdrawal, 3-year complaint period and ARN dispute resolution under Swedish law.",
     label: "Terms & Conditions",
     h1: "Clear terms. No surprises.",
     sub: "These terms apply to all purchases on plaently.com. Last updated: May 2026 · Version 1.0",

@@ -14,12 +14,12 @@ const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 const COPY = {
  sv: {
  seoTitle: "Frakt & Leverans — PLÄNTLY",
- seoDesc: "Fri frakt över 399 kr. Vi skickar med PostNord och DHL inom 1-2\u00a0vardagar. Spårning, ångerrätt och reklamation enligt svensk lag.",
+ seoDesc: "Fri frakt från 399 kr. Vi skickar med PostNord och DHL inom 1-2\u00a0vardagar. Spårning, ångerrätt och reklamation enligt svensk lag.",
  label: "Frakt & Leverans",
  h1a: "Enkelt, snabbt och ",
  h1b: "transparent.",
  heroSub: "Vi skickar dina PLÄNTLY-måltider med PostNord och DHL. Du får ett spårningsnummer så fort din order är på väg.",
- banner: " Fri frakt på alla beställningar över 399 kr — alltid.",
+ banner: " Fri frakt på alla beställningar från 399 kr — alltid.",
  costsLabel: "Fraktkostnader",
  costsTitle: "Vad kostar frakten?",
  costsSub: "Gratis frakt på Starter Pack och Monthly Box. Enstaka koppar tillkommer en fraktavgift.",
@@ -75,21 +75,21 @@ const COPY = {
  { q: "Levererar ni till Svalbard, Åland eller utlandet?", a: "Just nu levererar vi endast inom Sverige. Vi arbetar på att utöka leveransen till Norge, Danmark och Finland. Anmäl dig till vårt nyhetsbrev för att vara först med att veta!" },
  { q: "Vad händer om ingen är hemma vid leverans?", a: "PostNord och DHL lämnar ett avi eller levererar till närmaste utlämningsställe/paketbox. Du får ett SMS/e-post med instruktioner för upphämtning." },
  { q: "Hur spårar jag min order?", a: "Du får ett spårningsnummer via e-post så fort ordern är avsänd. Använd det på PostNord.se eller DHL.se för att se realtidsstatus." },
- { q: "Kan jag kombinera produkter för att nå fri frakt?", a: "Ja! Alla beställningar över 399 kr får fri frakt automatiskt i kassan — oavsett vilka produkter du väljer." },
+ { q: "Kan jag kombinera produkter för att nå fri frakt?", a: "Ja! Alla beställningar från 399 kr får fri frakt automatiskt i kassan — oavsett vilka produkter du väljer." },
  { q: "Hur länge håller produkterna?", a: "Alla PLÄNTLY-produkter har lång hållbarhet — minst 12 månader från tillverkningsdatum. Bäst-före-datum finns tryckt på varje kopp." },
  ],
  ctaTitle: "Redo att beställa?",
- ctaSub: "Fri frakt på alla beställningar över 399 kr. Levereras till din dörr på 1-2\u00a0vardagar.",
+ ctaSub: "Fri frakt på alla beställningar från 399 kr. Levereras till din dörr på 1-2\u00a0vardagar.",
  ctaBtn: "Handla Starter Pack",
  },
  en: {
  seoTitle: "Shipping & Delivery — PLÄNTLY",
- seoDesc: "Free shipping over SEK 399. We ship with PostNord and DHL within 1-2 business days. Tracking, right of withdrawal and complaints under Swedish law.",
+ seoDesc: "Free shipping from SEK 399. We ship with PostNord and DHL within 1-2 business days. Tracking, right of withdrawal and complaints under Swedish law.",
  label: "Shipping & Delivery",
  h1a: "Simple, fast and ",
  h1b: "transparent.",
  heroSub: "We ship your PLÄNTLY meals with PostNord and DHL. You'll get a tracking number as soon as your order is on its way.",
- banner: " Free shipping on all orders over SEK 399 — always.",
+ banner: " Free shipping on all orders from SEK 399 — always.",
  costsLabel: "Shipping costs",
  costsTitle: "What does shipping cost?",
  costsSub: "Free shipping on Starter Pack and Monthly Box. Single cups have a small shipping fee.",
@@ -145,11 +145,11 @@ const COPY = {
  { q: "Do you deliver to Svalbard, Åland or abroad?", a: "We currently only deliver within Sweden. We're working on expanding to Norway, Denmark and Finland. Sign up for our newsletter to be the first to know!" },
  { q: "What happens if no one is home at delivery?", a: "PostNord and DHL leave a notice or deliver to the nearest pickup point/parcel locker. You'll get an SMS/email with pickup instructions." },
  { q: "How do I track my order?", a: "You'll get a tracking number via email as soon as the order ships. Use it on PostNord.se or DHL.se to see real-time status." },
- { q: "Can I combine products to reach free shipping?", a: "Yes! All orders over SEK 399 get free shipping automatically at checkout — no matter which products you choose." },
+ { q: "Can I combine products to reach free shipping?", a: "Yes! All orders from SEK 399 get free shipping automatically at checkout — no matter which products you choose." },
  { q: "How long do the products last?", a: "All PLÄNTLY products have a long shelf life — at least 12 months from production date. The best-before date is printed on every cup." },
  ],
  ctaTitle: "Ready to order?",
- ctaSub: "Free shipping on all orders over SEK 399. Delivered to your door in 1-2 business days.",
+ ctaSub: "Free shipping on all orders from SEK 399. Delivered to your door in 1-2 business days.",
  ctaBtn: "Shop Starter Pack",
  },
 } as const;
@@ -166,7 +166,7 @@ const Shipping = () => {
     : "Vi levererar till Sverige, EU och Storbritannien. Tryck på en marknad för att se ditt pris.";
   const yourMarket = isEn ? "Your market" : "Din marknad";
   const standardLabel = isEn ? "Standard shipping" : "Standardfrakt";
-  const freeOverLabel = isEn ? "Free shipping over" : "Fri frakt över";
+  const freeOverLabel = isEn ? "Free shipping from" : "Fri frakt från";
  const path = isEn ? "/shipping" : "/frakt";
  const alternates = [
    { hreflang: "en", path: "/shipping" },
