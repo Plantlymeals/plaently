@@ -21,7 +21,10 @@ export function getBundleSavings(title: string, bundlePrice: number) {
   const mealCount = getBundleMealCount(title);
   if (!mealCount) return null;
   const fullPrice = mealCount * SINGLE_MEAL_PRICE;
-  if (fullPrice <= bundlePrice) return { mealCount, fullPrice, savingsPercent: 0 };
+  if (fullPrice <= bundlePrice) {
+    return { mealCount, fullPrice, savingsAmount: 0, savingsPercent: 0 };
+  }
+  const savingsAmount = Math.round(fullPrice - bundlePrice);
   const savingsPercent = Math.round(((fullPrice - bundlePrice) / fullPrice) * 100);
-  return { mealCount, fullPrice, savingsPercent };
+  return { mealCount, fullPrice, savingsAmount, savingsPercent };
 }
