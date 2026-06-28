@@ -9,7 +9,7 @@ interface Props {
 }
 
 /**
- * Visar "Fri frakt över X kr i {marknad}" baserat på vald marknad.
+ * Visar "Fri frakt från X kr i {marknad}" baserat på vald marknad.
  */
 export const ShippingBadge = ({ variant = "muted", className = "" }: Props) => {
   const cfg = useMarketConfig();

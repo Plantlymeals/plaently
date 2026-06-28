@@ -249,10 +249,10 @@ const translations: Record<string, Record<Lang, string>> = {
  // Markets / shipping
  "market.changeCountry": { sv: "Byt land", en: "Change country" },
  "market.shippingTo": { sv: "Frakt till", en: "Shipping to" },
- "shipping.freeOver": {
-   sv: "Fri frakt över {amount} {currency} i {market}",
-   en: "Free shipping over {amount} {currency} in {market}",
- },
+  "shipping.freeOver": {
+    sv: "Fri frakt från {amount} {currency} i {market}",
+    en: "Free shipping from {amount} {currency} in {market}",
+  },
  "shipping.standardCost": {
    sv: "Frakt {amount} {currency}",
    en: "Shipping {amount} {currency}",
@@ -263,7 +263,7 @@ const translations: Record<string, Record<Lang, string>> = {
    en: "We ship to Sweden, the EU and the United Kingdom. Select your market to see the right price.",
  },
  "shipping.standardLabel": { sv: "Standardfrakt", en: "Standard shipping" },
- "shipping.freeOverLabel": { sv: "Fri frakt över", en: "Free shipping over" },
+ "shipping.freeOverLabel": { sv: "Fri frakt från", en: "Free shipping from" },
  "shipping.currentMarket": { sv: "Din marknad", en: "Your market" },
 
  // Reviews
