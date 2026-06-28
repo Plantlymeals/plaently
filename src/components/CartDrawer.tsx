@@ -7,6 +7,9 @@ import { useCartStore } from "@/stores/cartStore";
 import { getCupImage } from "@/lib/productImages";
 import { useTranslation } from "@/lib/i18n";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
+import { useMarketConfig } from "@/stores/marketStore";
+import { marketLabel } from "@/lib/markets";
+import { Progress } from "@/components/ui/progress";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +17,14 @@ export const CartDrawer = () => {
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
   const { t } = useTranslation();
+  const { t: _t, lang } = useTranslation();
   const [bundles, setBundles] = useState<BundleRow[]>([]);
+  const marketCfg = useMarketConfig();
+  const marketName = marketLabel(marketCfg.code, lang);
+  const threshold = marketCfg.freeShippingThreshold;
+  const qualifiesFreeShipping = totalPrice >= threshold;
+  const remaining = Math.max(0, threshold - totalPrice);
+  const progressPct = Math.min(100, (totalPrice / threshold) * 100);
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
   useEffect(() => { if (isOpen && bundles.length === 0) fetchPublishedBundles().then(setBundles); }, [isOpen, bundles.length]);
@@ -133,6 +143,29 @@ export const CartDrawer = () => {
                 </div>
               </div>
               <div className="flex-shrink-0 space-y-4 pt-4 border-t">
+                <div className="space-y-2">
+                  {qualifiesFreeShipping ? (
+                    <p className="text-xs font-semibold text-primary text-center">
+                      {t("cart.freeShippingUnlocked").replace("{market}", marketName)}
+                    </p>
+                  ) : (
+                    <p className="text-xs text-muted-foreground text-center">
+                      {t("cart.freeShippingProgress")
+                        .replace("{amount}", remaining.toFixed(0))
+                        .replace("{currency}", marketCfg.currency)
+                        .replace("{market}", marketName)}
+                    </p>
+                  )}
+                  <Progress value={progressPct} className="h-1.5" />
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-muted-foreground">{t("cart.shippingLabel")}</span>
+                    <span className={qualifiesFreeShipping ? "font-bold text-primary" : "font-medium"}>
+                      {qualifiesFreeShipping
+                        ? t("cart.shippingFree")
+                        : `${marketCfg.shippingCost} ${marketCfg.currency}`}
+                    </span>
+                  </div>
+                </div>
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">{t("cart.total")}</span>
                   <span className="text-xl font-bold text-primary">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
