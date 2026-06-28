@@ -8,7 +8,7 @@ import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import ShippingBadge from "@/components/ShippingBadge";
-import { getBundleSavings } from "@/lib/bundleSavings";
+import SavingsBadge from "@/components/SavingsBadge";
 
 const StarterPackHighlight = () => {
   const [pack, setPack] = useState<ShopifyProduct | null>(null);
@@ -28,7 +28,6 @@ const StarterPackHighlight = () => {
   const variant = pack.node.variants.edges[0]?.node;
   const price = pack.node.priceRange.minVariantPrice;
   const bundlePrice = parseFloat(price.amount);
-  const savings = getBundleSavings(pack.node.title, bundlePrice);
 
   const handleOrder = () => handleAdd(pack);
 
@@ -76,14 +75,14 @@ const StarterPackHighlight = () => {
                 <p className="font-heading text-5xl md:text-6xl font-bold text-primary">
                   {parseFloat(price.amount).toFixed(0)} <span className="text-2xl font-semibold text-foreground">{price.currencyCode}</span>
                 </p>
-                {savings && savings.savingsAmount > 0 && (
-                  <div className="mt-2 flex items-center gap-2 justify-center md:justify-end">
-                    <span className="text-sm text-muted-foreground line-through">{savings.fullPrice} {price.currencyCode}</span>
-                    <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                      {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
-                    </span>
-                  </div>
-                )}
+                <div className="mt-2 flex justify-center md:justify-end">
+                  <SavingsBadge
+                    title={pack.node.title}
+                    bundlePrice={bundlePrice}
+                    currencyCode={price.currencyCode}
+                    showFullPrice
+                  />
+                </div>
               </div>
               <div className="flex flex-col gap-3 w-full md:w-auto">
                 <Button onClick={handleOrder} disabled={isLoading || !variant} size="lg" className="rounded-full px-10 font-semibold">
