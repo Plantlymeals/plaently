@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { Check, Loader2, Star, Heart } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
+import SavingsBadge from "@/components/SavingsBadge";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
 
@@ -154,14 +155,7 @@ const BundleSection = () => {
               parsePriceNumber(b.per_meal_price) ??
               (cups > 0 ? bundlePrice / cups : null);
             const fullPrice = cups > 0 ? cups * SINGLE_MEAL_PRICE : null;
-            const savings =
-              fullPrice && fullPrice > bundlePrice
-                ? Math.round(fullPrice - bundlePrice)
-                : 0;
-            const savingsPercent =
-              fullPrice && fullPrice > bundlePrice
-                ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100)
-                : 0;
+            const hasSavings = !!fullPrice && fullPrice > bundlePrice;
             const highlight = badgeToHighlight(b.badge);
             const isPopular = highlight === "popular";
             const isValue = highlight === "value";
@@ -250,21 +244,15 @@ const BundleSection = () => {
                 </div>
 
                 {/* Savings strip */}
-                {savings > 0 && (
+                {hasSavings && (
                   <div className="mb-5">
-                    {isTrial ? (
-                      <p className="text-sm text-white/70 line-through">
-                        {t("bundles.value")} {fullPrice} {currencyCode}
-                      </p>
-                    ) : isValue || isSubscription ? (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1 text-xs font-semibold">
-                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {currencyCode} · {savingsPercent}%
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary px-3 py-1 text-xs font-semibold">
-                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {currencyCode} · {savingsPercent}%
-                      </span>
-                    )}
+                    <SavingsBadge
+                      title={b.name}
+                      bundlePrice={bundlePrice}
+                      currencyCode={currencyCode}
+                      variant={isTrial ? "trial" : isValue || isSubscription ? "value" : "default"}
+                      size="sm"
+                    />
                   </div>
                 )}
 
