@@ -8,9 +8,7 @@ import { Check, Loader2, Truck, Dumbbell, Sparkles } from "lucide-react";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import ShippingBadge from "@/components/ShippingBadge";
-
-const SINGLE_MEAL_PRICE = 35;
-const STARTER_MEALS = 12;
+import { getBundleSavings } from "@/lib/bundleSavings";
 
 const StarterPackHighlight = () => {
   const [pack, setPack] = useState<ShopifyProduct | null>(null);
@@ -30,8 +28,7 @@ const StarterPackHighlight = () => {
   const variant = pack.node.variants.edges[0]?.node;
   const price = pack.node.priceRange.minVariantPrice;
   const bundlePrice = parseFloat(price.amount);
-  const fullPrice = STARTER_MEALS * SINGLE_MEAL_PRICE;
-  const savingsPercent = fullPrice > bundlePrice ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100) : 0;
+  const savings = getBundleSavings(pack.node.title, bundlePrice);
 
   const handleOrder = () => handleAdd(pack);
 
@@ -79,11 +76,11 @@ const StarterPackHighlight = () => {
                 <p className="font-heading text-5xl md:text-6xl font-bold text-primary">
                   {parseFloat(price.amount).toFixed(0)} <span className="text-2xl font-semibold text-foreground">{price.currencyCode}</span>
                 </p>
-                {savingsPercent > 0 && (
+                {savings && savings.savingsAmount > 0 && (
                   <div className="mt-2 flex items-center gap-2 justify-center md:justify-end">
-                    <span className="text-sm text-muted-foreground line-through">{fullPrice} {price.currencyCode}</span>
+                    <span className="text-sm text-muted-foreground line-through">{savings.fullPrice} {price.currencyCode}</span>
                     <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                      {t("bundles.save")} {savingsPercent}%
+                      {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
                     </span>
                   </div>
                 )}
