@@ -29,8 +29,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="flex items-center">
-          <img src={logo} alt="PLÄNTLY" className="h-8" width={160} height={32} />
+        <Link to="/" className="flex items-center shrink-0 mr-2">
+          <img src={logo} alt="PLÄNTLY" className="h-7 md:h-8 w-auto" width={160} height={32} />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -60,14 +60,14 @@ const Header = () => {
           })}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <MarketSelector variant="header" />
           <button
             onClick={toggleLang}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors"
+            className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-full text-xs font-semibold border border-border/50 hover:bg-muted transition-colors shrink-0"
             aria-label={t("header.switchLang")}
           >
-            <Globe className="h-3.5 w-3.5" />
+            <Globe className="h-3.5 w-3.5 hidden sm:block" />
             {lang === "sv" ? "EN" : "SE"}
           </button>
           <CartDrawer />
