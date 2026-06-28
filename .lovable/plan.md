@@ -1,57 +1,49 @@
-
-# Marknadsanpassad frakt på landingpage
+# Live checkout-test: verifiera Shopify shipping zones
 
 ## Mål
-Visa rätt fraktpris och fri-frakt-tröskel beroende på vilken marknad besökaren kommer ifrån — Sverige, EU eller UK — på startsidan och i relaterade frakt-texter.
+Bevisa att Shopify-kassan returnerar samma fraktpriser och fri-frakt-trösklar som `src/lib/markets.ts` påstår, för Sverige, EU och UK.
 
-## Fraktmatris
+## Förväntade värden (från `src/lib/markets.ts`)
 
-| Marknad     | Standardfrakt | Fri frakt över |
-|-------------|---------------|----------------|
-| Sverige 🇸🇪 | 49 SEK        | 399 SEK        |
-| EU 🇪🇺      | 69 SEK        | 599 SEK        |
-| UK 🇬🇧      | 79 SEK        | 699 SEK        |
+| Marknad | Standardfrakt | Fri frakt över |
+|---------|---------------|----------------|
+| SE 🇸🇪  | 49 SEK        | 399 SEK        |
+| EU 🇪🇺  | 69 SEK        | 599 SEK        |
+| UK 🇬🇧  | 79 SEK        | 699 SEK        |
 
-## Marknadsdetektion (hybrid)
-1. **Automatisk** via `Intl.DateTimeFormat().resolvedOptions().timeZone` + `navigator.language` → mappa till `SE | EU | UK | OTHER` (OTHER faller tillbaka på EU). Detta är klient-sidan, gratis, inget extra API-anrop, ingen GDPR-cookie krävs.
-2. **Manuell override**: en liten landväljare (flagga + landnamn) i toppen av landingpage och i Footer. Valet sparas i `localStorage` så det är persistent.
-3. Valt land sparas i en ny Zustand-store `useMarketStore` så alla komponenter delar samma värde.
+## Testmatris (6 scenarion)
 
-## Vad ändras visuellt
-- **HeroSection / StarterPackHighlight**: liten "Fri frakt över X kr i {marknad}"-rad under CTA.
-- **BundleSection**: badgen `bundles.freeShipping` triggas dynamiskt baserat på vald marknads tröskel istället för hårdkodade 499 kr. Featurelistan `bundles.feat.freeShipSe` byts ut mot dynamisk text "Fri frakt i {marknad}".
-- **Shipping-sidan (`/frakt`)**: ny tabellsektion högst upp som visar alla tre marknader sida vid sida, med vald marknad markerad.
-- Ny komponent `MarketSelector` (flag-dropdown) som syns i Header och Footer.
+För varje marknad körs två tester — ett **under** tröskeln (ska visa standardfrakt) och ett **över** tröskeln (ska visa fri frakt / 0 kr).
 
-## Texter & i18n
-Lägg till nya nycklar i `src/lib/i18n.ts`:
-- `market.se`, `market.eu`, `market.uk`
-- `shipping.freeOver` → "Fri frakt över {amount} {currency} i {market}"
-- `shipping.standardCost` → "Frakt {amount} {currency}"
-- `market.changeCountry` → "Byt land"
+| # | Marknad | Adress           | Varukorg              | Förväntat fraktpris |
+|---|---------|------------------|-----------------------|---------------------|
+| 1 | SE      | Stockholm        | 1× Box of 12 (~199)   | 49 SEK              |
+| 2 | SE      | Stockholm        | 1× Bundle 48 (~799)   | 0 SEK (fri)         |
+| 3 | EU      | Berlin, DE       | 1× Box of 12          | 69 SEK              |
+| 4 | EU      | Berlin, DE       | 1× Bundle 48          | 0 SEK (fri)         |
+| 5 | UK      | London, GB       | 1× Box of 12          | 79 SEK              |
+| 6 | UK      | London, GB       | 2× Bundle 48 (>699)   | 0 SEK (fri)         |
 
-Allt två-språkigt (sv/en).
+## Metod (teknisk)
 
-## Filer som skapas/ändras
+1. **Playwright-skript** under `/tmp/browser/shipping-zones/` som:
+   - Öppnar `http://localhost:8080`, lägger till rätt produkt i kassan via UI (klick på "Lägg till" / bundle-knappar).
+   - Klickar "Checkout" → öppnar Shopify-checkout i ny tab.
+   - Fyller i shipping-adress (test-e-post, fejk namn/telefon, riktig postkod per land).
+   - Läser av fraktraden som Shopify visar i kassan ("Shipping" / "Frakt").
+   - Tar screenshot per scenario som bevis.
+2. **Resultatmatris** sammanställs i chatten — match/mismatch per scenario, med screenshot-referenser.
+3. Vid mismatch: jag pekar exakt vilken zon i Shopify Admin (Settings → Shipping & delivery) som behöver justeras, samt vilket pris/tröskel.
 
-**Nya filer**
-- `src/lib/markets.ts` — konstanter (matrisen ovan), detekteringsfunktion, typ `Market = "SE" | "EU" | "UK"`.
-- `src/stores/marketStore.ts` — Zustand-store med `persist`-middleware.
-- `src/components/MarketSelector.tsx` — dropdown med flaggor.
-- `src/components/ShippingBadge.tsx` — liten återanvändbar badge ("Fri frakt över X kr i Y").
+## Viktigt att veta innan vi kör
 
-**Uppdateras**
-- `src/lib/i18n.ts` — nya nycklar.
-- `src/components/home/HeroSection.tsx` — visa `ShippingBadge` under CTA.
-- `src/components/home/StarterPackHighlight.tsx` — visa dynamisk fraktinfo.
-- `src/components/home/BundleSection.tsx` — dynamisk tröskel + landnamn i features.
-- `src/components/Header.tsx` + `src/components/Footer.tsx` — placera `MarketSelector`.
-- `src/pages/Shipping.tsx` — ny jämförelsetabell SE/EU/UK.
+- **Inga riktiga ordrar läggs** — vi stannar på shipping-steget och stänger fliken innan betalning.
+- Testet använder fejk-mejl (`test+se@plaently.com` etc.) så Shopify inte tror det är riktiga kunder.
+- Testet kör mot **live Shopify-checkouten** (samma som riktiga kunder ser) — det är enda sättet att verifiera zonerna utan Admin API-åtkomst.
+- Tar ~5–10 min att köra alla 6 scenarier.
 
-## Viktig avgränsning
-Detta är **endast presentation** på sajten. Faktiska fraktpriser i Shopify-kassan måste konfigureras separat i Shopify Admin → Settings → Shipping & delivery (zoner för SE, EU, UK med matchande priser och thresholds). Jag inkluderar en checklista i slutet av implementationen för det manuella Shopify-steget så att texten på sajten alltid matchar verkligheten i kassan.
+## Vad jag levererar tillbaka
 
-## Öppna frågor (default-val)
-Du svarade inte på de andra två frågorna, så jag går vidare med:
-- **Detektion**: hybrid (auto via tidszon/språk + manuell väljare). Säg till om du hellre vill ha bara manuell väljare eller IP-baserad detektion via en edge function.
-- **Checkout-påverkan**: bara text på sajten (checkout sköts av Shopify). Säg till om du också vill att jag ska guida dig genom Shopify shipping zone-uppsättningen.
+- En tabell: scenario → förväntat vs. faktiskt fraktpris → ✅/❌
+- Screenshots per scenario
+- Konkret åtgärdslista för Shopify Admin om något inte matchar
