@@ -7,10 +7,9 @@ import { Check, Loader2, Star, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
+import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
-
-const SINGLE_MEAL_PRICE = 39; // SEK per single meal
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
@@ -159,6 +158,10 @@ const BundleSection = () => {
               fullPrice && fullPrice > bundlePrice
                 ? Math.round(fullPrice - bundlePrice)
                 : 0;
+            const savingsPercent =
+              fullPrice && fullPrice > bundlePrice
+                ? Math.round(((fullPrice - bundlePrice) / fullPrice) * 100)
+                : 0;
             const highlight = badgeToHighlight(b.badge);
             const isPopular = highlight === "popular";
             const isValue = highlight === "value";
@@ -255,11 +258,11 @@ const BundleSection = () => {
                       </p>
                     ) : isValue || isSubscription ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 px-3 py-1 text-xs font-semibold">
-                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {currencyCode}
+                        <Star className="h-3.5 w-3.5 fill-amber-300" /> {t("bundles.save")} {savings} {currencyCode} · {savingsPercent}%
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 border border-primary/30 text-primary px-3 py-1 text-xs font-semibold">
-                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {currencyCode}
+                        <Heart className="h-3.5 w-3.5 fill-primary" /> {t("bundles.youSave")} {savings} {currencyCode} · {savingsPercent}%
                       </span>
                     )}
                   </div>

@@ -233,10 +233,10 @@ const ProductDetail = () => {
                       {savings && savings.savingsPercent > 0 ? (
                         <>
                           <span className="text-sm text-muted-foreground line-through">
-                            {price.currencyCode} {savings.fullPrice}
+                            {price.currencyCode} {savings.fullPrice.toFixed(2)}
                           </span>
                           <span className="inline-block text-xs font-semibold text-primary bg-primary/10 rounded-full px-3 py-0.5">
-                            {t("bundles.save")} {savings.savingsPercent}%
+                            {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
                           </span>
                         </>
                       ) : (
@@ -396,10 +396,10 @@ const Products = () => {
                             {savings && savings.savingsPercent > 0 && (
                               <div className="flex items-center gap-2">
                                 <span className="text-xs text-muted-foreground line-through">
-                                  {price.currencyCode} {savings.fullPrice}
+                                  {price.currencyCode} {savings.fullPrice.toFixed(2)}
                                 </span>
                                 <span className="inline-block text-[10px] font-semibold text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                                  {t("bundles.save")} {savings.savingsPercent}%
+                                  {t("bundles.save")} {savings.savingsAmount} {price.currencyCode} · {savings.savingsPercent}%
                                 </span>
                               </div>
                             )}
