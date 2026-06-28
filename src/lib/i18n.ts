@@ -265,6 +265,16 @@ const translations: Record<string, Record<Lang, string>> = {
  "shipping.standardLabel": { sv: "Standardfrakt", en: "Standard shipping" },
  "shipping.freeOverLabel": { sv: "Fri frakt från", en: "Free shipping from" },
  "shipping.currentMarket": { sv: "Din marknad", en: "Your market" },
+ "cart.freeShippingUnlocked": {
+   sv: "🎉 Du har fri frakt i {market}!",
+   en: "🎉 You've unlocked free shipping in {market}!",
+ },
+ "cart.freeShippingProgress": {
+   sv: "Lägg till {amount} {currency} till för fri frakt i {market}",
+   en: "Add {amount} {currency} more for free shipping in {market}",
+ },
+ "cart.shippingLabel": { sv: "Frakt", en: "Shipping" },
+ "cart.shippingFree": { sv: "GRATIS", en: "FREE" },
 
  // Reviews
  "reviews.title": { sv: "Kundrecensioner", en: "Customer reviews" },
