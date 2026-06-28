@@ -16,8 +16,7 @@ export const CartDrawer = () => {
   const { items, isLoading, isSyncing, updateQuantity, removeItem, getCheckoutUrl, syncCart } = useCartStore();
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
-  const { t } = useTranslation();
-  const { t: _t, lang } = useTranslation();
+  const { t, lang } = useTranslation();
   const [bundles, setBundles] = useState<BundleRow[]>([]);
   const marketCfg = useMarketConfig();
   const marketName = marketLabel(marketCfg.code, lang);
