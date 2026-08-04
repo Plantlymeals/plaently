@@ -65,6 +65,7 @@ const Blog = () => {
       />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Blogg" : "Blog", path: "/blog" }]} lang={lang} emitSchema={false} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("blog.title")}</h1>
             <p className="text-muted-foreground text-lg">{t("blog.subtitle")}</p>
