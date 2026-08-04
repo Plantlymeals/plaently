@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,13 +11,21 @@ const AdminLogin = () => {
   const [loading, setLoading] = useState(false);
   const { signIn, isAdmin, user } = useAuth();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const rawNext = params.get("next");
+  // Only allow same-origin relative paths.
+  const next = rawNext && rawNext.startsWith("/") && !rawNext.startsWith("//") ? rawNext : null;
 
-  // Navigate when admin status is confirmed
+  // Return to the preserved destination as soon as the user is signed in.
   useEffect(() => {
+    if (user && next) {
+      navigate(next, { replace: true });
+      return;
+    }
     if (user && isAdmin) {
       navigate("/admin", { replace: true });
     }
-  }, [user, isAdmin, navigate]);
+  }, [user, isAdmin, navigate, next]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
