@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Layout from "@/components/Layout";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
