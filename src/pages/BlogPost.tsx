@@ -204,7 +204,7 @@ const BlogPostPage = () => {
           )}
 
           <div className="mt-12 rounded-3xl gradient-hero p-10 text-center text-primary-foreground">
-
+          {/* keyword-anchored links from editorial content into landing pages */}
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">{lang === "sv" ? "Prova PLÄNTLY idag" : "Try PLÄNTLY today"}</h2>
             <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
               <Link to="/products">{lang === "sv" ? "Handla nu" : "Shop now"}</Link>
