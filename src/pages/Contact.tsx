@@ -68,16 +68,16 @@ const Contact = () => {
           </div>
           <form onSubmit={handleSubmit} className="space-y-6 animate-fade-up">
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t("contact.name")}</label>
-              <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t("contact.namePlaceholder")} required className="rounded-xl" />
+              <label htmlFor="contact-name" className="text-sm font-medium">{t("contact.name")}</label>
+              <Input id="contact-name" name="name" autoComplete="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t("contact.namePlaceholder")} required className="rounded-xl" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t("contact.email")}</label>
-              <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={t("contact.emailPlaceholder")} required className="rounded-xl" />
+              <label htmlFor="contact-email" className="text-sm font-medium">{t("contact.email")}</label>
+              <Input id="contact-email" name="email" autoComplete="email" type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={t("contact.emailPlaceholder")} required className="rounded-xl" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t("contact.message")}</label>
-              <Textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={t("contact.messagePlaceholder")} rows={5} required className="rounded-xl" />
+              <label htmlFor="contact-message" className="text-sm font-medium">{t("contact.message")}</label>
+              <Textarea id="contact-message" name="message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder={t("contact.messagePlaceholder")} rows={5} required className="rounded-xl" />
             </div>
             <Button type="submit" className="w-full rounded-full font-semibold" size="lg" disabled={loading}>
               {loading ? t("contact.submitting") : t("contact.submit")}

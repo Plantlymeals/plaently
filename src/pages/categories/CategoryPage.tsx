@@ -69,7 +69,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
                 <div className="h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center mb-4">
                   <Check className="h-5 w-5" />
                 </div>
-                <h3 className="font-heading font-semibold text-base mb-2">{b.title}</h3>
+                <h2 className="font-heading font-semibold text-base mb-2">{b.title}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
               </div>
             ))}
