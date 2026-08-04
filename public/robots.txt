@@ -26,4 +26,3 @@ Disallow: /*?m=
 Disallow: /*?author=
 
 Sitemap: https://plaently.com/sitemap.xml
-Sitemap: https://fpwwjbevjhxbggtkaabc.supabase.co/functions/v1/sitemap
