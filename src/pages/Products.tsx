@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import DOMPurify from "dompurify";
 
 import Layout from "@/components/Layout";
@@ -204,6 +205,13 @@ const ProductDetail = () => {
       />
       <section className="py-12 md:py-20">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: product.title },
+            ]}
+            lang={lang}
+          />
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
           </Link>
@@ -351,6 +359,7 @@ const Products = () => {
       <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("products.pageTitle")}</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("products.pageSubtitle")}</p>
