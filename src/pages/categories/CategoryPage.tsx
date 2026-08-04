@@ -23,15 +23,6 @@ const CategoryPage = ({ categoryKey }: Props) => {
   const enSlug = enSlugByKey[categoryKey];
   const svSlug = svSlugByKey[categoryKey];
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: lang === "sv" ? "Hem" : "Home", item: "https://plaently.com" },
-      { "@type": "ListItem", position: 2, name: c.breadcrumbName, item: `https://plaently.com/${c.slug}` },
-    ],
-  };
-
   const alternates = [
     { hreflang: "en", path: `/${enSlug}` },
     { hreflang: "sv", path: `/${svSlug}` },
@@ -46,7 +37,6 @@ const CategoryPage = ({ categoryKey }: Props) => {
         path={`/${c.slug}`}
         locale={lang}
         alternates={alternates}
-        jsonLd={breadcrumbSchema}
       />
 
       {/* Hero */}
