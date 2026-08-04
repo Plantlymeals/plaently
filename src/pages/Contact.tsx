@@ -1,5 +1,6 @@
 import { useState } from "react";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,6 +61,7 @@ const Contact = () => {
       <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} path="/contact" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-2xl space-y-12">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Kontakt" : "Contact", path: "/contact" }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("contact.title")}</h1>
             <p className="text-muted-foreground text-lg">{t("contact.subtitle")}</p>
