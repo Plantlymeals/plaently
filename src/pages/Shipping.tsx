@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useTranslation } from "@/lib/i18n";
@@ -193,6 +194,16 @@ const Shipping = () => {
  <p className="text-primary-foreground font-bold text-base md:text-lg">{c.banner}</p>
  </div>
  </section>
+
+      <section className="pt-8">
+        <div className="container">
+          <Breadcrumbs
+            items={[{ label: isEn ? "Shipping" : "Frakt", path }]}
+            lang={isEn ? "en" : "sv"}
+            className="mb-0"
+          />
+        </div>
+      </section>
 
   <section className="py-16 bg-background">
     <div className="container max-w-5xl space-y-8">
