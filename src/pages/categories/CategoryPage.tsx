@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 import {
@@ -65,6 +66,14 @@ const CategoryPage = ({ categoryKey }: Props) => {
       {/* Benefits */}
       <section className="py-16 md:py-24">
         <div className="container">
+          <Breadcrumbs
+            items={[
+              { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: c.breadcrumbName, path: `/${c.slug}` },
+            ]}
+            lang={lang}
+            emitSchema={false}
+          />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {c.benefits.map((b) => (
               <div key={b.title} className="rounded-2xl bg-card border border-border/50 p-6 shadow-card hover:shadow-elevated transition-all">
