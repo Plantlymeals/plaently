@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { useTranslation } from "@/lib/i18n";
 
 const Nutrition = () => {
@@ -18,6 +19,7 @@ const Nutrition = () => {
       <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Näring" : "Nutrition", path: "/nutrition" }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("nutritionPage.title")}</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("nutritionPage.subtitle")}</p>
