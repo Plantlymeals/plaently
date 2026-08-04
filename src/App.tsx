@@ -41,6 +41,7 @@ const AdminReviews = lazy(() => import("./pages/admin/AdminReviews"));
 const AdminSEO = lazy(() => import("./pages/admin/AdminSEO"));
 const CategoryPage = lazy(() => import("./pages/categories/CategoryPage"));
 const Unsubscribe = lazy(() => import("./pages/Unsubscribe"));
+const OAuthConsent = lazy(() => import("./pages/OAuthConsent"));
 
 const queryClient = new QueryClient();
 
@@ -89,6 +90,7 @@ const AppContent = () => {
           <Route path="/kopsvillkor" element={<Terms />} />
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
           <Route path="/admin/login" element={<AdminLogin />} />
 
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
