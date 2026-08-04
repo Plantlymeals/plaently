@@ -203,8 +203,15 @@ const BlogPostPage = () => {
             </section>
           )}
 
+          {/* Keyword-anchored links from editorial content into landing pages */}
+          <section className="pt-8 border-t border-border/50">
+            <InternalLinks
+              title={postLocale === "sv" ? "Utforska vidare" : "Explore further"}
+              links={getCategoryLandingLinks(categorySlug, postLocale === "sv" ? "sv" : "en")}
+            />
+          </section>
+
           <div className="mt-12 rounded-3xl gradient-hero p-10 text-center text-primary-foreground">
-          {/* keyword-anchored links from editorial content into landing pages */}
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">{lang === "sv" ? "Prova PLÄNTLY idag" : "Try PLÄNTLY today"}</h2>
             <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
               <Link to="/products">{lang === "sv" ? "Handla nu" : "Shop now"}</Link>
