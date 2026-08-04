@@ -6,6 +6,7 @@ import { ExternalLink, RefreshCw, CheckCircle2, AlertTriangle, XCircle, Search }
 import { cn } from "@/lib/utils";
 
 const BASE_URL = "https://plaently.com";
+const LIVE_SITEMAP_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sitemap`;
 
 type Kind = "product" | "blog";
 
@@ -41,6 +42,20 @@ const AdminSEO = () => {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState<"all" | "product" | "blog" | "issues">("all");
   const [q, setQ] = useState("");
+  const [sitemapCount, setSitemapCount] = useState<number | null>(null);
+  const [sitemapChecking, setSitemapChecking] = useState(false);
+
+  const checkSitemap = async () => {
+    setSitemapChecking(true);
+    try {
+      const res = await fetch(`${LIVE_SITEMAP_URL}?t=${Date.now()}`);
+      const xml = await res.text();
+      setSitemapCount((xml.match(/<url>/g) || []).length);
+    } catch {
+      setSitemapCount(null);
+    }
+    setSitemapChecking(false);
+  };
 
   const fetchAll = async () => {
     setLoading(true);
@@ -129,6 +144,33 @@ const AdminSEO = () => {
             <p className={cn("font-heading text-2xl font-bold mt-1", s.accent)}>{s.value}</p>
           </div>
         ))}
+      </div>
+
+      {/* Dynamisk sitemap */}
+      <div className="bg-card rounded-2xl border border-border/50 p-5 shadow-card space-y-3">
+        <div className="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h2 className="font-heading text-lg font-semibold">Dynamisk sitemap</h2>
+            <p className="text-sm text-muted-foreground max-w-2xl">
+              Sitemapen genereras live vid varje anrop från publicerade bloggposter och Shopify-produkter.
+              Nytt innehåll du publicerar här syns direkt – ingen ny publicering av sajten behövs.
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" className="rounded-full gap-2" onClick={checkSitemap} disabled={sitemapChecking}>
+              <RefreshCw className={cn("h-4 w-4", sitemapChecking && "animate-spin")} /> Kontrollera
+            </Button>
+            <Button asChild size="sm" className="rounded-full gap-2">
+              <a href={LIVE_SITEMAP_URL} target="_blank" rel="noopener noreferrer">
+                Öppna sitemap <ExternalLink className="h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+        </div>
+        <code className="block text-[11px] text-muted-foreground break-all">{LIVE_SITEMAP_URL}</code>
+        {sitemapCount !== null && (
+          <StatusPill ok label={`${sitemapCount} URL:er i live-sitemapen`} />
+        )}
       </div>
 
       {/* Filters */}
