@@ -62,7 +62,6 @@ const CategoryPage = ({ categoryKey }: Props) => {
               { label: c.breadcrumbName, path: `/${c.slug}` },
             ]}
             lang={lang}
-            emitSchema={false}
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {c.benefits.map((b) => (
