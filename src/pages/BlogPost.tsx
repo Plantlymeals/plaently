@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
@@ -152,6 +153,16 @@ const BlogPostPage = () => {
       />
       <article className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-8">
+          <Breadcrumbs
+            items={[
+              { label: postLocale === "sv" ? "Blogg" : "Blog", path: "/blog" },
+              ...(categorySlug && post.category ? [{ label: post.category, path: `/blog/category/${categorySlug}` }] : []),
+              { label: post.title },
+            ]}
+            lang={postLocale}
+            emitSchema={false}
+            className="mb-0"
+          />
           <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" /> {t("blog.title")}
           </Link>

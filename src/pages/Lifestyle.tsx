@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Briefcase, Dumbbell, Rocket, Utensils } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
@@ -18,6 +19,7 @@ const Lifestyle = () => {
       <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Livsstil" : "Lifestyle", path: "/lifestyle" }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("lifestylePage.title")}</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("lifestylePage.subtitle")}</p>

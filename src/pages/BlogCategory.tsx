@@ -3,6 +3,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
@@ -85,6 +86,15 @@ const BlogCategoryPage = () => {
       />
       <section className="py-12 md:py-20">
         <div className="container max-w-5xl space-y-10">
+          <Breadcrumbs
+            items={[
+              { label: lang === "sv" ? "Blogg" : "Blog", path: "/blog" },
+              { label: displayName!, path: `/blog/category/${def.slug}` },
+            ]}
+            lang={lang}
+            emitSchema={false}
+            className="mb-0"
+          />
           <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4" /> {lang === "sv" ? "Alla inlägg" : "All posts"}
           </Link>

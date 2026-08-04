@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -51,6 +52,7 @@ const FAQPage = () => {
       )}
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Vanliga frågor" : "FAQ", path: "/faq" }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("faq.title")}</h1>
             <p className="text-muted-foreground text-lg">{t("faq.subtitle")}</p>
