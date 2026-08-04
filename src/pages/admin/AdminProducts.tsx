@@ -87,6 +87,8 @@ const AdminProducts = () => {
       }
       toast.success("Product updated");
     }
+    // Newly published content: nudge Google to re-crawl the sitemap.
+    if (form.is_published) void submitSitemapToGoogle({ silent: true });
     cancel();
     fetch();
   };
