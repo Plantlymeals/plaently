@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ExternalLink, RefreshCw, CheckCircle2, AlertTriangle, XCircle, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { submitSitemapToGoogle } from "@/lib/searchConsole";
 
 const BASE_URL = "https://plaently.com";
 const LIVE_SITEMAP_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sitemap`;
@@ -44,6 +45,13 @@ const AdminSEO = () => {
   const [q, setQ] = useState("");
   const [sitemapCount, setSitemapCount] = useState<number | null>(null);
   const [sitemapChecking, setSitemapChecking] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const submitToGoogle = async () => {
+    setSubmitting(true);
+    await submitSitemapToGoogle();
+    setSubmitting(false);
+  };
 
   const checkSitemap = async () => {
     setSitemapChecking(true);
@@ -159,6 +167,9 @@ const AdminSEO = () => {
           <div className="flex gap-2">
             <Button variant="outline" size="sm" className="rounded-full gap-2" onClick={checkSitemap} disabled={sitemapChecking}>
               <RefreshCw className={cn("h-4 w-4", sitemapChecking && "animate-spin")} /> Kontrollera
+            </Button>
+            <Button variant="outline" size="sm" className="rounded-full gap-2" onClick={submitToGoogle} disabled={submitting}>
+              <RefreshCw className={cn("h-4 w-4", submitting && "animate-spin")} /> Skicka till Google
             </Button>
             <Button asChild size="sm" className="rounded-full gap-2">
               <a href={LIVE_SITEMAP_URL} target="_blank" rel="noopener noreferrer">

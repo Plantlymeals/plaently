@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
+import { submitSitemapToGoogle } from "@/lib/searchConsole";
 
 type BlogPost = Tables<"blog_posts">;
 
@@ -49,6 +50,8 @@ const AdminBlog = () => {
       if (error) { toast.error(error.message); return; }
       toast.success("Post updated");
     }
+    // Newly published content: nudge Google to re-crawl the sitemap.
+    if (form.is_published) void submitSitemapToGoogle({ silent: true });
     cancel(); fetchPosts();
   };
 
