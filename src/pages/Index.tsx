@@ -9,6 +9,8 @@ import ProductOverview from "@/components/home/ProductOverview";
 import WhySection from "@/components/home/WhySection";
 import HowItWorks from "@/components/home/HowItWorks";
 import NutritionPreview from "@/components/home/NutritionPreview";
+import InternalLinks from "@/components/InternalLinks";
+import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
 import { lazy, Suspense, Component, ReactNode } from "react";
 
 const LifestyleSection   = lazy(() => import("@/components/home/LifestyleSection"));
@@ -83,6 +85,16 @@ const Index = () => {
       <NutritionPreview />
       <WhySection />
       <HowItWorks />
+
+      {/* Keyword-anchored internal links to the commercial landing pages */}
+      <section className="py-14 md:py-20">
+        <div className="container max-w-5xl">
+          <InternalLinks
+            title={lang === "sv" ? "Utforska PLÄNTLY" : "Explore PLÄNTLY"}
+            links={getLinks(HOME_LINK_KEYS, lang)}
+          />
+        </div>
+      </section>
 
       {/* ── Lazy-laddade sektioner (egna Suspense = oberoende laddning) ── */}
       <LazySection height={500}><LifestyleSection /></LazySection>

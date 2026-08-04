@@ -9,6 +9,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { getCategorySlug } from "@/data/blogCategories";
+import InternalLinks from "@/components/InternalLinks";
+import { getCategoryLandingLinks } from "@/data/internalLinks";
 
 type BlogPost = Tables<"blog_posts"> & { translation_slug?: string | null };
 
@@ -200,6 +202,14 @@ const BlogPostPage = () => {
               </div>
             </section>
           )}
+
+          {/* Keyword-anchored links from editorial content into landing pages */}
+          <section className="pt-8 border-t border-border/50">
+            <InternalLinks
+              title={postLocale === "sv" ? "Utforska vidare" : "Explore further"}
+              links={getCategoryLandingLinks(categorySlug, postLocale === "sv" ? "sv" : "en")}
+            />
+          </section>
 
           <div className="mt-12 rounded-3xl gradient-hero p-10 text-center text-primary-foreground">
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">{lang === "sv" ? "Prova PLÄNTLY idag" : "Try PLÄNTLY today"}</h2>

@@ -6,6 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { useTranslation } from "@/lib/i18n";
 import { BLOG_CATEGORIES, getCategorySlug } from "@/data/blogCategories";
+import InternalLinks from "@/components/InternalLinks";
+import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
 
 type BlogPost = Tables<"blog_posts">;
 
@@ -129,6 +131,13 @@ const Blog = () => {
           ) : (
             <p className="text-center text-muted-foreground">{t("blog.noPosts")}</p>
           )}
+
+          <div className="max-w-4xl mx-auto pt-4">
+            <InternalLinks
+              title={lang === "sv" ? "Handla efter behov" : "Shop by need"}
+              links={getLinks(HOME_LINK_KEYS, lang)}
+            />
+          </div>
         </div>
       </section>
     </Layout>

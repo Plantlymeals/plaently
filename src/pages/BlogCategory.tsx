@@ -12,6 +12,8 @@ import {
   getCategoryDisplayName,
   getCategorySlug,
 } from "@/data/blogCategories";
+import InternalLinks from "@/components/InternalLinks";
+import { getCategoryLandingLinks } from "@/data/internalLinks";
 
 type BlogPost = Tables<"blog_posts">;
 
@@ -128,6 +130,11 @@ const BlogCategoryPage = () => {
           ) : (
             <p className="text-center text-muted-foreground py-12">{lang === "sv" ? "Inga inlägg ännu i den här kategorin." : "No posts in this category yet."}</p>
           )}
+
+          <InternalLinks
+            title={lang === "sv" ? "Handla efter behov" : "Shop by need"}
+            links={getCategoryLandingLinks(def.slug, lang)}
+          />
         </div>
       </section>
     </Layout>
