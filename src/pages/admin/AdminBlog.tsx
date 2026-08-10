@@ -150,7 +150,7 @@ const AdminBlog = () => {
               <Button variant="ghost" size="icon" onClick={() => remove(p.id)}><Trash2 className="h-4 w-4 text-destructive" /></Button>
             </div>
           </div>
-        ))}
+        );})}
         {posts.length === 0 && <p className="text-muted-foreground text-sm text-center py-8">No blog posts yet.</p>}
       </div>
     </div>
