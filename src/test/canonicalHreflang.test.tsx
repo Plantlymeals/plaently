@@ -90,7 +90,7 @@ describe("canonical + hreflang", () => {
   });
 
   it("has no conflicting static canonical/hreflang in index.html", () => {
-    const html = readFileSync(resolve("index.html"), "utf-8");
+    const html = readFileSync(resolve("index.html"), "utf-8").replace(/<!--[\s\S]*?-->/g, "");
     expect(html).not.toMatch(/<link[^>]+rel=["']canonical["']/i);
     expect(html).not.toMatch(/<link[^>]+rel=["']alternate["'][^>]*hreflang/i);
   });
