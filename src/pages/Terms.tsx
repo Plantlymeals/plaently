@@ -118,7 +118,7 @@ const Terms = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">
