@@ -46,7 +46,7 @@ const PRODUCT_SEO: Record<string, { sv: { title: string; description: string }; 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
-  const productSeo = productHandle ? PRODUCT_SEO[productHandle] : undefined;
+
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
@@ -215,10 +215,10 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={productSeo?.[lang].title ?? (lang === "sv"
+        title={(PRODUCT_SEO[product.handle] ?? (productHandle ? PRODUCT_SEO[productHandle] : undefined))?.[lang].title ?? (lang === "sv"
           ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
           : `${product.title} – 20g protein in 5 min | PLÄNTLY`)}
-        description={productSeo?.[lang].description ?? translatedDesc ?? (lang === "sv"
+        description={productSeo?.[lang].description || translatedDesc || (lang === "sv"
           ? `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
           : `Healthy ${product.title.toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
         ogTitle={productSeo?.sv.title}
