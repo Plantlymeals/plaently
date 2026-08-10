@@ -211,7 +211,7 @@ const BundleSection = () => {
                       {t("bundles.subSave")}
                     </span>
                   )}
-                  {bundlePrice >= marketCfg.freeShippingThreshold && (
+                  {bundlePrice >= marketCfg.freeShippingThresholdSek && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
                       {freeShipText}
                     </span>
