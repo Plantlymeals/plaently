@@ -60,6 +60,7 @@ async function blogEntries(): Promise<Entry[]> {
       .from('blog_posts')
       .select('slug, updated_at')
       .eq('is_published', true)
+      .lte('published_at', new Date().toISOString())
     if (error || !data) return []
     return data.map((r) => ({
       path: `/blog/${r.slug}`,

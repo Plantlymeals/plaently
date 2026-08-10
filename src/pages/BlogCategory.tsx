@@ -34,10 +34,12 @@ const BlogCategoryPage = () => {
     }
     // Filter by either EN or SV display name for the active language to be safe
     const names = [def.en, def.sv];
+    const now = new Date().toISOString();
     supabase
       .from("blog_posts")
       .select("*")
       .eq("is_published", true)
+      .lte("published_at", now)
       .eq("language", lang)
       .in("category", names)
       .order("published_at", { ascending: false })

@@ -27,11 +27,13 @@ const BlogPostPage = () => {
   useEffect(() => {
     if (!slug) return;
     setLoading(true);
+    const now = new Date().toISOString();
     supabase
       .from("blog_posts")
       .select("*")
       .eq("slug", slug)
       .eq("is_published", true)
+      .lte("published_at", now)
       .maybeSingle()
       .then(({ data }) => {
         setPost(data as BlogPost | null);
@@ -64,10 +66,12 @@ const BlogPostPage = () => {
       setRelated([]);
       return;
     }
+    const now = new Date().toISOString();
     supabase
       .from("blog_posts")
       .select("*")
       .eq("is_published", true)
+      .lte("published_at", now)
       .eq("language", post.language)
       .eq("category", post.category)
       .neq("slug", post.slug)
