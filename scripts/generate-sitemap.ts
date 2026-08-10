@@ -57,8 +57,9 @@ const staticEntries: SitemapEntry[] = [
 
 async function fetchBlogSlugs(): Promise<SitemapEntry[]> {
   try {
+    const now = encodeURIComponent(new Date().toISOString());
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/blog_posts?select=slug,updated_at&is_published=eq.true`,
+      `${SUPABASE_URL}/rest/v1/blog_posts?select=slug,updated_at&is_published=eq.true&published_at=lte.${now}`,
       { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } },
     );
     if (!res.ok) return [];
