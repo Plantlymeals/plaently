@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import NoIndexHead from "@/components/NoIndexHead";
 import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import Index from "./pages/Index";
