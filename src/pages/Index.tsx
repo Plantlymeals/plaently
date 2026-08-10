@@ -13,23 +13,6 @@ import InternalLinks from "@/components/InternalLinks";
 import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
 import { lazy, Suspense, Component, ReactNode } from "react";
 
-const ORGANIZATION_SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "PLÄNTLY AB",
-  description: "Växtbaserade proteinmåltider med 20g protein — klara på 5 minuter.",
-  url: "https://plaently.com",
-  logo: "https://plaently.com/images/logo.png",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Vretensborgsvägen 5",
-    postalCode: "126 30",
-    addressLocality: "Hägersten",
-    addressCountry: "SE",
-  },
-  email: "hello@plaently.com",
-};
-
 const LifestyleSection   = lazy(() => import("@/components/home/LifestyleSection"));
 const BundleSection      = lazy(() => import("@/components/home/BundleSection"));
 const MealFinderQuiz     = lazy(() => import("@/components/home/MealFinderQuiz"));
@@ -88,7 +71,6 @@ const Index = () => {
         locale={lang}
         ogTitle={tSv("seo.home.title")}
         ogDescription={tSv("seo.home.description")}
-        jsonLd={ORGANIZATION_SCHEMA}
         alternates={[
           { hreflang: "sv", path: "/" },
           { hreflang: "en", path: "/" },
