@@ -271,7 +271,7 @@ const BundleSection = () => {
                         .replace("{name}", flavor);
                     }
                     if (fk === "bundles.feat.freeShipSe" || fk === "bundles.feat.freeShipAlways") {
-                      label = bundlePrice >= marketCfg.freeShippingThreshold
+                      label = bundlePrice >= marketCfg.freeShippingThresholdSek
                         ? `${t("bundles.freeShipping")} (${marketName})`
                         : t("shipping.standardCost")
                             .replace("{amount}", String(marketCfg.shippingCost))
