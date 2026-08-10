@@ -14,8 +14,8 @@ const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 
 const COPY = {
  sv: {
- seoTitle: "Frakt & Leverans — PLÄNTLY",
- seoDesc: "Fri frakt från 399 kr. Vi skickar med PostNord och DHL inom 1-2\u00a0vardagar. Spårning, ångerrätt och reklamation enligt svensk lag.",
+ seoTitle: "Frakt & Leverans | Fri Frakt över 399 kr — PLÄNTLY",
+ seoDesc: "Fri frakt på beställningar över 499 kr. Leverans inom 2–4 vardagar i hela Sverige med PostNord och DHL.",
  label: "Frakt & Leverans",
  h1a: "Enkelt, snabbt och ",
  h1b: "transparent.",
@@ -84,8 +84,8 @@ const COPY = {
  ctaBtn: "Handla Starter Pack",
  },
  en: {
- seoTitle: "Shipping & Delivery — PLÄNTLY",
- seoDesc: "Free shipping from SEK 399. We ship with PostNord and DHL within 1-2 business days. Tracking, right of withdrawal and complaints under Swedish law.",
+ seoTitle: "Shipping & Delivery | Free Shipping over 399 SEK — PLÄNTLY",
+ seoDesc: "Free shipping on orders over 499 SEK. Delivery within 2–4 business days throughout Sweden with PostNord and DHL.",
  label: "Shipping & Delivery",
  h1a: "Simple, fast and ",
  h1b: "transparent.",
@@ -177,7 +177,7 @@ const Shipping = () => {
 
  return (
  <Layout>
- <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} />
+ <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} />
 
  <section className="bg-foreground text-background py-20 md:py-28">
  <div className="container max-w-4xl text-center space-y-6">

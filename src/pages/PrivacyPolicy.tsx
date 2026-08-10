@@ -5,8 +5,8 @@ import { useTranslation } from "@/lib/i18n";
 
 const COPY = {
   sv: {
-    seoTitle: "Integritetspolicy | PLÄNTLY",
-    seoDesc: "Så här behandlar PLÄNTLY dina personuppgifter — i enlighet med GDPR och svensk lag. Full transparens om data, cookies och dina rättigheter.",
+    seoTitle: "Integritetspolicy — PLÄNTLY AB | Org.nr SE559400472201",
+    seoDesc: "Hur PLÄNTLY AB hanterar dina personuppgifter i enlighet med GDPR och svensk lag.",
     label: "Integritetspolicy",
     h1: "Din integritet. Vår skyldighet.",
     sub: "Vi behandlar dina personuppgifter med respekt och full transparens, i enlighet med GDPR och svensk lag. Senast uppdaterad: maj 2026.",
@@ -186,7 +186,7 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

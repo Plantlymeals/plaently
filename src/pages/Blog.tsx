@@ -57,11 +57,13 @@ const Blog = () => {
     <Layout>
       <SEOHead
         title={lang === "sv"
-          ? "Blogg — Plantprotein, modern näring & snabbmatens framtid | PLÄNTLY"
-          : "Blog — Plant Protein, Modern Nutrition & The Future of Fast Food | PLÄNTLY"}
+          ? "Blogg | Protein, Hälsa & Hälsosam Snabbmat — PLÄNTLY"
+          : "Blog | Protein, Health & Healthy Fast Food — PLÄNTLY"}
         description={lang === "sv"
-          ? "Editoriellt om plantbaserad näring, snabbmatens framtid och vardagsritualer som faktiskt fungerar. Från PLÄNTLY."
-          : "Editorial on plant-based nutrition, the future of fast food, and the daily rituals that actually work. From PLÄNTLY."}
+          ? "Tips, råd och inspiration om växtbaserat protein, hälsosam snabbmat och hur du äter bättre utan att kompromissa med tid."
+          : "Tips, advice and inspiration about plant-based protein, healthy fast food and how to eat better without compromising on time."}
+        ogTitle="Blogg | Protein, Hälsa & Hälsosam Snabbmat — PLÄNTLY"
+        ogDescription="Tips, råd och inspiration om växtbaserat protein, hälsosam snabbmat och hur du äter bättre utan att kompromissa med tid."
         path="/blog"
         locale={lang}
         jsonLd={breadcrumbSchema}

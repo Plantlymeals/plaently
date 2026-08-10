@@ -1,14 +1,14 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tSv } from "@/lib/i18n";
 
 const About = () => {
   const { t, lang } = useTranslation();
 
   return (
     <Layout>
-      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" locale={lang} />
+      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} ogTitle={tSv("seo.about.title")} ogDescription={tSv("seo.about.description")} path="/about" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Om oss" : "About", path: "/about" }]} lang={lang} className="mb-0" />

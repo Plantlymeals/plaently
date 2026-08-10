@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tSv } from "@/lib/i18n";
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
 import StarterPackHighlight from "@/components/home/StarterPackHighlight";
@@ -69,6 +69,8 @@ const Index = () => {
         description={t("seo.home.description")}
         path="/"
         locale={lang}
+        ogTitle={tSv("seo.home.title")}
+        ogDescription={tSv("seo.home.description")}
         alternates={[
           { hreflang: "sv", path: "/" },
           { hreflang: "en", path: "/" },

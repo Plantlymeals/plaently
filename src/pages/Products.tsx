@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tSv } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
@@ -22,15 +22,43 @@ import { getCupMeta } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 
+// Per-product SEO copy. NOTE: Carbonara and Yellow Curry contain milk protein —
+// they must never be described as "vegan".
+const PRODUCT_SEO: Record<string, { sv: { title: string; description: string }; en: { title: string; description: string } }> = {
+  "fusilli-bolognese": {
+    sv: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 263 kcal per portion." },
+    en: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 263 kcal per serving." },
+  },
+  "pasta-carbonara": {
+    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
+    en: { title: "Veggie Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+  },
+  "yellow-curry-rice": {
+    sv: { title: "Vegetarisk Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
+    en: { title: "Veggie Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Veggie Yellow Curry & Rice with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+  },
+  "smoky-bbq-lentils": {
+    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 228 kcal per portion." },
+    en: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein. Ready in 5 minutes — just add boiling water to the black line. 228 kcal per serving." },
+  },
+};
+
+// Shopify handles carry a "plant-based-" prefix; map them to the same copy.
+for (const key of Object.keys(PRODUCT_SEO)) {
+  PRODUCT_SEO[`plant-based-${key}`] = PRODUCT_SEO[key];
+}
+
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
+
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
+  const productSeo = (product?.handle && PRODUCT_SEO[product.handle]) || (productHandle ? PRODUCT_SEO[productHandle] : undefined);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
@@ -193,14 +221,17 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={lang === "sv"
+        title={productSeo?.[lang].title ?? (lang === "sv"
           ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
-          : `${product.title} – 20g protein in 5 min | PLÄNTLY`}
-        description={translatedDesc || (lang === "sv"
+          : `${product.title} – 20g protein in 5 min | PLÄNTLY`)}
+        description={productSeo?.[lang].description || translatedDesc || (lang === "sv"
           ? `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
           : `Healthy ${product.title.toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
+        ogTitle={productSeo?.sv.title}
+        ogDescription={productSeo?.sv.description}
         path={`/product/${product.handle}`}
         type="product"
+        locale={lang}
         jsonLd={jsonLd}
       />
       <section className="py-12 md:py-20">
@@ -356,7 +387,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} ogTitle={tSv("seo.products.title")} ogDescription={tSv("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />
