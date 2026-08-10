@@ -151,7 +151,7 @@ export const CartDrawer = () => {
                     <p className="text-xs text-muted-foreground text-center">
                       {t("cart.freeShippingProgress")
                         .replace("{amount}", remaining.toFixed(0))
-                        .replace("{currency}", marketCfg.currency)
+                        .replace("{currency}", items[0]?.price.currencyCode ?? "SEK")
                         .replace("{market}", marketName)}
                     </p>
                   )}
