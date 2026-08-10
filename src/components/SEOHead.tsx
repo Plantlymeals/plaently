@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+import { getAlternates, normalizePath } from "@/lib/localeAlternates";
 
 interface SEOHeadProps {
   title: string;
@@ -14,7 +16,12 @@ interface SEOHeadProps {
 const BASE_URL = "https://plaently.com";
 
 const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates }: SEOHeadProps) => {
-  const url = `${BASE_URL}${path}`;
+  const { pathname } = useLocation();
+  // Canonical always self-references the URL actually being visited, so a
+  // language toggle can never point two URLs at the same canonical.
+  const canonicalPath = normalizePath(pathname || path);
+  const url = `${BASE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`;
+  const hreflangs = alternates ?? getAlternates(canonicalPath);
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
   const ogLocale = locale === "en" ? "en_GB" : "sv_SE";
 
@@ -24,7 +31,7 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-      {alternates?.map((a) => (
+      {hreflangs.map((a) => (
         <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />
       ))}
       <meta property="og:title" content={title} />
