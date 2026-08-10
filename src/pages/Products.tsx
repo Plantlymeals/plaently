@@ -24,22 +24,30 @@ import ProductReviews from "@/components/ProductReviews";
 
 // Per-product SEO copy. NOTE: Carbonara and Yellow Curry contain milk protein —
 // they must never be described as "vegan".
-const PRODUCT_SEO: Record<string, { sv: { title: string; description: string }; en: { title: string; description: string } }> = {
+const PRODUCT_SEO: Record<string, {
+  sv: { title: string; description: string };
+  en: { title: string; description: string };
+  schema: { name: string; sku: string; calories: string; protein: string; servingSize: string; description: string };
+}> = {
   "fusilli-bolognese": {
-    sv: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 263 kcal per portion." },
-    en: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 263 kcal per serving." },
+    sv: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein och 263 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 75g per portion." },
+    en: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein, 263 kcal. Ready in 5 minutes — add boiling water to the black line. 75g per serving." },
+    schema: { name: "Vegan Fusilli Bolognese", sku: "PLNT-FUS-001", calories: "263 calories", protein: "20.3g", servingSize: "75g", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter." },
   },
   "pasta-carbonara": {
-    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
-    en: { title: "Veggie Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
+    en: { title: "Veggie Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein, 285 kcal. Ready in 5 minutes. Contains milk." },
+    schema: { name: "Veggie Pasta Carbonara", sku: "PLNT-CAR-001", calories: "285 calories", protein: "20.2g", servingSize: "75g", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
   },
   "yellow-curry-rice": {
-    sv: { title: "Vegetarisk Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
-    en: { title: "Veggie Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Veggie Yellow Curry & Rice with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+    sv: { title: "Vegetarisk Yellow Curry & Rice | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
+    en: { title: "Veggie Yellow Curry & Rice | 20g Protein, 285 kcal — PLÄNTLY", description: "Veggie Yellow Curry & Rice with 20g plant protein, 285 kcal. Ready in 5 minutes. Contains milk." },
+    schema: { name: "Veggie Yellow Curry & Rice", sku: "PLNT-CUR-001", calories: "285 calories", protein: "20.4g", servingSize: "73g", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
   },
   "smoky-bbq-lentils": {
-    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 228 kcal per portion." },
-    en: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein. Ready in 5 minutes — just add boiling water to the black line. 228 kcal per serving." },
+    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein och 228 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 65g per portion." },
+    en: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein, 228 kcal. Ready in 5 minutes. 65g per serving." },
+    schema: { name: "Vegan Smoky BBQ Lentils", sku: "PLNT-LEN-001", calories: "228 calories", protein: "20.8g", servingSize: "65g", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter." },
   },
 };
 
@@ -146,17 +154,27 @@ const ProductDetail = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product.title,
-    description: product.description,
+    name: productSeo?.schema.name ?? product.title,
+    description: productSeo?.schema.description ?? product.description,
     image: image?.url,
     url: `https://plaently.com/product/${product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
+    ...(productSeo && {
+      sku: productSeo.schema.sku,
+      nutrition: {
+        "@type": "NutritionInformation",
+        servingSize: productSeo.schema.servingSize,
+        calories: productSeo.schema.calories,
+        proteinContent: productSeo.schema.protein,
+      },
+    }),
     ...(price && {
       offers: {
         "@type": "Offer",
         price: parseFloat(price.amount).toFixed(2),
         priceCurrency: price.currencyCode,
         availability: selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+        seller: { "@type": "Organization", name: "PLÄNTLY AB" },
         hasMerchantReturnPolicy: {
           "@type": "MerchantReturnPolicy",
           returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
