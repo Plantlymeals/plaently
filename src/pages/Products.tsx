@@ -43,6 +43,11 @@ const PRODUCT_SEO: Record<string, { sv: { title: string; description: string }; 
   },
 };
 
+// Shopify handles carry a "plant-based-" prefix; map them to the same copy.
+for (const key of Object.keys(PRODUCT_SEO)) {
+  PRODUCT_SEO[`plant-based-${key}`] = PRODUCT_SEO[key];
+}
+
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
