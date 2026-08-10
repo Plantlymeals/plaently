@@ -6,12 +6,14 @@ export interface MarketConfig {
   currency: "SEK" | "GBP" | "EUR";
   shippingCost: number;
   freeShippingThreshold: number;
+  /** Internal threshold in SEK for comparing against Shopify cart totals. */
+  freeShippingThresholdSek: number;
 }
 
 export const MARKETS: Record<Market, MarketConfig> = {
-  SE: { code: "SE", flag: "🇸🇪", currency: "SEK", shippingCost: 49, freeShippingThreshold: 399 },
-  EU: { code: "EU", flag: "🇪🇺", currency: "SEK", shippingCost: 69, freeShippingThreshold: 599 },
-  UK: { code: "UK", flag: "🇬🇧", currency: "SEK", shippingCost: 79, freeShippingThreshold: 699 },
+  SE: { code: "SE", flag: "🇸🇪", currency: "SEK", shippingCost: 49, freeShippingThreshold: 399, freeShippingThresholdSek: 399 },
+  EU: { code: "EU", flag: "🇪🇺", currency: "EUR", shippingCost: 6, freeShippingThreshold: 55, freeShippingThresholdSek: 599 },
+  UK: { code: "UK", flag: "🇬🇧", currency: "SEK", shippingCost: 79, freeShippingThreshold: 699, freeShippingThresholdSek: 699 },
 };
 
 // EU member-state ISO codes (excl. SE, UK)

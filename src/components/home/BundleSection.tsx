@@ -211,7 +211,7 @@ const BundleSection = () => {
                       {t("bundles.subSave")}
                     </span>
                   )}
-                  {bundlePrice >= marketCfg.freeShippingThreshold && (
+                  {bundlePrice >= marketCfg.freeShippingThresholdSek && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
                       {freeShipText}
                     </span>
@@ -271,7 +271,7 @@ const BundleSection = () => {
                         .replace("{name}", flavor);
                     }
                     if (fk === "bundles.feat.freeShipSe" || fk === "bundles.feat.freeShipAlways") {
-                      label = bundlePrice >= marketCfg.freeShippingThreshold
+                      label = bundlePrice >= marketCfg.freeShippingThresholdSek
                         ? `${t("bundles.freeShipping")} (${marketName})`
                         : t("shipping.standardCost")
                             .replace("{amount}", String(marketCfg.shippingCost))
