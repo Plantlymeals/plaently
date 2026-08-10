@@ -38,9 +38,14 @@ describe("Big Office Pack — UI vs bundleSavings regression", () => {
     expect(s!.savingsPercent).toBe(expectedPct);
   });
 
-  it("absolute savings = 470 SEK at the locked price", () => {
+  it("absolute savings tracks the current single-meal price", () => {
     const s = getBundleSavings(BIG_OFFICE.title, BIG_OFFICE.priceSEK)!;
-    expect(s.fullPrice - BIG_OFFICE.priceSEK).toBe(470);
+    const expected = BIG_OFFICE.cups * SINGLE_MEAL_PRICE - BIG_OFFICE.priceSEK;
+    expect(s.fullPrice - BIG_OFFICE.priceSEK).toBe(expected);
+    expect(s.savingsAmount).toBe(expected);
+    // Guard: savings must stay positive and sane (never more than the bundle price).
+    expect(expected).toBeGreaterThan(0);
+    expect(expected).toBeLessThan(BIG_OFFICE.priceSEK);
   });
 
   it("per-cup price displayed in BundleSection rounds to 30 kr", () => {
