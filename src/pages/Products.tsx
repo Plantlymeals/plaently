@@ -53,6 +53,7 @@ const ProductDetail = () => {
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
+  const productSeo = (product?.handle && PRODUCT_SEO[product.handle]) || (productHandle ? PRODUCT_SEO[productHandle] : undefined);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
@@ -215,7 +216,7 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={(PRODUCT_SEO[product.handle] ?? (productHandle ? PRODUCT_SEO[productHandle] : undefined))?.[lang].title ?? (lang === "sv"
+        title={productSeo?.[lang].title ?? (lang === "sv"
           ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
           : `${product.title} – 20g protein in 5 min | PLÄNTLY`)}
         description={productSeo?.[lang].description || translatedDesc || (lang === "sv"
