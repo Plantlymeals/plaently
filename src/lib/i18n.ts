@@ -23,7 +23,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "nav.shopNow": { sv: "Handla nu", en: "Shop now" },
 
  // Hero
- "hero.headline": { sv: "Hälsosam snabbmat.", en: "Healthy Fast Food." },
+  "hero.headline": { sv: "Hälsosam snabbmat\ndriven av växtprotein.", en: "Healthy fast food\npowered by plant protein." },
  "hero.subheadline": { sv: "20g plantbaserad protein. Klart på 5 minuter.\nUtvecklat i Sverige, hantverk från Italien.", en: "20g plant protein. Ready in 5 minutes.\nDeveloped in Sweden, crafted in Italy." },
  "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
  "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
@@ -31,7 +31,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
  "hero.badge1": { sv: "20g protein", en: "20g protein" },
  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
- "hero.badge3": { sv: "100% plantbaserat", en: "100% plant-based" },
+  "hero.badge3": { sv: "Växtbaserat", en: "Plant-forward" },
 
  // Problem → Solution
  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
@@ -105,7 +105,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "products.addedToCart": { sv: "Tillagd i varukorgen!", en: "Added to cart!" },
 
  // Products page
- "products.pageTitle": { sv: "Plantbaserade proteinmåltider", en: "Plant-Based Protein Meals" },
+  "products.pageTitle": { sv: "Våra proteinmåltider", en: "Our protein meals" },
  "products.pageSubtitle": { sv: "Plantbaserade proteinmåltider klar på 5 minuter.\nVälj dina favoriter.", en: "Plant-based protein meals ready in 5 minutes.\nChoose your favourites." },
  "products.noProducts": { sv: "Inga produkter hittades.", en: "No products found." },
  "products.notFound": { sv: "Produkten hittades inte", en: "Product not found" },
@@ -180,7 +180,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nutrition.calories": { sv: "Kalorier", en: "Calories" },
 
  // Nutrition page
- "nutritionPage.title": { sv: "Plantbaserad proteinnäring", en: "Plant-Based Protein Nutrition" },
+  "nutritionPage.title": { sv: "Näring som faktiskt räknas", en: "Nutrition that actually counts" },
  "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% plantbaserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
  "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
  "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
@@ -299,20 +299,20 @@ const translations: Record<string, Record<Lang, string>> = {
  "reviews.errBodyMin": { sv: "Recensionen måste vara minst 5 tecken", en: "Review must be at least 5 characters" },
 
  // SEO per page
- "seo.home.title": { sv: "Hälsosam snabbmat | 20g Protein på 5 minuter | PLÄNTLY", en: "Healthy Fast Food | 20g Protein Meals in 5 Minutes | PLÄNTLY" },
- "seo.home.description": { sv: "20g växtprotein klart på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromisser.", en: "20g plant protein meals ready in 5 minutes. Developed in Sweden, crafted in Italy. Healthy fast food without compromise." },
- "seo.products.title": { sv: "Produkter – Hälsosam proteinmat på 5 min | PLÄNTLY", en: "Products – Healthy protein meals in 5 min | PLÄNTLY" },
- "seo.products.description": { sv: "Utforska PLÄNTLY:s sortiment: hälsosam, proteinrik och klimatsmart färdigmat med 20g protein per portion. Klar på 5 minuter.", en: "Explore PLÄNTLY's range: healthy, high-protein and climate-smart ready meals with 20g protein per serving. Ready in 5 minutes." },
- "seo.nutrition.title": { sv: "Näring — PLÄNTLY | Högprotein plantbaserad näring", en: "Nutrition — PLÄNTLY | High-protein plant-based nutrition" },
- "seo.nutrition.description": { sv: "Se näringsinnehållet i PLÄNTLY:s måltider — 20g+ protein, balanserade makros och naturliga ingredienser.", en: "See the nutrition in PLÄNTLY meals — 20g+ protein, balanced macros and natural ingredients." },
- "seo.lifestyle.title": { sv: "Livsstil — PLÄNTLY | Måltider för din livsstil", en: "Lifestyle — PLÄNTLY | Meals for your lifestyle" },
- "seo.lifestyle.description": { sv: "Upptäck hur PLÄNTLY passar din livsstil — för atleter, kontorsarbetare, entreprenörer och alla däremellan.", en: "Discover how PLÄNTLY fits your lifestyle — for athletes, office workers, entrepreneurs and everyone in between." },
- "seo.about.title": { sv: "Om PLÄNTLY – Hälsosam & klimatsmart proteinmat för alla | PLÄNTLY", en: "About PLÄNTLY – Healthy & climate-smart protein meals for everyone | PLÄNTLY" },
- "seo.about.description": { sv: "PLÄNTLY grundades för att göra hälsosam, proteinrik och klimatsmart mat tillgänglig för alla – inte bara veganer. Snabb, god och utan kompromisser.", en: "PLÄNTLY was founded to make healthy, high-protein and climate-smart food accessible to everyone — not just vegans. Fast, delicious and uncompromising." },
- "seo.faq.title": { sv: "Vanliga frågor — PLÄNTLY", en: "Frequently Asked Questions — PLÄNTLY" },
- "seo.faq.description": { sv: "Svar på vanliga frågor om PLÄNTLY:s plantbaserade proteinmåltider, leverans, ingredienser och mer.", en: "Answers to common questions about PLÄNTLY's plant-based protein meals, delivery, ingredients and more." },
- "seo.contact.title": { sv: "Kontakt — PLÄNTLY", en: "Contact — PLÄNTLY" },
- "seo.contact.description": { sv: "Kontakta oss på PLÄNTLY. Frågor om våra plantbaserade proteinmåltider? Vi finns här för dig.", en: "Contact PLÄNTLY. Questions about our plant-based protein meals? We're here for you." },
+  "seo.home.title": { sv: "PLÄNTLY — Växtbaserade Proteinmåltider | 20g Protein på 5 Minuter", en: "PLÄNTLY — Plant-Based Protein Meals | 20g Protein in 5 Minutes" },
+  "seo.home.description": { sv: "Växtbaserade proteinmåltider med 20g protein per portion — klara på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromisser.", en: "Plant-based protein meals with 20g protein per serving — ready in 5 minutes. Developed in Sweden, crafted in Italy. Healthy fast food without compromise." },
+  "seo.products.title": { sv: "Växtbaserade Proteinmåltider | Alla Smaker — PLÄNTLY", en: "Plant-Based Protein Meals | All Flavours — PLÄNTLY" },
+  "seo.products.description": { sv: "Fyra växtbaserade proteinmåltider med 20g protein — Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice och Smoky BBQ Lentils. Klara på 5 minuter.", en: "Four plant-based protein meals with 20g protein — Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice and Smoky BBQ Lentils. Ready in 5 minutes." },
+  "seo.nutrition.title": { sv: "Näring & Protein | Växtbaserade Proteinmåltider — PLÄNTLY", en: "Nutrition & Protein | Plant-Based Protein Meals — PLÄNTLY" },
+  "seo.nutrition.description": { sv: "Allt du behöver veta om näringen i PLÄNTLY — 20g växtprotein, balanserade kolhydrater och hälsosamma fetter per portion.", en: "Everything you need to know about PLÄNTLY nutrition — 20g plant protein, balanced carbohydrates and healthy fats per serving." },
+  "seo.lifestyle.title": { sv: "PLÄNTLY för Ditt Liv | Atleter, Kontor & Vardag", en: "PLÄNTLY for Your Life | Athletes, Office & Everyday" },
+  "seo.lifestyle.description": { sv: "Växtbaserade proteinmåltider för atleter, kontorsarbetare och alla som vägrar kompromissa med sin hälsa. Klar på 5 minuter — var du än är.", en: "Plant-based protein meals for athletes, office workers and everyone who refuses to compromise on their health. Ready in 5 minutes — wherever you are." },
+  "seo.about.title": { sv: "Om PLÄNTLY | Växtbaserade Proteinmåltider från Stockholm", en: "About PLÄNTLY | Plant-Based Protein Meals from Stockholm" },
+  "seo.about.description": { sv: "PLÄNTLY skapades i Stockholm ur en enkel frustration — varför ska hälsosam mat ta tid? Riktiga råvaror, 20g växtprotein, klart på 5 minuter.", en: "PLÄNTLY was created in Stockholm from a simple frustration — why should healthy food take time? Real ingredients, 20g plant protein, ready in 5 minutes." },
+  "seo.faq.title": { sv: "Vanliga Frågor om PLÄNTLY | Proteinmåltider & Leverans", en: "FAQ — PLÄNTLY | Protein Meals & Delivery" },
+  "seo.faq.description": { sv: "Svar på de vanligaste frågorna om PLÄNTLY — protein, allergener, leverans, frakt och hur du tillagar dina måltider.", en: "Answers to the most common questions about PLÄNTLY — protein, allergens, delivery, shipping and how to prepare your meals." },
+  "seo.contact.title": { sv: "Kontakta PLÄNTLY | hello@plaently.com", en: "Contact PLÄNTLY | hello@plaently.com" },
+  "seo.contact.description": { sv: "Frågor om produkter, leverans eller samarbeten? Kontakta oss på hello@plaently.com — vi svarar inom 24 timmar på vardagar.", en: "Questions about products, delivery or collaboration? Contact us at hello@plaently.com — we respond within 24 hours on weekdays." },
 
  // Newsletter popup
  "newsletter.title": { sv: "Gå med i PLÄNTLY-familjen", en: "Join the PLÄNTLY family" },
