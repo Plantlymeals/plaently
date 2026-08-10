@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
 import MarketSelector from "@/components/MarketSelector";
+import { openCookieSettings } from "@/lib/cookieConsent";
 const logo = "/images/logo.png";
 
 const Footer = () => {
