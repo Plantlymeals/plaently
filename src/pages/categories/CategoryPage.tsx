@@ -14,10 +14,9 @@ import {
 
 interface Props {
   categoryKey: CategoryKey;
-  canonicalPath?: string;
 }
 
-const CategoryPage = ({ categoryKey, canonicalPath }: Props) => {
+const CategoryPage = ({ categoryKey }: Props) => {
   const { lang } = useTranslation();
   const c = getCategoryContent(categoryKey, lang);
 
@@ -35,7 +34,7 @@ const CategoryPage = ({ categoryKey, canonicalPath }: Props) => {
       <SEOHead
         title={c.metaTitle}
         description={c.metaDescription}
-        path={canonicalPath ?? `/${c.slug}`}
+        path={`/${c.slug}`}
         locale={lang}
         alternates={alternates}
       />
