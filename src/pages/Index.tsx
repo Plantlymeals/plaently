@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tSv } from "@/lib/i18n";
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
 import StarterPackHighlight from "@/components/home/StarterPackHighlight";
@@ -12,6 +12,23 @@ import NutritionPreview from "@/components/home/NutritionPreview";
 import InternalLinks from "@/components/InternalLinks";
 import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
 import { lazy, Suspense, Component, ReactNode } from "react";
+
+const ORGANIZATION_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "PLÄNTLY AB",
+  description: "Växtbaserade proteinmåltider med 20g protein — klara på 5 minuter.",
+  url: "https://plaently.com",
+  logo: "https://plaently.com/images/logo.png",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Vretensborgsvägen 5",
+    postalCode: "126 30",
+    addressLocality: "Hägersten",
+    addressCountry: "SE",
+  },
+  email: "hello@plaently.com",
+};
 
 const LifestyleSection   = lazy(() => import("@/components/home/LifestyleSection"));
 const BundleSection      = lazy(() => import("@/components/home/BundleSection"));
@@ -69,6 +86,9 @@ const Index = () => {
         description={t("seo.home.description")}
         path="/"
         locale={lang}
+        ogTitle={tSv("seo.home.title")}
+        ogDescription={tSv("seo.home.description")}
+        jsonLd={ORGANIZATION_SCHEMA}
         alternates={[
           { hreflang: "sv", path: "/" },
           { hreflang: "en", path: "/" },

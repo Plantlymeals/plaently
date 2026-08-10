@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tSv } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
@@ -356,7 +356,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} ogTitle={tSv("seo.products.title")} ogDescription={tSv("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />
