@@ -11,6 +11,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import NoIndexHead from "@/components/NoIndexHead";
 import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
+import CookieConsent from "@/components/CookieConsent";
 import Index from "./pages/Index";
 
 const Products = lazy(() => import("./pages/Products").then(m => ({ default: m.Products })));
@@ -110,6 +111,7 @@ const AppContent = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <CookieConsent />
     </ChunkErrorBoundary>
   );
 };

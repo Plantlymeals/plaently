@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" /></noscript>
 
-    <!-- Google Analytics (GA4) — load lazily on first interaction or after idle to save ~170 KiB on initial load -->
+    <!-- Google Analytics (GA4) — GDPR: only loads after explicit analytics consent, then lazily on first interaction -->
     <script>
       (function () {
         var loaded = false;
@@ -37,14 +37,26 @@
           gtag('js', new Date());
           gtag('config', 'G-WMLNNYVRSX');
         }
+        function hasAnalyticsConsent() {
+          try {
+            var raw = localStorage.getItem('plaently_cookie_consent_v1');
+            return !!raw && JSON.parse(raw).analytics === true;
+          } catch (e) { return false; }
+        }
+        var armed = false;
         var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
         function trigger() {
           events.forEach(function (e) { window.removeEventListener(e, trigger, { passive: true }); });
           loadGA();
         }
-        events.forEach(function (e) { window.addEventListener(e, trigger, { passive: true, once: true }); });
-        // No idle/timeout fallback — only load on real user interaction so
-        // synthetic audits (Lighthouse/PageSpeed) don't pull in 170 KiB of GTM.
+        function arm() {
+          if (armed || !hasAnalyticsConsent()) return;
+          armed = true;
+          events.forEach(function (e) { window.addEventListener(e, trigger, { passive: true, once: true }); });
+        }
+        // Re-check when the consent banner stores a choice.
+        window.addEventListener('plaently-consent-change', arm);
+        arm();
       })();
     </script>
     <!-- removed: managed per-route by SEOHead (react-helmet-async) -->

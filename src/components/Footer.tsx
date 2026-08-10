@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
 import MarketSelector from "@/components/MarketSelector";
+import { openCookieSettings } from "@/lib/cookieConsent";
 const logo = "/images/logo.png";
 
 const Footer = () => {
@@ -55,6 +56,13 @@ const Footer = () => {
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="text-sm text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
               ))}
+              <button
+                type="button"
+                onClick={openCookieSettings}
+                className="text-sm text-left text-primary-foreground/60 hover:text-primary transition-colors"
+              >
+                {lang === "sv" ? "Cookie-inställningar" : "Cookie settings"}
+              </button>
             </nav>
           </div>
           <div className="space-y-4">
