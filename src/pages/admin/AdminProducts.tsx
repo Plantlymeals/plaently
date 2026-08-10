@@ -98,6 +98,7 @@ const AdminProducts = () => {
     if (!confirm("Delete this product?")) return;
     await supabase.from("products").delete().eq("id", id);
     toast.success("Product deleted");
+    notifySitemapChanged();
     fetch();
   };
 
