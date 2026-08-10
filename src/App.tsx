@@ -91,7 +91,7 @@ const AppContent = () => {
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
-          <Route path="/admin/login" element={<><NoIndexHead />><AdminLogin /></>} />
+          <Route path="/admin/login" element={<><NoIndexHead /><AdminLogin /></>} />
 
           <Route path="/admin" element={<ProtectedRoute><NoIndexHead /><AdminDashboard /></ProtectedRoute>}>
             <Route index element={<AdminOverview />} />
