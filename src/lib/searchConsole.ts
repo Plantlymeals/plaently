@@ -22,3 +22,25 @@ export async function submitSitemapToGoogle(options?: { silent?: boolean }) {
   if (!options?.silent) toast.success("Sitemap skickad till Google Search Console");
   return { ok: true as const, message: "Sitemap skickad" };
 }
+
+let pendingTimer: ReturnType<typeof setTimeout> | null = null;
+let lastSubmit = 0;
+const DEBOUNCE_MS = 3000;
+const MIN_INTERVAL_MS = 60_000;
+
+/**
+ * Call after ANY CMS publish/edit/delete. Debounced so a burst of admin edits
+ * results in a single Search Console submission, and rate-limited to once a
+ * minute. The sitemap itself is generated live by the `sitemap` edge function,
+ * so this only nudges Google to re-crawl it.
+ */
+export function notifySitemapChanged() {
+  if (pendingTimer) clearTimeout(pendingTimer);
+  pendingTimer = setTimeout(() => {
+    pendingTimer = null;
+    const now = Date.now();
+    if (now - lastSubmit < MIN_INTERVAL_MS) return;
+    lastSubmit = now;
+    void submitSitemapToGoogle({ silent: true });
+  }, DEBOUNCE_MS);
+}

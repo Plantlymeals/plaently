@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables } from "@/integrations/supabase/types";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
-import { submitSitemapToGoogle } from "@/lib/searchConsole";
+import { notifySitemapChanged } from "@/lib/searchConsole";
 
 type BlogPost = Tables<"blog_posts">;
 
@@ -51,14 +51,14 @@ const AdminBlog = () => {
       toast.success("Post updated");
     }
     // Newly published content: nudge Google to re-crawl the sitemap.
-    if (form.is_published) void submitSitemapToGoogle({ silent: true });
+    notifySitemapChanged();
     cancel(); fetchPosts();
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this post?")) return;
     await supabase.from("blog_posts").delete().eq("id", id);
-    toast.success("Post deleted"); fetchPosts();
+    toast.success("Post deleted"); notifySitemapChanged(); fetchPosts();
   };
 
   return (

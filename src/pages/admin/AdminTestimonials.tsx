@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { notifySitemapChanged } from "@/lib/searchConsole";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,13 +39,14 @@ const AdminTestimonials = () => {
       if (error) { toast.error(error.message); return; }
       toast.success("Testimonial updated");
     }
+    notifySitemapChanged();
     cancel(); fetchItems();
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this testimonial?")) return;
     await supabase.from("testimonials").delete().eq("id", id);
-    toast.success("Testimonial deleted"); fetchItems();
+    toast.success("Testimonial deleted"); notifySitemapChanged(); fetchItems();
   };
 
   return (
