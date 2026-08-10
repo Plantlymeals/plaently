@@ -20,7 +20,7 @@ export const CartDrawer = () => {
   const [bundles, setBundles] = useState<BundleRow[]>([]);
   const marketCfg = useMarketConfig();
   const marketName = marketLabel(marketCfg.code, lang);
-  const threshold = marketCfg.freeShippingThreshold;
+  const threshold = marketCfg.freeShippingThresholdSek;
   const qualifiesFreeShipping = totalPrice >= threshold;
   const remaining = Math.max(0, threshold - totalPrice);
   const progressPct = Math.min(100, (totalPrice / threshold) * 100);
