@@ -448,6 +448,9 @@ export const useLangStore = create<LangStore>()(
 );
 
 // Hook shortcut
+// Swedish copy lookup — used for OG/Twitter cards which always use the Swedish variant.
+export const tSv = (key: string): string => translations[key]?.sv ?? key;
+
 export const useTranslation = () => {
  const lang = useLangStore((s) => s.lang);
  const t = useLangStore((s) => s.t);
