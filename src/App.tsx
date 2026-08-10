@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-
 import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import NoIndexHead from "@/components/NoIndexHead";
 import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import Index from "./pages/Index";
@@ -91,9 +92,9 @@ const AppContent = () => {
           <Route path="/terms-of-service" element={<Terms />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/.lovable/oauth/consent" element={<OAuthConsent />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/login" element={<><NoIndexHead /><AdminLogin /></>} />
 
-          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}>
+          <Route path="/admin" element={<ProtectedRoute><NoIndexHead /><AdminDashboard /></ProtectedRoute>}>
             <Route index element={<AdminOverview />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="blog" element={<AdminBlog />} />

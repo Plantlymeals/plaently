@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import NoIndexHead from "@/components/NoIndexHead";
 
 type OAuthNamespace = {
   getAuthorizationDetails: (id: string) => Promise<{ data: any; error: { message: string } | null }>;
@@ -70,6 +71,7 @@ const OAuthConsent = () => {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-secondary/30 px-4">
+      <NoIndexHead title="Authorize app — PLÄNTLY" />
       <div className="w-full max-w-sm bg-card rounded-2xl shadow-elevated p-8 space-y-6 text-center">
         <h1 className="font-heading text-2xl font-bold text-primary">PLÄNTLY</h1>
         {error ? (
