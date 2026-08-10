@@ -6,8 +6,8 @@ import { useTranslation } from "@/lib/i18n";
 
 const COPY = {
   sv: {
-    seoTitle: "Köpvillkor | PLÄNTLY",
-    seoDesc: "PLÄNTLY köpvillkor: priser i SEK inkl. moms, fri frakt från 399 kr, 14 dagars ångerrätt, 3 års reklamationsrätt och tvistlösning via ARN enligt svensk lag.",
+    seoTitle: "Köpvillkor — PLÄNTLY AB | Org.nr SE559400472201",
+    seoDesc: "Köpvillkor för plaently.com — ångerrätt, leverans, reklamation och betalning.",
     label: "Köpvillkor",
     h1: "Tydliga villkor. Inga överraskningar.",
     sub: "Dessa villkor gäller för alla köp på plaently.com. Senast uppdaterad: maj 2026 · Version 1.0",
@@ -118,7 +118,7 @@ const Terms = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">
