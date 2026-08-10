@@ -1,35 +1,22 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { resolveLegacyRedirect } from "@/lib/legacyRedirects";
 
-// Strips legacy WordPress-style query params (page_id, p, preview, replytocom)
-// so Google doesn't index duplicate URLs like /?page_id=2.
-// Strip legacy WordPress-style query params so Google doesn't index duplicate
-// URLs like /?page_id=2, /?cat=1, /?p=1, /?feed=rss2 (seen in Search Console).
+// Strips legacy WordPress-style query params so Google doesn't index duplicate
+// URLs like /?page_id=2, /?cat=1, /?p=1, /?feed=rss2 (seen in Search Console),
+// and folds legacy/duplicate paths into their primary URL.
 const LEGACY_PARAMS = ["page_id", "p", "preview", "replytocom", "cat", "feed", "m", "author"];
-
-// Stale Shopify handles → corrected handles (cup counts reconciled to match CMS).
-// Old indexed URLs (60/120/30 cups) now permanently redirect to the honest
-// 48/96/24 cup URLs.
-const HANDLE_REDIRECTS: Record<string, string> = {
-  "office-pack-60-cups": "office-pack-48-cups",
-  "big-office-pack-120-cups": "big-office-pack-96-cups",
-  "monthly-box-30-cups": "monthly-box-24-cups",
-};
 
 const LegacyQueryRedirect = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Path-based handle redirects (run before query-strip).
-    const productMatch = location.pathname.match(/^\/(product|products)\/([^/]+)\/?$/);
-    if (productMatch) {
-      const oldHandle = productMatch[2];
-      const newHandle = HANDLE_REDIRECTS[oldHandle];
-      if (newHandle) {
-        navigate(`/product/${newHandle}${location.search}${location.hash}`, { replace: true });
-        return;
-      }
+    // Path-based redirects (legacy aliases + stale product handles) run first.
+    const primary = resolveLegacyRedirect(location.pathname);
+    if (primary) {
+      navigate(`${primary}${location.search}${location.hash}`, { replace: true });
+      return;
     }
 
     if (!location.search) return;
