@@ -22,9 +22,31 @@ import { getCupMeta } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 
+// Per-product SEO copy. NOTE: Carbonara and Yellow Curry contain milk protein —
+// they must never be described as "vegan".
+const PRODUCT_SEO: Record<string, { sv: { title: string; description: string }; en: { title: string; description: string } }> = {
+  "fusilli-bolognese": {
+    sv: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 263 kcal per portion." },
+    en: { title: "Vegan Fusilli Bolognese | 20g Protein — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 263 kcal per serving." },
+  },
+  "pasta-carbonara": {
+    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
+    en: { title: "Veggie Pasta Carbonara | 20g Protein — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+  },
+  "yellow-curry-rice": {
+    sv: { title: "Vegetarisk Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 285 kcal per portion." },
+    en: { title: "Veggie Yellow Curry & Rice | 20g Protein — PLÄNTLY", description: "Veggie Yellow Curry & Rice with 20g plant protein. Ready in 5 minutes — just add boiling water to the black line. 285 kcal per serving." },
+  },
+  "smoky-bbq-lentils": {
+    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter — tillsätt bara kokande vatten upp till det svarta strecket. 228 kcal per portion." },
+    en: { title: "Vegan Smoky BBQ Lentils | 21g Protein — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein. Ready in 5 minutes — just add boiling water to the black line. 228 kcal per serving." },
+  },
+};
+
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
+  const productSeo = productHandle ? PRODUCT_SEO[productHandle] : undefined;
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
@@ -193,14 +215,17 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={lang === "sv"
+        title={productSeo?.[lang].title ?? (lang === "sv"
           ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
-          : `${product.title} – 20g protein in 5 min | PLÄNTLY`}
-        description={translatedDesc || (lang === "sv"
+          : `${product.title} – 20g protein in 5 min | PLÄNTLY`)}
+        description={productSeo?.[lang].description ?? translatedDesc ?? (lang === "sv"
           ? `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
           : `Healthy ${product.title.toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
+        ogTitle={productSeo?.sv.title}
+        ogDescription={productSeo?.sv.description}
         path={`/product/${product.handle}`}
         type="product"
+        locale={lang}
         jsonLd={jsonLd}
       />
       <section className="py-12 md:py-20">
