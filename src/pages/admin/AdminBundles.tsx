@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { notifySitemapChanged } from "@/lib/searchConsole";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -68,13 +69,14 @@ const AdminBundles = () => {
       if (error) { toast.error(error.message); return; }
       toast.success("Bundle updated");
     }
+    notifySitemapChanged();
     cancel(); fetchBundles();
   };
 
   const remove = async (id: string) => {
     if (!confirm("Delete this bundle?")) return;
     await supabase.from("bundles").delete().eq("id", id);
-    toast.success("Bundle deleted"); fetchBundles();
+    toast.success("Bundle deleted"); notifySitemapChanged(); fetchBundles();
   };
 
   return (

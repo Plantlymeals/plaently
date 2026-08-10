@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { notifySitemapChanged } from "@/lib/searchConsole";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -28,6 +29,7 @@ const AdminHero = () => {
     const { error } = await supabase.from("hero_content").update(payload).eq("id", editing!);
     if (error) { toast.error(error.message); return; }
     toast.success("Hero content updated");
+    notifySitemapChanged();
     cancel(); fetchItems();
   };
 

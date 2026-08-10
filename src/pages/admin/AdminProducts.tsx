@@ -9,7 +9,7 @@ import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 import type { Tables, TablesInsert } from "@/integrations/supabase/types";
 import { translateProductHtml } from "@/lib/productDescription";
 import ImageUpload from "@/components/admin/ImageUpload";
-import { submitSitemapToGoogle } from "@/lib/searchConsole";
+import { notifySitemapChanged } from "@/lib/searchConsole";
 
 type Product = Tables<"products">;
 
@@ -89,7 +89,7 @@ const AdminProducts = () => {
       toast.success("Product updated");
     }
     // Newly published content: nudge Google to re-crawl the sitemap.
-    if (form.is_published) void submitSitemapToGoogle({ silent: true });
+    notifySitemapChanged();
     cancel();
     fetch();
   };
