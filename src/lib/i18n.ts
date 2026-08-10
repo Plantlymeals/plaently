@@ -66,7 +66,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "why.highProtein": { sv: "Protein måltider", en: "High Protein" },
  "why.highProteinDesc": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
  "why.plantBased": { sv: "Plantbaserat", en: "Plant-Based" },
- "why.plantBasedDesc": { sv: "100% plantbaserad protein", en: "100% plant-based protein" },
+ "why.plantBasedDesc": { sv: "Växtbaserat protein", en: "Plant protein" },
  "why.lowSugar": { sv: "Lågt socker", en: "Low Sugar" },
  "why.lowSugarDesc": { sv: "Vissa tillsatta sockerarter eller sötningsmedel", en: "Some added sugars or sweeteners" },
  "why.readyInMinutes": { sv: "Klart på minuter", en: "Ready in Minutes" },
@@ -124,7 +124,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "productDetail.prepStep2": { sv: "Tillsätt hett vatten till markeringen", en: "Add hot water to the line" },
  "productDetail.prepStep3": { sv: "Rör om och vänta 5 min", en: "Stir and wait 5 min" },
  "productDetail.benefitsTitle": { sv: "Hälsosam snabbmat", en: "Healthy fast food" },
- "productDetail.benefitsDesc": { sv: "100% plantbaserad protein, balanserade makron och riktiga ingredienser — på tiden det tar att koka vatten.", en: "100% plant-based protein, balanced macros and real ingredients — in the time it takes to boil water." },
+ "productDetail.benefitsDesc": { sv: "Växtbaserat protein, balanserade makron och riktiga ingredienser — på tiden det tar att koka vatten.", en: "Plant protein, balanced macros and real ingredients — in the time it takes to boil water." },
  "productDetail.ctaSubscribe": { sv: "Starta prenumeration", en: "Start subscription" },
 
  // Bundles
@@ -181,7 +181,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Nutrition page
   "nutritionPage.title": { sv: "Näring som faktiskt räknas", en: "Nutrition that actually counts" },
- "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från 100% plantbaserad protein..", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from 100% plant-based protein." },
+ "nutritionPage.subtitle": { sv: "Varje PLÄNTLY-måltid är formulerad av nutritionister för att leverera komplett, balanserad näring från växtbaserat protein.", en: "Every PLÄNTLY meal is formulated by nutritionists to deliver complete, balanced nutrition from plant protein." },
  "nutritionPage.proteinDesc": { sv: "Komplett aminosyraprofil från ärt- och solrosprotein.", en: "Complete amino acid profile from pea and sunflower protein." },
  "nutritionPage.carbsLabel": { sv: "Kolhydrater", en: "Carbohydrates" },
  "nutritionPage.carbsValue": { sv: "25–37g", en: "25–37g" },
