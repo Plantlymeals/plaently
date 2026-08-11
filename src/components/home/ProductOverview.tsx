@@ -7,7 +7,7 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
-import { getCupMeta } from "@/lib/productImages";
+import { getCupMeta, displayProductTitle } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 
 const ProductOverview = () => {
@@ -41,14 +41,14 @@ const ProductOverview = () => {
                   <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                     {cupMeta && <CupBadges meta={cupMeta} />}
                     {cupMeta ? (
-                      <img src={cupMeta.src} alt={`${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
+                      <img src={cupMeta.src} alt={`${displayProductTitle(product.node.title)} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
                     ) : image ? (
-                      <img src={`${image.url}&width=520`} alt={image.altText || `${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain rounded-xl" loading="lazy" />
+                      <img src={`${image.url}&width=520`} alt={image.altText || `${displayProductTitle(product.node.title)} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain rounded-xl" loading="lazy" />
                     ) : (
                       <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                     )}
                   </div>
-                  <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h3>
+                  <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h3>
                   {(() => {
                     const amount = parseFloat(price.amount);
                     const savings = getBundleSavings(product.node.title, amount);

@@ -11,6 +11,7 @@ import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
 import SavingsBadge from "@/components/SavingsBadge";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
+import { displayProductTitle } from "@/lib/productImages";
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
@@ -31,12 +32,37 @@ function badgeToHighlight(badge: string | null | undefined): Highlight {
   return null;
 }
 
+// Localised label for the free-text badge stored in the CMS.
+const BADGE_KEYS: [RegExp, string][] = [
+  [/kr(ä|a)mig|creamy/i, "bundles.badge.creamyFavourite"],
+  [/energigivande|energis/i, "bundles.badge.mostEnergising"],
+  [/fiberrik|high\s*fib/i, "bundles.badge.highFibre"],
+  [/italien/i, "bundles.badge.italianFavourite"],
+  [/team/i, "bundles.badge.teamFavourite"],
+  [/perfekt start|perfect start/i, "bundles.badge.perfectStart"],
+];
+
+function badgeLabel(badge: string, t: (k: string) => string): string {
+  const b = badge.trim();
+  for (const [re, key] of BADGE_KEYS) if (re.test(b)) return t(key);
+  return b;
+}
+
 function featuresForBundle(cups: number, isSubscription: boolean): string[] {
-  if (isSubscription || cups >= 48) {
+  if (isSubscription) {
     return [
       "bundles.feat.monthlyMix",
       "bundles.feat.freeShipAlways",
       "bundles.feat.cancelAnytime",
+      "bundles.feat.priorityCs",
+    ];
+  }
+  if (cups >= 48) {
+    // One-time office packs are not subscriptions — no "cancel anytime".
+    return [
+      "bundles.feat.mix4",
+      "bundles.feat.freeShipAlways",
+      "bundles.feat.delivered",
       "bundles.feat.priorityCs",
     ];
   }
@@ -218,7 +244,7 @@ const BundleSection = () => {
                   )}
                   {!highlight && b.badge && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
-                      {b.badge}
+                      {badgeLabel(b.badge, t)}
                     </span>
                   )}
                 </div>
@@ -294,7 +320,7 @@ const BundleSection = () => {
                     <ul className="space-y-1.5">
                       {contents.map((c, i) => (
                         <li key={i} className="flex items-center justify-between gap-3 text-sm text-white/90">
-                          <span className="min-w-0 break-words">{c.name}</span>
+                          <span className="min-w-0 break-words">{displayProductTitle(c.name)}</span>
                           <span className="font-semibold tabular-nums shrink-0 whitespace-nowrap">× {c.quantity}</span>
                         </li>
                       ))}

@@ -47,3 +47,16 @@ export function getCupMeta(title: string | undefined | null): CupMeta | null {
 export function getCupImage(title: string | undefined | null): string | null {
   return getCupMeta(title)?.src ?? null;
 }
+
+/**
+ * Display title for a product. Carbonara and Yellow Curry contain milk protein,
+ * so the "Plant-Based" prefix must be stripped from their names everywhere.
+ */
+export function displayProductTitle(title: string | undefined | null): string {
+  if (!title) return "";
+  const meta = getCupMeta(title);
+  if (meta && !meta.vegan) {
+    return title.replace(/plant[\s\u2011\u2010-]*based\s*/gi, "").trim();
+  }
+  return title;
+}

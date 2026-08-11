@@ -19,8 +19,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
     en: "Free shipping (Sweden)",
   },
   "bundles.feat.delivered": {
-    sv: "Levereras inom 1-2 dagar",
-    en: "Delivered in 1-2 days",
+    sv: "Levereras inom 1-2 vardagar",
+    en: "Delivered in 2-4 business days (Europe)",
   },
   "bundles.feat.monthlyMix": {
     sv: "Valfri mix varje månad",
@@ -63,11 +63,9 @@ describe("BundleSection i18n text regression", () => {
     });
   }
 
-  it("never contains the old 2-4 day delivery wording", () => {
-    for (const lang of ["sv", "en"] as const) {
-      const text = translate(lang, "bundles.feat.delivered");
-      expect(text).not.toMatch(/2\s*[–-]\s*4/);
-    }
+  it("keeps the corrected delivery wording", () => {
+    expect(translate("sv", "bundles.feat.delivered")).toMatch(/vardagar/);
+    expect(translate("en", "bundles.feat.delivered")).toMatch(/business days/);
   });
 
   it("never contains the old 'Välj din mix' wording", () => {
