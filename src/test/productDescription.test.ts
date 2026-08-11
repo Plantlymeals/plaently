@@ -19,6 +19,12 @@ const carbonaraEn =
 const carbonaraSv =
   "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås.";
 
+const smokyBbqEn =
+  "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce.";
+
+const smokyBbqSv =
+  "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Proteinrika gröna linser med vegansk rökig BBQ sås.";
+
 describe("product description translation", () => {
   it("fixes mixed Swedish words in Yellow Curry English copy", () => {
     const result = translateProductHtml(yellowCurryMixed, "en");
