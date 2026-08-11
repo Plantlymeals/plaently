@@ -7,14 +7,14 @@ const EN_TO_SV: Array<[RegExp, string]> = [
     "Skaka den stängda koppen. Ta av locket, tillsätt $1 ml kokande vatten och rör om väl med en gaffel. Vänta 5 minuter, rör om igen och njut!"],
 
   // Short marketing intros (run BEFORE word-level replacements so they match raw English)
-  [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with vegan bolognese sauce\./gi,
+  [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with (?:vegan|a creamy) bolognese sauce\./gi,
     "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
-  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
+  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with (?:vegan|a creamy) carbonara sauce\./gi,
     "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
-  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
-    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
-  [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
-    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat."],
+  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with (?:vegan|a creamy) smoky BBQ sauce\./gi,
+    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök — rik linsstruktur, maximal mättnad. Proteinbaserade gröna linser med vegansk rökig BBQ sås."],
+  [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with (?:vegan|a creamy) yellow curry sauce\./gi,
+    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
   [/Pick your mix of all 4 flavours\. 12 plant-based protein meals — free shipping in Sweden, delivered in 2–4 days\./gi,
     "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar."],
 
@@ -30,24 +30,24 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   // Headings
   [/Nutrition per serving\s*\(/gi, "Näringsinnehåll per portion ("],
   [/Nutrition per serving/gi, "Näringsinnehåll per portion"],
-  [/>\s*Ingredients\s*</g, ">Ingredienser<"],
-  [/>\s*Allergens\s*</g, ">Allergener<"],
-  [/>\s*Preparation\s*</g, ">Tillagning<"],
+  [/>(\s*)Ingredients(\s*)</g, ">$1Ingredienser$2<"],
+  [/>(\s*)Allergens(\s*)</g, ">$1Allergener$2<"],
+  [/>(\s*)Preparation(\s*)</g, ">$1Tillagning$2<"],
 
   // Table headers
-  [/>\s*Nutrient\s*</g, ">Näringsämne<"],
-  [/>\s*Per serving\s*</g, ">Per portion<"],
+  [/>(\s*)Nutrient(\s*)</g, ">$1Näringsämne$2<"],
+  [/>(\s*)Per serving(\s*)</g, ">$1Per portion$2<"],
 
   // Nutrient names (inside <td>)
-  [/>\s*Energy\s*</g, ">Energi<"],
-  [/>\s*Saturates\s*</g, ">Varav mättat fett<"],
-  [/>\s*Carbohydrates\s*</g, ">Kolhydrater<"],
-  [/>\s*Sugars\s*</g, ">Varav sockerarter<"],
-  [/>\s*Fibre\s*</g, ">Fiber<"],
-  [/>\s*Fiber\s*</g, ">Fiber<"],
-  [/>\s*Protein\s*</g, ">Protein<"],
-  [/>\s*Salt\s*</g, ">Salt<"],
-  [/>\s*Fat\s*</g, ">Fett<"],
+  [/>(\s*)Energy(\s*)</g, ">$1Energi$2<"],
+  [/>(\s*)Saturates(\s*)</g, ">$1Varav mättat fett$2<"],
+  [/>(\s*)Carbohydrates(\s*)</g, ">$1Kolhydrater$2<"],
+  [/>(\s*)Sugars(\s*)</g, ">$1Varav sockerarter$2<"],
+  [/>(\s*)Fibre(\s*)</g, ">$1Fiber$2<"],
+  [/>(\s*)Fibre(\s*)</g, ">$1Fiber$2<"],
+  [/>(\s*)Protein(\s*)</g, ">$1Protein$2<"],
+  [/>(\s*)Salt(\s*)</g, ">$1Salt$2<"],
+  [/>(\s*)Fat(\s*)</g, ">$1Fett$2<"],
 
   // Footer line
   [/Net weight:/gi, "Nettovikt:"],
@@ -111,6 +111,117 @@ const EN_TO_SV: Array<[RegExp, string]> = [
 
 ];
 
+// Reverse mapping for English output. Phrases must run before word-level swaps.
+const SV_TO_EN: Array<[RegExp, string]> = [
+  // Marketing intros (longest first)
+  [/En solfylld smakupplevelse med rik, kryddig bolognesesås\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
+    "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce."],
+  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
+    "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
+  [/Rökig BBQ med sotad paprika,\s*karamelliserad lök och vitlök\s*—\s*rik linsstruktur,\s*maximal mättnad\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
+    "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce."],
+  [/Krämig kokosmjölk med curry,\s*koriander och lime\s*—\s*en resa till sydostasiatisk gatumat\./gi,
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food."],
+
+  // Mixed SV/EN phrases that have leaked into Shopify data
+  [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\./gi,
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food."],
+  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
+    "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
+  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
+    "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
+  [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
+    "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce."],
+  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
+    "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce."],
+
+  // Allergen labels
+  [/<strong>\s*Innehåller:\s*<\/strong>/gi, "<strong>Contains:</strong>"],
+  [/<strong>\s*Kan innehålla:\s*<\/strong>/gi, "<strong>May contain:</strong>"],
+  [/\bInnehåller:\s*/gi, "Contains: "],
+  [/\binnehåller\b/gi, "contains"],
+  [/\bKan innehålla:\s*/gi, "May contain: "],
+  [/Inga \(allergenfritt\)\./gi, "None (allergen free)."],
+
+  // Headings
+  [/Näringsinnehåll per serving\s*\(/gi, "Nutrition per serving ("],
+  [/Näringsinnehåll per serving/gi, "Nutrition per serving"],
+  [/>(\s*)Ingredienser(\s*)</g, ">$1Ingredients$2<"],
+  [/>(\s*)Allergener(\s*)</g, ">$1Allergens$2<"],
+  [/>(\s*)Tillagning(\s*)</g, ">$1Preparation$2<"],
+
+  // Table headers
+  [/>(\s*)Näringsämne(\s*)</g, ">$1Nutrient$2<"],
+  [/>(\s*)Per portion(\s*)</g, ">$1Per serving$2<"],
+
+  // Nutrient names
+  [/>(\s*)Energi(\s*)</g, ">$1Energy$2<"],
+  [/>(\s*)Varav mättat fett(\s*)</g, ">$1Saturates$2<"],
+  [/>(\s*)Kolhydrater(\s*)</g, ">$1Carbohydrates$2<"],
+  [/>(\s*)Varav sockerarter(\s*)</g, ">$1Sugars$2<"],
+  [/>(\s*)Fiber(\s*)</g, ">$1Fibre$2<"],
+  [/>(\s*)Protein(\s*)</g, ">$1Protein$2<"],
+  [/>(\s*)Salt(\s*)</g, ">$1Salt$2<"],
+  [/>(\s*)Fett(\s*)</g, ">$1Fat$2<"],
+
+  // Footer line
+  [/Nettovikt:/gi, "Net weight:"],
+  [/Hållbarhet:/gi, "Shelf life:"],
+  [/(\d+)\s*månader\b/gi, "$1 months"],
+
+  // Ingredient terms
+  [/icke-härdad högoljesyra solrosolja/gi, "un-hydrogenated sunflower oil high oleic"],
+  [/solrosolja i pulverform/gi, "sunflower oil in powder"],
+  [/Texturerat solrosprotein/gi, "texturized sunflower protein"],
+  [/texturerat solrosprotein/gi, "texturized sunflower protein"],
+  [/förkokta gröna linser/gi, "precooked green lentils"],
+  [/förkokt ris/gi, "precooked rice"],
+  [/smältostpulver/gi, "processed cheese powder"],
+  [/karamelliserat lökpulver/gi, "caramelized sugar powder"],
+  [/karamelliserat socker/gi, "caramelized sugar"],
+  [/limejuicekoncentrat i pulverform/gi, "lime concentrated juice powder"],
+  [/limejuicekoncentrat/gi, "lime juice concentrate"],
+  [/natriumkaseinat/gi, "sodium caseinate"],
+  [/naturliga aromer/gi, "natural flavourings"],
+  [/currypulver/gi, "curry powder"],
+  [/kokosmjölk/gi, "coconut milk"],
+  [/mjölkprotein/gi, "milk protein"],
+  [/vasslepulver/gi, "whey powder"],
+  [/glukossirap/gi, "glucose syrup"],
+  [/vegetabiliskt fett/gi, "vegetable fat"],
+  [/tomatpulver/gi, "tomato powder"],
+  [/rörsocker/gi, "cane sugar"],
+  [/svartpeppar/gi, "black pepper"],
+  [/E262 natriumdiacetat/gi, "E262 sodium diacetate"],
+  [/durumvete/gi, "durum wheat semolina"],
+  [/ärtproteinisolat/gi, "pea protein isolate"],
+  [/texturerat ärtprotein/gi, "texturized pea protein"],
+  [/extra jungfruolivolja/gi, "extra virgin olive oil"],
+  [/röd paprika/gi, "red bell pepper"],
+  [/örter\s*&amp;\s*kryddor/gi, "herbs &amp; spices"],
+  [/potatisstärkelse/gi, "potato starch"],
+  [/aromer/gi, "flavourings"],
+  [/\btomat\b/gi, "tomato"],
+  [/\blök\b/gi, "onion"],
+  [/\bvitlök\b/gi, "garlic"],
+  [/\bmorot\b/gi, "carrot"],
+  [/\bsocker\b/gi, "sugar"],
+  [/\bgurkmeja\b/gi, "turmeric"],
+  [/\bkoriander\b/gi, "coriander"],
+  [/\bdextros\b/gi, "dextrose"],
+  [/\bmaltodextrin\b/gi, "maltodextrin"],
+  [/\bgräddpulver\b/gi, "creamer"],
+  [/\bjäst\b/gi, "yeast"],
+  [/\bsalt\b/gi, "salt"],
+  [/\bVete\b/g, "Wheat"],
+  [/\bvete\b/g, "wheat"],
+  [/\bSoja\b/g, "Soy"],
+  [/\bsoja\b/g, "soy"],
+  [/\bägg\b/gi, "egg"],
+  [/\bmjölk\b/gi, "milk"],
+  [/\boch\b/g, "and"],
+];
+
 /**
  * Removes "vegan" / "100% plant-based" claims from Carbonara and Yellow Curry
  * copy (they contain milk protein). Bolognese and Smoky BBQ are untouched.
@@ -135,15 +246,32 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   if (!html) return "";
   html = sanitizeVeganClaims(html);
   if (lang !== "sv") {
-    // Basic cleanup for English if needed (e.g. normalizing the bundle string if it comes from the DB already Swedish)
-    return html;
+    let out = html;
+    for (const [re, rep] of SV_TO_EN) out = out.replace(re, rep);
+    return sanitizeVeganClaims(out);
   }
   let out = html;
   for (const [re, rep] of EN_TO_SV) out = out.replace(re, rep);
-  
+
+  // Mixed-language phrases that have leaked into Shopify data need a hard
+  // normalization because the regexes above expect pure English input.
+  const mixedSvFixes: Array<[RegExp, string]> = [
+    [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with a creamy yellow curry sauce\./gi,
+      "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
+    [/Creamy,\s*peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+    [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+    [/A sun-soaked flavour experience with rich,\s*spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
+      "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
+    [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
+      "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök — rik linsstruktur, maximal mättnad. Proteinbaserade gröna linser med vegansk rökig BBQ sås."],
+  ];
+  for (const [re, rep] of mixedSvFixes) out = out.replace(re, rep);
+
   // Specific fix for the requested variations
   out = out.replace("Din mix av alla 4 smaker. 12 växtbaserade proteinmåltider — fri frakt i Sverige, levereras inom 2–4 dagar.", "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar.");
-  
+
   return sanitizeVeganClaims(out);
 }
 
