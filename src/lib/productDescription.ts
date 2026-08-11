@@ -257,15 +257,15 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // normalization because the regexes above expect pure English input.
   const mixedSvFixes: Array<[RegExp, string]> = [
     [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with a creamy yellow curry sauce\./gi,
-      "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
+      "Krämig kokosmjölk med curry, koriander och lime — en resa till Sydostasiens gatukök. Proteinrikt ris med en krämig gul currysås."],
     [/Creamy,\s*peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
-      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
     [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
-      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
     [/A sun-soaked flavour experience with rich,\s*spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
       "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
     [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
-      "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök — rik linsstruktur, maximal mättnad. Proteinbaserade gröna linser med vegansk rökig BBQ sås."],
+      "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Proteinrika gröna linser med vegansk rökig BBQ sås."],
   ];
   for (const [re, rep] of mixedSvFixes) out = out.replace(re, rep);
 
