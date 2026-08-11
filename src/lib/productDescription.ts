@@ -257,7 +257,7 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // normalization because the regexes above expect pure English input.
   const mixedSvFixes: Array<[RegExp, string]> = [
     [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with a creamy yellow curry sauce\./gi,
-      "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat."],
+      "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
     [/Creamy,\s*peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
       "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
     [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
