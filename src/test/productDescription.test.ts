@@ -8,16 +8,22 @@ const yellowCurryEn =
   "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce.";
 
 const yellowCurrySv =
-  "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås.";
+  "Krämig kokosmjölk med curry, koriander och lime — en resa till Sydostasiens gatukök. Proteinrikt ris med en krämig gul currysås.";
 
 const carbonaraMixed =
-  "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Protein-based fusilli with a creamy carbonara sauce.";
+  "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Protein-based fusilli with a creamy carbonara sauce.";
 
 const carbonaraEn =
   "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce.";
 
 const carbonaraSv =
-  "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås.";
+  "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås.";
+
+const smokyBbqEn =
+  "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce.";
+
+const smokyBbqSv =
+  "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Proteinrika gröna linser med vegansk rökig BBQ sås.";
 
 describe("product description translation", () => {
   it("fixes mixed Swedish words in Yellow Curry English copy", () => {
@@ -92,5 +98,20 @@ describe("product description translation", () => {
     );
     expect(result.toLowerCase()).not.toContain("vegansk");
     expect(result.toLowerCase()).not.toContain("växtbaserad");
+  });
+
+  it("translates Smoky BBQ to fully Swedish", () => {
+    const result = translateProductHtml(smokyBbqEn, "sv");
+    expect(result).toBe(smokyBbqSv);
+  });
+
+  it("keeps Smoky BBQ English copy unchanged", () => {
+    const result = translateProductHtml(smokyBbqEn, "en");
+    expect(result).toBe(smokyBbqEn);
+  });
+
+  it("translates Smoky BBQ Swedish back to English", () => {
+    const result = translateProductHtml(smokyBbqSv, "en");
+    expect(result).toBe(smokyBbqEn);
   });
 });

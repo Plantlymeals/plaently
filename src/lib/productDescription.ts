@@ -10,11 +10,11 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with (?:vegan|a creamy) bolognese sauce\./gi,
     "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
   [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with (?:vegan|a creamy) carbonara sauce\./gi,
-    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+    "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
   [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with (?:vegan|a creamy) smoky BBQ sauce\./gi,
-    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök — rik linsstruktur, maximal mättnad. Proteinbaserade gröna linser med vegansk rökig BBQ sås."],
+    "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Proteinrika gröna linser med vegansk rökig BBQ sås."],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with (?:vegan|a creamy) yellow curry sauce\./gi,
-    "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
+    "Krämig kokosmjölk med curry, koriander och lime — en resa till Sydostasiens gatukök. Proteinrikt ris med en krämig gul currysås."],
   [/Pick your mix of all 4 flavours\. 12 plant-based protein meals — free shipping in Sweden, delivered in 2–4 days\./gi,
     "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar."],
 
@@ -116,23 +116,23 @@ const SV_TO_EN: Array<[RegExp, string]> = [
   // Marketing intros (longest first)
   [/En solfylld smakupplevelse med rik, kryddig bolognesesås\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
     "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce."],
-  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
+  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med en lekfull kontrast i konsistens\.\s*Proteinrik fusilli med en krämig carbonarasås\./gi,
     "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
-  [/Rökig BBQ med sotad paprika,\s*karamelliserad lök och vitlök\s*—\s*rik linsstruktur,\s*maximal mättnad\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
+  [/Rökig BBQ med sotad paprika,\s*karamelliserad lök och vitlök\.\s*Proteinrika gröna linser med vegansk rökig BBQ sås\./gi,
     "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce."],
-  [/Krämig kokosmjölk med curry,\s*koriander och lime\s*—\s*en resa till sydostasiatisk gatumat\./gi,
-    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food."],
+  [/Krämig kokosmjölk med curry,\s*koriander och lime\s*—\s*en resa till Sydostasiens gatukök\.\s*Proteinrikt ris med en krämig gul currysås\./gi,
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce."],
 
   // Mixed SV/EN phrases that have leaked into Shopify data
-  [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\./gi,
-    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food."],
-  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
+  [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with a creamy yellow curry sauce\./gi,
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce."],
+  [/Krämig, pepprig carbonara i klassisk italiensk stil\s*—\s*med en lekfull kontrast i konsistens\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
     "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
-  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
+  [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinrik fusilli med en krämig carbonarasås\./gi,
     "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce."],
   [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
     "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce."],
-  [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
+  [/Rökig BBQ med sotad paprika,\s*karamelliserad lök och vitlök\s*—\s*rik linsstruktur,\s*maximal mättnad\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
     "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce."],
 
   // Allergen labels
@@ -257,15 +257,15 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // normalization because the regexes above expect pure English input.
   const mixedSvFixes: Array<[RegExp, string]> = [
     [/Creamy kokosmjölk with curry,\s*koriander och lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with a creamy yellow curry sauce\./gi,
-      "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås."],
+      "Krämig kokosmjölk med curry, koriander och lime — en resa till Sydostasiens gatukök. Proteinrikt ris med en krämig gul currysås."],
     [/Creamy,\s*peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
-      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
-    [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
-      "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
+    [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med en lekfull kontrast i konsistens\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
+      "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
     [/A sun-soaked flavour experience with rich,\s*spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
       "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
     [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Proteinbaserade gröna linser med vegansk rökig BBQ sås\./gi,
-      "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök — rik linsstruktur, maximal mättnad. Proteinbaserade gröna linser med vegansk rökig BBQ sås."],
+      "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Proteinrika gröna linser med vegansk rökig BBQ sås."],
   ];
   for (const [re, rep] of mixedSvFixes) out = out.replace(re, rep);
 
