@@ -99,4 +99,19 @@ describe("product description translation", () => {
     expect(result.toLowerCase()).not.toContain("vegansk");
     expect(result.toLowerCase()).not.toContain("växtbaserad");
   });
+
+  it("translates Smoky BBQ to fully Swedish", () => {
+    const result = translateProductHtml(smokyBbqEn, "sv");
+    expect(result).toBe(smokyBbqSv);
+  });
+
+  it("keeps Smoky BBQ English copy unchanged", () => {
+    const result = translateProductHtml(smokyBbqEn, "en");
+    expect(result).toBe(smokyBbqEn);
+  });
+
+  it("translates Smoky BBQ Swedish back to English", () => {
+    const result = translateProductHtml(smokyBbqSv, "en");
+    expect(result).toBe(smokyBbqEn);
+  });
 });
