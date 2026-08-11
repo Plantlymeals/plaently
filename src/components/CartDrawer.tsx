@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2, Check } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
-import { getCupImage } from "@/lib/productImages";
+import { getCupImage, displayProductTitle } from "@/lib/productImages";
 import { useTranslation } from "@/lib/i18n";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 import { useMarketConfig } from "@/stores/marketStore";
@@ -87,7 +87,7 @@ export const CartDrawer = () => {
                         })()}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm truncate">{item.product.node.title}</h4>
+                        <h4 className="font-medium text-sm truncate">{displayProductTitle(item.product.node.title)}</h4>
                         {item.attributes && item.attributes.length > 0 && (
                           <ul className="mt-1 space-y-0.5">
                             {item.attributes
