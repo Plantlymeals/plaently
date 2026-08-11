@@ -31,7 +31,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
  "hero.badge1": { sv: "20g protein", en: "20g protein" },
  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
-  "hero.badge3": { sv: "Växtbaserat", en: "Plant-forward" },
+  "hero.badge3": { sv: "Riktiga råvaror", en: "Real ingredients" },
 
  // Problem → Solution
  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
