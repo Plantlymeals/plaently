@@ -16,9 +16,9 @@ const HeroSection = () => {
       <div className="container py-20 md:py-32 lg:py-40">
         <div className="flex flex-col items-center text-center gap-12">
           <div className="space-y-8 animate-fade-up flex flex-col items-center max-w-5xl w-full">
-            <h1 className="font-heading font-bold leading-[1.05] text-primary-foreground [text-shadow:0_2px_12px_hsl(0_0%_0%_/_0.25)]" style={{ fontSize: "clamp(1.5rem, 6.5vw, 4.5rem)" }}>
+            <h1 className="font-heading font-bold leading-[1.05] text-primary-foreground [text-shadow:0_2px_12px_hsl(0_0%_0%_/_0.25)] px-4 md:px-0 break-words" style={{ fontSize: "clamp(1.75rem, 5.5vw, 4rem)" }}>
               {headline.split("\n").map((line, i) => (
-                <span key={i} className="block whitespace-nowrap">{line}</span>
+                <span key={i} className="block">{line}</span>
               ))}
             </h1>
              <p className="text-lg md:text-xl max-w-lg leading-relaxed text-primary-foreground [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)] font-normal">{subheadline}</p>
