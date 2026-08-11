@@ -1,5 +1,6 @@
 import { Flame, Dumbbell, Leaf } from "lucide-react";
 import type { CupMeta } from "@/lib/productImages";
+import { useTranslation } from "@/lib/i18n";
 
 interface Props {
   meta: CupMeta;
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export const CupBadges = ({ meta, size = "sm" }: Props) => {
+  const { t } = useTranslation();
   const px = size === "md" ? "px-2.5 py-1 text-xs" : "px-2 py-0.5 text-[10px]";
   const icon = size === "md" ? "h-3.5 w-3.5" : "h-3 w-3";
   return (
@@ -17,11 +19,9 @@ export const CupBadges = ({ meta, size = "sm" }: Props) => {
       <span className={`inline-flex items-center gap-1 rounded-full bg-white/95 backdrop-blur text-foreground font-semibold shadow-sm ${px}`}>
         <Flame className={icon} /> {meta.kcal} kcal
       </span>
-      {meta.vegan && (
-        <span className={`inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground font-semibold shadow-sm ${px}`}>
-          <Leaf className={icon} /> Vegan
-        </span>
-      )}
+      <span className={`inline-flex items-center gap-1 rounded-full font-semibold shadow-sm ${px} ${meta.vegan ? "bg-primary text-primary-foreground" : "bg-white/95 backdrop-blur text-foreground"}`}>
+        <Leaf className={icon} /> {meta.vegan ? t("product.vegan") : t("product.vegetarian")}
+      </span>
     </div>
   );
 };
