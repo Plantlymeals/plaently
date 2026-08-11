@@ -15,8 +15,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
     en: "{count} packs of {name}",
   },
   "bundles.feat.freeShipSe": {
-    sv: "Fri frakt (Sverige)",
-    en: "Free shipping (Sweden)",
+    sv: "Fri frakt i Sverige",
+    en: "Free shipping in Sweden",
   },
   "bundles.feat.delivered": {
     sv: "Levereras inom 2-4 vardagar",
@@ -27,8 +27,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
     en: "Custom mix every month",
   },
   "bundles.feat.freeShipAlways": {
-    sv: "Fri frakt (Sverige)",
-    en: "Free shipping (Sweden)",
+    sv: "Fri frakt i Sverige",
+    en: "Free shipping in Sweden",
   },
   "bundles.feat.cancelAnytime": {
     sv: "Avsluta när som helst",
