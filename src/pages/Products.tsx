@@ -18,7 +18,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
-import { getCupMeta } from "@/lib/productImages";
+import { getCupMeta, displayProductTitle } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 
@@ -154,7 +154,7 @@ const ProductDetail = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: productSeo?.schema.name ?? product.title,
+    name: productSeo?.schema.name ?? displayProductTitle(product.title),
     description: productSeo?.schema.description ?? product.description,
     image: image?.url,
     url: `https://plaently.com/product/${product.handle}`,
@@ -240,11 +240,11 @@ const ProductDetail = () => {
     <Layout>
       <SEOHead
         title={productSeo?.[lang].title ?? (lang === "sv"
-          ? `${product.title} – 20g protein på 5 min | PLÄNTLY`
-          : `${product.title} – 20g protein in 5 min | PLÄNTLY`)}
+          ? `${displayProductTitle(product.title)} – 20g protein på 5 min | PLÄNTLY`
+          : `${displayProductTitle(product.title)} – 20g protein in 5 min | PLÄNTLY`)}
         description={productSeo?.[lang].description || translatedDesc || (lang === "sv"
-          ? `Hälsosam ${product.title.toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
-          : `Healthy ${product.title.toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
+          ? `Hälsosam ${displayProductTitle(product.title).toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
+          : `Healthy ${displayProductTitle(product.title).toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
         ogTitle={productSeo?.sv.title}
         ogDescription={productSeo?.sv.description}
         path={`/product/${product.handle}`}
@@ -257,7 +257,7 @@ const ProductDetail = () => {
           <Breadcrumbs
             items={[
               { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
-              { label: product.title },
+              { label: displayProductTitle(product.title) },
             ]}
             lang={lang}
           />
@@ -268,30 +268,30 @@ const ProductDetail = () => {
             <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
               {cupMeta && <CupBadges meta={cupMeta} size="md" />}
               {imageOverride ? (
-                <img src={imageOverride} alt={product.title} className="h-full w-full object-cover" />
+                <img src={imageOverride} alt={displayProductTitle(product.title)} className="h-full w-full object-cover" />
               ) : cupMeta ? (
-                <img src={cupMeta.src} alt={`${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-cover" />
+                <img src={cupMeta.src} alt={`${displayProductTitle(product.title)} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-cover" />
               ) : image ? (
-                <img src={image.url} alt={image.altText || `${product.title} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-contain" />
+                <img src={image.url} alt={image.altText || `${displayProductTitle(product.title)} — plantbaserad måltidskopp med 20g protein per portion`} className="h-full w-full object-contain" />
               ) : (
                 <div className="h-20 w-20 rounded-full bg-muted-foreground/10" aria-hidden="true" />
               )}
             </div>
             <div className="space-y-8">
               <div className="space-y-3">
-                <h1 className="font-heading text-3xl md:text-4xl font-bold">{product.title}</h1>
+                <h1 className="font-heading text-3xl md:text-4xl font-bold">{displayProductTitle(product.title)}</h1>
               </div>
               {price && (
                 (() => {
                   const amount = parseFloat(price.amount);
-                  const savings = getBundleSavings(product.title, amount);
+                  const savings = getBundleSavings(displayProductTitle(product.title), amount);
                   const hasSavings = !!savings && savings.savingsAmount > 0;
                   return (
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-3xl font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</span>
                       {hasSavings ? (
                         <SavingsBadge
-                          title={product.title}
+                          title={displayProductTitle(product.title)}
                           bundlePrice={amount}
                           currencyCode={price.currencyCode}
                           showFullPrice
@@ -370,7 +370,7 @@ const ProductDetail = () => {
             </Button>
           </div>
 
-          <ProductReviews productSlug={product.handle} title={product.title} />
+          <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} />
         </div>
       </section>
       <MixBuilderDialog {...dialogProps} />
@@ -435,23 +435,23 @@ const Products = () => {
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                         {cupMeta && <CupBadges meta={cupMeta} />}
                         {override ? (
-                          <img src={override} alt={product.node.title} className="h-full w-full object-cover" loading="lazy" />
+                          <img src={override} alt={displayProductTitle(product.node.title)} className="h-full w-full object-cover" loading="lazy" />
                         ) : cupMeta ? (
-                          <img src={cupMeta.src} alt={`${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
+                          <img src={cupMeta.src} alt={`${displayProductTitle(product.node.title)} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-cover" loading="lazy" />
                         ) : image ? (
-                          <img src={`${image.url}&width=520`} alt={image.altText || `${product.node.title} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain" loading="lazy" />
+                          <img src={`${image.url}&width=520`} alt={image.altText || `${displayProductTitle(product.node.title)} — plantbaserad måltidskopp med 20g protein`} className="h-full w-full object-contain" loading="lazy" />
                         ) : (
                           <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                         )}
                       </div>
-                      <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{product.node.title}</h2>
+                      <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
                       {(() => {
                         const amount = parseFloat(price.amount);
                         return (
                           <div className="mb-3 space-y-1">
                             <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
                             <SavingsBadge
-                              title={product.node.title}
+                              title={displayProductTitle(product.node.title)}
                               bundlePrice={amount}
                               currencyCode={price.currencyCode}
                               showFullPrice
