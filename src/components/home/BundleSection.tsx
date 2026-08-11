@@ -40,6 +40,8 @@ const BADGE_KEYS: [RegExp, string][] = [
   [/italien/i, "bundles.badge.italianFavourite"],
   [/team/i, "bundles.badge.teamFavourite"],
   [/perfekt start|perfect start/i, "bundles.badge.perfectStart"],
+  [/mest popul|most popular/i, "bundles.badge.mostPopular"],
+  [/b(ä|a)st v(ä|a)rde|best value/i, "bundles.badge.bestValue"],
 ];
 
 function badgeLabel(badge: string, t: (k: string) => string): string {
@@ -104,7 +106,7 @@ const BundleSection = () => {
   const { t, lang } = useTranslation();
   const marketCfg = useMarketConfig();
   const marketName = marketLabel(marketCfg.code, lang);
-  const freeShipText = `${t("bundles.freeShipping")} (${marketName})`;
+  const freeShipText = t("bundles.freeShipping");
   const [mixOpen, setMixOpen] = useState(false);
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
