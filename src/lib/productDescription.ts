@@ -112,6 +112,8 @@ const EN_TO_SV: Array<[RegExp, string]> = [
 ];
 
 export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
+  // Carbonara and Yellow Curry contain milk protein — they may never be
+  // described as "vegan"/"100% plant-based". Applies to SV and EN alike.
   if (!html) return "";
   html = sanitizeVeganClaims(html);
   if (lang !== "sv") {
