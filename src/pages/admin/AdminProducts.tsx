@@ -25,7 +25,7 @@ const AdminProducts = () => {
   const [form, setForm] = useState<Record<string, any>>({});
   const [isNew, setIsNew] = useState(false);
   const [previewInput, setPreviewInput] = useState<string>(
-    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with vegan yellow curry sauce."
+    "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce."
   );
 
   const fetch = async () => {
@@ -220,10 +220,10 @@ const AdminProducts = () => {
             <label className="text-xs font-medium">Quick samples</label>
             <div className="flex flex-wrap gap-2">
               {[
-                { label: "Yellow Curry", text: "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with vegan yellow curry sauce." },
+                { label: "Yellow Curry", text: "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce." },
                 { label: "Smoky BBQ", text: "Smoky BBQ with smoked paprika, caramelised onion and garlic — rich lentil texture, maximum satiety. Protein-based green lentils with vegan smoky BBQ sauce." },
                 { label: "Bolognese", text: "A sun-soaked flavour experience with rich, spicy bolognese sauce. Protein-based fusilli with vegan bolognese sauce." },
-                { label: "Carbonara", text: "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with vegan carbonara sauce." },
+                { label: "Carbonara", text: "Creamy, peppery carbonara in classic Italian style — with a clever play of textures. Protein-based fusilli with a creamy carbonara sauce." },
               ].map(s => (
                 <Button key={s.label} type="button" variant="outline" size="sm" className="rounded-full text-xs" onClick={() => setPreviewInput(s.text)}>
                   {s.label}

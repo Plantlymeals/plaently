@@ -388,13 +388,13 @@ const translations: Record<string, Record<Lang, string>> = {
  "lifestylePage.title": { sv: "Byggd för alla livsstilar", en: "Built for Every Lifestyle" },
  "lifestylePage.subtitle": { sv: "PLÄNTLY passar in i ditt liv, inte tvärtom.", en: "PLÄNTLY fits into your life, not the other way around." },
  "lifestylePage.athleteTitle": { sv: "Atleter & fitness", en: "Athletes & Fitness" },
- "lifestylePage.athleteDesc": { sv: "Alla har inte tid att laga tre mål om dagen. PLÄNTLY gör det enkelt att äta bra, även på dina mest hektiska dagar. Riktig mat, riktigt protein, noll kompromisser.", en: "Power your training with 20g plant protein per meal. PLÄNTLY meals are designed for fast recovery and sustained energy, whether you lift, run or train for your next competition." },
+ "lifestylePage.athleteDesc": { sv: "Ladda träningen med 20g växtprotein per måltid. PLÄNTLY är gjord för snabb återhämtning och uthållig energi — oavsett om du lyfter, springer eller tränar inför nästa tävling.", en: "Power your training with 20g plant protein per meal. PLÄNTLY meals are designed for fast recovery and sustained energy, whether you lift, run or train for your next competition." },
  "lifestylePage.officeTitle": { sv: "Kontor & företag", en: "Offices & Companies" },
  "lifestylePage.officeDesc": { sv: "Uppgradera era arbetsplatsmåltider. PLÄNTLY kontorspaket håller teamen mätta med näringsrika, varma måltider — inget kök, ingen kock, inget krångel. Bara kokande vatten och 5 minuter.", en: "Upgrade your workplace meals. PLÄNTLY office packs keep teams fuelled with nutritious, hot meals — no kitchen, no chef, no hassle. Just boiling water and 5 minutes." },
  "lifestylePage.entrepreneurTitle": { sv: "Entreprenörer & frilansare", en: "Entrepreneurs & Freelancers" },
  "lifestylePage.entrepreneurDesc": { sv: "När du bygger något har du inte tid för dålig mat. PLÄNTLY håller dig skärpt med balanserad näring som tar mindre tid än att beställa en kaffe.", en: "When you're building something, you don't have time for bad food. PLÄNTLY keeps you sharp with balanced nutrition that takes less time than ordering a coffee." },
  "lifestylePage.everydayTitle": { sv: "Vardaglig hälsosam mat", en: "Everyday Healthy Eating" },
- "lifestylePage.everydayDesc": { sv: "Alla har inte tid att laga tre mål om dagen. PLÄNTLY gör det enkelt att äta bra, även dina mest hektiska dagar. Riktig mat, riktigt protein, noll kompromisser.", en: "Not everyone has time to cook three meals a day. PLÄNTLY makes it easy to eat well, even on your busiest days. Real food, real protein, zero compromises." },
+ "lifestylePage.everydayDesc": { sv: "Ingen hinner laga tre mål om dagen. PLÄNTLY står redo i skåpet när kylen gapar tom — en riktig måltid på fem minuter, utan planering, matlådor eller disk.", en: "Nobody has time to cook three meals a day. PLÄNTLY sits ready in the cupboard when the fridge is empty — a real meal in five minutes, with no planning, meal prep or washing up." },
 
  // 404
  "notFound.title": { sv: "Hoppsan! Sidan hittades inte", en: "Oops! Page not found" },
