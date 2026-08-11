@@ -217,7 +217,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Final CTA
  "cta.headline": { sv: "Ät smartare. Lev bättre.", en: "Eat smarter. Live better." },
- "cta.subheadline": { sv: "Gå med tusentals som valt riktiga, plantbaserade proteinmåltider.", en: "Join thousands who chose real, plant-based protein meals." },
+ "cta.subheadline": { sv: "Gå med dem som valde riktig mat istället för pulver och shakes.", en: "Join those who chose real food over powders and shakes." },
  "cta.button": { sv: "Handla PLÄNTLY", en: "Shop PLÄNTLY" },
 
  // Cart
