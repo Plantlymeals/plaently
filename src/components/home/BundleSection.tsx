@@ -31,12 +31,36 @@ function badgeToHighlight(badge: string | null | undefined): Highlight {
   return null;
 }
 
+// Localised label for the free-text badge stored in the CMS.
+const BADGE_KEYS: [RegExp, string][] = [
+  [/kr(ä|a)mig|creamy/i, "bundles.badge.creamyFavourite"],
+  [/energigivande|energis/i, "bundles.badge.mostEnergising"],
+  [/fiberrik|high\s*fib/i, "bundles.badge.highFibre"],
+  [/italien/i, "bundles.badge.italianFavourite"],
+  [/perfekt start|perfect start/i, "bundles.badge.perfectStart"],
+];
+
+function badgeLabel(badge: string, t: (k: string) => string): string {
+  const b = badge.trim();
+  for (const [re, key] of BADGE_KEYS) if (re.test(b)) return t(key);
+  return b;
+}
+
 function featuresForBundle(cups: number, isSubscription: boolean): string[] {
-  if (isSubscription || cups >= 48) {
+  if (isSubscription) {
     return [
       "bundles.feat.monthlyMix",
       "bundles.feat.freeShipAlways",
       "bundles.feat.cancelAnytime",
+      "bundles.feat.priorityCs",
+    ];
+  }
+  if (cups >= 48) {
+    // One-time office packs are not subscriptions — no "cancel anytime".
+    return [
+      "bundles.feat.mix4",
+      "bundles.feat.freeShipAlways",
+      "bundles.feat.delivered",
       "bundles.feat.priorityCs",
     ];
   }
@@ -218,7 +242,7 @@ const BundleSection = () => {
                   )}
                   {!highlight && b.badge && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
-                      {b.badge}
+                      {badgeLabel(b.badge, t)}
                     </span>
                   )}
                 </div>
