@@ -137,7 +137,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.badge.italianFavourite": { sv: "ITALIENSK FAVORIT", en: "ITALIAN FAVOURITE" },
   "bundles.badge.creamyFavourite": { sv: "KRÄMIG FAVORIT", en: "CREAMY FAVOURITE" },
   "bundles.badge.mostEnergising": { sv: "MEST ENERGIGIVANDE", en: "MOST ENERGISING" },
-  "bundles.badge.highFibre": { sv: "FIBERRIK", en: "HIGH FIBRE" },
+  "bundles.badge.highFibre": { sv: "FIBERRIK", en: "HIGH FIBRE HERO" },
   "bundles.badge.mostPopular": { sv: "MEST POPULÄR", en: "MOST POPULAR" },
   "bundles.badge.bestValue": { sv: "BÄST VÄRDE", en: "BEST VALUE" },
  "product.vegan": { sv: "Vegansk", en: "Vegan" },
