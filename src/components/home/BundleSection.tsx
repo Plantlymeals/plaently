@@ -37,7 +37,7 @@ const BADGE_KEYS: [RegExp, string][] = [
   [/kr(ä|a)mig|creamy/i, "bundles.badge.creamyFavourite"],
   [/energigivande|energis/i, "bundles.badge.mostEnergising"],
   [/fiberrik|high\s*fib/i, "bundles.badge.highFibre"],
-  [/italien/i, "bundles.badge.italianFavourite"],
+  [/italien|italian/i, "bundles.badge.italianFavourite"],
   [/team/i, "bundles.badge.teamFavourite"],
   [/perfekt start|perfect start/i, "bundles.badge.perfectStart"],
   [/mest popul|most popular/i, "bundles.badge.mostPopular"],
