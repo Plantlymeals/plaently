@@ -19,8 +19,8 @@ const EXPECTED: Record<string, { sv: string; en: string }> = {
     en: "Free shipping (Sweden)",
   },
   "bundles.feat.delivered": {
-    sv: "Levereras inom 1-2 vardagar",
-    en: "Delivered in 2-4 business days (Europe)",
+    sv: "Levereras inom 2-4 vardagar",
+    en: "Delivered in 2-4 business days",
   },
   "bundles.feat.monthlyMix": {
     sv: "Valfri mix varje månad",
