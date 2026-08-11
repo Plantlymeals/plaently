@@ -54,7 +54,8 @@ const translations: Record<string, Record<Lang, string>> = {
  // Trust
  "trust.rating": { sv: "4.8/5 från 500 + recensioner", en: "4.8/5 from 500+ reviews" },
  "trust.loved": { sv: "Älskad av yrkesverksamma, atleter och moderna arbetsplatser.", en: "Loved by professionals, athletes and modern workplaces." },
- "trust.offices": { sv: "Kontor", en: "Offices" },
+ "trust.realFood": { sv: "Riktig mat — inte ett pulver", en: "Real food — not a powder" },
+  "trust.offices": { sv: "Kontor", en: "Offices" },
  "trust.athletes": { sv: "Atleter", en: "Athletes" },
  "trust.entrepreneurs": { sv: "Entreprenörer", en: "Entrepreneurs" },
  "trust.students": { sv: "Studenter", en: "Students" },
@@ -83,7 +84,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "how.step1Desc": { sv: "Välj bland våra, protein och fiberrika smaker.", en: "Pick from our protein and fibre-rich flavours." },
  "how.step2Title": { sv: "Tillsätt hett vatten", en: "Add hot water" },
  "how.step2Desc": { sv: "Häll i kokande vatten, rör om och vänta 5 minuter.", en: "Pour in boiling water, stir and wait 5 minutes." },
- "how.step3Title": { sv: "Njut av riktigt protein", en: "Enjoy real protein" },
+ "how.step3Title": { sv: "Njut av en riktig måltid", en: "Enjoy a real meal" },
  "how.step3Desc": { sv: "En komplett, balanserad måltid med 20g plantprotein.", en: "A complete, balanced meal with 20g plant protein." },
 
  // Lifestyle section
@@ -100,7 +101,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Product overview
   "products.title": { sv: "Våra måltider", en: "Our Meals" },
-  "products.subtitle": { sv: "Växtbaserade proteinmåltider fyllda med protein och fiber. Tillsätt bara hett vatten.", en: "Plant-forward protein meals packed with protein and fibre. Just add hot water." },
+  "products.subtitle": { sv: "Riktiga måltider med 20g protein. Tillsätt bara kokande vatten.", en: "Real meals with 20g protein. Just add boiling water." },
  "products.addToCart": { sv: "Lägg i varukorg", en: "Add to cart" },
  "products.addedToCart": { sv: "Tillagd i varukorgen!", en: "Added to cart!" },
 
@@ -182,7 +183,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
   // Nutrition preview
   "nutrition.title": { sv: "NÄRING SOM FAKTISKT RÄKNAS", en: "NUTRITION THAT ACTUALLY COUNTS" },
-  "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är formulerad för att leverera balanserade makronäringsämnen från växtbaserade källor — högt i protein, med kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is formulated to deliver balanced macronutrients from plant-based sources — high in protein, with carbs and healthy fats." },
+  "nutrition.desc": { sv: "Varje PLÄNTLY-måltid är gjord med riktiga råvaror — balanserat protein, kolhydrater och hälsosamma fetter.", en: "Every PLÄNTLY meal is made with real ingredients — balanced protein, carbs and healthy fats per serving." },
   "nutrition.average": { sv: "Genomsnittliga värden per portion. Varierar beroende på smak.", en: "Average values per serving. Varies by flavour." },
   "nutrition.cta": { sv: "Läs mer om näringen", en: "Learn more about nutrition" },
   "nutrition.protein": { sv: "Protein", en: "Protein" },
@@ -236,7 +237,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.whatsInside": { sv: "Vad ingår", en: "What's inside" },
 
  // Footer
- "footer.desc": { sv: "Plantbaserade proteinmåltider för det moderna livet. Skandinavisk enkelhet möter riktig näring.", en: "Plant-based protein meals for modern life. Scandinavian simplicity meets real nutrition." },
+ "footer.desc": { sv: "Riktig mat. Riktigt protein. Klart på 5 minuter.", en: "Real food. Real protein. Ready in 5 minutes." },
  "footer.explore": { sv: "Utforska", en: "Explore" },
  "footer.support": { sv: "Support", en: "Support" },
  "footer.shipping": { sv: "Frakt", en: "Shipping" },
@@ -310,8 +311,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "reviews.errBodyMin": { sv: "Recensionen måste vara minst 5 tecken", en: "Review must be at least 5 characters" },
 
  // SEO per page
-  "seo.home.title": { sv: "PLÄNTLY — Växtbaserade Proteinmåltider | 20g Protein på 5 Minuter", en: "PLÄNTLY — Plant-Based Protein Meals | 20g Protein in 5 Minutes" },
-  "seo.home.description": { sv: "Växtbaserade proteinmåltider med 20g protein per portion — klara på 5 minuter. Utvecklat i Sverige, hantverk från Italien. Hälsosam snabbmat utan kompromisser.", en: "Plant-based protein meals with 20g protein per serving — ready in 5 minutes. Developed in Sweden, crafted in Italy. Healthy fast food without compromise." },
+  "seo.home.title": { sv: "PLÄNTLY — Riktig mat med 20g protein | Klart på 5 minuter", en: "PLÄNTLY — Real Food with 20g Protein | Ready in 5 Minutes" },
+  "seo.home.description": { sv: "Riktiga måltider med 20g protein — inget pulver, ingen shake. Bara riktig mat klar på 5 minuter. Utvecklat i Sverige, hantverk från Italien.", en: "Real meals with 20g protein — not a powder, not a shake. Just real food ready in 5 minutes. Developed in Sweden, crafted in Italy." },
   "seo.products.title": { sv: "Växtbaserade Proteinmåltider | 4 Smaker — PLÄNTLY", en: "Plant-Based Protein Meals | 4 Flavours — PLÄNTLY" },
   "seo.products.description": { sv: "Fyra växtbaserade proteinmåltider med 20g protein per portion. Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice och Smoky BBQ Lentils. Klara på 5 minuter.", en: "Four plant-based protein meals with 20g protein per serving. Ready in 5 minutes — just add boiling water to the black line." },
   "seo.nutrition.title": { sv: "Näring & Protein | Växtbaserade Proteinmåltider — PLÄNTLY", en: "Nutrition & Protein | Plant-Based Protein Meals — PLÄNTLY" },
