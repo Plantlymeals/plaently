@@ -34,7 +34,7 @@ const AdminBundles = () => {
 
   useEffect(() => {
     fetchBundles();
-    fetchShopifyProducts(50, "product_type:Bundle").then((data) => {
+    fetchShopifyProducts(50, "product_type:Bundle OR title:Box").then((data) => {
       if (data) setShopifyBundles(data);
     });
   }, []);

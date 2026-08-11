@@ -98,7 +98,7 @@ const MealFinderQuiz = () => {
         setStep(step + 1);
         setLoadingProduct(true);
         try {
-          const products = await fetchShopifyProducts(10, "product_type:Bundle");
+          const products = await fetchShopifyProducts(30, "product_type:Bundle OR title:Box");
           if (products) {
             const match = products.find((p) =>
               p.node.title.toLowerCase().includes(BUNDLES_META[rec].searchTitle.toLowerCase())
