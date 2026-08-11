@@ -1,10 +1,11 @@
-import { Briefcase, Dumbbell, Lightbulb, GraduationCap, Users } from "lucide-react";
+import { Briefcase, Dumbbell, Lightbulb, GraduationCap, Users, UtensilsCrossed } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 const TrustSection = () => {
   const { t } = useTranslation();
 
   const icons = [
+    { icon: UtensilsCrossed, label: t("trust.realFood") },
     { icon: Briefcase, label: t("trust.offices") },
     { icon: Dumbbell, label: t("trust.athletes") },
     { icon: Lightbulb, label: t("trust.entrepreneurs") },
