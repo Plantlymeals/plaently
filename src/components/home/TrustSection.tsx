@@ -1,4 +1,4 @@
-import { Briefcase, Dumbbell, Lightbulb, GraduationCap, Users, Star } from "lucide-react";
+import { Briefcase, Dumbbell, Lightbulb, GraduationCap, Users } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 
 const TrustSection = () => {
@@ -15,12 +15,6 @@ const TrustSection = () => {
   return (
     <section className="py-16 md:py-20 bg-background">
       <div className="container text-center space-y-8">
-        <div className="flex items-center justify-center gap-1 animate-fade-up">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-          ))}
-          <span className="ml-2 text-sm font-medium text-muted-foreground">{t("trust.rating")}</span>
-        </div>
         <p className="text-lg md:text-xl text-muted-foreground font-medium animate-fade-up-delay-1">{t("trust.loved")}</p>
         <div className="flex flex-wrap justify-center gap-8 md:gap-12 animate-fade-up-delay-2">
           {icons.map(({ icon: Icon, label }) => (

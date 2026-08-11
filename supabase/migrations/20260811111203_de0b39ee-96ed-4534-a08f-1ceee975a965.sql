@@ -1,0 +1,1 @@
+UPDATE public.bundles SET price = '759 kr', per_meal_price = '32 kr' WHERE name = 'Monthly Box';

@@ -15,7 +15,7 @@ const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 const COPY = {
  sv: {
  seoTitle: "Frakt & Leverans | Fri Frakt över 399 kr — PLÄNTLY",
- seoDesc: "Fri frakt på beställningar över 499 kr. Leverans inom 2–4 vardagar i hela Sverige med PostNord och DHL.",
+ seoDesc: "Fri frakt på beställningar över 399 kr. Leverans inom 2–4 vardagar i hela Sverige med PostNord och DHL.",
  label: "Frakt & Leverans",
  h1a: "Enkelt, snabbt och ",
  h1b: "transparent.",
@@ -85,7 +85,7 @@ const COPY = {
  },
  en: {
  seoTitle: "Shipping & Delivery | Free Shipping over 399 SEK — PLÄNTLY",
- seoDesc: "Free shipping on orders over 499 SEK. Delivery within 2–4 business days throughout Sweden with PostNord and DHL.",
+ seoDesc: "Free shipping on orders over 399 SEK. Delivery within 2–4 business days throughout Sweden with PostNord and DHL.",
  label: "Shipping & Delivery",
  h1a: "Simple, fast and ",
  h1b: "transparent.",

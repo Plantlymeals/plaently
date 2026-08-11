@@ -90,7 +90,7 @@ const BundleSection = () => {
       );
       setBundles(sorted);
     });
-    fetchShopifyProducts(20, "product_type:Bundle").then((data) => {
+    fetchShopifyProducts(30, "product_type:Bundle OR title:Box").then((data) => {
       if (data) setShopifyBundles(data);
     });
   }, []);
