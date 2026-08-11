@@ -10,7 +10,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with vegan bolognese sauce\./gi,
     "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
   [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
-    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinrik fusilli med plantbaserad carbonarasås."],
+    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
   [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
     "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
@@ -113,6 +113,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
 
 export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
   if (!html) return "";
+  html = sanitizeVeganClaims(html);
   if (lang !== "sv") {
     // Basic cleanup for English if needed (e.g. normalizing the bundle string if it comes from the DB already Swedish)
     return html;
@@ -123,7 +124,7 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // Specific fix for the requested variations
   out = out.replace("Din mix av alla 4 smaker. 12 växtbaserade proteinmåltider — fri frakt i Sverige, levereras inom 2–4 dagar.", "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar.");
   
-  return out;
+  return sanitizeVeganClaims(out);
 }
 
 export function translateProductText(text: string | undefined | null, lang: Lang): string {
