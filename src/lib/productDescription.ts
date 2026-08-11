@@ -10,7 +10,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/A sun-soaked flavour experience with rich, spicy bolognese sauce\.\s*Protein-based fusilli with vegan bolognese sauce\./gi,
     "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
   [/Creamy, peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Protein-based fusilli with vegan carbonara sauce\./gi,
-    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinrik fusilli med plantbaserad carbonarasås."],
+    "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Proteinbaserad fusilli med en krämig carbonarasås."],
   [/Smoky BBQ with smoked paprika,\s*caramelised onion and garlic\s*—\s*rich lentil texture,\s*maximum satiety\.\s*Protein-based green lentils with vegan smoky BBQ sauce\./gi,
     "Rökig BBQ med sotad paprika, karamelliserad lök och vitlök. Protein isolate med gröna linser med vegansk rökig BBQ sås."],
   [/Creamy coconut milk with curry,\s*coriander and lime\s*—\s*a trip to Southeast Asian street food\.\s*Protein-based rice with vegan yellow curry sauce\./gi,
@@ -111,8 +111,29 @@ const EN_TO_SV: Array<[RegExp, string]> = [
 
 ];
 
+/**
+ * Removes "vegan" / "100% plant-based" claims from Carbonara and Yellow Curry
+ * copy (they contain milk protein). Bolognese and Smoky BBQ are untouched.
+ */
+export function sanitizeVeganClaims(input: string): string {
+  return input
+    // English
+    .replace(/\bvegan\s+carbonara\s+sauce\b/gi, "a creamy carbonara sauce")
+    .replace(/\bvegan\s+(yellow\s+)?curry\s+sauce\b/gi, (_m, y) => `a creamy ${y ? "yellow " : ""}curry sauce`)
+    .replace(/\b(100%\s*)?vegan\s+(carbonara|yellow\s+curry|curry)\b/gi, (_m, _p, name) => `${name}`)
+    .replace(/\b100%\s*plant[-\s]?based\s+(carbonara|yellow\s+curry|curry)\b/gi, "$1")
+    // Swedish
+    .replace(/\b(vegansk|plantbaserad|växtbaserad)\s+carbonarasås\b/gi, "en krämig carbonarasås")
+    .replace(/\b(vegansk|plantbaserad|växtbaserad)\s+(gul\s+)?currysås\b/gi, (_m, _a, y) => `en krämig ${y ? "gul " : ""}currysås`)
+    .replace(/\b100%\s*(plantbaserad|växtbaserad)t?\s+(carbonara|curry)\b/gi, "$2")
+    .replace(/\bvegansk[at]?\s+(carbonara|yellow\s+curry|curry)\b/gi, "$1");
+}
+
 export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
+  // Carbonara and Yellow Curry contain milk protein — they may never be
+  // described as "vegan"/"100% plant-based". Applies to SV and EN alike.
   if (!html) return "";
+  html = sanitizeVeganClaims(html);
   if (lang !== "sv") {
     // Basic cleanup for English if needed (e.g. normalizing the bundle string if it comes from the DB already Swedish)
     return html;
@@ -123,7 +144,7 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // Specific fix for the requested variations
   out = out.replace("Din mix av alla 4 smaker. 12 växtbaserade proteinmåltider — fri frakt i Sverige, levereras inom 2–4 dagar.", "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar.");
   
-  return out;
+  return sanitizeVeganClaims(out);
 }
 
 export function translateProductText(text: string | undefined | null, lang: Lang): string {
