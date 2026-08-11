@@ -1,8 +1,8 @@
 User-agent: *
 
-Disallow: /?cat=
-
 Disallow: /?feed=
+
+Disallow: /?cat=
 
 Disallow: /?p=
 
