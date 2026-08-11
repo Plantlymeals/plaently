@@ -260,7 +260,7 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
       "Krämig kokosmjölk med curry, koriander och lime — en resa till Sydostasiens gatukök. Proteinrikt ris med en krämig gul currysås."],
     [/Creamy,\s*peppery carbonara in classic Italian style\s*—\s*with a clever play of textures\.\s*Proteinbaserad fusilli med en krämig carbonarasås\./gi,
       "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
-    [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med ett smart samspel av texturer\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
+    [/Krämig,\s*pepprig carbonara i klassisk italiensk stil\s*—\s*med en lekfull kontrast i konsistens\.\s*Protein-based fusilli with a creamy carbonara sauce\./gi,
       "Krämig, pepprig carbonara i klassisk italiensk stil — med en lekfull kontrast i konsistens. Proteinrik fusilli med en krämig carbonarasås."],
     [/A sun-soaked flavour experience with rich,\s*spicy bolognese sauce\.\s*Proteinrik fusilli med plantbaserad bolognesesås\./gi,
       "En solfylld smakupplevelse med rik, kryddig bolognesesås. Proteinrik fusilli med plantbaserad bolognesesås."],
