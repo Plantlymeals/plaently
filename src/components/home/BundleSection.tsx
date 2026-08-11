@@ -38,6 +38,7 @@ const BADGE_KEYS: [RegExp, string][] = [
   [/energigivande|energis/i, "bundles.badge.mostEnergising"],
   [/fiberrik|high\s*fib/i, "bundles.badge.highFibre"],
   [/italien/i, "bundles.badge.italianFavourite"],
+  [/team/i, "bundles.badge.teamFavourite"],
   [/perfekt start|perfect start/i, "bundles.badge.perfectStart"],
 ];
 

@@ -132,6 +132,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.subtitle": { sv: "Spara mer när du köper mer.", en: "Save more when you buy more." },
  "bundles.orderNow": { sv: "Beställ nu", en: "Order now" },
   "bundles.mostPopular": { sv: "Mest populär", en: "Most Popular" },
+ "bundles.badge.teamFavourite": { sv: "Teamets favorit", en: "Team favourite" },
  "bundles.badge.perfectStart": { sv: "Perfekt start", en: "Perfect start" },
  "bundles.badge.italianFavourite": { sv: "Italiensk favorit", en: "Italian favourite" },
  "bundles.badge.creamyFavourite": { sv: "Krämig favorit", en: "Creamy favourite" },
