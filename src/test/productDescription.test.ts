@@ -8,7 +8,7 @@ const yellowCurryEn =
   "Creamy coconut milk with curry, coriander and lime — a trip to Southeast Asian street food. Protein-based rice with a creamy yellow curry sauce.";
 
 const yellowCurrySv =
-  "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat.";
+  "Krämig kokosmjölk med curry, koriander och lime — en resa till sydostasiatisk gatumat. Proteinbaserat ris med en krämig gul currysås.";
 
 const carbonaraMixed =
   "Krämig, pepprig carbonara i klassisk italiensk stil — med ett smart samspel av texturer. Protein-based fusilli with a creamy carbonara sauce.";
