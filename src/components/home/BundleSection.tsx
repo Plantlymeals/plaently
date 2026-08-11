@@ -11,6 +11,7 @@ import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
 import SavingsBadge from "@/components/SavingsBadge";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
+import { displayProductTitle } from "@/lib/productImages";
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
 
@@ -318,7 +319,7 @@ const BundleSection = () => {
                     <ul className="space-y-1.5">
                       {contents.map((c, i) => (
                         <li key={i} className="flex items-center justify-between gap-3 text-sm text-white/90">
-                          <span className="min-w-0 break-words">{c.name}</span>
+                          <span className="min-w-0 break-words">{displayProductTitle(c.name)}</span>
                           <span className="font-semibold tabular-nums shrink-0 whitespace-nowrap">× {c.quantity}</span>
                         </li>
                       ))}
