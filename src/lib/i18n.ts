@@ -23,8 +23,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "nav.shopNow": { sv: "Handla nu", en: "Shop now" },
 
  // Hero
-  "hero.headline": { sv: "Hälsosam snabbmat\ndriven av växtprotein.", en: "Healthy fast food\npowered by plant protein." },
- "hero.subheadline": { sv: "20g plantbaserad protein. Klart på 5 minuter.\nUtvecklat i Sverige, hantverk från Italien.", en: "20g plant protein. Ready in 5 minutes.\nDeveloped in Sweden, crafted in Italy." },
+  "hero.headline": { sv: "Växtbaserade proteinmåltider — klara på 5 minuter", en: "Plant-based protein meals — ready in 5 minutes" },
+ "hero.subheadline": { sv: "Riktiga råvaror. 20g växtprotein. Inga kompromisser.", en: "Real ingredients. 20g plant protein. No compromise." },
  "hero.cta": { sv: "Handla Måltider", en: "Shop Meals" },
  "hero.howItWorks": { sv: "Så funkar det", en: "How it works" },
  "hero.ctaStarter": { sv: "Handla Starter Pack", en: "Shop Starter Pack" },
