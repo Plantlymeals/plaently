@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "@/lib/router-compat";
 import { ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/Layout";

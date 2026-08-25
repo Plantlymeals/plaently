@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
 import { Leaf, Clock, Dumbbell } from "lucide-react";
@@ -28,7 +28,7 @@ const HeroSection = () => {
                 { icon: Clock, label: t("hero.badge2") },
                 { icon: Leaf, label: t("hero.badge3") },
               ].map(({ icon: Icon, label }) => (
-                <li key={label} className="inline-flex items-center gap-2 rounded-full bg-background/15 backdrop-blur-sm border border-background/30 px-4 py-1.5 text-sm font-medium text-primary-foreground">
+                <li key={label} className="inline-flex items-center gap-2 rounded-full bg-background/15 backdrop-blur-xs border border-background/30 px-4 py-1.5 text-sm font-medium text-primary-foreground">
                   <Icon className="h-4 w-4" /> {label}
                 </li>
               ))}

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@/lib/router-compat";
 import { useEffect } from "react";
 import { useTranslation } from "@/lib/i18n";
 import NoIndexHead from "@/components/NoIndexHead";

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "@/lib/router-compat";
 import { resolveLegacyRedirect } from "@/lib/legacyRedirects";
 
 // Strips legacy WordPress-style query params so Google doesn't index duplicate
