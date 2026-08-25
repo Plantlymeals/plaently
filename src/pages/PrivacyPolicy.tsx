@@ -1,6 +1,8 @@
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { Building2, Lock, Clock, FileText, Check } from "lucide-react";
+import { useEffect } from "react";
+import { useLocation } from "@/lib/router-compat";
 import { useTranslation } from "@/lib/i18n";
 
 const COPY = {
@@ -147,15 +149,21 @@ const COPY = {
 } as const;
 
 const PrivacyPolicy = () => {
-  const { lang } = useTranslation();
-  const isEn = lang !== "sv";
+  const { pathname } = useLocation();
+  const { lang, setLang } = useTranslation();
+  const isEn = pathname === "/privacy-policy";
   const c = COPY[isEn ? "en" : "sv"];
   const path = isEn ? "/privacy-policy" : "/integritetspolicy";
   const alternates = [
     { hreflang: "en", path: "/privacy-policy" },
     { hreflang: "sv", path: "/integritetspolicy" },
-    { hreflang: "x-default", path: "/privacy-policy" },
+    { hreflang: "x-default", path: "/integritetspolicy" },
   ];
+
+  useEffect(() => {
+    const routeLang = isEn ? "en" : "sv";
+    if (lang !== routeLang) setLang(routeLang);
+  }, [isEn, lang, setLang]);
 
   const baseUrl = "https://plantlymeals.com";
   const jsonLd = {
@@ -186,7 +194,7 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

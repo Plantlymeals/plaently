@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
-import { useTranslation, tSv } from "@/lib/i18n";
+import { useTranslation } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
@@ -49,6 +49,32 @@ const PRODUCT_SEO: Record<string, {
     en: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein, 228 kcal. Ready in 5 minutes. 65g per serving." },
     schema: { name: "Vegan Smoky BBQ Lentils", sku: "PLNT-LEN-001", calories: "228 calories", protein: "20.8g", servingSize: "65g", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter." },
   },
+  "starter-pack-12-cups-1": {
+    sv: { title: "Starter Pack – 20g protein på 5 min | PLÄNTLY", description: "Mix av alla 4 smaker. 12 proteinmåltider — levereras inom 1-2 vardagar." },
+    en: { title: "Starter Pack – 20g protein in 5 min | PLÄNTLY", description: "A mix of all 4 flavours. 12 protein meals — delivered in 1-2 business days." },
+    schema: { name: "Starter Pack", sku: "PLNT-STARTER-12", calories: "", protein: "20g", servingSize: "1 cup", description: "12 proteinmåltider i fyra smaker." },
+  },
+  "monthly-box-24-cups": {
+    sv: { title: "Monthly Box 24 koppar – Proteinmåltider | PLÄNTLY", description: "24 proteinmåltider med 20g protein per portion. Välj din mix och få riktiga måltider klara på 5 minuter." },
+    en: { title: "Monthly Box 24 Cups – Protein Meals | PLÄNTLY", description: "24 protein meals with 20g protein per serving. Choose your mix and enjoy real meals ready in 5 minutes." },
+    schema: { name: "Monthly Box – 24 Cups", sku: "PLNT-MONTHLY-24", calories: "", protein: "20g", servingSize: "1 cup", description: "24 proteinmåltider med valfri smakmix." },
+  },
+  "office-pack-48-cups": {
+    sv: { title: "Office Pack 48 koppar – Kontorslunch | PLÄNTLY", description: "48 proteinmåltider för kontoret. Riktiga, mättande måltider med 20g protein — klara på 5 minuter." },
+    en: { title: "Office Pack 48 Cups – Office Lunches | PLÄNTLY", description: "48 protein meals for the office. Real, filling meals with 20g protein — ready in 5 minutes." },
+    schema: { name: "Office Pack – 48 Cups", sku: "PLNT-OFFICE-48", calories: "", protein: "20g", servingSize: "1 cup", description: "48 proteinmåltider för kontor och team." },
+  },
+  "big-office-pack-96-cups": {
+    sv: { title: "Big Office Pack 96 koppar – Kontorsmat | PLÄNTLY", description: "96 proteinmåltider för större team. Smidiga kontorsluncher med 20g protein per portion — klara på 5 minuter." },
+    en: { title: "Big Office Pack 96 Cups – Office Meals | PLÄNTLY", description: "96 protein meals for larger teams. Easy office lunches with 20g protein per serving — ready in 5 minutes." },
+    schema: { name: "Big Office Pack – 96 Cups", sku: "PLNT-BIG-OFFICE-96", calories: "", protein: "20g", servingSize: "1 cup", description: "96 proteinmåltider för större kontor och team." },
+  },
+};
+
+const BUNDLE_SEO_ALIASES: Record<string, string> = {
+  "monthly-box-30-cups": "monthly-box-24-cups",
+  "office-pack-60-cups": "office-pack-48-cups",
+  "big-office-pack-120-cups": "big-office-pack-96-cups",
 };
 
 // Shopify handles carry a "plant-based-" prefix; map them to the same copy.
@@ -66,16 +92,36 @@ const ProductDetail = () => {
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
-  const productSeo = (product?.handle && PRODUCT_SEO[product.handle]) || (productHandle ? PRODUCT_SEO[productHandle] : undefined);
+  const seoHandle = productHandle
+    ? (BUNDLE_SEO_ALIASES[productHandle] ?? productHandle)
+    : undefined;
+  const loadedSeoHandle = product?.handle
+    ? (BUNDLE_SEO_ALIASES[product.handle] ?? product.handle)
+    : undefined;
+  const productSeo = (loadedSeoHandle && PRODUCT_SEO[loadedSeoHandle]) || (seoHandle ? PRODUCT_SEO[seoHandle] : undefined);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
     if (!productHandle) return;
-    fetchShopifyProductByHandle(productHandle).then((data) => {
-      setProduct(data);
-      setLoading(false);
-    });
+    let active = true;
+    setLoading(true);
+    fetchShopifyProductByHandle(productHandle)
+      .then((data) => {
+        if (active) setProduct(data);
+      })
+      .catch(() => {
+        if (active) setProduct(null);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [productHandle]);
+
+  const pageLocale: "sv" | "en" = "sv";
+  const pageSeo = productSeo?.[pageLocale];
 
   useEffect(() => {
     if (!productHandle) return;
@@ -128,12 +174,17 @@ const ProductDetail = () => {
   }, [product]);
 
   if (loading) {
-    return <Layout><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
+    const fallbackTitle = pageSeo?.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
+    const fallbackDescription = pageSeo?.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
+    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
   }
 
   if (!product) {
+    const fallbackTitle = pageSeo?.title ?? "Produkten hittades inte | PLÄNTLY";
+    const fallbackDescription = pageSeo?.description ?? "Utforska PLÄNTLYs proteinmåltider.";
     return (
       <Layout>
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
           <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
@@ -157,7 +208,7 @@ const ProductDetail = () => {
     name: productSeo?.schema.name ?? displayProductTitle(product.title),
     description: productSeo?.schema.description ?? product.description,
     image: image?.url,
-    url: `https://plaently.com/product/${product.handle}`,
+    url: `https://plaently.com/product/${productHandle ?? product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(productSeo && {
       sku: productSeo.schema.sku,
@@ -239,17 +290,11 @@ const ProductDetail = () => {
   return (
     <Layout>
       <SEOHead
-        title={productSeo?.[lang].title ?? (lang === "sv"
-          ? `${displayProductTitle(product.title)} – 20g protein på 5 min | PLÄNTLY`
-          : `${displayProductTitle(product.title)} – 20g protein in 5 min | PLÄNTLY`)}
-        description={productSeo?.[lang].description || translatedDesc || (lang === "sv"
-          ? `Hälsosam ${displayProductTitle(product.title).toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`
-          : `Healthy ${displayProductTitle(product.title).toLowerCase()} with 20g protein per serving – quick, filling and climate-smart. Ready in 5 minutes. Order online from PLÄNTLY.`)}
-        ogTitle={productSeo?.sv.title}
-        ogDescription={productSeo?.sv.description}
-        path={`/product/${product.handle}`}
+        title={pageSeo?.title ?? `${displayProductTitle(product.title)} – 20g protein på 5 min | PLÄNTLY`}
+        description={pageSeo?.description || translateProductText(product.description, pageLocale) || `Hälsosam ${displayProductTitle(product.title).toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`}
+        path={`/product/${productHandle ?? product.handle}`}
         type="product"
-        locale={lang}
+        locale={pageLocale}
         jsonLd={jsonLd}
       />
       <section className="py-12 md:py-20">
@@ -405,7 +450,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} ogTitle={tSv("seo.products.title")} ogDescription={tSv("seo.products.description")} path="/products" locale={lang} />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />

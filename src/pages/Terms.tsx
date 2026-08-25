@@ -86,7 +86,7 @@ const Terms = () => {
   const alternates = [
     { hreflang: "en", path: "/terms-of-service" },
     { hreflang: "sv", path: "/kopsvillkor" },
-    { hreflang: "x-default", path: "/terms-of-service" },
+    { hreflang: "x-default", path: "/kopsvillkor" },
   ];
 
   const baseUrl = "https://plantlymeals.com";

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "@/lib/router-compat";
 import { getAlternates, normalizePath } from "@/lib/localeAlternates";
@@ -31,11 +32,37 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
   // language toggle can never point two URLs at the same canonical.
   const canonicalPath = normalizePath(pathname || path);
   const url = `${BASE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`;
-  const hreflangs = alternates ?? getAlternates(canonicalPath);
+  // One tag per language. Callers may provide a pair explicitly, but Swedish
+  // is always the default locale for this site.
+  const requestedAlternates = alternates ?? getAlternates(canonicalPath);
+  const alternateByLanguage = new Map(
+    requestedAlternates.map((alternate) => [alternate.hreflang, alternate])
+  );
+  const swedishAlternate = alternateByLanguage.get("sv");
+  if (swedishAlternate) {
+    alternateByLanguage.set("x-default", {
+      hreflang: "x-default",
+      path: swedishAlternate.path,
+    });
+  }
+  const hreflangs = ["sv", "en", "x-default"]
+    .map((hreflang) => alternateByLanguage.get(hreflang))
+    .filter((alternate): alternate is { hreflang: string; path: string } => Boolean(alternate));
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
   const ogLocale = locale === "en" ? "en_GB" : "sv_SE";
   const socialTitle = ogTitle || title;
   const socialDescription = ogDescription || description;
+
+  // react-helmet-async can preserve server-rendered alternate links during
+  // hydration. Remove only stale duplicates after Helmet has reconciled.
+  useEffect(() => {
+    const links = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]'));
+    const seen = new Set<string>();
+    for (const link of links) {
+      if (seen.has(link.hreflang)) link.remove();
+      else seen.add(link.hreflang);
+    }
+  }, [canonicalPath, locale]);
 
   return (
     <Helmet>

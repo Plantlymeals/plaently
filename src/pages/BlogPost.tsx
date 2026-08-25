@@ -165,7 +165,7 @@ const BlogPostPage = () => {
         alternates={[
           { hreflang: "sv", path: svPath },
           { hreflang: "en", path: enPath },
-          { hreflang: "x-default", path: enPath },
+          { hreflang: "x-default", path: svPath },
         ]}
       />
       <article className="py-12 md:py-20">

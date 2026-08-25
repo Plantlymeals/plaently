@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   Link,
+  useLocation,
   useRouter,
 } from "@tanstack/react-router";
 import type { QueryClient } from "@tanstack/react-query";
@@ -21,6 +22,7 @@ import CookieConsent from "@/components/CookieConsent";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import { clearChunkReloadGuard, reloadOnceForChunkError } from "@/lib/chunkReload";
+import { getPathLocale } from "@/lib/localeAlternates";
 import appCss from "../styles.css?url";
 
 // ported from main.tsx — recover from stale chunk errors after a new deploy by reloading once.
@@ -176,8 +178,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const locale = getPathLocale(pathname);
+
   return (
-    <html lang="sv" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

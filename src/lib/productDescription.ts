@@ -107,7 +107,7 @@ const EN_TO_SV: Array<[RegExp, string]> = [
   [/\bsoy\b/g, "soja"],
   [/\begg\b/gi, "ägg"],
   [/\bmilk\b/gi, "mjölk"],
-  [/\band\b/g, "och"],
+  [/\band\b/gi, "och"],
 
 ];
 
