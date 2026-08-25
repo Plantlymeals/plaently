@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { RotateCcw, ShieldCheck, Truck, Scale, AlertTriangle, Check } from "lucide-react";
