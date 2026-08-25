@@ -5,6 +5,14 @@ const SHOPIFY_STORE_PERMANENT_DOMAIN = 'plantly-website-cms-fyvdr.myshopify.com'
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
 const SHOPIFY_STOREFRONT_TOKEN = import.meta.env['VITE_SHOPIFY_STOREFRONT_TOKEN'] as string;
 
+// Shopify retained older cup counts in these handles after the bundle sizes
+// changed. Keep the public, indexed URLs stable while resolving the live item.
+const PRODUCT_HANDLE_ALIASES: Record<string, string> = {
+  'monthly-box-24-cups': 'monthly-box-30-cups',
+  'office-pack-48-cups': 'office-pack-60-cups',
+  'big-office-pack-96-cups': 'big-office-pack-120-cups',
+};
+
 export interface ShopifyProduct {
   node: {
     id: string;
@@ -202,7 +210,8 @@ export async function fetchShopifyProducts(first = 20, query?: string): Promise<
 }
 
 export async function fetchShopifyProductByHandle(handle: string): Promise<ShopifyProduct["node"] | null> {
-  const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle });
+  const resolvedHandle = PRODUCT_HANDLE_ALIASES[handle] ?? handle;
+  const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle: resolvedHandle });
   const product = data?.data?.productByHandle || null;
   if (product) {
     product.title = cleanProductTitle(product.title);

@@ -32,6 +32,13 @@ export const getLocalePair = (path: string): { sv: string; en: string } | null =
   return hit ? { sv: hit[0], en: hit[1] } : null;
 };
 
+/** Language encoded by a paired route; unpaired URLs use Swedish by default. */
+export const getPathLocale = (path: string): "sv" | "en" => {
+  const normalized = normalizePath(path);
+  const pair = getLocalePair(normalized);
+  return pair?.en === normalized ? "en" : "sv";
+};
+
 /**
  * hreflang set for a path. Paired URLs point at each other; single URLs
  * declare themselves for both languages (same content, language toggle).
@@ -43,7 +50,7 @@ export const getAlternates = (path: string): Alternate[] => {
     return [
       { hreflang: "sv", path: pair.sv },
       { hreflang: "en", path: pair.en },
-      { hreflang: "x-default", path: pair.en },
+      { hreflang: "x-default", path: pair.sv },
     ];
   }
   return [

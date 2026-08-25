@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
-import { useTranslation, tSv } from "@/lib/i18n";
+import { useTranslation } from "@/lib/i18n";
 
 interface FAQRow {
   id: string;
@@ -44,7 +44,7 @@ const FAQPage = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.faq.title")} description={t("seo.faq.description")} ogTitle={tSv("seo.faq.title")} ogDescription={tSv("seo.faq.description")} path="/faq" locale={lang} />
+      <SEOHead title={t("seo.faq.title")} description={t("seo.faq.description")} path="/faq" locale={lang} />
       {faqSchema && (
         <Helmet>
           <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>

@@ -172,7 +172,7 @@ const Shipping = () => {
  const alternates = [
    { hreflang: "en", path: "/shipping" },
    { hreflang: "sv", path: "/frakt" },
-   { hreflang: "x-default", path: "/shipping" },
+   { hreflang: "x-default", path: "/frakt" },
  ];
 
  return (

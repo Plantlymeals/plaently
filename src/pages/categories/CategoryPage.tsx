@@ -26,7 +26,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
   const alternates = [
     { hreflang: "en", path: `/${enSlug}` },
     { hreflang: "sv", path: `/${svSlug}` },
-    { hreflang: "x-default", path: `/${enSlug}` },
+    { hreflang: "x-default", path: `/${svSlug}` },
   ];
 
   return (

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { useTranslation, tSv } from "@/lib/i18n";
+import { useTranslation } from "@/lib/i18n";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -58,7 +58,7 @@ const Contact = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} ogTitle={tSv("seo.contact.title")} ogDescription={tSv("seo.contact.description")} path="/contact" locale={lang} />
+      <SEOHead title={t("seo.contact.title")} description={t("seo.contact.description")} path="/contact" locale={lang} />
       <section className="py-12 md:py-20">
         <div className="container max-w-2xl space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Kontakt" : "Contact", path: "/contact" }]} lang={lang} className="mb-0" />
