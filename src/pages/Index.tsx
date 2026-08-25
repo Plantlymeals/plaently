@@ -32,10 +32,10 @@ class SectionErrorBoundary extends Component<
   static getDerivedStateFromError() {
     return { hasError: true };
   }
-  componentDidCatch(error: Error) {
+  override componentDidCatch(error: Error) {
     console.error("[SectionErrorBoundary]", error);
   }
-  render() {
+  override render() {
     if (this.state.hasError) return null;
     return this.props.children;
   }

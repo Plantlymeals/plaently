@@ -6,16 +6,16 @@ interface SEOHeadProps {
   title: string;
   description: string;
   path: string;
-  image?: string;
-  type?: string;
-  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
-  locale?: "sv" | "en";
-  alternates?: { hreflang: string; path: string }[];
+  image?: string | undefined;
+  type?: string | undefined;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
+  locale?: "sv" | "en" | undefined;
+  alternates?: { hreflang: string; path: string }[] | undefined;
   /** Swedish title/description used for OG + Twitter cards (falls back to title/description). */
-  ogTitle?: string;
-  ogDescription?: string;
+  ogTitle?: string | undefined;
+  ogDescription?: string | undefined;
   /** Utility/legal pages: keep links followed but out of the index. */
-  noindex?: boolean;
+  noindex?: boolean | undefined;
 }
 
 const BASE_URL = "https://plaently.com";

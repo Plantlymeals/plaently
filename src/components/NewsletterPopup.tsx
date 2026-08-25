@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type MotionProps } from "framer-motion";
+
+const MotionDiv = motion.div as React.FC<
+  MotionProps & React.HTMLAttributes<HTMLDivElement>
+>;
 import { X, Gift, Truck, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -67,8 +71,8 @@ const NewsletterPopup = () => {
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-foreground/50 z-[100]" onClick={handleClose} />
-          <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} className="fixed inset-0 z-[101] flex items-center justify-center p-4">
+          <MotionDiv initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-foreground/50 z-[100]" onClick={handleClose} />
+          <MotionDiv initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} className="fixed inset-0 z-[101] flex items-center justify-center p-4">
             <div className="bg-background rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative">
               <button onClick={handleClose} className="absolute top-4 right-4 z-10 p-1 rounded-full hover:bg-muted transition-colors" aria-label={t("newsletter.close")}>
                 <X className="w-5 h-5 text-muted-foreground" />
@@ -114,7 +118,7 @@ const NewsletterPopup = () => {
                 )}
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>
