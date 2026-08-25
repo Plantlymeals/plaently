@@ -155,6 +155,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.youSave": { sv: "Du sparar", en: "You save" },
  "bundles.value": { sv: "Värde", en: "Value" },
  "bundles.perCup": { sv: "kr / kopp", en: "kr / cup" },
+ "bundles.mixImageAlt": { sv: "PLÄNTLY proteinkoppar – mix av alla fyra smaker", en: "PLÄNTLY protein cups – mix of all four flavours" },
  "bundles.cups": { sv: "koppar", en: "cups" },
  "bundles.subSave": { sv: "Prenumerera & Spara", en: "Subscribe & Save" },
  "bundles.feat.allFlavours": { sv: "Alla 4 smaker ingår", en: "All 4 flavours included" },
