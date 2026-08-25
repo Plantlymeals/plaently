@@ -21,66 +21,7 @@ import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta, displayProductTitle } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
-
-// Per-product SEO copy. NOTE: Carbonara and Yellow Curry contain milk protein —
-// they must never be described as "vegan".
-const PRODUCT_SEO: Record<string, {
-  sv: { title: string; description: string };
-  en: { title: string; description: string };
-  schema: { name: string; sku: string; calories: string; protein: string; servingSize: string; description: string };
-}> = {
-  "fusilli-bolognese": {
-    sv: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein och 263 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 75g per portion." },
-    en: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein, 263 kcal. Ready in 5 minutes — add boiling water to the black line. 75g per serving." },
-    schema: { name: "Vegan Fusilli Bolognese", sku: "PLNT-FUS-001", calories: "263 calories", protein: "20.3g", servingSize: "75g", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter." },
-  },
-  "pasta-carbonara": {
-    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
-    en: { title: "Veggie Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein, 285 kcal. Ready in 5 minutes. Contains milk." },
-    schema: { name: "Veggie Pasta Carbonara", sku: "PLNT-CAR-001", calories: "285 calories", protein: "20.2g", servingSize: "75g", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
-  },
-  "yellow-curry-rice": {
-    sv: { title: "Vegetarisk Yellow Curry & Rice | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
-    en: { title: "Veggie Yellow Curry & Rice | 20g Protein, 285 kcal — PLÄNTLY", description: "Veggie Yellow Curry & Rice with 20g plant protein, 285 kcal. Ready in 5 minutes. Contains milk." },
-    schema: { name: "Veggie Yellow Curry & Rice", sku: "PLNT-CUR-001", calories: "285 calories", protein: "20.4g", servingSize: "73g", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
-  },
-  "smoky-bbq-lentils": {
-    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein och 228 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 65g per portion." },
-    en: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein, 228 kcal. Ready in 5 minutes. 65g per serving." },
-    schema: { name: "Vegan Smoky BBQ Lentils", sku: "PLNT-LEN-001", calories: "228 calories", protein: "20.8g", servingSize: "65g", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter." },
-  },
-  "starter-pack-12-cups-1": {
-    sv: { title: "Starter Pack – 20g protein på 5 min | PLÄNTLY", description: "Mix av alla 4 smaker. 12 proteinmåltider — levereras inom 1-2 vardagar." },
-    en: { title: "Starter Pack – 20g protein in 5 min | PLÄNTLY", description: "A mix of all 4 flavours. 12 protein meals — delivered in 1-2 business days." },
-    schema: { name: "Starter Pack", sku: "PLNT-STARTER-12", calories: "", protein: "20g", servingSize: "1 cup", description: "12 proteinmåltider i fyra smaker." },
-  },
-  "monthly-box-24-cups": {
-    sv: { title: "Monthly Box 24 koppar – Proteinmåltider | PLÄNTLY", description: "24 proteinmåltider med 20g protein per portion. Välj din mix och få riktiga måltider klara på 5 minuter." },
-    en: { title: "Monthly Box 24 Cups – Protein Meals | PLÄNTLY", description: "24 protein meals with 20g protein per serving. Choose your mix and enjoy real meals ready in 5 minutes." },
-    schema: { name: "Monthly Box – 24 Cups", sku: "PLNT-MONTHLY-24", calories: "", protein: "20g", servingSize: "1 cup", description: "24 proteinmåltider med valfri smakmix." },
-  },
-  "office-pack-48-cups": {
-    sv: { title: "Office Pack 48 koppar – Kontorslunch | PLÄNTLY", description: "48 proteinmåltider för kontoret. Riktiga, mättande måltider med 20g protein — klara på 5 minuter." },
-    en: { title: "Office Pack 48 Cups – Office Lunches | PLÄNTLY", description: "48 protein meals for the office. Real, filling meals with 20g protein — ready in 5 minutes." },
-    schema: { name: "Office Pack – 48 Cups", sku: "PLNT-OFFICE-48", calories: "", protein: "20g", servingSize: "1 cup", description: "48 proteinmåltider för kontor och team." },
-  },
-  "big-office-pack-96-cups": {
-    sv: { title: "Big Office Pack 96 koppar – Kontorsmat | PLÄNTLY", description: "96 proteinmåltider för större team. Smidiga kontorsluncher med 20g protein per portion — klara på 5 minuter." },
-    en: { title: "Big Office Pack 96 Cups – Office Meals | PLÄNTLY", description: "96 protein meals for larger teams. Easy office lunches with 20g protein per serving — ready in 5 minutes." },
-    schema: { name: "Big Office Pack – 96 Cups", sku: "PLNT-BIG-OFFICE-96", calories: "", protein: "20g", servingSize: "1 cup", description: "96 proteinmåltider för större kontor och team." },
-  },
-};
-
-const BUNDLE_SEO_ALIASES: Record<string, string> = {
-  "monthly-box-30-cups": "monthly-box-24-cups",
-  "office-pack-60-cups": "office-pack-48-cups",
-  "big-office-pack-120-cups": "big-office-pack-96-cups",
-};
-
-// Shopify handles carry a "plant-based-" prefix; map them to the same copy.
-for (const key of Object.keys(PRODUCT_SEO)) {
-  PRODUCT_SEO[`plant-based-${key}`] = PRODUCT_SEO[key]!;
-}
+import { getProductSeo } from "@/lib/productSeo";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -92,13 +33,7 @@ const ProductDetail = () => {
   const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
-  const seoHandle = productHandle
-    ? (BUNDLE_SEO_ALIASES[productHandle] ?? productHandle)
-    : undefined;
-  const loadedSeoHandle = product?.handle
-    ? (BUNDLE_SEO_ALIASES[product.handle] ?? product.handle)
-    : undefined;
-  const productSeo = (loadedSeoHandle && PRODUCT_SEO[loadedSeoHandle]) || (seoHandle ? PRODUCT_SEO[seoHandle] : undefined);
+  const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
@@ -176,7 +111,7 @@ const ProductDetail = () => {
   if (loading) {
     const fallbackTitle = pageSeo?.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
     const fallbackDescription = pageSeo?.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
-    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
+    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
   }
 
   if (!product) {
@@ -184,7 +119,7 @@ const ProductDetail = () => {
     const fallbackDescription = pageSeo?.description ?? "Utforska PLÄNTLYs proteinmåltider.";
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
           <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
@@ -296,6 +231,7 @@ const ProductDetail = () => {
         type="product"
         locale={pageLocale}
         jsonLd={jsonLd}
+        routeOwnsLinks
       />
       <section className="py-12 md:py-20">
         <div className="container">

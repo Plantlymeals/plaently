@@ -272,6 +272,9 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   // Specific fix for the requested variations
   out = out.replace("Din mix av alla 4 smaker. 12 växtbaserade proteinmåltider — fri frakt i Sverige, levereras inom 2–4 dagar.", "Mix av alla 4 smaker. 12 växtbaserade proteinmåltider — levereras inom 1-2 dagar.");
 
+  // Final pass catches mixed Swedish/English fragments regardless of whether
+  // Shopify wrapped the word in an HTML element or non-breaking spaces.
+  out = out.replace(/(^|[^A-Za-zÅÄÖåäö])and(?=[^A-Za-zÅÄÖåäö]|$)/gi, "$1och");
   return sanitizeVeganClaims(out);
 }
 
