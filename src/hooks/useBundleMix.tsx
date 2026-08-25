@@ -13,7 +13,7 @@ const CUPS: Record<string, number> = {
 export function getBundleCupsFromTitle(title: string): number | null {
   const lower = title.toLowerCase();
   const key = BUNDLE_KEYS.find((k) => lower.includes(k));
-  return key ? CUPS[key] : null;
+  return key ? (CUPS[key] ?? null) : null;
 }
 
 export function useBundleMix() {
@@ -54,7 +54,7 @@ export function useBundleMix() {
       price: variant.price,
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
-      attributes,
+      ...(attributes ? { attributes } : {}),
     });
     toast.success(t("products.addedToCart"), { position: "top-center" });
   };

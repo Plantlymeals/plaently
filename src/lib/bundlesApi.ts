@@ -21,8 +21,8 @@ export type BundleRow = {
 // restrictions). Use a direct REST call for this public-read query.
 export async function fetchPublishedBundles(): Promise<BundleRow[]> {
   try {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/bundles?select=id,name,is_mixable,components,meal_count,price,per_meal_price,badge,description,sort_order,is_published,shopify_product_id,image_url&is_published=eq.true&order=sort_order.asc`;
-    const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+    const url = `${import.meta.env['VITE_SUPABASE_URL']}/rest/v1/bundles?select=id,name,is_mixable,components,meal_count,price,per_meal_price,badge,description,sort_order,is_published,shopify_product_id,image_url&is_published=eq.true&order=sort_order.asc`;
+    const key = import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] as string;
     const res = await fetch(url, {
       headers: { apikey: key, Authorization: `Bearer ${key}` },
     });

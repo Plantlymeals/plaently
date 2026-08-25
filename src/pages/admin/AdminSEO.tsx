@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { submitSitemapToGoogle } from "@/lib/searchConsole";
 
 const BASE_URL = "https://plaently.com";
-const LIVE_SITEMAP_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sitemap`;
+const LIVE_SITEMAP_URL = `${import.meta.env['VITE_SUPABASE_URL']}/functions/v1/sitemap`;
 
 type Kind = "product" | "blog";
 

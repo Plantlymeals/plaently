@@ -73,7 +73,7 @@ const ProductReviews = ({ productSlug, title }: { productSlug: string; title: st
   const submit = async () => {
     const parsed = makeReviewSchema(t).safeParse(form);
     if (!parsed.success) {
-      toast.error(parsed.error.issues[0].message);
+      toast.error(parsed.error.issues[0]?.message ?? "Invalid input");
       return;
     }
     setSubmitting(true);

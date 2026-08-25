@@ -155,7 +155,7 @@ const BundleSection = () => {
       price: variant.price,
       quantity: 1,
       selectedOptions: variant.selectedOptions || [],
-      attributes,
+      ...(attributes ? { attributes } : {}),
     });
     toast.success(t("products.addedToCart"), { position: "top-center" });
   };

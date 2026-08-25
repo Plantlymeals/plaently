@@ -28,8 +28,8 @@ const AdminTestimonials = () => {
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
-    if (!form.quote?.trim() || !form.author_name?.trim()) { toast.error("Quote and author name are required"); return; }
-    const payload = { quote: form.quote, author_name: form.author_name, author_role: form.author_role, sort_order: form.sort_order ?? 0, is_published: form.is_published };
+    if (!form['quote']?.trim() || !form['author_name']?.trim()) { toast.error("Quote and author name are required"); return; }
+    const payload = { quote: form['quote'], author_name: form['author_name'], author_role: form['author_role'], sort_order: form['sort_order'] ?? 0, is_published: form['is_published'] };
     if (isNew) {
       const { error } = await supabase.from("testimonials").insert(payload);
       if (error) { toast.error(error.message); return; }
@@ -59,15 +59,15 @@ const AdminTestimonials = () => {
       {editing && (
         <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
           <h2 className="font-heading font-semibold">{isNew ? "New Testimonial" : "Edit Testimonial"}</h2>
-          <div className="space-y-1"><label className="text-xs font-medium">Quote *</label><Textarea value={form.quote ?? ""} onChange={e => setForm({ ...form, quote: e.target.value })} className="rounded-xl" rows={3} /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Quote *</label><Textarea value={form['quote'] ?? ""} onChange={e => setForm({ ...form, quote: e.target.value })} className="rounded-xl" rows={3} /></div>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Author Name *</label><Input value={form.author_name ?? ""} onChange={e => setForm({ ...form, author_name: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Author Role</label><Input value={form.author_role ?? ""} onChange={e => setForm({ ...form, author_role: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Author Name *</label><Input value={form['author_name'] ?? ""} onChange={e => setForm({ ...form, author_name: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Author Role</label><Input value={form['author_role'] ?? ""} onChange={e => setForm({ ...form, author_role: e.target.value })} className="rounded-xl" /></div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form['sort_order'] ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
             <div className="flex items-center gap-2 pt-5">
-              <input type="checkbox" checked={form.is_published ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
+              <input type="checkbox" checked={form['is_published'] ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
               <label className="text-sm">Published</label>
             </div>
           </div>

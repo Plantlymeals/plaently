@@ -293,7 +293,7 @@ export const ImageUpload = ({ value, onChange, label = "Image", maxSize = 900 }:
                   min={1}
                   max={4}
                   step={0.05}
-                  onValueChange={(v) => setZoom(v[0])}
+                  onValueChange={(v) => setZoom(v[0] ?? 1)}
                   className="flex-1"
                 />
                 <Button type="button" variant="ghost" size="icon" onClick={() => setZoom((z) => Math.min(4, +(z + 0.1).toFixed(2)))}>

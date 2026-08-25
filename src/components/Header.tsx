@@ -39,7 +39,7 @@ const Header = () => {
             const handleClick = (e: React.MouseEvent) => {
               if (isHash && location.pathname === "/") {
                 e.preventDefault();
-                const hash = item.path.split("#")[1];
+                const hash = item.path.split("#")[1] ?? "";
                 const el = document.getElementById(hash);
                 el?.scrollIntoView({ behavior: "smooth" });
                 window.history.pushState(null, "", item.path);
@@ -94,7 +94,7 @@ const Header = () => {
                 setMobileOpen(false);
                 if (isHash && location.pathname === "/") {
                   e.preventDefault();
-                  const hash = item.path.split("#")[1];
+                  const hash = item.path.split("#")[1] ?? "";
                   setTimeout(() => {
                     document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
                   }, 100);

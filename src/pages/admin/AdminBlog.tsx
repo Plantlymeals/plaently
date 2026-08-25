@@ -43,16 +43,16 @@ const AdminBlog = () => {
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
-    if (!form.title?.trim() || !form.slug?.trim()) { toast.error("Title and slug are required"); return; }
-    let publishedAt: string | null = form.published_at ?? null;
-    if (form.is_published && !publishedAt) {
+    if (!form['title']?.trim() || !form['slug']?.trim()) { toast.error("Title and slug are required"); return; }
+    let publishedAt: string | null = form['published_at'] ?? null;
+    if (form['is_published'] && !publishedAt) {
       publishedAt = new Date().toISOString();
     }
     const payload = {
-      slug: form.slug, title: form.title, excerpt: form.excerpt, content: form.content,
-      cover_image_url: form.cover_image_url, author: form.author, category: form.category,
-      language: form.language || "en",
-      is_published: form.is_published, published_at: publishedAt,
+      slug: form['slug'], title: form['title'], excerpt: form['excerpt'], content: form['content'],
+      cover_image_url: form['cover_image_url'], author: form['author'], category: form['category'],
+      language: form['language'] || "en",
+      is_published: form['is_published'], published_at: publishedAt,
     };
     if (isNew) {
       const { error } = await supabase.from("blog_posts").insert(payload);
@@ -85,12 +85,12 @@ const AdminBlog = () => {
         <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
           <h2 className="font-heading font-semibold">{isNew ? "New Post" : "Edit Post"}</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Title *</label><Input value={form.title ?? ""} onChange={e => setForm({ ...form, title: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Slug *</label><Input value={form.slug ?? ""} onChange={e => setForm({ ...form, slug: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Author</label><Input value={form.author ?? ""} onChange={e => setForm({ ...form, author: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Title *</label><Input value={form['title'] ?? ""} onChange={e => setForm({ ...form, title: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Slug *</label><Input value={form['slug'] ?? ""} onChange={e => setForm({ ...form, slug: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Author</label><Input value={form['author'] ?? ""} onChange={e => setForm({ ...form, author: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1">
               <label className="text-xs font-medium">Language *</label>
-              <Select value={form.language ?? "en"} onValueChange={(v) => setForm({ ...form, language: v, category: "" })}>
+              <Select value={form['language'] ?? "en"} onValueChange={(v) => setForm({ ...form, language: v, category: "" })}>
                 <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">English</SelectItem>
@@ -100,22 +100,22 @@ const AdminBlog = () => {
             </div>
             <div className="space-y-1 sm:col-span-2">
               <label className="text-xs font-medium">Category</label>
-              <Select value={form.category ?? ""} onValueChange={(v) => setForm({ ...form, category: v })}>
+              <Select value={form['category'] ?? ""} onValueChange={(v) => setForm({ ...form, category: v })}>
                 <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select a category" /></SelectTrigger>
                 <SelectContent>
                   {BLOG_CATEGORIES.map((c) => {
-                    const label = (form.language ?? "en") === "sv" ? c.sv : c.en;
+                    const label = (form['language'] ?? "en") === "sv" ? c.sv : c.en;
                     return <SelectItem key={c.slug} value={label}>{label}</SelectItem>;
                   })}
                 </SelectContent>
               </Select>
             </div>
-            <div className="space-y-1 sm:col-span-2"><label className="text-xs font-medium">Cover Image URL</label><Input value={form.cover_image_url ?? ""} onChange={e => setForm({ ...form, cover_image_url: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1 sm:col-span-2"><label className="text-xs font-medium">Cover Image URL</label><Input value={form['cover_image_url'] ?? ""} onChange={e => setForm({ ...form, cover_image_url: e.target.value })} className="rounded-xl" /></div>
           </div>
-          <div className="space-y-1"><label className="text-xs font-medium">Excerpt</label><Textarea value={form.excerpt ?? ""} onChange={e => setForm({ ...form, excerpt: e.target.value })} className="rounded-xl" rows={2} /></div>
-          <div className="space-y-1"><label className="text-xs font-medium">Content</label><Textarea value={form.content ?? ""} onChange={e => setForm({ ...form, content: e.target.value })} className="rounded-xl" rows={8} /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Excerpt</label><Textarea value={form['excerpt'] ?? ""} onChange={e => setForm({ ...form, excerpt: e.target.value })} className="rounded-xl" rows={2} /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Content</label><Textarea value={form['content'] ?? ""} onChange={e => setForm({ ...form, content: e.target.value })} className="rounded-xl" rows={8} /></div>
           <div className="flex items-center gap-2">
-            <input id="published" type="checkbox" checked={form.is_published ?? false} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
+            <input id="published" type="checkbox" checked={form['is_published'] ?? false} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
             <label htmlFor="published" className="text-sm">Published</label>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -123,7 +123,7 @@ const AdminBlog = () => {
               <label className="text-xs font-medium">Publish at (optional)</label>
               <Input
                 type="datetime-local"
-                value={toDatetimeLocal(form.published_at)}
+                value={toDatetimeLocal(form['published_at'])}
                 onChange={e => setForm({ ...form, published_at: e.target.value ? new Date(e.target.value).toISOString() : null })}
                 className="rounded-xl"
               />
