@@ -58,7 +58,7 @@ export const MixBuilderDialog = ({
   const adjust = (idx: number, delta: number) => {
     setCounts((prev) => {
       const next = [...prev];
-      next[idx] = Math.max(0, next[idx] + delta);
+      next[idx] = Math.max(0, (next[idx] ?? 0) + delta);
       return next;
     });
   };
@@ -67,7 +67,7 @@ export const MixBuilderDialog = ({
 
   const handleConfirm = () => {
     const mix = flavours
-      .map((f, i) => ({ name: f.node.title, count: counts[i] }))
+      .map((f, i) => ({ name: f.node.title, count: counts[i] ?? 0 }))
       .filter((m) => m.count > 0);
     const summary = mix.map((m) => `${m.count}× ${m.name.replace(/^Plant.?Based\s*/i, "")}`).join(", ");
     const attributes: Array<{ key: string; value: string }> = [
@@ -121,7 +121,7 @@ export const MixBuilderDialog = ({
                         size="icon"
                         className="h-7 w-7 rounded-full"
                         onClick={() => adjust(idx, -1)}
-                        disabled={counts[idx] <= 0}
+                        disabled={(counts[idx] ?? 0) <= 0}
                       >
                         <Minus className="h-3 w-3" />
                       </Button>

@@ -44,21 +44,21 @@ const AdminBundles = () => {
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
-    if (!form.name?.trim()) { toast.error("Name is required"); return; }
-    const cleanedComponents = toComponents(form.components);
+    if (!form['name']?.trim()) { toast.error("Name is required"); return; }
+    const cleanedComponents = toComponents(form['components']);
     const payload = {
-      name: form.name,
-      meal_count: form.meal_count,
-      price: form.price,
-      per_meal_price: form.per_meal_price,
-      badge: form.badge || null,
-      description: form.description,
-      sort_order: form.sort_order ?? 0,
-      is_published: form.is_published,
-      is_mixable: form.is_mixable ?? false,
+      name: form['name'],
+      meal_count: form['meal_count'],
+      price: form['price'],
+      per_meal_price: form['per_meal_price'],
+      badge: form['badge'] || null,
+      description: form['description'],
+      sort_order: form['sort_order'] ?? 0,
+      is_published: form['is_published'],
+      is_mixable: form['is_mixable'] ?? false,
       components: cleanedComponents,
-      shopify_product_id: form.shopify_product_id?.trim() || null,
-      image_url: form.image_url?.trim() ? form.image_url : null,
+      shopify_product_id: form['shopify_product_id']?.trim() || null,
+      image_url: form['image_url']?.trim() ? form['image_url'] : null,
     };
     if (isNew) {
       const { error } = await supabase.from("bundles").insert(payload);
@@ -90,23 +90,23 @@ const AdminBundles = () => {
         <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
           <h2 className="font-heading font-semibold">{isNew ? "New Bundle" : "Edit Bundle"}</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Name *</label><Input value={form.name ?? ""} onChange={e => setForm({ ...form, name: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Meal Count</label><Input type="number" value={form.meal_count ?? 12} onChange={e => setForm({ ...form, meal_count: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Price</label><Input value={form.price ?? ""} onChange={e => setForm({ ...form, price: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Per Meal Price</label><Input value={form.per_meal_price ?? ""} onChange={e => setForm({ ...form, per_meal_price: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Badge</label><Input value={form.badge ?? ""} onChange={e => setForm({ ...form, badge: e.target.value })} className="rounded-xl" placeholder="e.g. Most Popular" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Name *</label><Input value={form['name'] ?? ""} onChange={e => setForm({ ...form, name: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Meal Count</label><Input type="number" value={form['meal_count'] ?? 12} onChange={e => setForm({ ...form, meal_count: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Price</label><Input value={form['price'] ?? ""} onChange={e => setForm({ ...form, price: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Per Meal Price</label><Input value={form['per_meal_price'] ?? ""} onChange={e => setForm({ ...form, per_meal_price: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Badge</label><Input value={form['badge'] ?? ""} onChange={e => setForm({ ...form, badge: e.target.value })} className="rounded-xl" placeholder="e.g. Most Popular" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form['sort_order'] ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
           </div>
-          <div className="space-y-1"><label className="text-xs font-medium">Description</label><Textarea value={form.description ?? ""} onChange={e => setForm({ ...form, description: e.target.value })} className="rounded-xl" rows={2} /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Description</label><Textarea value={form['description'] ?? ""} onChange={e => setForm({ ...form, description: e.target.value })} className="rounded-xl" rows={2} /></div>
           <ImageUpload
             label="Bundle image (shown on cards)"
-            value={form.image_url ?? ""}
+            value={form['image_url'] ?? ""}
             onChange={(url) => setForm({ ...form, image_url: url ?? "" })}
           />
           <div className="space-y-1">
             <label className="text-xs font-medium">Shopify product (required to be buyable)</label>
             <select
-              value={form.shopify_product_id ?? ""}
+              value={form['shopify_product_id'] ?? ""}
               onChange={(e) => setForm({ ...form, shopify_product_id: e.target.value })}
               className="w-full rounded-xl border border-input bg-background h-10 px-3 text-sm"
             >
@@ -123,11 +123,11 @@ const AdminBundles = () => {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" checked={form.is_published ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
+            <input type="checkbox" checked={form['is_published'] ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
             <label className="text-sm">Published</label>
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" checked={form.is_mixable ?? false} onChange={e => setForm({ ...form, is_mixable: e.target.checked })} />
+            <input type="checkbox" checked={form['is_mixable'] ?? false} onChange={e => setForm({ ...form, is_mixable: e.target.checked })} />
             <label className="text-sm">Allow customers to mix &amp; match contents</label>
           </div>
           <div className="space-y-2 border-t border-border/50 pt-4">
@@ -141,21 +141,21 @@ const AdminBundles = () => {
                 variant="ghost"
                 size="sm"
                 className="rounded-full gap-1"
-                onClick={() => setForm({ ...form, components: [...toComponents(form.components), { name: "", quantity: 1 }] })}
+                onClick={() => setForm({ ...form, components: [...toComponents(form['components']), { name: "", quantity: 1 }] })}
               >
                 <Plus className="h-3.5 w-3.5" /> Add item
               </Button>
             </div>
-            {(toComponents(form.components).length === 0 && !(Array.isArray(form.components) && form.components.length > 0)) && (
+            {(toComponents(form['components']).length === 0 && !(Array.isArray(form['components']) && form['components'].length > 0)) && (
               <p className="text-xs text-muted-foreground italic">No items yet.</p>
             )}
-            {(Array.isArray(form.components) ? form.components : []).map((c: any, idx: number) => (
+            {(Array.isArray(form['components']) ? form['components'] : []).map((c: any, idx: number) => (
               <div key={idx} className="flex gap-2 items-center">
                 <Input
                   value={c?.name ?? ""}
                   placeholder="Item name (e.g. Curry)"
                   onChange={e => {
-                    const next = [...(form.components as any[])];
+                    const next = [...(form['components'] as any[])];
                     next[idx] = { ...next[idx], name: e.target.value };
                     setForm({ ...form, components: next });
                   }}
@@ -166,7 +166,7 @@ const AdminBundles = () => {
                   min={1}
                   value={c?.quantity ?? 1}
                   onChange={e => {
-                    const next = [...(form.components as any[])];
+                    const next = [...(form['components'] as any[])];
                     next[idx] = { ...next[idx], quantity: parseInt(e.target.value) || 0 };
                     setForm({ ...form, components: next });
                   }}
@@ -177,7 +177,7 @@ const AdminBundles = () => {
                   variant="ghost"
                   size="icon"
                   onClick={() => {
-                    const next = (form.components as any[]).filter((_, i) => i !== idx);
+                    const next = (form['components'] as any[]).filter((_, i) => i !== idx);
                     setForm({ ...form, components: next });
                   }}
                 >

@@ -152,7 +152,7 @@ const AdminDiscounts = () => {
     return true;
   };
 
-  const DateField = ({ label, value, onChange }: { label: string; value?: Date; onChange: (d?: Date) => void }) => (
+  const DateField = ({ label, value, onChange }: { label: string; value?: Date | undefined; onChange: (d?: Date | undefined) => void }) => (
     <div className="space-y-1">
       <label className="text-xs font-medium">{label}</label>
       <Popover>

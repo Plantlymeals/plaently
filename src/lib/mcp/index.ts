@@ -6,7 +6,7 @@ import createBlogPostTool from "./tools/create-blog-post";
 import listFaqsTool from "./tools/list-faqs";
 import listContactMessagesTool from "./tools/list-contact-messages";
 
-const projectRef = import.meta.env.VITE_SUPABASE_PROJECT_ID ?? "project-ref-unset";
+const projectRef = import.meta.env['VITE_SUPABASE_PROJECT_ID'] ?? "project-ref-unset";
 
 export default defineMcp({
   name: "plaently-protein-fast-food",
@@ -18,12 +18,12 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [
+  tools: ([
     listProductsTool,
     listFaqsTool,
     listBlogPostsTool,
     getBlogPostTool,
     createBlogPostTool,
     listContactMessagesTool,
-  ],
+  ] as never),
 });

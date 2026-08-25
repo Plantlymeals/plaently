@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 
-const FN_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/handle-email-unsubscribe`;
-const ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const FN_URL = `${import.meta.env['VITE_SUPABASE_URL']}/functions/v1/handle-email-unsubscribe`;
+const ANON_KEY = import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'];
 
 type State =
   | { kind: "loading" }

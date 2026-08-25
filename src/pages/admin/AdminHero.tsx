@@ -25,7 +25,7 @@ const AdminHero = () => {
   const cancel = () => { setEditing(null); setForm({}); };
 
   const save = async () => {
-    const payload = { headline: form.headline, subheadline: form.subheadline, cta_text: form.cta_text, cta_link: form.cta_link, image_url: form.image_url };
+    const payload = { headline: form['headline'], subheadline: form['subheadline'], cta_text: form['cta_text'], cta_link: form['cta_link'], image_url: form['image_url'] };
     const { error } = await supabase.from("hero_content").update(payload).eq("id", editing!);
     if (error) { toast.error(error.message); return; }
     toast.success("Hero content updated");
@@ -39,13 +39,13 @@ const AdminHero = () => {
 
       {editing && (
         <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
-          <h2 className="font-heading font-semibold">Edit: {form.section_key}</h2>
+          <h2 className="font-heading font-semibold">Edit: {form['section_key']}</h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Headline</label><Input value={form.headline ?? ""} onChange={e => setForm({ ...form, headline: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">Subheadline</label><Input value={form.subheadline ?? ""} onChange={e => setForm({ ...form, subheadline: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">CTA Text</label><Input value={form.cta_text ?? ""} onChange={e => setForm({ ...form, cta_text: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1"><label className="text-xs font-medium">CTA Link</label><Input value={form.cta_link ?? ""} onChange={e => setForm({ ...form, cta_link: e.target.value })} className="rounded-xl" /></div>
-            <div className="space-y-1 sm:col-span-2"><label className="text-xs font-medium">Image URL</label><Input value={form.image_url ?? ""} onChange={e => setForm({ ...form, image_url: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Headline</label><Input value={form['headline'] ?? ""} onChange={e => setForm({ ...form, headline: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Subheadline</label><Input value={form['subheadline'] ?? ""} onChange={e => setForm({ ...form, subheadline: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">CTA Text</label><Input value={form['cta_text'] ?? ""} onChange={e => setForm({ ...form, cta_text: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">CTA Link</label><Input value={form['cta_link'] ?? ""} onChange={e => setForm({ ...form, cta_link: e.target.value })} className="rounded-xl" /></div>
+            <div className="space-y-1 sm:col-span-2"><label className="text-xs font-medium">Image URL</label><Input value={form['image_url'] ?? ""} onChange={e => setForm({ ...form, image_url: e.target.value })} className="rounded-xl" /></div>
           </div>
           <div className="flex gap-2">
             <Button onClick={save} className="rounded-full gap-2"><Check className="h-4 w-4" /> Save</Button>

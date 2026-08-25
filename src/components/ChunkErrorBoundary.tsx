@@ -19,7 +19,7 @@ class ChunkErrorBoundary extends Component<
   ChunkErrorBoundaryProps,
   ChunkErrorBoundaryState
 > {
-  state: ChunkErrorBoundaryState = {
+  override state: ChunkErrorBoundaryState = {
     hasError: false,
     isChunkError: false,
     message: "",
@@ -33,11 +33,11 @@ class ChunkErrorBoundary extends Component<
     };
   }
 
-  componentDidCatch(error: unknown) {
+  override componentDidCatch(error: unknown) {
     reloadOnceForChunkError(error);
   }
 
-  render() {
+  override render() {
     if (!this.state.hasError) {
       return this.props.children;
     }

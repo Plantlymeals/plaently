@@ -53,7 +53,7 @@ const PRODUCT_SEO: Record<string, {
 
 // Shopify handles carry a "plant-based-" prefix; map them to the same copy.
 for (const key of Object.keys(PRODUCT_SEO)) {
-  PRODUCT_SEO[`plant-based-${key}`] = PRODUCT_SEO[key];
+  PRODUCT_SEO[`plant-based-${key}`] = PRODUCT_SEO[key]!;
 }
 
 const ProductDetail = () => {

@@ -28,8 +28,8 @@ const AdminFAQs = () => {
   const cancel = () => { setEditing(null); setForm({}); setIsNew(false); };
 
   const save = async () => {
-    if (!form.question?.trim() || !form.answer?.trim()) { toast.error("Question and answer are required"); return; }
-    const payload = { question: form.question, answer: form.answer, sort_order: form.sort_order ?? 0, is_published: form.is_published };
+    if (!form['question']?.trim() || !form['answer']?.trim()) { toast.error("Question and answer are required"); return; }
+    const payload = { question: form['question'], answer: form['answer'], sort_order: form['sort_order'] ?? 0, is_published: form['is_published'] };
     if (isNew) {
       const { error } = await supabase.from("faqs").insert(payload);
       if (error) { toast.error(error.message); return; }
@@ -59,12 +59,12 @@ const AdminFAQs = () => {
       {editing && (
         <div className="bg-card rounded-2xl border border-border/50 p-6 shadow-card space-y-4">
           <h2 className="font-heading font-semibold">{isNew ? "New FAQ" : "Edit FAQ"}</h2>
-          <div className="space-y-1"><label className="text-xs font-medium">Question *</label><Input value={form.question ?? ""} onChange={e => setForm({ ...form, question: e.target.value })} className="rounded-xl" /></div>
-          <div className="space-y-1"><label className="text-xs font-medium">Answer *</label><Textarea value={form.answer ?? ""} onChange={e => setForm({ ...form, answer: e.target.value })} className="rounded-xl" rows={3} /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Question *</label><Input value={form['question'] ?? ""} onChange={e => setForm({ ...form, question: e.target.value })} className="rounded-xl" /></div>
+          <div className="space-y-1"><label className="text-xs font-medium">Answer *</label><Textarea value={form['answer'] ?? ""} onChange={e => setForm({ ...form, answer: e.target.value })} className="rounded-xl" rows={3} /></div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form.sort_order ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
+            <div className="space-y-1"><label className="text-xs font-medium">Sort Order</label><Input type="number" value={form['sort_order'] ?? 0} onChange={e => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })} className="rounded-xl" /></div>
             <div className="flex items-center gap-2 pt-5">
-              <input type="checkbox" checked={form.is_published ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
+              <input type="checkbox" checked={form['is_published'] ?? true} onChange={e => setForm({ ...form, is_published: e.target.checked })} />
               <label className="text-sm">Published</label>
             </div>
           </div>
