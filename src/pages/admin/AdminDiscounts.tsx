@@ -42,13 +42,12 @@ const blankForm = () => ({
 type FormState = ReturnType<typeof blankForm>;
 
 const invoke = async (action: string, payload: Record<string, unknown> = {}) => {
-  const { data, error } = await supabase.functions.invoke("shopify-discounts", {
-    body: { action, ...payload },
+  const data = await manageShopifyDiscounts({
+    data: { action, ...payload } as never,
   });
-  if (error) throw new Error(error.message);
-  if (data?.error) throw new Error(data.error);
-  return data;
+  return data as any;
 };
+
 
 const AdminDiscounts = () => {
   const [rules, setRules] = useState<PriceRule[]>([]);
