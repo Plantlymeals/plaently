@@ -21,7 +21,7 @@ export const LOCALE_PAIRS: [string, string][] = [
 export const normalizePath = (path: string): string => {
   if (!path) return "/";
   const [clean] = path.split(/[?#]/);
-  const trimmed = clean.replace(/\/+$/, "");
+  const trimmed = (clean ?? "").replace(/\/+$/, "");
   return trimmed === "" ? "/" : trimmed;
 };
 

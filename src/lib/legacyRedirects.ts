@@ -70,7 +70,7 @@ export const resolveLegacyRedirect = (pathname: string): string | null => {
   const productMatch = path.match(/^\/(product|products)\/([^/]+)$/);
   if (productMatch) {
     const [, segment, handle] = productMatch;
-    const target = HANDLE_REDIRECTS[handle] ?? handle;
+    const target = HANDLE_REDIRECTS[handle ?? ""] ?? handle ?? "";
     const primary = `/product/${target}`;
     if (primary !== pathname) return primary;
     return null;

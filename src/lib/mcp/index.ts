@@ -18,12 +18,12 @@ export default defineMcp({
     issuer: `https://${projectRef}.supabase.co/auth/v1`,
     acceptedAudiences: "authenticated",
   }),
-  tools: [
+  tools: ([
     listProductsTool,
     listFaqsTool,
     listBlogPostsTool,
     getBlogPostTool,
     createBlogPostTool,
     listContactMessagesTool,
-  ],
+  ] as never),
 });

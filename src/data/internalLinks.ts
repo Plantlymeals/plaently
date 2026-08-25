@@ -46,7 +46,7 @@ const LINKS: Record<string, Record<Lang, InternalLink>> = {
 
 export type LinkKey = keyof typeof LINKS;
 
-export const getLink = (key: LinkKey, lang: Lang): InternalLink => LINKS[key][lang];
+export const getLink = (key: LinkKey, lang: Lang): InternalLink => LINKS[key][lang] as InternalLink;
 
 export const getLinks = (keys: LinkKey[], lang: Lang): InternalLink[] =>
   keys.map((k) => getLink(k, lang));
