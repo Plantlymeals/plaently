@@ -16,6 +16,8 @@ interface SEOHeadProps {
   ogDescription?: string | undefined;
   /** Utility/legal pages: keep links followed but out of the index. */
   noindex?: boolean | undefined;
+  /** Route head already owns canonical/hreflang for SSR-first dynamic pages. */
+  routeOwnsLinks?: boolean | undefined;
 }
 
 const BASE_URL = "https://plaently.com";
@@ -25,7 +27,7 @@ const KEYWORDS = {
   en: "plant-based protein meals, protein meals, healthy fast food, 20g plant protein, instant protein meal Sweden, PLÄNTLY, quick protein food, plant protein meal, protein meal 5 minutes, healthy office lunch",
 } as const;
 
-const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates, ogTitle, ogDescription, noindex }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates, ogTitle, ogDescription, noindex, routeOwnsLinks = false }: SEOHeadProps) => {
   const { pathname } = useLocation();
   // Canonical always self-references the URL actually being visited, so a
   // language toggle can never point two URLs at the same canonical.
@@ -59,8 +61,8 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
       <meta name="description" content={description} />
       <meta name="keywords" content={KEYWORDS[locale]} />
       <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
-      <link rel="canonical" href={url} />
-      {hreflangs.map((a) => <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />)}
+      {!routeOwnsLinks && <link rel="canonical" href={url} />}
+      {!routeOwnsLinks && hreflangs.map((a) => <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />)}
       <meta property="og:title" content={socialTitle} />
       <meta property="og:description" content={socialDescription} />
       <meta property="og:url" content={url} />

@@ -111,7 +111,7 @@ const ProductDetail = () => {
   if (loading) {
     const fallbackTitle = pageSeo?.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
     const fallbackDescription = pageSeo?.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
-    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
+    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
   }
 
   if (!product) {
@@ -119,7 +119,7 @@ const ProductDetail = () => {
     const fallbackDescription = pageSeo?.description ?? "Utforska PLÄNTLYs proteinmåltider.";
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
           <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
@@ -231,6 +231,7 @@ const ProductDetail = () => {
         type="product"
         locale={pageLocale}
         jsonLd={jsonLd}
+        routeOwnsLinks
       />
       <section className="py-12 md:py-20">
         <div className="container">
