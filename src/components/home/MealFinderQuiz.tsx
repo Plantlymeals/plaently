@@ -143,7 +143,7 @@ const MealFinderQuiz = () => {
           <p className="text-muted-foreground text-lg">{t("quiz.subtitle")}</p>
         </div>
 
-        <Card className="p-8 md:p-10 border-border/50 shadow-[var(--shadow-elevated)] bg-card/80 backdrop-blur-sm animate-fade-up">
+        <Card className="p-8 md:p-10 border-border/50 shadow-[var(--shadow-elevated)] bg-card/80 backdrop-blur-xs animate-fade-up">
           {step === 0 && (
             <div className="text-center space-y-6">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
