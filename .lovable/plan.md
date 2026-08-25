@@ -1,49 +1,32 @@
-# Live checkout-test: verifiera Shopify shipping zones
+# Migrate PLÄNTLY to TanStack Start
 
-## Mål
-Bevisa att Shopify-kassan returnerar samma fraktpriser och fri-frakt-trösklar som `src/lib/markets.ts` påstår, för Sverige, EU och UK.
+Move the project from the Classic stack (Vite + React Router) to TanStack Start so page metadata (title, description, canonical, hreflang, JSON-LD) ships in server-rendered HTML — which social crawlers and AI search bots read, unlike the current client-side tags.
 
-## Förväntade värden (från `src/lib/markets.ts`)
+## What you get
 
-| Marknad | Standardfrakt | Fri frakt över |
-|---------|---------------|----------------|
-| SE 🇸🇪  | 49 SEK        | 399 SEK        |
-| EU 🇪🇺  | 69 SEK        | 599 SEK        |
-| UK 🇬🇧  | 79 SEK        | 699 SEK        |
+- Server-side rendering for every page, so Facebook/LinkedIn/X previews and AI crawlers see real metadata.
+- Faster first paint and better crawl coverage for blog posts, product pages and the SV/EN pairs.
+- Same design, same content, same Cloud backend, same Shopify checkout.
 
-## Testmatris (6 scenarion)
+## What the migration does
 
-För varje marknad körs två tester — ett **under** tröskeln (ska visa standardfrakt) och ett **över** tröskeln (ska visa fri frakt / 0 kr).
+1. Preflight: confirm the project builds cleanly today. If it doesn't, the migration stops and I report the errors instead of starting on a broken baseline.
+2. Scan and report the project shape: routes, providers, Supabase client and edge functions, custom theme tokens, `index.html` additions (GA4, cookie consent, OG tags, favicon, preloads), `main.tsx` init code, custom scripts.
+3. Swap framework scaffolding: new `vite.config.ts`, `tsconfig.json`, `src/router.tsx`, `src/server.ts`, `src/start.ts`, `src/styles.css` (with the PLÄNTLY green tokens and Poppins re-applied on top).
+4. Merge `package.json`, keeping your dependencies and custom scripts.
+5. Replace SPA entry points (`index.html`, `src/main.tsx`, `src/App.tsx`) with file-based routes under `src/routes/`, including `__root.tsx` carrying the head metadata, providers, cookie consent and GA4 wiring.
+6. Re-create every route (home, products, product detail, bundles, blog, blog post, category/landing pages, legal pages, contact, admin, admin login, unsubscribe, catch-all 404) with the same paths, plus the existing canonical/hreflang logic intact.
+7. Keep admin auth guards in place — every protected route is inventoried and verified so nothing becomes public.
+8. Edge functions and database stay untouched; the Cloud backend keeps working as-is.
+9. Verify: production build green, TypeScript clean, key routes served and screenshot-checked.
 
-| # | Marknad | Adress           | Varukorg              | Förväntat fraktpris |
-|---|---------|------------------|-----------------------|---------------------|
-| 1 | SE      | Stockholm        | 1× Box of 12 (~199)   | 49 SEK              |
-| 2 | SE      | Stockholm        | 1× Bundle 48 (~799)   | 0 SEK (fri)         |
-| 3 | EU      | Berlin, DE       | 1× Box of 12          | 69 SEK              |
-| 4 | EU      | Berlin, DE       | 1× Bundle 48          | 0 SEK (fri)         |
-| 5 | UK      | London, GB       | 1× Box of 12          | 79 SEK              |
-| 6 | UK      | London, GB       | 2× Bundle 48 (>699)   | 0 SEK (fri)         |
+## Risks and notes
 
-## Metod (teknisk)
+- Sitemap, robots.txt, GSC submissions and the cron jobs are unaffected.
+- The preview keeps showing the current app until the migration finishes.
+- If anything looks wrong afterwards, you can revert this turn from chat history and the project returns to the current stack, including publishing.
+- Cost: runs as normal chat work (typically 10–35 credits), no separate migration fee.
 
-1. **Playwright-skript** under `/tmp/browser/shipping-zones/` som:
-   - Öppnar `http://localhost:8080`, lägger till rätt produkt i kassan via UI (klick på "Lägg till" / bundle-knappar).
-   - Klickar "Checkout" → öppnar Shopify-checkout i ny tab.
-   - Fyller i shipping-adress (test-e-post, fejk namn/telefon, riktig postkod per land).
-   - Läser av fraktraden som Shopify visar i kassan ("Shipping" / "Frakt").
-   - Tar screenshot per scenario som bevis.
-2. **Resultatmatris** sammanställs i chatten — match/mismatch per scenario, med screenshot-referenser.
-3. Vid mismatch: jag pekar exakt vilken zon i Shopify Admin (Settings → Shipping & delivery) som behöver justeras, samt vilket pris/tröskel.
+## Technical detail
 
-## Viktigt att veta innan vi kör
-
-- **Inga riktiga ordrar läggs** — vi stannar på shipping-steget och stänger fliken innan betalning.
-- Testet använder fejk-mejl (`test+se@plaently.com` etc.) så Shopify inte tror det är riktiga kunder.
-- Testet kör mot **live Shopify-checkouten** (samma som riktiga kunder ser) — det är enda sättet att verifiera zonerna utan Admin API-åtkomst.
-- Tar ~5–10 min att köra alla 6 scenarier.
-
-## Vad jag levererar tillbaka
-
-- En tabell: scenario → förväntat vs. faktiskt fraktpris → ✅/❌
-- Screenshots per scenario
-- Konkret åtgärdslista för Shopify Admin om något inte matchar
+Router: `@tanstack/react-router` file-based routes with a compat shim so existing `useNavigate` / `useParams` / `useSearchParams` call sites keep working. React Query moves into `src/router.tsx` with the current `defaultOptions` preserved. Tailwind v4 via `@tailwindcss/vite`; v3-only class patterns (`shadow`, `rounded`, `ring`, `outline-none`, `bg-[--var]`) are swept and rewritten. `strict: true` in the new tsconfig — the resulting type errors get fixed properly, not silenced.
