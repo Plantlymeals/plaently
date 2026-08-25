@@ -18,6 +18,8 @@ interface SEOHeadProps {
   noindex?: boolean | undefined;
   /** Route head already owns canonical/hreflang for SSR-first dynamic pages. */
   routeOwnsLinks?: boolean | undefined;
+  /** Route head already owns all basic metadata; Helmet only contributes JSON-LD. */
+  routeOwnsMetadata?: boolean | undefined;
 }
 
 const BASE_URL = "https://plaently.com";
@@ -27,7 +29,7 @@ const KEYWORDS = {
   en: "plant-based protein meals, protein meals, healthy fast food, 20g plant protein, instant protein meal Sweden, PLÄNTLY, quick protein food, plant protein meal, protein meal 5 minutes, healthy office lunch",
 } as const;
 
-const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates, ogTitle, ogDescription, noindex, routeOwnsLinks = false }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates, ogTitle, ogDescription, noindex, routeOwnsLinks = false, routeOwnsMetadata = false }: SEOHeadProps) => {
   const { pathname } = useLocation();
   // Canonical always self-references the URL actually being visited, so a
   // language toggle can never point two URLs at the same canonical.
@@ -56,27 +58,27 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
 
   return (
     <Helmet>
-      <html lang={locale} />
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      <meta name="keywords" content={KEYWORDS[locale]} />
-      <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+      {!routeOwnsMetadata && <html lang={locale} />}
+      {!routeOwnsMetadata && <title>{title}</title>}
+      {!routeOwnsMetadata && <meta name="description" content={description} />}
+      {!routeOwnsMetadata && <meta name="keywords" content={KEYWORDS[locale]} />}
+      {!routeOwnsMetadata && <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />}
       {!routeOwnsLinks && <link rel="canonical" href={url} />}
       {!routeOwnsLinks && hreflangs.map((a) => <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />)}
-      <meta property="og:title" content={socialTitle} />
-      <meta property="og:description" content={socialDescription} />
-      <meta property="og:url" content={url} />
-      <meta property="og:type" content={type} />
-      <meta property="og:image" content={ogImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="PLÄNTLY" />
-      <meta property="og:locale" content={ogLocale} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@plaently" />
-      <meta name="twitter:title" content={socialTitle} />
-      <meta name="twitter:description" content={socialDescription} />
-      <meta name="twitter:image" content={ogImage} />
+      {!routeOwnsMetadata && <meta property="og:title" content={socialTitle} />}
+      {!routeOwnsMetadata && <meta property="og:description" content={socialDescription} />}
+      {!routeOwnsMetadata && <meta property="og:url" content={url} />}
+      {!routeOwnsMetadata && <meta property="og:type" content={type} />}
+      {!routeOwnsMetadata && <meta property="og:image" content={ogImage} />}
+      {!routeOwnsMetadata && <meta property="og:image:width" content="1200" />}
+      {!routeOwnsMetadata && <meta property="og:image:height" content="630" />}
+      {!routeOwnsMetadata && <meta property="og:site_name" content="PLÄNTLY" />}
+      {!routeOwnsMetadata && <meta property="og:locale" content={ogLocale} />}
+      {!routeOwnsMetadata && <meta name="twitter:card" content="summary_large_image" />}
+      {!routeOwnsMetadata && <meta name="twitter:site" content="@plaently" />}
+      {!routeOwnsMetadata && <meta name="twitter:title" content={socialTitle} />}
+      {!routeOwnsMetadata && <meta name="twitter:description" content={socialDescription} />}
+      {!routeOwnsMetadata && <meta name="twitter:image" content={ogImage} />}
       {jsonLd
         ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((schema, i) => (
             <script key={i} type="application/ld+json">{JSON.stringify(schema)}</script>
