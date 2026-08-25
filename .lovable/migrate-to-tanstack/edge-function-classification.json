@@ -8,7 +8,7 @@
   {"name": "process-email-queue", "classification": "cron target", "signal": "referenced via net.http_post in supabase/migrations; queue dispatcher", "outcome": "left"},
   {"name": "process-review-requests", "classification": "cron/queue target", "signal": "no internal call sites; invoked by fulfillment pipeline, not the browser", "outcome": "left"},
   {"name": "send-transactional-email", "classification": "internal caller but shared email infra", "signal": "shares _shared templates and @lovable.dev/email-js pipeline with queue/suppression/auth-hook functions that must stay; splitting the email system across two runtimes would duplicate templates and secrets", "outcome": "left"},
-  {"name": "shopify-discounts", "classification": "secret-dependent", "signal": "requires Supabase-stored Shopify Admin API token; moving it would break discount creation until secrets are re-provisioned", "outcome": "left"},
+  {"name": "shopify-discounts", "classification": "internal admin caller", "signal": "only called from AdminDiscounts.tsx; secrets available to the server runtime", "outcome": "migrated to createServerFn (src/lib/shopifyDiscounts.functions.ts); deployed function kept live until publish"},
   {"name": "shopify-fulfillment-webhook", "classification": "webhook receiver", "signal": "verifies Shopify HMAC signature; fixed URL registered in Shopify", "outcome": "left"},
   {"name": "sitemap", "classification": "external URL", "signal": "live XML sitemap URL referenced by SQL trigger and potentially registered in Google Search Console", "outcome": "left"}
 ]}
