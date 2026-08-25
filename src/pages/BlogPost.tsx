@@ -22,6 +22,11 @@ const BlogPostPage = () => {
   const [loading, setLoading] = useState(true);
   const [related, setRelated] = useState<BlogPost[]>([]);
   const { lang, t, setLang } = useTranslation();
+  // Language we asked the UI to switch to when the post loaded. While this is
+  // pending we must NOT treat the stale `lang` as a user-initiated toggle,
+  // otherwise an EN URL instantly redirects to its SV translation (and vice
+  // versa), which breaks that URL's canonical/hreflang/title for crawlers.
+  const pendingLangRef = useRef<string | null>(null);
 
   // Load the post by its exact slug (slugs are unique across languages).
   useEffect(() => {
@@ -44,8 +49,9 @@ const BlogPostPage = () => {
   // Keep the UI language in sync with the post's language so the chrome/translations
   // match the content the user is reading.
   useEffect(() => {
-    if (post && (post.language === "sv" || post.language === "en") && post.language !== lang) {
-      setLang(post.language);
+    if (post && (post.language === "sv" || post.language === "en")) {
+      pendingLangRef.current = post.language;
+      if (post.language !== lang) setLang(post.language);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post?.slug]);
@@ -54,11 +60,18 @@ const BlogPostPage = () => {
   // the translated version if one exists.
   useEffect(() => {
     if (!post) return;
+    if (lang === pendingLangRef.current) {
+      // Sync from the post itself completed — later changes are user-initiated.
+      pendingLangRef.current = null;
+      return;
+    }
+    if (pendingLangRef.current) return; // still waiting for the sync above
     if (post.language === lang) return;
     if (post.translation_slug) {
       navigate(`/blog/${post.translation_slug}`, { replace: true });
     }
   }, [lang, post, navigate]);
+
 
   // Load related posts in same category + language
   useEffect(() => {
