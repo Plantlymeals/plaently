@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "@/lib/router-compat";
 import { getAlternates, normalizePath } from "@/lib/localeAlternates";
@@ -53,17 +52,6 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
   const socialTitle = ogTitle || title;
   const socialDescription = ogDescription || description;
 
-  // react-helmet-async can preserve server-rendered alternate links during
-  // hydration. Remove only stale duplicates after Helmet has reconciled.
-  useEffect(() => {
-    const links = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]'));
-    const seen = new Set<string>();
-    for (const link of links) {
-      if (seen.has(link.hreflang)) link.remove();
-      else seen.add(link.hreflang);
-    }
-  }, [canonicalPath, locale]);
-
   return (
     <Helmet>
       <html lang={locale} />
@@ -72,9 +60,7 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
       <meta name="keywords" content={KEYWORDS[locale]} />
       <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
       <link rel="canonical" href={url} />
-      {hreflangs.map((a) => (
-        <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />
-      ))}
+      {hreflangs.map((a) => <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />)}
       <meta property="og:title" content={socialTitle} />
       <meta property="og:description" content={socialDescription} />
       <meta property="og:url" content={url} />
