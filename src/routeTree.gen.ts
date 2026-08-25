@@ -11,25 +11,49 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FraktRouteImport } from './routes/frakt'
+import { Route as HalsosammaSnabbmaltiderRouteImport } from './routes/halsosamma-snabbmaltider'
+import { Route as HealthyFastFoodRouteImport } from './routes/healthy-fast-food'
+import { Route as HealthyInstantMealsRouteImport } from './routes/healthy-instant-meals'
+import { Route as HighProteinMealsRouteImport } from './routes/high-protein-meals'
 import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
 import { Route as KopsvillkorRouteImport } from './routes/kopsvillkor'
 import { Route as LifestyleRouteImport } from './routes/lifestyle'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NutritionRouteImport } from './routes/nutrition'
+import { Route as NyttigSnabbmatRouteImport } from './routes/nyttig-snabbmat'
+import { Route as PlantBasedMealsRouteImport } from './routes/plant-based-meals'
+import { Route as PlantbaseradeMaltiderRouteImport } from './routes/plantbaserade-maltider'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProductsRouteImport } from './routes/products'
+import { Route as ProteinCupsRouteImport } from './routes/protein-cups'
+import { Route as ProteinkopparRouteImport } from './routes/proteinkoppar'
+import { Route as ProteinrikaMaltiderRouteImport } from './routes/proteinrika-maltider'
 import { Route as ShippingRouteImport } from './routes/shipping'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBlogRouteImport } from './routes/admin.blog'
+import { Route as AdminBundlesRouteImport } from './routes/admin.bundles'
+import { Route as AdminDiscountsRouteImport } from './routes/admin.discounts'
+import { Route as AdminFaqsRouteImport } from './routes/admin.faqs'
+import { Route as AdminHeroRouteImport } from './routes/admin.hero'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminProductsRouteImport } from './routes/admin.products'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
+import { Route as AdminSeoRouteImport } from './routes/admin.seo'
+import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
+import { Route as Char91DotlovableChar93OauthConsentRouteImport } from './routes/[.lovable]/oauth/consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
 
@@ -41,6 +65,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -61,6 +90,26 @@ const FaqRoute = FaqRouteImport.update({
 const FraktRoute = FraktRouteImport.update({
   id: '/frakt',
   path: '/frakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HalsosammaSnabbmaltiderRoute = HalsosammaSnabbmaltiderRouteImport.update({
+  id: '/halsosamma-snabbmaltider',
+  path: '/halsosamma-snabbmaltider',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthyFastFoodRoute = HealthyFastFoodRouteImport.update({
+  id: '/healthy-fast-food',
+  path: '/healthy-fast-food',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HealthyInstantMealsRoute = HealthyInstantMealsRouteImport.update({
+  id: '/healthy-instant-meals',
+  path: '/healthy-instant-meals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HighProteinMealsRoute = HighProteinMealsRouteImport.update({
+  id: '/high-protein-meals',
+  path: '/high-protein-meals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
@@ -88,6 +137,21 @@ const NutritionRoute = NutritionRouteImport.update({
   path: '/nutrition',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NyttigSnabbmatRoute = NyttigSnabbmatRouteImport.update({
+  id: '/nyttig-snabbmat',
+  path: '/nyttig-snabbmat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlantBasedMealsRoute = PlantBasedMealsRouteImport.update({
+  id: '/plant-based-meals',
+  path: '/plant-based-meals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlantbaseradeMaltiderRoute = PlantbaseradeMaltiderRouteImport.update({
+  id: '/plantbaserade-maltider',
+  path: '/plantbaserade-maltider',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -96,6 +160,21 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProteinCupsRoute = ProteinCupsRouteImport.update({
+  id: '/protein-cups',
+  path: '/protein-cups',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProteinkopparRoute = ProteinkopparRouteImport.update({
+  id: '/proteinkoppar',
+  path: '/proteinkoppar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProteinrikaMaltiderRoute = ProteinrikaMaltiderRouteImport.update({
+  id: '/proteinrika-maltider',
+  path: '/proteinrika-maltider',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShippingRoute = ShippingRouteImport.update({
@@ -125,6 +204,66 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBlogRoute = AdminBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBundlesRoute = AdminBundlesRouteImport.update({
+  id: '/bundles',
+  path: '/bundles',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDiscountsRoute = AdminDiscountsRouteImport.update({
+  id: '/discounts',
+  path: '/discounts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFaqsRoute = AdminFaqsRouteImport.update({
+  id: '/faqs',
+  path: '/faqs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminHeroRoute = AdminHeroRouteImport.update({
+  id: '/hero',
+  path: '/hero',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProductsRoute = AdminProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSeoRoute = AdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTestimonialsRoute = AdminTestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin_/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog_/$slug',
   path: '/blog/$slug',
@@ -140,6 +279,12 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/products/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotlovableChar93OauthConsentRoute =
+  Char91DotlovableChar93OauthConsentRouteImport.update({
+    id: '/.lovable/oauth/consent',
+    path: '/.lovable/oauth/consent',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -155,25 +300,49 @@ const BlogCategorySlugRoute = BlogCategorySlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
+  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
+  '/healthy-fast-food': typeof HealthyFastFoodRoute
+  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
+  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
+  '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
+  '/plant-based-meals': typeof PlantBasedMealsRoute
+  '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
+  '/protein-cups': typeof ProteinCupsRoute
+  '/proteinkoppar': typeof ProteinkopparRoute
+  '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
   '/shipping': typeof ShippingRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/hero': typeof AdminHeroRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
 }
@@ -184,21 +353,44 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
+  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
+  '/healthy-fast-food': typeof HealthyFastFoodRoute
+  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
+  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
+  '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
+  '/plant-based-meals': typeof PlantBasedMealsRoute
+  '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
+  '/protein-cups': typeof ProteinCupsRoute
+  '/proteinkoppar': typeof ProteinkopparRoute
+  '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
   '/shipping': typeof ShippingRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/hero': typeof AdminHeroRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin/login': typeof AdminLoginRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/admin': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
 }
@@ -206,25 +398,49 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/blog': typeof BlogRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
+  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
+  '/healthy-fast-food': typeof HealthyFastFoodRoute
+  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
+  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
+  '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
+  '/plant-based-meals': typeof PlantBasedMealsRoute
+  '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
+  '/protein-cups': typeof ProteinCupsRoute
+  '/proteinkoppar': typeof ProteinkopparRoute
+  '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
   '/shipping': typeof ShippingRoute
   '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/blog': typeof AdminBlogRoute
+  '/admin/bundles': typeof AdminBundlesRoute
+  '/admin/discounts': typeof AdminDiscountsRoute
+  '/admin/faqs': typeof AdminFaqsRoute
+  '/admin/hero': typeof AdminHeroRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/products': typeof AdminProductsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
+  '/admin/seo': typeof AdminSeoRoute
+  '/admin/testimonials': typeof AdminTestimonialsRoute
+  '/admin_/login': typeof AdminLoginRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products_/$slug': typeof ProductsSlugRoute
+  '/admin/': typeof AdminIndexRoute
+  '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
 }
@@ -233,25 +449,49 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/contact'
     | '/faq'
     | '/frakt'
+    | '/halsosamma-snabbmaltider'
+    | '/healthy-fast-food'
+    | '/healthy-instant-meals'
+    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
+    | '/nyttig-snabbmat'
+    | '/plant-based-meals'
+    | '/plantbaserade-maltider'
     | '/privacy-policy'
     | '/products'
+    | '/protein-cups'
+    | '/proteinkoppar'
+    | '/proteinrika-maltider'
     | '/shipping'
     | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/admin/blog'
+    | '/admin/bundles'
+    | '/admin/discounts'
+    | '/admin/faqs'
+    | '/admin/hero'
+    | '/admin/messages'
+    | '/admin/products'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/testimonials'
+    | '/admin/login'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
+    | '/admin/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/blog/category/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -262,46 +502,93 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/frakt'
+    | '/halsosamma-snabbmaltider'
+    | '/healthy-fast-food'
+    | '/healthy-instant-meals'
+    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
+    | '/nyttig-snabbmat'
+    | '/plant-based-meals'
+    | '/plantbaserade-maltider'
     | '/privacy-policy'
     | '/products'
+    | '/protein-cups'
+    | '/proteinkoppar'
+    | '/proteinrika-maltider'
     | '/shipping'
     | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/admin/blog'
+    | '/admin/bundles'
+    | '/admin/discounts'
+    | '/admin/faqs'
+    | '/admin/hero'
+    | '/admin/messages'
+    | '/admin/products'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/testimonials'
+    | '/admin/login'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
+    | '/admin'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/blog/category/$slug'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/blog'
     | '/contact'
     | '/faq'
     | '/frakt'
+    | '/halsosamma-snabbmaltider'
+    | '/healthy-fast-food'
+    | '/healthy-instant-meals'
+    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
+    | '/nyttig-snabbmat'
+    | '/plant-based-meals'
+    | '/plantbaserade-maltider'
     | '/privacy-policy'
     | '/products'
+    | '/protein-cups'
+    | '/proteinkoppar'
+    | '/proteinrika-maltider'
     | '/shipping'
     | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/admin/blog'
+    | '/admin/bundles'
+    | '/admin/discounts'
+    | '/admin/faqs'
+    | '/admin/hero'
+    | '/admin/messages'
+    | '/admin/products'
+    | '/admin/reviews'
+    | '/admin/seo'
+    | '/admin/testimonials'
+    | '/admin_/login'
     | '/blog_/$slug'
     | '/product/$handle'
     | '/products_/$slug'
+    | '/admin/'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/blog_/category/$slug'
   fileRoutesById: FileRoutesById
@@ -309,25 +596,38 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   BlogRoute: typeof BlogRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   FraktRoute: typeof FraktRoute
+  HalsosammaSnabbmaltiderRoute: typeof HalsosammaSnabbmaltiderRoute
+  HealthyFastFoodRoute: typeof HealthyFastFoodRoute
+  HealthyInstantMealsRoute: typeof HealthyInstantMealsRoute
+  HighProteinMealsRoute: typeof HighProteinMealsRoute
   IntegritetspolicyRoute: typeof IntegritetspolicyRoute
   KopsvillkorRoute: typeof KopsvillkorRoute
   LifestyleRoute: typeof LifestyleRoute
   McpRoute: typeof McpRoute
   NutritionRoute: typeof NutritionRoute
+  NyttigSnabbmatRoute: typeof NyttigSnabbmatRoute
+  PlantBasedMealsRoute: typeof PlantBasedMealsRoute
+  PlantbaseradeMaltiderRoute: typeof PlantbaseradeMaltiderRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProductsRoute: typeof ProductsRoute
+  ProteinCupsRoute: typeof ProteinCupsRoute
+  ProteinkopparRoute: typeof ProteinkopparRoute
+  ProteinrikaMaltiderRoute: typeof ProteinrikaMaltiderRoute
   ShippingRoute: typeof ShippingRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
+  Char91DotlovableChar93OauthConsentRoute: typeof Char91DotlovableChar93OauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
 }
@@ -346,6 +646,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -374,6 +681,34 @@ declare module '@tanstack/react-router' {
       path: '/frakt'
       fullPath: '/frakt'
       preLoaderRoute: typeof FraktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/halsosamma-snabbmaltider': {
+      id: '/halsosamma-snabbmaltider'
+      path: '/halsosamma-snabbmaltider'
+      fullPath: '/halsosamma-snabbmaltider'
+      preLoaderRoute: typeof HalsosammaSnabbmaltiderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthy-fast-food': {
+      id: '/healthy-fast-food'
+      path: '/healthy-fast-food'
+      fullPath: '/healthy-fast-food'
+      preLoaderRoute: typeof HealthyFastFoodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/healthy-instant-meals': {
+      id: '/healthy-instant-meals'
+      path: '/healthy-instant-meals'
+      fullPath: '/healthy-instant-meals'
+      preLoaderRoute: typeof HealthyInstantMealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/high-protein-meals': {
+      id: '/high-protein-meals'
+      path: '/high-protein-meals'
+      fullPath: '/high-protein-meals'
+      preLoaderRoute: typeof HighProteinMealsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/integritetspolicy': {
@@ -411,6 +746,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NutritionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nyttig-snabbmat': {
+      id: '/nyttig-snabbmat'
+      path: '/nyttig-snabbmat'
+      fullPath: '/nyttig-snabbmat'
+      preLoaderRoute: typeof NyttigSnabbmatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plant-based-meals': {
+      id: '/plant-based-meals'
+      path: '/plant-based-meals'
+      fullPath: '/plant-based-meals'
+      preLoaderRoute: typeof PlantBasedMealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plantbaserade-maltider': {
+      id: '/plantbaserade-maltider'
+      path: '/plantbaserade-maltider'
+      fullPath: '/plantbaserade-maltider'
+      preLoaderRoute: typeof PlantbaseradeMaltiderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -423,6 +779,27 @@ declare module '@tanstack/react-router' {
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/protein-cups': {
+      id: '/protein-cups'
+      path: '/protein-cups'
+      fullPath: '/protein-cups'
+      preLoaderRoute: typeof ProteinCupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proteinkoppar': {
+      id: '/proteinkoppar'
+      path: '/proteinkoppar'
+      fullPath: '/proteinkoppar'
+      preLoaderRoute: typeof ProteinkopparRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/proteinrika-maltider': {
+      id: '/proteinrika-maltider'
+      path: '/proteinrika-maltider'
+      fullPath: '/proteinrika-maltider'
+      preLoaderRoute: typeof ProteinrikaMaltiderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shipping': {
@@ -460,6 +837,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/blog': {
+      id: '/admin/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminBlogRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/bundles': {
+      id: '/admin/bundles'
+      path: '/bundles'
+      fullPath: '/admin/bundles'
+      preLoaderRoute: typeof AdminBundlesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/discounts': {
+      id: '/admin/discounts'
+      path: '/discounts'
+      fullPath: '/admin/discounts'
+      preLoaderRoute: typeof AdminDiscountsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/faqs': {
+      id: '/admin/faqs'
+      path: '/faqs'
+      fullPath: '/admin/faqs'
+      preLoaderRoute: typeof AdminFaqsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/hero': {
+      id: '/admin/hero'
+      path: '/hero'
+      fullPath: '/admin/hero'
+      preLoaderRoute: typeof AdminHeroRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/products': {
+      id: '/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AdminProductsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/seo': {
+      id: '/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminSeoRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/testimonials': {
+      id: '/admin/testimonials'
+      path: '/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminTestimonialsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog_/$slug': {
       id: '/blog_/$slug'
       path: '/blog/$slug'
@@ -481,6 +942,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof Char91DotlovableChar93OauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -498,29 +966,73 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminBlogRoute: typeof AdminBlogRoute
+  AdminBundlesRoute: typeof AdminBundlesRoute
+  AdminDiscountsRoute: typeof AdminDiscountsRoute
+  AdminFaqsRoute: typeof AdminFaqsRoute
+  AdminHeroRoute: typeof AdminHeroRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminProductsRoute: typeof AdminProductsRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
+  AdminSeoRoute: typeof AdminSeoRoute
+  AdminTestimonialsRoute: typeof AdminTestimonialsRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBlogRoute: AdminBlogRoute,
+  AdminBundlesRoute: AdminBundlesRoute,
+  AdminDiscountsRoute: AdminDiscountsRoute,
+  AdminFaqsRoute: AdminFaqsRoute,
+  AdminHeroRoute: AdminHeroRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
+  AdminProductsRoute: AdminProductsRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
+  AdminSeoRoute: AdminSeoRoute,
+  AdminTestimonialsRoute: AdminTestimonialsRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   BlogRoute: BlogRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   FraktRoute: FraktRoute,
+  HalsosammaSnabbmaltiderRoute: HalsosammaSnabbmaltiderRoute,
+  HealthyFastFoodRoute: HealthyFastFoodRoute,
+  HealthyInstantMealsRoute: HealthyInstantMealsRoute,
+  HighProteinMealsRoute: HighProteinMealsRoute,
   IntegritetspolicyRoute: IntegritetspolicyRoute,
   KopsvillkorRoute: KopsvillkorRoute,
   LifestyleRoute: LifestyleRoute,
   McpRoute: McpRoute,
   NutritionRoute: NutritionRoute,
+  NyttigSnabbmatRoute: NyttigSnabbmatRoute,
+  PlantBasedMealsRoute: PlantBasedMealsRoute,
+  PlantbaseradeMaltiderRoute: PlantbaseradeMaltiderRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProductsRoute: ProductsRoute,
+  ProteinCupsRoute: ProteinCupsRoute,
+  ProteinkopparRoute: ProteinkopparRoute,
+  ProteinrikaMaltiderRoute: ProteinrikaMaltiderRoute,
   ShippingRoute: ShippingRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  AdminLoginRoute: AdminLoginRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProductHandleRoute: ProductHandleRoute,
   ProductsSlugRoute: ProductsSlugRoute,
+  Char91DotlovableChar93OauthConsentRoute:
+    Char91DotlovableChar93OauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   BlogCategorySlugRoute: BlogCategorySlugRoute,
 }
