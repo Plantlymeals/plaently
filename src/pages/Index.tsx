@@ -1,5 +1,4 @@
 import Layout from "@/components/Layout";
-import SEOHead from "@/components/SEOHead";
 import { useTranslation } from "@/lib/i18n";
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
@@ -59,7 +58,7 @@ const LazySection = ({
 );
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-const HOME_SCHEMA = {
+export const HOME_SCHEMA = {
   "@context": "https://schema.org",
   "@graph": [
     {
@@ -96,19 +95,6 @@ const Index = () => {
 
   return (
     <Layout>
-      <SEOHead
-        title={t("seo.home.title")}
-        description={t("seo.home.description")}
-        path="/"
-        locale={lang}
-        jsonLd={HOME_SCHEMA}
-        alternates={[
-          { hreflang: "sv", path: "/" },
-          { hreflang: "en", path: "/" },
-          { hreflang: "x-default", path: "/" },
-        ]}
-      />
-
       {/* ── Eager-laddade sektioner (kritiska för first paint) ── */}
       <HeroSection />
       <StarterPackHighlight />

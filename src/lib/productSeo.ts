@@ -52,6 +52,26 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     en: { title: "Big Office Pack 96 Cups – Office Meals | PLÄNTLY", description: "96 protein meals for larger teams. Easy office lunches with 20g protein per serving — ready in 5 minutes." },
     schema: { name: "Big Office Pack – 96 Cups", sku: "PLNT-BIG-OFFICE-96", calories: "", protein: "20g", servingSize: "1 cup", description: "96 proteinmåltider för större kontor och team." },
   },
+  "bolognese-box-12-cups": {
+    sv: { title: "Bolognese Box 12 koppar – 20g protein | PLÄNTLY", description: "För dig som älskar italiensk comfort food. 12 portioner fyllda med fyllig smak och 20 g protein per måltid." },
+    en: { title: "Bolognese Box 12 Cups – 20g Protein | PLÄNTLY", description: "For anyone who loves Italian comfort food. 12 servings packed with rich flavour and 20 g protein per meal." },
+    schema: { name: "Bolognese Box – 12 Cups", sku: "PLNT-BOLOGNESE-12", calories: "263 calories", protein: "20g", servingSize: "1 cup", description: "12 portioner fyllda med fyllig smak och 20 g protein per måltid." },
+  },
+  "carbonara-box-12-cups": {
+    sv: { title: "Carbonara Box 12 koppar – 20g protein | PLÄNTLY", description: "Krämig, proteinrik och alltid redo på 5 minuter." },
+    en: { title: "Carbonara Box 12 Cups – 20g Protein | PLÄNTLY", description: "Creamy, protein-rich and always ready in 5 minutes." },
+    schema: { name: "Carbonara Box – 12 Cups", sku: "PLNT-CARBONARA-12", calories: "285 calories", protein: "20g", servingSize: "1 cup", description: "Krämig, proteinrik och alltid redo på 5 minuter." },
+  },
+  "smoky-lentils-box-12-cups": {
+    sv: { title: "Smoky Lentils Box 12 koppar – 21g protein | PLÄNTLY", description: "Rökig, mättande och full av växtbaserad kraft med 21 g protein." },
+    en: { title: "Smoky Lentils Box 12 Cups – 21g Protein | PLÄNTLY", description: "Smoky, filling and packed with plant-based power with 21 g protein." },
+    schema: { name: "Smoky Lentils Box – 12 Cups", sku: "PLNT-SMOKY-12", calories: "228 calories", protein: "21g", servingSize: "1 cup", description: "Rökig, mättande och full av växtbaserad kraft med 21 g protein." },
+  },
+  "yellow-curry-box-12-cups": {
+    sv: { title: "Yellow Curry Box 12 koppar – 20g protein | PLÄNTLY", description: "Värmande kryddor och balanserad energi i varje portion med 20 g protein." },
+    en: { title: "Yellow Curry Box 12 Cups – 20g Protein | PLÄNTLY", description: "Warming spices and balanced energy in every serving with 20 g protein." },
+    schema: { name: "Yellow Curry Box – 12 Cups", sku: "PLNT-CURRY-12", calories: "285 calories", protein: "20g", servingSize: "1 cup", description: "Värmande kryddor och balanserad energi i varje portion med 20 g protein." },
+  },
 };
 
 const HANDLE_ALIASES: Record<string, string> = {
