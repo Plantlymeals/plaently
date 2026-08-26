@@ -493,11 +493,22 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Developed in Sweden", desc: "Engineered to Scandinavian nutrition standards." },
         { title: "Crafted in Italy", desc: "Made with Italian producers who treat food as craft." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY is healthy fast food in a cup: pasta, legumes, vegetables and spices with 20g of plant protein, ready in 5 minutes with boiling water. It is as fast as a takeaway lunch, but you can read every ingredient. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "High protein meals", path: "/high-protein-meals" },
+          { label: "Plant-based meals", path: "/plant-based-meals" },
+        ],
+      },
       faqs: [
-        { q: "What is healthy fast food?", a: "Healthy fast food is convenient, quick food that doesn't compromise on nutrition. PLÄNTLY meals are ready in 5 minutes and contain 20g of plant protein per serving — no artificial additives, no empty calories." },
-        { q: "How much protein does PLÄNTLY healthy fast food contain?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to a chicken breast, ready in 5 minutes." },
-        { q: "Is PLÄNTLY healthy fast food suitable for everyone?", a: "Yes. PLÄNTLY is designed for everyone who wants to eat well without spending time cooking — athletes, professionals, students, and anyone who values both health and convenience." },
+        { q: "Is healthy fast food more expensive than regular fast food?", a: "Per meal, it is usually cheaper than eating out. A PLÄNTLY cup is 39 SEK, while a takeaway lunch in Sweden typically costs 110–160 SEK. Compared to cooking a big batch at home it is more expensive — you are paying for the time you save." },
+        { q: "What is the difference between healthy fast food and regular ready meals?", a: "Mostly the ingredient list and what the meal actually delivers. Many ready meals are built for shelf life and cost, with high salt and little fibre. PLÄNTLY is built around 20g of protein and 5–9g of fibre with no artificial additives — and we publish the numbers instead of hiding behind long additive lists." },
+        { q: "Do instant meals keep for a long time?", a: "Yes. Because PLÄNTLY cups are dry, they keep for months at room temperature — the best before date is printed on each cup. No fridge, no freezer, which is exactly why they work in a desk drawer or a gym bag." },
+        { q: "Is dried food with added water actually healthy?", a: "Drying is just water removal — it does not make food unhealthy in itself. What matters is what was dried: our cups contain durum pasta, legumes, vegetables, herbs and spices. Add boiling water and you get the meal back, not a powder shake." },
       ],
+
       ctaHeadline: "The future of fast food. Today.",
       ctaText: "Shop meals",
       related: relatedEn("healthy-fast-food"),
