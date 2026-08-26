@@ -10,12 +10,32 @@ export interface RelatedLink {
   label: string;
 }
 
+export interface QuickAnswerLink {
+  label: string;
+  path: string;
+}
+
+export interface QuickAnswer {
+  title: string;
+  body: string;
+  links?: QuickAnswerLink[];
+}
+
+export interface ComparisonTable {
+  heading: string;
+  note: string;
+  columns: string[];
+  rows: { label: string; cells: string[]; highlight?: boolean }[];
+}
+
 export interface CategoryContent {
   slug: string;
   metaTitle: string;
   metaDescription: string;
   h1: string;
   intro: string;
+  quickAnswer?: QuickAnswer;
+  comparison?: ComparisonTable;
   sections: CategorySection[];
   benefits: { title: string; desc: string }[];
   faqs: { q: string; a: string }[];
@@ -25,6 +45,7 @@ export interface CategoryContent {
   related: RelatedLink[];
   breadcrumbName: string;
 }
+
 
 type CategoryKey =
   | "high-protein-meals"
