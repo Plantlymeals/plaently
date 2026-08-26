@@ -387,7 +387,7 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} routeOwnsLinks routeOwnsMetadata />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />

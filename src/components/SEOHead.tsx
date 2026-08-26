@@ -58,7 +58,8 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
 
   return (
     <Helmet>
-      {!routeOwnsMetadata && <html lang={locale} />}
+      {/* html lang always follows the page locale, even when the route owns the rest. */}
+      <html lang={locale} />
       {!routeOwnsMetadata && <title>{title}</title>}
       {!routeOwnsMetadata && <meta name="description" content={description} />}
       {!routeOwnsMetadata && <meta name="keywords" content={KEYWORDS[locale]} />}

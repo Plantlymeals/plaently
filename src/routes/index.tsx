@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Index, { HOME_SCHEMA } from "@/pages/Index";
 
-const HOME_TITLE = "PLÄNTLY — Riktig mat med 20g protein | Klart på 5 minuter";
-const HOME_DESCRIPTION = "Riktiga måltider med 20g protein — inget pulver, ingen shake. Bara riktig mat klar på 5 minuter. Utvecklat i Sverige, hantverk från Italien.";
+const HOME_TITLE = "PLÄNTLY | Hälsosam snabbmat med 20g protein";
+const HOME_DESCRIPTION = "Hälsosam snabbmat med 20g protein per portion — riktig mat, inget pulver. Klar på 5 minuter, bara tillsätt kokande vatten. Utvecklat i Sverige, hantverk från Italien.";
 const HOME_URL = "https://plaently.com/";
 
 export const Route = createFileRoute("/")({
