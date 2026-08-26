@@ -1,6 +1,5 @@
 import { Link } from "@/lib/router-compat";
 import { ArrowRight, Check } from "lucide-react";
-import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -30,18 +29,6 @@ const CategoryPage = ({ categoryKey }: Props) => {
     { hreflang: "x-default", path: `/${svSlug}` },
   ];
 
-  const faqSchema = c.faqs.length
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: c.faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      }
-    : null;
-
   return (
     <Layout>
       <SEOHead
@@ -50,12 +37,8 @@ const CategoryPage = ({ categoryKey }: Props) => {
         path={`/${c.slug}`}
         locale={lang}
         alternates={alternates}
+        routeOwnsLinks
       />
-      {faqSchema && (
-        <Helmet>
-          <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
-        </Helmet>
-      )}
 
       {/* Hero */}
       <section className="gradient-hero">
