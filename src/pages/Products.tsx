@@ -18,7 +18,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
-import { getCupMeta, displayProductTitle } from "@/lib/productImages";
+import { getCupMeta, displayProductTitle, getSchemaImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 import { getProductSeo } from "@/lib/productSeo";
