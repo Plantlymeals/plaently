@@ -8,6 +8,8 @@ export type FlavourKey = "bolognese" | "carbonara" | "curry" | "bbq";
 export interface CupMeta {
   key: FlavourKey;
   src: string;
+  /** Stable public URL of the same image, for crawler-facing schema/OG use. */
+  publicSrc: string;
   protein: number; // grams per serving
   kcal: number;    // per serving
   vegan: boolean;
@@ -21,10 +23,10 @@ export interface CupMeta {
 // Yellow Curry & Rice 75g: 285 kcal, 20.4g protein
 // Smoky BBQ Lentils 65g: 228 kcal, 20.8g protein
 const FLAVOURS: Record<FlavourKey, CupMeta> = {
-  bolognese: { key: "bolognese", src: bolognese, protein: 20, kcal: 263, vegan: true },
-  carbonara: { key: "carbonara", src: carbonara, protein: 20, kcal: 285, vegan: false },
-  curry:     { key: "curry",     src: curry,     protein: 20, kcal: 285, vegan: false },
-  bbq:       { key: "bbq",       src: bbq,       protein: 20, kcal: 228, vegan: true },
+  bolognese: { key: "bolognese", src: bolognese, publicSrc: "/images/products/fusilli-bolognese.webp", protein: 20, kcal: 263, vegan: true },
+  carbonara: { key: "carbonara", src: carbonara, publicSrc: "/images/products/pasta-carbonara.webp", protein: 20, kcal: 285, vegan: false },
+  curry:     { key: "curry",     src: curry,     publicSrc: "/images/products/thai-curry.webp", protein: 20, kcal: 285, vegan: false },
+  bbq:       { key: "bbq",       src: bbq,       publicSrc: "/images/products/smoky-bbq-lentils.webp", protein: 20, kcal: 228, vegan: true },
 };
 
 // Ordered, specific keyword → flavour. First match wins.
@@ -59,4 +61,20 @@ export function displayProductTitle(title: string | undefined | null): string {
     return title.replace(/plant[\s\u2011\u2010-]*based\s*/gi, "").trim();
   }
   return title;
+}
+
+/**
+ * Absolute, crawler-safe image URL for Product schema. Falls back through the
+ * CMS override, the flavour's public image, then the Shopify image, so bundle
+ * pages without a Shopify image still emit a valid "image" field.
+ */
+export function getSchemaImageUrl(
+  title: string | undefined | null,
+  overrideUrl?: string | null,
+  shopifyUrl?: string | null,
+): string | undefined {
+  const candidate = overrideUrl || getCupMeta(title)?.publicSrc || shopifyUrl || null;
+  if (!candidate) return undefined;
+  if (/^https?:\/\//i.test(candidate)) return candidate;
+  return `https://plaently.com${candidate.startsWith("/") ? "" : "/"}${candidate}`;
 }
