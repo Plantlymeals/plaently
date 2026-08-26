@@ -10,12 +10,32 @@ export interface RelatedLink {
   label: string;
 }
 
+export interface QuickAnswerLink {
+  label: string;
+  path: string;
+}
+
+export interface QuickAnswer {
+  title: string;
+  body: string;
+  links?: QuickAnswerLink[];
+}
+
+export interface ComparisonTable {
+  heading: string;
+  note: string;
+  columns: string[];
+  rows: { label: string; cells: string[]; highlight?: boolean }[];
+}
+
 export interface CategoryContent {
   slug: string;
   metaTitle: string;
   metaDescription: string;
   h1: string;
   intro: string;
+  quickAnswer?: QuickAnswer;
+  comparison?: ComparisonTable;
   sections: CategorySection[];
   benefits: { title: string; desc: string }[];
   faqs: { q: string; a: string }[];
@@ -25,6 +45,7 @@ export interface CategoryContent {
   related: RelatedLink[];
   breadcrumbName: string;
 }
+
 
 type CategoryKey =
   | "high-protein-meals"
@@ -102,11 +123,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "4 meals to choose from", desc: "Bolognese, Carbonara, Yellow Curry, Smokey Lentils." },
         { title: "0 artificial additives", desc: "Real ingredients only, nothing else." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY is a ready-made high protein meal with 20g of plant protein per cup — add boiling water, wait 5 minutes, eat. It works as lunch at the office, a post-training meal or whenever cooking is not an option. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "Full nutrition facts", path: "/nutrition" },
+          { label: "Plant-based meals", path: "/plant-based-meals" },
+        ],
+      },
+      comparison: {
+        heading: "How does it compare to other fast protein?",
+        note: "Prices are approximate Swedish retail prices per serving and will vary.",
+        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        rows: [
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
+          { label: "Protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+        ],
+      },
       faqs: [
-        { q: "How much protein is in a PLÄNTLY meal?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to approximately 3 eggs or a medium chicken breast." },
-        { q: "Are PLÄNTLY high protein meals good for muscle building?", a: "Yes. 20g of protein per meal supports muscle protein synthesis. Research recommends 20–40g of protein per meal for optimal muscle building, which PLÄNTLY delivers consistently." },
-        { q: "What protein source does PLÄNTLY use?", a: "PLÄNTLY uses high-quality plant protein sources including pea protein and legumes, carefully combined to deliver a complete amino acid profile." },
+        { q: "What counts as a high protein meal?", a: "In practice, a meal with roughly 20g of protein or more, where protein makes up a meaningful share of the calories. A PLÄNTLY cup has 20–21g of protein per serving alongside slow carbohydrates and 5–9g of fibre. We list the full numbers on the nutrition page rather than hiding behind long additive lists." },
+        { q: "How much protein do I need per day?", a: "Common guidance is around 0.8g per kilo of body weight for adults, and roughly 1.2–2.0g per kilo if you train regularly. For a 70 kg person that is about 56g to 140g per day. Spreading it across meals is easier than trying to catch up at dinner." },
+        { q: "Are ready-made protein meals healthy?", a: "It depends entirely on what is inside. Look at protein, fibre, salt and the ingredient list. PLÄNTLY is built on pasta, legumes, vegetables and spices with no artificial additives — but it is one meal in your day, not a replacement for a varied diet." },
+        { q: "Can you eat high protein food every day?", a: "Yes, for most healthy adults a protein-rich diet every day is fine. Vary your protein sources and keep fibre, vegetables and fluids up. If you have kidney disease or another medical condition, talk to your doctor first." },
       ],
+
       ctaHeadline: "20g protein. 5 minutes. No compromise.",
       ctaText: "Shop now",
       related: relatedEn("high-protein-meals"),
@@ -147,11 +190,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "4 måltider att välja mellan", desc: "Bolognese, Carbonara, Gul Curry, Smokey Lentils." },
         { title: "0 konstgjorda tillsatser", desc: "Bara riktiga ingredienser, inget annat." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY är färdiga proteinmåltider med 20g protein per kopp — bara tillsätt kokande vatten och vänta 5 minuter. Perfekt som lunch på kontoret, mellanmål efter träning eller när matlagning inte är ett alternativ. Två smaker är veganska (Fusilli Bolognese, Smoky BBQ Lentils) och två är vegetariska med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Hela näringsinnehållet", path: "/nutrition" },
+          { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
+        ],
+      },
+      comparison: {
+        heading: "Hur står sig PLÄNTLY mot andra snabba proteinkällor?",
+        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        rows: [
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
+          { label: "Proteinpulver / shake", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (mjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+        ],
+      },
       faqs: [
-        { q: "Hur mycket protein finns i en PLÄNTLY-måltid?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarar ungefär 3 ägg eller en medelstor kycklingfilé." },
-        { q: "Är PLÄNTLY:s proteinrika måltider bra för muskelbyggande?", a: "Ja. 20g protein per måltid stödjer muskelproteinsyntes. Forskning rekommenderar 20–40g protein per måltid för optimalt muskelbyggande — det levererar PLÄNTLY konsekvent." },
-        { q: "Vilken proteinkälla använder PLÄNTLY?", a: "PLÄNTLY använder högkvalitativa plantproteinkällor inklusive ärtprotein och baljväxter, noga kombinerade för en komplett aminosyraprofil." },
+        { q: "Vad räknas som en proteinrik måltid?", a: "I praktiken en måltid med ungefär 20g protein eller mer, där proteinet står för en meningsfull del av kalorierna. En PLÄNTLY-kopp har 20–21g protein per portion tillsammans med långsamma kolhydrater och 5–9g fiber. Vi redovisar hela näringsinnehållet öppet istället för att gömma oss bakom långa tillsatslistor." },
+        { q: "Hur mycket protein behöver jag äta per dag?", a: "Vanlig rekommendation för vuxna är runt 0,8g per kilo kroppsvikt, och ungefär 1,2–2,0g per kilo om du tränar regelbundet. För en person på 70 kg blir det cirka 56–140g per dag. Det är lättare att fördela proteinet över dagens måltider än att ta igen allt på middagen." },
+        { q: "Är färdiga proteinmåltider nyttiga?", a: "Det beror helt på innehållet. Titta på protein, fiber, salt och ingredienslistan. PLÄNTLY är byggd på pasta, baljväxter, grönsaker och kryddor utan konstgjorda tillsatser — men det är en måltid i din dag, inte en ersättning för en varierad kost." },
+        { q: "Kan man äta proteinrik mat varje dag?", a: "Ja, för de flesta friska vuxna går det bra att äta proteinrikt varje dag. Variera dina proteinkällor och håll uppe fiber, grönsaker och vätska. Har du njursjukdom eller annan sjukdom bör du prata med din läkare först." },
       ],
+
       ctaHeadline: "20g protein. 5 minuter. Ingen kompromiss.",
       ctaText: "Handla nu",
       related: relatedSv("high-protein-meals"),
@@ -198,11 +263,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "5 minutes to ready", desc: "Hot water. Stir. Wait. Eat." },
         { title: "0 artificial additives", desc: "Real ingredients, nothing else." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY plant-based meals are cups of real food — pasta, legumes, vegetables and spices — with 20g of plant protein per serving, ready in 5 minutes with boiling water. Two flavours are fully vegan: Fusilli Bolognese and Smoky BBQ Lentils. Pasta Carbonara and Yellow Curry & Rice are vegetarian, not vegan: they contain milk protein. We say that plainly instead of hiding it in a long ingredient list.",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "Full nutrition facts", path: "/nutrition" },
+          { label: "High protein meals", path: "/high-protein-meals" },
+        ],
+      },
+      comparison: {
+        heading: "Plant protein compared to other quick options",
+        note: "Prices are approximate Swedish retail prices per serving and will vary.",
+        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        rows: [
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
+          { label: "Plant protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (plant milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+        ],
+      },
       faqs: [
-        { q: "Are PLÄNTLY plant-based meals only for plant-based eaters?", a: "No. PLÄNTLY plant-based meals are designed for everyone — plant-based, vegetarian, flexitarian, or anyone who simply wants more protein and less environmental impact in their diet." },
-        { q: "Why choose plant-based protein?", a: "Plant-based protein has a fraction of the climate impact of animal protein — while delivering the same 20g of protein per meal. Choosing plant-based once a day is one of the highest-impact food choices you can make." },
-        { q: "Do plant-based meals have enough protein?", a: "Yes. Each PLÄNTLY meal contains 20g of plant protein with a complete amino acid profile — equivalent to a serving of chicken or fish." },
+        { q: "What is a plant-based meal?", a: "A meal built mainly on plants — vegetables, legumes, grains, nuts and seeds — instead of meat and fish. Plant-based is not automatically vegan: a plant-based meal can still contain small amounts of dairy or egg, which is why we label each PLÄNTLY flavour as vegan or vegetarian." },
+        { q: "Is plant protein as good as animal protein?", a: "For most people, yes, as long as you combine sources. Legumes and grains complement each other so the amino acid profile ends up complete. PLÄNTLY combines pea and sunflower protein with pasta or rice and legumes for that reason." },
+        { q: "Are plant-based meals good for weight loss?", a: "They can help, mainly because fibre and protein make it easier to feel full on fewer calories. But there is no magic in the label — total calories over the week is what decides. A PLÄNTLY cup is 228–285 kcal per serving, so you can plan around it." },
+        { q: "Which nutrients should vegans pay extra attention to?", a: "Vitamin B12, iron, calcium, iodine, omega-3 (EPA/DHA), zinc and vitamin D are the ones usually flagged. B12 needs a supplement or fortified foods on a fully vegan diet. PLÄNTLY is a meal, not a supplement — check the nutrition page for what each cup actually delivers." },
       ],
+
       ctaHeadline: "Same protein. Fraction of the footprint.",
       ctaText: "Shop now",
       related: relatedEn("plant-based-meals"),
@@ -247,11 +334,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Klart på 5 minuter", desc: "Hett vatten. Rör. Vänta. Ät." },
         { title: "0 konstgjorda tillsatser", desc: "Riktiga ingredienser, inget annat." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY:s växtbaserade måltider är koppar med riktig mat — pasta, baljväxter, grönsaker och kryddor — med 20g växtprotein per portion, klara på 5 minuter med kokande vatten. Två smaker är helt veganska: Fusilli Bolognese och Smoky BBQ Lentils. Pasta Carbonara och Yellow Curry & Rice är vegetariska, inte veganska: de innehåller mjölkprotein. Vi skriver ut det rakt istället för att gömma det i en lång ingredienslista.",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Hela näringsinnehållet", path: "/nutrition" },
+          { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
+        ],
+      },
+      comparison: {
+        heading: "Växtprotein jämfört med andra snabba alternativ",
+        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        rows: [
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
+          { label: "Växtbaserat proteinpulver", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (växtmjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+        ],
+      },
       faqs: [
-        { q: "Är PLÄNTLY:s plantbaserade måltider bara för plantbaserade?", a: "Nej. PLÄNTLY:s plantbaserade måltider är designade för alla — plantbaserade, vegetarianer, flexitarianer eller alla som vill ha mer protein och mindre klimatpåverkan i kosten." },
-        { q: "Varför välja plantprotein?", a: "Plantprotein har en bråkdel av klimatpåverkan jämfört med animaliskt protein — och levererar samma 20g protein per måltid. Att välja plantbaserat en gång om dagen är ett av de mest effektiva matval du kan göra." },
-        { q: "Innehåller plantbaserade måltider tillräckligt med protein?", a: "Ja. Varje PLÄNTLY-måltid innehåller 20g plantprotein med komplett aminosyraprofil — motsvarande en portion kyckling eller fisk." },
+        { q: "Vad är en växtbaserad måltid?", a: "En måltid som huvudsakligen bygger på växter — grönsaker, baljväxter, spannmål, nötter och frön — istället för kött och fisk. Växtbaserat är inte automatiskt veganskt: en växtbaserad måltid kan innehålla mindre mängder mjölk eller ägg. Därför märker vi varje PLÄNTLY-smak som vegansk eller vegetarisk." },
+        { q: "Är växtbaserat protein lika bra som animaliskt?", a: "För de flesta ja, så länge du kombinerar källor. Baljväxter och spannmål kompletterar varandra så att aminosyraprofilen blir komplett. Det är därför PLÄNTLY kombinerar ärt- och solrosprotein med pasta eller ris och baljväxter." },
+        { q: "Passar växtbaserade måltider för viktnedgång?", a: "De kan hjälpa, främst för att fiber och protein gör det lättare att bli mätt på färre kalorier. Men det finns ingen magi i etiketten — det är totala kalorier över veckan som avgör. En PLÄNTLY-kopp ligger på 228–285 kcal per portion, så det går att planera runt." },
+        { q: "Vilka näringsämnen bör veganer vara extra uppmärksamma på?", a: "Vitamin B12, järn, kalcium, jod, omega-3 (EPA/DHA), zink och D-vitamin är de som brukar lyftas. B12 kräver kosttillskott eller berikade livsmedel vid helt vegansk kost. PLÄNTLY är en måltid, inte ett kosttillskott — se näringssidan för exakt vad varje kopp ger." },
       ],
+
       ctaHeadline: "Samma protein. Bråkdel av avtrycket.",
       ctaText: "Handla nu",
       related: relatedSv("plant-based-meals"),
@@ -384,11 +493,22 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Developed in Sweden", desc: "Engineered to Scandinavian nutrition standards." },
         { title: "Crafted in Italy", desc: "Made with Italian producers who treat food as craft." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY is healthy fast food in a cup: pasta, legumes, vegetables and spices with 20g of plant protein, ready in 5 minutes with boiling water. It is as fast as a takeaway lunch, but you can read every ingredient. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "High protein meals", path: "/high-protein-meals" },
+          { label: "Plant-based meals", path: "/plant-based-meals" },
+        ],
+      },
       faqs: [
-        { q: "What is healthy fast food?", a: "Healthy fast food is convenient, quick food that doesn't compromise on nutrition. PLÄNTLY meals are ready in 5 minutes and contain 20g of plant protein per serving — no artificial additives, no empty calories." },
-        { q: "How much protein does PLÄNTLY healthy fast food contain?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to a chicken breast, ready in 5 minutes." },
-        { q: "Is PLÄNTLY healthy fast food suitable for everyone?", a: "Yes. PLÄNTLY is designed for everyone who wants to eat well without spending time cooking — athletes, professionals, students, and anyone who values both health and convenience." },
+        { q: "Is healthy fast food more expensive than regular fast food?", a: "Per meal, it is usually cheaper than eating out. A PLÄNTLY cup is 39 SEK, while a takeaway lunch in Sweden typically costs 110–160 SEK. Compared to cooking a big batch at home it is more expensive — you are paying for the time you save." },
+        { q: "What is the difference between healthy fast food and regular ready meals?", a: "Mostly the ingredient list and what the meal actually delivers. Many ready meals are built for shelf life and cost, with high salt and little fibre. PLÄNTLY is built around 20g of protein and 5–9g of fibre with no artificial additives — and we publish the numbers instead of hiding behind long additive lists." },
+        { q: "Do instant meals keep for a long time?", a: "Yes. Because PLÄNTLY cups are dry, they keep for months at room temperature — the best before date is printed on each cup. No fridge, no freezer, which is exactly why they work in a desk drawer or a gym bag." },
+        { q: "Is dried food with added water actually healthy?", a: "Drying is just water removal — it does not make food unhealthy in itself. What matters is what was dried: our cups contain durum pasta, legumes, vegetables, herbs and spices. Add boiling water and you get the meal back, not a powder shake." },
       ],
+
       ctaHeadline: "The future of fast food. Today.",
       ctaText: "Shop meals",
       related: relatedEn("healthy-fast-food"),
@@ -427,11 +547,22 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Utvecklat i Sverige", desc: "Konstruerat enligt skandinavisk näringsstandard." },
         { title: "Hantverk från Italien", desc: "Tillverkat med italienska producenter som ser mat som hantverk." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY är nyttig snabbmat i en kopp: pasta, baljväxter, grönsaker och kryddor med 20g växtprotein, klart på 5 minuter med kokande vatten. Lika snabbt som en lunch på stan, men du kan läsa varje ingrediens. Två smaker är veganska (Fusilli Bolognese, Smoky BBQ Lentils) och två är vegetariska med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
+          { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
+        ],
+      },
       faqs: [
-        { q: "Vad är hälsosam snabbmat?", a: "Hälsosam snabbmat är bekväm, snabb mat som inte kompromissar med näringen. PLÄNTLY-måltider är klara på 5 minuter och innehåller 20g plantprotein per portion — inga konstgjorda tillsatser, inga tomma kalorier." },
-        { q: "Hur mycket protein innehåller PLÄNTLY:s hälsosamma snabbmat?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarande en kycklingfilé, klart på 5 minuter." },
-        { q: "Passar PLÄNTLY:s hälsosamma snabbmat för alla?", a: "Ja. PLÄNTLY är designad för alla som vill äta bra utan att lägga tid på matlagning — atleter, yrkesverksamma, studenter och alla som värdesätter både hälsa och bekvämlighet." },
+        { q: "Är nyttig snabbmat dyrare än vanlig snabbmat?", a: "Per måltid är det oftast billigare än att äta ute. En PLÄNTLY-kopp kostar 39 kr, medan en lunch på stan i Sverige normalt kostar 110–160 kr. Jämfört med att laga en större sats hemma är det dyrare — du betalar för tiden du sparar." },
+        { q: "Vad är skillnaden mellan nyttig snabbmat och vanlig färdigmat?", a: "Framför allt ingredienslistan och vad måltiden faktiskt ger. Mycket färdigmat är byggd för hållbarhet och låg kostnad, med högt salt och lite fiber. PLÄNTLY är byggd kring 20g protein och 5–9g fiber utan konstgjorda tillsatser — och vi publicerar siffrorna istället för att gömma oss bakom långa tillsatslistor." },
+        { q: "Håller sig instant-måltider länge?", a: "Ja. Eftersom PLÄNTLY-kopparna är torra håller de i månader i rumstemperatur — bäst före-datum står på varje kopp. Inget kylskåp, ingen frys, vilket är precis därför de fungerar i skrivbordslådan eller gympaväskan." },
+        { q: "Är torrvaror med tillsatt vatten nyttigt?", a: "Torkning är bara borttagning av vatten — det gör inte maten onyttig i sig. Det som avgör är vad som torkats: våra koppar innehåller durumpasta, baljväxter, grönsaker, örter och kryddor. Tillsätt kokande vatten så får du tillbaka måltiden, inte en pulvershake." },
       ],
+
       ctaHeadline: "Framtidens snabbmat. Idag.",
       ctaText: "Handla måltider",
       related: relatedSv("healthy-fast-food"),

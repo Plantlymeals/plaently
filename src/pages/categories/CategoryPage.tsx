@@ -1,5 +1,6 @@
 import { Link } from "@/lib/router-compat";
 import { ArrowRight, Check } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -29,6 +30,18 @@ const CategoryPage = ({ categoryKey }: Props) => {
     { hreflang: "x-default", path: `/${svSlug}` },
   ];
 
+  const faqSchema = c.faqs.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: c.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <Layout>
       <SEOHead
@@ -38,6 +51,11 @@ const CategoryPage = ({ categoryKey }: Props) => {
         locale={lang}
         alternates={alternates}
       />
+      {faqSchema && (
+        <Helmet>
+          <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        </Helmet>
+      )}
 
       {/* Hero */}
       <section className="gradient-hero">
@@ -52,6 +70,34 @@ const CategoryPage = ({ categoryKey }: Props) => {
           </div>
         </div>
       </section>
+
+      {/* Quick answer */}
+      {c.quickAnswer && (
+        <section className="pt-12 md:pt-16">
+          <div className="container max-w-3xl">
+            <div className="rounded-2xl bg-card border border-primary/20 p-6 md:p-8 shadow-card space-y-4">
+              <h2 className="font-heading text-lg md:text-xl font-bold">{c.quickAnswer.title}</h2>
+              <p className="text-base md:text-lg text-foreground/80 leading-relaxed">{c.quickAnswer.body}</p>
+              {c.quickAnswer.links && c.quickAnswer.links.length > 0 && (
+                <ul className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
+                  {c.quickAnswer.links.map((l) => (
+                    <li key={l.path + l.label}>
+                      <Link
+                        to={l.path}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+                      >
+                        {l.label}
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
 
       {/* Benefits */}
       <section className="py-16 md:py-24">
@@ -77,6 +123,37 @@ const CategoryPage = ({ categoryKey }: Props) => {
         </div>
       </section>
 
+      {/* Comparison table */}
+      {c.comparison && (
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-3xl space-y-4">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">{c.comparison.heading}</h2>
+            <div className="overflow-x-auto rounded-2xl border border-border/50 shadow-card">
+              <table className="w-full min-w-[640px] text-sm text-left">
+                <thead className="bg-secondary/60">
+                  <tr>
+                    {c.comparison.columns.map((col) => (
+                      <th key={col} scope="col" className="px-4 py-3 font-heading font-semibold">{col}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {c.comparison.rows.map((row) => (
+                    <tr key={row.label} className={`border-t border-border/50 ${row.highlight ? "bg-primary/5" : "bg-card"}`}>
+                      <th scope="row" className="px-4 py-3 font-semibold text-left">{row.label}</th>
+                      {row.cells.map((cell, i) => (
+                        <td key={i} className="px-4 py-3 text-foreground/80">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground">{c.comparison.note}</p>
+          </div>
+        </section>
+      )}
+
       {/* Long-form sections */}
       <section className="pb-16 md:pb-24">
         <div className="container max-w-3xl space-y-12">
@@ -88,8 +165,19 @@ const CategoryPage = ({ categoryKey }: Props) => {
               ))}
             </article>
           ))}
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            <Link to="/products" className="text-primary font-semibold hover:underline">
+              {lang === "sv" ? "Se våra proteinkoppar" : "See our protein cups"}
+            </Link>
+            {lang === "sv" ? " — eller läs hela " : " — or read the full "}
+            <Link to="/nutrition" className="text-primary font-semibold hover:underline">
+              {lang === "sv" ? "näringsinnehållet" : "nutrition facts"}
+            </Link>
+            {lang === "sv" ? " innan du bestämmer dig." : " before you decide."}
+          </p>
         </div>
       </section>
+
 
       {/* Related categories — internal linking for SEO */}
       {c.related.length > 0 && (
@@ -117,12 +205,14 @@ const CategoryPage = ({ categoryKey }: Props) => {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-secondary/40">
         <div className="container max-w-3xl">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">FAQ</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">
+            {lang === "sv" ? "Vanliga frågor" : "Frequently asked questions"}
+          </h2>
           <div className="space-y-4">
             {c.faqs.map((f) => (
               <details key={f.q} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card">
-                <summary className="cursor-pointer font-heading font-semibold text-base list-none flex justify-between items-center">
-                  {f.q}
+                <summary className="cursor-pointer list-none flex justify-between items-center gap-4">
+                  <h3 className="font-heading font-semibold text-base">{f.q}</h3>
                   <span className="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
                 </summary>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{f.a}</p>
@@ -131,6 +221,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
           </div>
         </div>
       </section>
+
 
       {/* Final CTA */}
       <section className="py-20 md:py-28 gradient-hero">
