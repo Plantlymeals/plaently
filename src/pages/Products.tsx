@@ -142,7 +142,7 @@ const ProductDetail = () => {
     "@type": "Product",
     name: productSeo?.schema.name ?? displayProductTitle(product.title),
     description: productSeo?.schema.description ?? product.description,
-    image: image?.url,
+    image: getSchemaImageUrl(product.title, imageOverride, image?.url),
     url: `https://plaently.com/product/${productHandle ?? product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(productSeo && {
