@@ -263,11 +263,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "5 minutes to ready", desc: "Hot water. Stir. Wait. Eat." },
         { title: "0 artificial additives", desc: "Real ingredients, nothing else." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY plant-based meals are cups of real food — pasta, legumes, vegetables and spices — with 20g of plant protein per serving, ready in 5 minutes with boiling water. Two flavours are fully vegan: Fusilli Bolognese and Smoky BBQ Lentils. Pasta Carbonara and Yellow Curry & Rice are vegetarian, not vegan: they contain milk protein. We say that plainly instead of hiding it in a long ingredient list.",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "Full nutrition facts", path: "/nutrition" },
+          { label: "High protein meals", path: "/high-protein-meals" },
+        ],
+      },
+      comparison: {
+        heading: "Plant protein compared to other quick options",
+        note: "Prices are approximate Swedish retail prices per serving and will vary.",
+        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        rows: [
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
+          { label: "Plant protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (plant milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+        ],
+      },
       faqs: [
-        { q: "Are PLÄNTLY plant-based meals only for plant-based eaters?", a: "No. PLÄNTLY plant-based meals are designed for everyone — plant-based, vegetarian, flexitarian, or anyone who simply wants more protein and less environmental impact in their diet." },
-        { q: "Why choose plant-based protein?", a: "Plant-based protein has a fraction of the climate impact of animal protein — while delivering the same 20g of protein per meal. Choosing plant-based once a day is one of the highest-impact food choices you can make." },
-        { q: "Do plant-based meals have enough protein?", a: "Yes. Each PLÄNTLY meal contains 20g of plant protein with a complete amino acid profile — equivalent to a serving of chicken or fish." },
+        { q: "What is a plant-based meal?", a: "A meal built mainly on plants — vegetables, legumes, grains, nuts and seeds — instead of meat and fish. Plant-based is not automatically vegan: a plant-based meal can still contain small amounts of dairy or egg, which is why we label each PLÄNTLY flavour as vegan or vegetarian." },
+        { q: "Is plant protein as good as animal protein?", a: "For most people, yes, as long as you combine sources. Legumes and grains complement each other so the amino acid profile ends up complete. PLÄNTLY combines pea and sunflower protein with pasta or rice and legumes for that reason." },
+        { q: "Are plant-based meals good for weight loss?", a: "They can help, mainly because fibre and protein make it easier to feel full on fewer calories. But there is no magic in the label — total calories over the week is what decides. A PLÄNTLY cup is 228–285 kcal per serving, so you can plan around it." },
+        { q: "Which nutrients should vegans pay extra attention to?", a: "Vitamin B12, iron, calcium, iodine, omega-3 (EPA/DHA), zinc and vitamin D are the ones usually flagged. B12 needs a supplement or fortified foods on a fully vegan diet. PLÄNTLY is a meal, not a supplement — check the nutrition page for what each cup actually delivers." },
       ],
+
       ctaHeadline: "Same protein. Fraction of the footprint.",
       ctaText: "Shop now",
       related: relatedEn("plant-based-meals"),
