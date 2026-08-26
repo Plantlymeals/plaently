@@ -547,11 +547,22 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Utvecklat i Sverige", desc: "Konstruerat enligt skandinavisk näringsstandard." },
         { title: "Hantverk från Italien", desc: "Tillverkat med italienska producenter som ser mat som hantverk." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY är nyttig snabbmat i en kopp: pasta, baljväxter, grönsaker och kryddor med 20g växtprotein, klart på 5 minuter med kokande vatten. Lika snabbt som en lunch på stan, men du kan läsa varje ingrediens. Två smaker är veganska (Fusilli Bolognese, Smoky BBQ Lentils) och två är vegetariska med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
+          { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
+        ],
+      },
       faqs: [
-        { q: "Vad är hälsosam snabbmat?", a: "Hälsosam snabbmat är bekväm, snabb mat som inte kompromissar med näringen. PLÄNTLY-måltider är klara på 5 minuter och innehåller 20g plantprotein per portion — inga konstgjorda tillsatser, inga tomma kalorier." },
-        { q: "Hur mycket protein innehåller PLÄNTLY:s hälsosamma snabbmat?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarande en kycklingfilé, klart på 5 minuter." },
-        { q: "Passar PLÄNTLY:s hälsosamma snabbmat för alla?", a: "Ja. PLÄNTLY är designad för alla som vill äta bra utan att lägga tid på matlagning — atleter, yrkesverksamma, studenter och alla som värdesätter både hälsa och bekvämlighet." },
+        { q: "Är nyttig snabbmat dyrare än vanlig snabbmat?", a: "Per måltid är det oftast billigare än att äta ute. En PLÄNTLY-kopp kostar 39 kr, medan en lunch på stan i Sverige normalt kostar 110–160 kr. Jämfört med att laga en större sats hemma är det dyrare — du betalar för tiden du sparar." },
+        { q: "Vad är skillnaden mellan nyttig snabbmat och vanlig färdigmat?", a: "Framför allt ingredienslistan och vad måltiden faktiskt ger. Mycket färdigmat är byggd för hållbarhet och låg kostnad, med högt salt och lite fiber. PLÄNTLY är byggd kring 20g protein och 5–9g fiber utan konstgjorda tillsatser — och vi publicerar siffrorna istället för att gömma oss bakom långa tillsatslistor." },
+        { q: "Håller sig instant-måltider länge?", a: "Ja. Eftersom PLÄNTLY-kopparna är torra håller de i månader i rumstemperatur — bäst före-datum står på varje kopp. Inget kylskåp, ingen frys, vilket är precis därför de fungerar i skrivbordslådan eller gympaväskan." },
+        { q: "Är torrvaror med tillsatt vatten nyttigt?", a: "Torkning är bara borttagning av vatten — det gör inte maten onyttig i sig. Det som avgör är vad som torkats: våra koppar innehåller durumpasta, baljväxter, grönsaker, örter och kryddor. Tillsätt kokande vatten så får du tillbaka måltiden, inte en pulvershake." },
       ],
+
       ctaHeadline: "Framtidens snabbmat. Idag.",
       ctaText: "Handla måltider",
       related: relatedSv("healthy-fast-food"),
