@@ -334,11 +334,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "Klart på 5 minuter", desc: "Hett vatten. Rör. Vänta. Ät." },
         { title: "0 konstgjorda tillsatser", desc: "Riktiga ingredienser, inget annat." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY:s växtbaserade måltider är koppar med riktig mat — pasta, baljväxter, grönsaker och kryddor — med 20g växtprotein per portion, klara på 5 minuter med kokande vatten. Två smaker är helt veganska: Fusilli Bolognese och Smoky BBQ Lentils. Pasta Carbonara och Yellow Curry & Rice är vegetariska, inte veganska: de innehåller mjölkprotein. Vi skriver ut det rakt istället för att gömma det i en lång ingredienslista.",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Hela näringsinnehållet", path: "/nutrition" },
+          { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
+        ],
+      },
+      comparison: {
+        heading: "Växtprotein jämfört med andra snabba alternativ",
+        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        rows: [
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
+          { label: "Växtbaserat proteinpulver", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (växtmjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+        ],
+      },
       faqs: [
-        { q: "Är PLÄNTLY:s plantbaserade måltider bara för plantbaserade?", a: "Nej. PLÄNTLY:s plantbaserade måltider är designade för alla — plantbaserade, vegetarianer, flexitarianer eller alla som vill ha mer protein och mindre klimatpåverkan i kosten." },
-        { q: "Varför välja plantprotein?", a: "Plantprotein har en bråkdel av klimatpåverkan jämfört med animaliskt protein — och levererar samma 20g protein per måltid. Att välja plantbaserat en gång om dagen är ett av de mest effektiva matval du kan göra." },
-        { q: "Innehåller plantbaserade måltider tillräckligt med protein?", a: "Ja. Varje PLÄNTLY-måltid innehåller 20g plantprotein med komplett aminosyraprofil — motsvarande en portion kyckling eller fisk." },
+        { q: "Vad är en växtbaserad måltid?", a: "En måltid som huvudsakligen bygger på växter — grönsaker, baljväxter, spannmål, nötter och frön — istället för kött och fisk. Växtbaserat är inte automatiskt veganskt: en växtbaserad måltid kan innehålla mindre mängder mjölk eller ägg. Därför märker vi varje PLÄNTLY-smak som vegansk eller vegetarisk." },
+        { q: "Är växtbaserat protein lika bra som animaliskt?", a: "För de flesta ja, så länge du kombinerar källor. Baljväxter och spannmål kompletterar varandra så att aminosyraprofilen blir komplett. Det är därför PLÄNTLY kombinerar ärt- och solrosprotein med pasta eller ris och baljväxter." },
+        { q: "Passar växtbaserade måltider för viktnedgång?", a: "De kan hjälpa, främst för att fiber och protein gör det lättare att bli mätt på färre kalorier. Men det finns ingen magi i etiketten — det är totala kalorier över veckan som avgör. En PLÄNTLY-kopp ligger på 228–285 kcal per portion, så det går att planera runt." },
+        { q: "Vilka näringsämnen bör veganer vara extra uppmärksamma på?", a: "Vitamin B12, järn, kalcium, jod, omega-3 (EPA/DHA), zink och D-vitamin är de som brukar lyftas. B12 kräver kosttillskott eller berikade livsmedel vid helt vegansk kost. PLÄNTLY är en måltid, inte ett kosttillskott — se näringssidan för exakt vad varje kopp ger." },
       ],
+
       ctaHeadline: "Samma protein. Bråkdel av avtrycket.",
       ctaText: "Handla nu",
       related: relatedSv("plant-based-meals"),
