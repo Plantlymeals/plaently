@@ -190,11 +190,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "4 måltider att välja mellan", desc: "Bolognese, Carbonara, Gul Curry, Smokey Lentils." },
         { title: "0 konstgjorda tillsatser", desc: "Bara riktiga ingredienser, inget annat." },
       ],
+      quickAnswer: {
+        title: "Kort svar",
+        body: "PLÄNTLY är färdiga proteinmåltider med 20g protein per kopp — bara tillsätt kokande vatten och vänta 5 minuter. Perfekt som lunch på kontoret, mellanmål efter träning eller när matlagning inte är ett alternativ. Två smaker är veganska (Fusilli Bolognese, Smoky BBQ Lentils) och två är vegetariska med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Se våra proteinkoppar", path: "/products" },
+          { label: "Hela näringsinnehållet", path: "/nutrition" },
+          { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
+        ],
+      },
+      comparison: {
+        heading: "Hur står sig PLÄNTLY mot andra snabba proteinkällor?",
+        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        rows: [
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
+          { label: "Proteinpulver / shake", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (mjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+        ],
+      },
       faqs: [
-        { q: "Hur mycket protein finns i en PLÄNTLY-måltid?", a: "Varje PLÄNTLY-måltid innehåller 20g plantprotein per portion — motsvarar ungefär 3 ägg eller en medelstor kycklingfilé." },
-        { q: "Är PLÄNTLY:s proteinrika måltider bra för muskelbyggande?", a: "Ja. 20g protein per måltid stödjer muskelproteinsyntes. Forskning rekommenderar 20–40g protein per måltid för optimalt muskelbyggande — det levererar PLÄNTLY konsekvent." },
-        { q: "Vilken proteinkälla använder PLÄNTLY?", a: "PLÄNTLY använder högkvalitativa plantproteinkällor inklusive ärtprotein och baljväxter, noga kombinerade för en komplett aminosyraprofil." },
+        { q: "Vad räknas som en proteinrik måltid?", a: "I praktiken en måltid med ungefär 20g protein eller mer, där proteinet står för en meningsfull del av kalorierna. En PLÄNTLY-kopp har 20–21g protein per portion tillsammans med långsamma kolhydrater och 5–9g fiber. Vi redovisar hela näringsinnehållet öppet istället för att gömma oss bakom långa tillsatslistor." },
+        { q: "Hur mycket protein behöver jag äta per dag?", a: "Vanlig rekommendation för vuxna är runt 0,8g per kilo kroppsvikt, och ungefär 1,2–2,0g per kilo om du tränar regelbundet. För en person på 70 kg blir det cirka 56–140g per dag. Det är lättare att fördela proteinet över dagens måltider än att ta igen allt på middagen." },
+        { q: "Är färdiga proteinmåltider nyttiga?", a: "Det beror helt på innehållet. Titta på protein, fiber, salt och ingredienslistan. PLÄNTLY är byggd på pasta, baljväxter, grönsaker och kryddor utan konstgjorda tillsatser — men det är en måltid i din dag, inte en ersättning för en varierad kost." },
+        { q: "Kan man äta proteinrik mat varje dag?", a: "Ja, för de flesta friska vuxna går det bra att äta proteinrikt varje dag. Variera dina proteinkällor och håll uppe fiber, grönsaker och vätska. Har du njursjukdom eller annan sjukdom bör du prata med din läkare först." },
       ],
+
       ctaHeadline: "20g protein. 5 minuter. Ingen kompromiss.",
       ctaText: "Handla nu",
       related: relatedSv("high-protein-meals"),
