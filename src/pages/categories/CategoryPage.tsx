@@ -205,12 +205,14 @@ const CategoryPage = ({ categoryKey }: Props) => {
       {/* FAQ */}
       <section className="py-16 md:py-20 bg-secondary/40">
         <div className="container max-w-3xl">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">FAQ</h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">
+            {lang === "sv" ? "Vanliga frågor" : "Frequently asked questions"}
+          </h2>
           <div className="space-y-4">
             {c.faqs.map((f) => (
               <details key={f.q} className="group rounded-2xl bg-card border border-border/50 p-6 shadow-card">
-                <summary className="cursor-pointer font-heading font-semibold text-base list-none flex justify-between items-center">
-                  {f.q}
+                <summary className="cursor-pointer list-none flex justify-between items-center gap-4">
+                  <h3 className="font-heading font-semibold text-base">{f.q}</h3>
                   <span className="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
                 </summary>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{f.a}</p>
@@ -219,6 +221,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
           </div>
         </div>
       </section>
+
 
       {/* Final CTA */}
       <section className="py-20 md:py-28 gradient-hero">
