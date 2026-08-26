@@ -123,11 +123,33 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         { title: "4 meals to choose from", desc: "Bolognese, Carbonara, Yellow Curry, Smokey Lentils." },
         { title: "0 artificial additives", desc: "Real ingredients only, nothing else." },
       ],
+      quickAnswer: {
+        title: "Short answer",
+        body: "PLÄNTLY is a ready-made high protein meal with 20g of plant protein per cup — add boiling water, wait 5 minutes, eat. It works as lunch at the office, a post-training meal or whenever cooking is not an option. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "See our protein cups", path: "/products" },
+          { label: "Full nutrition facts", path: "/nutrition" },
+          { label: "Plant-based meals", path: "/plant-based-meals" },
+        ],
+      },
+      comparison: {
+        heading: "How does it compare to other fast protein?",
+        note: "Prices are approximate Swedish retail prices per serving and will vary.",
+        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        rows: [
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
+          { label: "Protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+        ],
+      },
       faqs: [
-        { q: "How much protein is in a PLÄNTLY meal?", a: "Every PLÄNTLY meal contains 20g of plant protein per serving — equivalent to approximately 3 eggs or a medium chicken breast." },
-        { q: "Are PLÄNTLY high protein meals good for muscle building?", a: "Yes. 20g of protein per meal supports muscle protein synthesis. Research recommends 20–40g of protein per meal for optimal muscle building, which PLÄNTLY delivers consistently." },
-        { q: "What protein source does PLÄNTLY use?", a: "PLÄNTLY uses high-quality plant protein sources including pea protein and legumes, carefully combined to deliver a complete amino acid profile." },
+        { q: "What counts as a high protein meal?", a: "In practice, a meal with roughly 20g of protein or more, where protein makes up a meaningful share of the calories. A PLÄNTLY cup has 20–21g of protein per serving alongside slow carbohydrates and 5–9g of fibre. We list the full numbers on the nutrition page rather than hiding behind long additive lists." },
+        { q: "How much protein do I need per day?", a: "Common guidance is around 0.8g per kilo of body weight for adults, and roughly 1.2–2.0g per kilo if you train regularly. For a 70 kg person that is about 56g to 140g per day. Spreading it across meals is easier than trying to catch up at dinner." },
+        { q: "Are ready-made protein meals healthy?", a: "It depends entirely on what is inside. Look at protein, fibre, salt and the ingredient list. PLÄNTLY is built on pasta, legumes, vegetables and spices with no artificial additives — but it is one meal in your day, not a replacement for a varied diet." },
+        { q: "Can you eat high protein food every day?", a: "Yes, for most healthy adults a protein-rich diet every day is fine. Vary your protein sources and keep fibre, vegetables and fluids up. If you have kidney disease or another medical condition, talk to your doctor first." },
       ],
+
       ctaHeadline: "20g protein. 5 minutes. No compromise.",
       ctaText: "Shop now",
       related: relatedEn("high-protein-meals"),
