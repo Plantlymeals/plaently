@@ -123,6 +123,37 @@ const CategoryPage = ({ categoryKey }: Props) => {
         </div>
       </section>
 
+      {/* Comparison table */}
+      {c.comparison && (
+        <section className="pb-16 md:pb-24">
+          <div className="container max-w-3xl space-y-4">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold">{c.comparison.heading}</h2>
+            <div className="overflow-x-auto rounded-2xl border border-border/50 shadow-card">
+              <table className="w-full min-w-[640px] text-sm text-left">
+                <thead className="bg-secondary/60">
+                  <tr>
+                    {c.comparison.columns.map((col) => (
+                      <th key={col} scope="col" className="px-4 py-3 font-heading font-semibold">{col}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {c.comparison.rows.map((row) => (
+                    <tr key={row.label} className={`border-t border-border/50 ${row.highlight ? "bg-primary/5" : "bg-card"}`}>
+                      <th scope="row" className="px-4 py-3 font-semibold text-left">{row.label}</th>
+                      {row.cells.map((cell, i) => (
+                        <td key={i} className="px-4 py-3 text-foreground/80">{cell}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground">{c.comparison.note}</p>
+          </div>
+        </section>
+      )}
+
       {/* Long-form sections */}
       <section className="pb-16 md:pb-24">
         <div className="container max-w-3xl space-y-12">
@@ -134,8 +165,19 @@ const CategoryPage = ({ categoryKey }: Props) => {
               ))}
             </article>
           ))}
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            <Link to="/products" className="text-primary font-semibold hover:underline">
+              {lang === "sv" ? "Se våra proteinkoppar" : "See our protein cups"}
+            </Link>
+            {lang === "sv" ? " — eller läs hela " : " — or read the full "}
+            <Link to="/nutrition" className="text-primary font-semibold hover:underline">
+              {lang === "sv" ? "näringsinnehållet" : "nutrition facts"}
+            </Link>
+            {lang === "sv" ? " innan du bestämmer dig." : " before you decide."}
+          </p>
         </div>
       </section>
+
 
       {/* Related categories — internal linking for SEO */}
       {c.related.length > 0 && (
