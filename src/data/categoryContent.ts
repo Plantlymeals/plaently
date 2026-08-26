@@ -23,7 +23,7 @@ export interface QuickAnswer {
 
 export interface ComparisonTable {
   heading: string;
-  note: string;
+  note?: string;
   columns: string[];
   rows: { label: string; cells: string[]; highlight?: boolean }[];
 }
@@ -134,13 +134,12 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       },
       comparison: {
         heading: "How does it compare to other fast protein?",
-        note: "Prices are approximate Swedish retail prices per serving and will vary.",
-        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        columns: ["Option", "Time", "Protein per serving", "Needs a fridge"],
         rows: [
-          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
-          { label: "Protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (milk)"] },
-          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
-          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "No"], highlight: true },
+          { label: "Protein shake", cells: ["1 min", "20–25g", "No (powder), yes (milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "Yes"] },
         ],
       },
       faqs: [
@@ -201,13 +200,12 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       },
       comparison: {
         heading: "Hur står sig PLÄNTLY mot andra snabba proteinkällor?",
-        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
-        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Kylskåpskrav"],
         rows: [
-          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
-          { label: "Proteinpulver / shake", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (mjölk)"] },
-          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
-          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "Nej"], highlight: true },
+          { label: "Proteinpulver / shake", cells: ["1 min", "20–25g", "Nej (pulver), ja (mjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "Ja"] },
         ],
       },
       faqs: [
@@ -241,7 +239,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         {
           heading: "The climate case for plant protein.",
           body: [
-            "Plant protein produces up to 90% less CO2 than beef protein. One PLÄNTLY meal instead of a meat-based lunch is one of the highest-impact climate choices you can make today — without changing anything else.",
+            "Research on global food systems (Poore & Nemecek, Science 2018) shows that plant protein generally has a substantially lower climate footprint than beef. Choosing a plant-based lunch instead of a meat-based one is one of the more effective everyday climate choices — without changing anything else.",
           ],
         },
         {
@@ -259,7 +257,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       benefits: [
         { title: "20g plant protein per meal", desc: "Complete amino acid profile, every cup." },
-        { title: "Up to 90% lower CO2 vs beef", desc: "One of the highest-impact climate choices." },
+        { title: "Lower climate footprint than beef", desc: "Plant protein generally has a substantially lower footprint (Poore & Nemecek, Science 2018)." },
         { title: "5 minutes to ready", desc: "Hot water. Stir. Wait. Eat." },
         { title: "0 artificial additives", desc: "Real ingredients, nothing else." },
       ],
@@ -274,13 +272,12 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       },
       comparison: {
         heading: "Plant protein compared to other quick options",
-        note: "Prices are approximate Swedish retail prices per serving and will vary.",
-        columns: ["Option", "Time", "Protein per serving", "Approx. price", "Needs a fridge"],
+        columns: ["Option", "Time", "Protein per serving", "Needs a fridge"],
         rows: [
-          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "39 SEK", "No"], highlight: true },
-          { label: "Plant protein shake", cells: ["1 min", "20–25g", "10–15 SEK", "No (powder), yes (plant milk)"] },
-          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "110–160 SEK", "No"] },
-          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "25–45 SEK", "Yes"] },
+          { label: "PLÄNTLY cup", cells: ["5 min", "20–21g", "No"], highlight: true },
+          { label: "Plant protein shake", cells: ["1 min", "20–25g", "No (powder), yes (plant milk)"] },
+          { label: "Eating out", cells: ["20–45 min incl. travel", "Varies, often unlisted", "No"] },
+          { label: "Cooking from scratch", cells: ["25–40 min", "You decide", "Yes"] },
         ],
       },
       faqs: [
@@ -312,7 +309,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         {
           heading: "Klimatargumentet för plantprotein.",
           body: [
-            "Plantprotein ger upp till 90% mindre CO2 än nötkött. En PLÄNTLY-måltid istället för en köttlunch är ett av de mest effektiva klimatval du kan göra idag — utan att ändra något annat.",
+            "Forskning på globala livsmedelssystem (Poore & Nemecek, Science 2018) visar att plantprotein generellt har ett betydligt lägre klimatavtryck än nötkött. Att välja en plantbaserad lunch istället för en köttbaserad är ett av de mer effektiva klimatvalen i vardagen — utan att ändra något annat.",
           ],
         },
         {
@@ -330,7 +327,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ],
       benefits: [
         { title: "20g plantprotein per måltid", desc: "Komplett aminosyraprofil, varje kopp." },
-        { title: "Upp till 90% lägre CO2 vs nötkött", desc: "Ett av de mest effektiva klimatvalen." },
+        { title: "Lägre klimatavtryck än nötkött", desc: "Plantprotein har generellt ett betydligt lägre avtryck (Poore & Nemecek, Science 2018)." },
         { title: "Klart på 5 minuter", desc: "Hett vatten. Rör. Vänta. Ät." },
         { title: "0 konstgjorda tillsatser", desc: "Riktiga ingredienser, inget annat." },
       ],
@@ -345,13 +342,12 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       },
       comparison: {
         heading: "Växtprotein jämfört med andra snabba alternativ",
-        note: "Priserna är ungefärliga svenska konsumentpriser per portion och varierar.",
-        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Ungefärligt pris", "Kylskåpskrav"],
+        columns: ["Alternativ", "Tid att tillaga", "Protein per portion", "Kylskåpskrav"],
         rows: [
-          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "39 kr", "Nej"], highlight: true },
-          { label: "Växtbaserat proteinpulver", cells: ["1 min", "20–25g", "10–15 kr", "Nej (pulver), ja (växtmjölk)"] },
-          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "110–160 kr", "Nej"] },
-          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "25–45 kr", "Ja"] },
+          { label: "PLÄNTLY-kopp", cells: ["5 min", "20–21g", "Nej"], highlight: true },
+          { label: "Växtbaserat proteinpulver", cells: ["1 min", "20–25g", "Nej (pulver), ja (växtmjölk)"] },
+          { label: "Äta ute", cells: ["20–45 min inkl. restid", "Varierar, sällan angivet", "Nej"] },
+          { label: "Laga mat från grunden", cells: ["25–40 min", "Du bestämmer", "Ja"] },
         ],
       },
       faqs: [
@@ -622,7 +618,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
     sv: {
       slug: "proteinkoppar",
       breadcrumbName: "Proteinkoppar",
-      metaTitle: "Proteinkoppar | 20g protein i en kopp | PLÄNTLY",
+      metaTitle: "Proteinkoppar | 20g protein på 5 min | PLÄNTLY",
       metaDescription: "PLÄNTLY Proteinkoppar — 20g plantprotein per kopp, klart på 5 minuter. Den smartaste proteinmåltiden för skrivbordet, gympaväskan eller köket.",
       h1: "Proteinkoppar.",
       keywordLabel: "Proteinkopp · 20g protein · Häll i vatten",

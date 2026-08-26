@@ -149,7 +149,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
                 </tbody>
               </table>
             </div>
-            <p className="text-xs text-muted-foreground">{c.comparison.note}</p>
+            {c.comparison.note && <p className="text-xs text-muted-foreground">{c.comparison.note}</p>}
           </div>
         </section>
       )}

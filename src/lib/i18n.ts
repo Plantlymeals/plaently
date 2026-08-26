@@ -64,7 +64,7 @@ const translations: Record<string, Record<Lang, string>> = {
  // Why
  "why.title": { sv: "Varför PLÄNTLY?", en: "Why PLÄNTLY?" },
  "why.subtitle": { sv: "Allt du behöver i en måltid. Inget du inte behöver.", en: "Everything you need in a meal. Nothing you don't." },
- "why.highProtein": { sv: "Protein måltider", en: "High Protein" },
+ "why.highProtein": { sv: "Proteinmåltider", en: "High Protein" },
  "why.highProteinDesc": { sv: "20g plantprotein per portion", en: "20g plant protein per serving" },
   "why.plantBased": { sv: "Riktiga råvaror", en: "Real Ingredients" },
   "why.plantBasedDesc": { sv: "Inga pulver eller konstgjorda tillsatser", en: "No powders or artificial additives" },
@@ -81,7 +81,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "how.title": { sv: "Så funkar det", en: "How it works" },
  "how.subtitle": { sv: "Tre enkla steg till riktig näring.", en: "Three simple steps to real nutrition." },
  "how.step1Title": { sv: "Välj dina måltider", en: "Choose your meals" },
- "how.step1Desc": { sv: "Välj bland våra, protein och fiberrika smaker.", en: "Pick from our protein and fibre-rich flavours." },
+ "how.step1Desc": { sv: "Välj bland våra protein- och fiberrika smaker.", en: "Pick from our protein and fibre-rich flavours." },
  "how.step2Title": { sv: "Tillsätt hett vatten", en: "Add hot water" },
  "how.step2Desc": { sv: "Häll i kokande vatten, rör om och vänta 5 minuter.", en: "Pour in boiling water, stir and wait 5 minutes." },
  "how.step3Title": { sv: "Njut av en riktig måltid", en: "Enjoy a real meal" },
@@ -314,8 +314,8 @@ const translations: Record<string, Record<Lang, string>> = {
  // SEO per page
   "seo.home.title": { sv: "PLÄNTLY — Riktig mat med 20g protein | Klart på 5 minuter", en: "PLÄNTLY — Real Food with 20g Protein | Ready in 5 Minutes" },
   "seo.home.description": { sv: "Riktiga måltider med 20g protein — inget pulver, ingen shake. Bara riktig mat klar på 5 minuter. Utvecklat i Sverige, hantverk från Italien.", en: "Real meals with 20g protein — not a powder, not a shake. Just real food ready in 5 minutes. Developed in Sweden, crafted in Italy." },
-  "seo.products.title": { sv: "Växtbaserade Proteinmåltider | 4 Smaker — PLÄNTLY", en: "Plant-Based Protein Meals | 4 Flavours — PLÄNTLY" },
-  "seo.products.description": { sv: "Fyra växtbaserade proteinmåltider med 20g protein per portion. Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice och Smoky BBQ Lentils. Klara på 5 minuter.", en: "Four plant-based protein meals with 20g protein per serving. Ready in 5 minutes — just add boiling water to the black line." },
+  "seo.products.title": { sv: "Proteinmåltider | 20g protein på 5 min | PLÄNTLY", en: "Plant-Based Protein Meals | 4 Flavours — PLÄNTLY" },
+  "seo.products.description": { sv: "Fyra proteinmåltider med 20g protein per portion — Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice och Smoky BBQ Lentils. Klara på 5 minuter, bara tillsätt kokande vatten.", en: "Four plant-based protein meals with 20g protein per serving. Ready in 5 minutes — just add boiling water to the black line." },
   "seo.nutrition.title": { sv: "Näring & Protein | Växtbaserade Proteinmåltider — PLÄNTLY", en: "Nutrition & Protein | Plant-Based Protein Meals — PLÄNTLY" },
   "seo.nutrition.description": { sv: "Allt du behöver veta om näringen i PLÄNTLY — 20g växtprotein, balanserade kolhydrater och hälsosamma fetter per portion. Genomsnittliga värden varierar per smak.", en: "Everything about PLÄNTLY nutrition — 20g plant protein, balanced carbs and healthy fats per serving. Average values vary by flavour." },
   "seo.lifestyle.title": { sv: "PLÄNTLY för Atleter, Kontor & Vardag | Proteinmåltider Sverige", en: "PLÄNTLY for Athletes, Office & Everyday | Protein Meals Sweden" },
