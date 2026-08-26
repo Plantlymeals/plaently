@@ -18,7 +18,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
 import BundleSection from "@/components/home/BundleSection";
-import { getCupMeta, displayProductTitle, getSchemaImageUrl } from "@/lib/productImages";
+import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 import { getProductSeo } from "@/lib/productSeo";
@@ -137,12 +137,19 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
+  const schemaImageUrl = resolveProductImageUrl({
+    handle: productHandle ?? product.handle,
+    title: product.title,
+    overrideUrl: imageOverride,
+    shopifyUrl: image?.url ?? null,
+  });
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: productSeo?.schema.name ?? displayProductTitle(product.title),
     description: productSeo?.schema.description ?? product.description,
-    image: getSchemaImageUrl(product.title, imageOverride, image?.url),
+    image: [schemaImageUrl],
     url: `https://plaently.com/product/${productHandle ?? product.handle}`,
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(productSeo && {
@@ -230,6 +237,7 @@ const ProductDetail = () => {
         path={`/product/${productHandle ?? product.handle}`}
         type="product"
         locale={pageLocale}
+        image={schemaImageUrl}
         jsonLd={jsonLd}
         routeOwnsLinks
         routeOwnsMetadata

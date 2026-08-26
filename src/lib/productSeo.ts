@@ -1,3 +1,5 @@
+import { resolveProductImageUrl } from "@/lib/productImages";
+
 export type ProductSeoEntry = {
   sv: { title: string; description: string };
   en: { title: string; description: string };
@@ -88,6 +90,7 @@ export function getProductSeo(handle: string | undefined): ProductSeoEntry | und
 
 export function getProductRouteHead(handle: string) {
   const seo = getProductSeo(handle);
+  const image = resolveProductImageUrl({ handle, title: seo?.schema.name ?? handle });
   const title = seo?.sv.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
   const description = seo?.sv.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
   const url = `https://plaently.com/product/${handle}`;
@@ -100,6 +103,8 @@ export function getProductRouteHead(handle: string) {
       { property: "og:url", content: url },
       { property: "og:type", content: "product" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: image },
+      { name: "twitter:image", content: image },
     ],
     links: [
       { rel: "canonical", href: url },

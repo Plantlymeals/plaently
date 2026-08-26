@@ -64,17 +64,79 @@ export function displayProductTitle(title: string | undefined | null): string {
 }
 
 /**
- * Absolute, crawler-safe image URL for Product schema. Falls back through the
- * CMS override, the flavour's public image, then the Shopify image, so bundle
- * pages without a Shopify image still emit a valid "image" field.
+ * Origin used for absolute, crawler-facing asset URLs.
+ * Must be a domain that actually serves this app's /public assets — plaently.com
+ * currently resolves to the Shopify storefront and 404s on /images/*, which made
+ * Product JSON-LD images unfetchable for Google.
+ */
+export const ASSET_ORIGIN = "https://www.plantlymeals.com";
+
+/** Existing multi-cup imagery already used on the site for mixed bundles. */
+const MIXED_BUNDLE_IMAGE = "/images/products/starter-pack.webp";
+
+/**
+ * Handle → existing public image. Single-flavour boxes reuse the flavour cup
+ * image; mixed packs reuse their existing pack imagery. No new images.
+ */
+const HANDLE_IMAGES: Array<{ pattern: RegExp; src: string }> = [
+  { pattern: /^(plant-based-)?(pasta-)?carbonara/i, src: "/images/products/pasta-carbonara.webp" },
+  { pattern: /^(plant-based-)?(fusilli-)?bolognese/i, src: "/images/products/fusilli-bolognese.webp" },
+  { pattern: /(smoky|bbq|lentil)/i, src: "/images/products/smoky-bbq-lentils.webp" },
+  { pattern: /curry/i, src: "/images/products/thai-curry.webp" },
+  { pattern: /^big-office-pack/i, src: "/images/products/big-office-pack.webp" },
+  { pattern: /^office-pack/i, src: "/images/products/office-pack.webp" },
+  { pattern: /^athlete/i, src: "/images/products/athlete-pack.webp" },
+  { pattern: /^starter-pack/i, src: "/images/products/starter-pack.webp" },
+  { pattern: /^monthly-box/i, src: MIXED_BUNDLE_IMAGE },
+];
+
+function toAbsolute(candidate: string): string {
+  if (/^https?:\/\//i.test(candidate)) return candidate;
+  return `${ASSET_ORIGIN}${candidate.startsWith("/") ? "" : "/"}${candidate}`;
+}
+
+function isCrawlableUrl(url: string | null | undefined): url is string {
+  if (!url) return false;
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)/i.test(url)) return false;
+  if (/lovable\.app|lovableproject\.com|\.r2\.dev/i.test(url)) return false; // preview-only hosts
+  if (/^http:\/\//i.test(url)) return false;
+  if (/^https:\/\/plaently\.com\//i.test(url)) return false; // does not serve app assets
+  return true;
+}
+
+/**
+ * Single source of truth for structured-data / social product images.
+ * Priority: CMS override → handle mapping → flavour image → Shopify image →
+ * existing mixed-bundle image. Always returns an absolute HTTPS URL.
+ */
+export function resolveProductImageUrl(input: {
+  handle?: string | null;
+  title?: string | null;
+  overrideUrl?: string | null;
+  shopifyUrl?: string | null;
+}): string {
+  const { handle, title, overrideUrl, shopifyUrl } = input;
+  if (overrideUrl && isCrawlableUrl(toAbsolute(overrideUrl))) return toAbsolute(overrideUrl);
+  if (handle) {
+    const hit = HANDLE_IMAGES.find((rule) => rule.pattern.test(handle));
+    if (hit) return toAbsolute(hit.src);
+  }
+  const flavour = getCupMeta(title)?.publicSrc;
+  if (flavour) return toAbsolute(flavour);
+  if (shopifyUrl && isCrawlableUrl(shopifyUrl)) return shopifyUrl;
+  return toAbsolute(MIXED_BUNDLE_IMAGE);
+}
+
+/**
+ * Absolute, crawler-safe image URL for Product schema.
+ * Kept for existing callers; delegates to resolveProductImageUrl.
  */
 export function getSchemaImageUrl(
   title: string | undefined | null,
   overrideUrl?: string | null,
   shopifyUrl?: string | null,
-): string | undefined {
-  const candidate = overrideUrl || getCupMeta(title)?.publicSrc || shopifyUrl || null;
-  if (!candidate) return undefined;
-  if (/^https?:\/\//i.test(candidate)) return candidate;
-  return `https://plaently.com${candidate.startsWith("/") ? "" : "/"}${candidate}`;
+  handle?: string | null,
+): string {
+  return resolveProductImageUrl({ handle: handle ?? null, title: title ?? null, overrideUrl: overrideUrl ?? null, shopifyUrl: shopifyUrl ?? null });
 }
+
