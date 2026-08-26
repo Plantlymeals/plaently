@@ -1,71 +1,76 @@
 # SEO-optimering av PLÄNTLY (utan designändringar)
 
-Ingen visuell redesign, inga nya färger/typsnitt/layouter, inga konkurrentjämförelser. Allt nedan är metadata, semantik, innehållstext och teknisk SEO.
+Ingen visuell redesign, inga nya färger/typsnitt/layouter, inga konkurrentjämförelser. Allt nedan är metadata, semantik, innehållstext och teknisk SEO. SSR, checkout, Shopify och analytics rörs inte.
 
-## Krock med tidigare arbete (viktigt)
+## 1. Jämförelsetabellerna tas bort
 
-I förra rundan lades en jämförelsetabell (PLÄNTLY vs proteinpulver / äta ute / laga själv) till på de proteinrika och plantbaserade kategorisidorna. Din nya instruktion säger att sådana jämförelser ska bort. Planen tar därför bort tabellerna igen och ersätter dem med en egen "20g protein. Made for real life."-sektion i samma kortdesign som redan finns på sidorna. Övrigt från förra rundan (kort svar-block, FAQ med H3, interna länkar) behålls.
+Tabellen (PLÄNTLY vs proteinpulver / äta ute / laga själv) togs in i förra rundan på `/high-protein-meals` och `/plant-based-meals`. Den tas nu bort helt — både data i `src/data/categoryContent.ts` och renderingen i `CategoryPage.tsx`.
 
-## 1. Metadata som byts ut
+Ersätts på `/high-protein-meals` av ett eget avsnitt: **"20g protein. Gjort för verkliga livet."** med fyra användningsfall — På jobbet / Efter träning / På språng / Hemma — i samma kortstil som sidans befintliga fördelskort. Kort svar-blocket, FAQ (H3) och interna länkar behålls orörda.
 
-| Sida | Nytt |
+## 2. Metadata som byts ut
+
+| Sida | Ny title |
 |---|---|
-| `/` | Title + description enligt din text (route `head()` i `src/routes/index.tsx`) |
-| `/products` | Title + description enligt din text (ny route-`head()`, ersätter dagens i18n-drivna `SEOHead`) |
-| `/nyttig-snabbmat` | Title + description enligt din text |
-| `/high-protein-meals` | Title + description enligt din text (svensk text på engelsk URL enligt din spec — se fråga nedan) |
-| `/plant-based-meals` | Title + description enligt din text (samma fråga) |
-| `/proteinkoppar` | Title + description enligt din text |
+| `/` | PLÄNTLY \| Hälsosam snabbmat med 20g protein |
+| `/products` | Proteinmåltider \| 20g protein på 5 min \| PLÄNTLY |
+| `/nyttig-snabbmat` | Hälsosam snabbmat \| 20g protein på 5 min \| PLÄNTLY |
+| `/proteinrika-maltider` | Proteinrika måltider \| 20g protein \| PLÄNTLY |
+| `/plantbaserade-maltider` | Plantbaserade måltider \| 20g protein \| PLÄNTLY |
+| `/proteinkoppar` | Proteinkoppar \| 20g protein på 5 min \| PLÄNTLY |
 
-Alla H1 lämnas oförändrade.
+Descriptions enligt din text. Alla H1 lämnas oförändrade. `/products` får en egen route-`head()` istället för dagens i18n-drivna `SEOHead`, så titeln blir stabil vid SSR.
 
-## 2. Textfixar
+**Språkval:** din svenska text läggs på de svenska URL:erna (`/proteinrika-maltider`, `/plantbaserade-maltider`, `/nyttig-snabbmat`, `/proteinkoppar`). De engelska motsvarigheterna (`/high-protein-meals`, `/plant-based-meals`, `/healthy-fast-food`, `/protein-cups`) behåller engelsk metadata — annars bryts hreflang-parkopplingarna du bad mig lämna orörda. Innehållsändringarna (borttagen tabell, nytt fördelsavsnitt) görs på båda språkversionerna.
+
+Ingen `/halsosam-snabbmat`-sida skapas.
+
+## 3. Textfixar
 
 - `Protein måltider` → `Proteinmåltider`
 - `Välj bland våra, protein och fiberrika smaker.` → `Välj bland våra protein- och fiberrika smaker.`
 
 Båda ligger i `src/lib/i18n.ts`.
 
-## 3. /high-protein-meals + /plant-based-meals
+## 4. Ostödda påståenden på plantbaserade sidorna
 
-- Ta bort jämförelsetabellen (data + rendering).
-- Ny egen-varumärkessektion: rubrik "20g protein. Made for real life." med fyra användningsfall — På jobbet / Efter träning / På språng / Hemma. Återanvänder befintlig kort-styling.
-- Gå igenom miljö- och näringspåståenden på plantbaserade sidan: ta bort ostödda jämförelser/siffror, behåll faktiska näringsvärden. Vegan (Fusilli Bolognese, Smoky BBQ Lentils) vs vegetarisk med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice) förblir tydligt utskrivet.
+"Upp till 90% mindre CO2 än nötkött" / "Up to 90% lower CO2 vs beef" finns i två block per språk. Dessa formuleringar tas bort och ersätts med påståenden som håller utan källa (växtbaserat protein, näringsvärden som faktiskt står på förpackningen). Faktiska näringsvärden behålls.
 
-## 4. Strukturerad data
+Vegan (Fusilli Bolognese, Smoky BBQ Lentils) vs vegetarisk med mjölkprotein (Pasta Carbonara, Yellow Curry & Rice) förblir tydligt utskrivet. Befintlig FAQ-formulering om växtbaserat vs veganskt rörs inte.
 
-- Verifiera att Organization + WebSite bara finns en gång (startsidan) och inte dupliceras via Helmet.
-- Product/Offer på produktsidor: kontrollera att pris, valuta, availability och bild matchar synligt innehåll.
+## 5. Strukturerad data
+
+- Organization + WebSite endast en gång (startsidan), ingen dubblering via Helmet.
+- Product/Offer på produktsidor: pris, valuta, availability och bild ska matcha synligt innehåll.
 - BreadcrumbList på kategori- och produktsidor.
-- FAQPage endast där FAQ faktiskt syns på sidan.
-- Article på blogginlägg med författare, publicerings- och uppdateringsdatum.
+- FAQPage endast där FAQ syns på sidan.
+- Article på blogginlägg med författare samt publicerings- och uppdateringsdatum.
 
-## 5. Hreflang, canonical, sitemap, robots
+## 6. Canonical, hreflang, sitemap, robots
 
-- Bekräfta att varje sida har självrefererande canonical och exakt tre hreflang (sv, en, x-default → svensk URL). Fixas där avvikelse hittas.
-- `robots.txt`: behåll WordPress-arvet men lägg till `Allow: /` och `Disallow: /products?q=` samt `Disallow: /admin`, `/unsubscribe`.
-- Sökparametrar (`/products?q=...` m.fl.): canonical pekar på ren `/products` och `noindex` på parametriserade varianter så de inte skapar tunna dubbletter.
-- Sitemap: kontrollera att alla indexerbara sv- och en-URL:er finns med och att inget admin/utility ligger kvar.
+- Verifiera att varje sida har självrefererande canonical och exakt tre hreflang (sv, en, x-default → svensk URL). Fixas bara där avvikelse hittas; kopplingarna ändras inte.
+- `robots.txt`: behåll WordPress-arvet, lägg till `Allow: /`, `Disallow: /products?q=`, `Disallow: /admin`, `Disallow: /unsubscribe`.
+- Parametriserade URL:er (`/products?q=...` m.fl.): canonical mot ren `/products` + `noindex` på parametervarianter.
+- Sitemap: kontrollera att alla indexerbara sv- och en-URL:er finns med och att admin/utility inte ligger kvar.
+- Språkväxlaren kontrolleras så den använder riktiga länkar, inte enbart JS-onclick.
 
-## 6. Produktcrawlbarhet (teknisk kontroll)
+## 7. Produktcrawlbarhet
 
-Produktsidorna hämtar Shopify-data i `useEffect` (klientsidan). Titel, description och canonical är redan SSR:ade via route-`head()`, men produktnamn, H1, pris, tillgänglighet och näringsinnehåll renderas först efter JS.
+Produktsidornas Shopify-data hämtas idag i `useEffect`. Title/description/canonical är redan SSR:ade, men produktnamn, H1, pris, tillgänglighet och näringsinnehåll renderas först efter JS. Hämtningen flyttas till en route-loader så Googlebot får allt direkt i HTML. Checkout, Shopify-integration och URL:er är oförändrade. Bild-ALT-texter gås igenom och görs beskrivande.
 
-Åtgärd: flytta produkthämtningen till en route-loader (server-side) så att Googlebot får H1, beskrivning, pris, availability och bild direkt i HTML. Checkoutflöde, Shopify-integration och URL:er är oförändrade.
+## 8. Intern länkning + Open Graph
 
-## 7. Intern länkning + Open Graph
+- Behåll och komplettera kontextuella länkar: start → produkter → kategorisidor → produktsidor → blogg, med naturlig varierad ankartext.
+- Verifiera att varje viktig sida har og:title, og:description, og:image, og:url, og:type samt twitter-kort, med befintliga produktbilder.
 
-- Behåll och komplettera de kontextuella länkarna mellan start → produkter → kategorisidor → produktsidor → blogg, med naturlig ankartext (inte upprepad exakt-match).
-- Verifiera att varje viktig sida har og:title, og:description, og:image, og:url, og:type samt twitter-kort. Befintliga produktbilder används.
+## 9. Blogg
 
-## 8. Rapport
+Arkitekturen behålls, inga nya artiklar genereras. Endast kontroll av att befintliga inlägg har Article-schema, canonical, OG och interna länkar.
+
+## 10. Rapport
 
 Efter genomförandet får du en sammanställning: ändrat, redan korrekt, metadata, schema, canonical, hreflang, sitemap, robots, produktcrawlbarhet och kvarvarande manuella åtgärder.
 
 ## Teknisk sammanfattning
 
-Filer som berörs: `src/routes/index.tsx`, `src/routes/products.tsx` (ny `head()`), `src/data/categoryContent.ts`, `src/pages/categories/CategoryPage.tsx`, `src/lib/i18n.ts`, `src/pages/Products.tsx` + `src/routes/product.$handle.tsx` (loader), `public/robots.txt`, `scripts/generate-sitemap.ts`. Inga nya routes, inga URL-ändringar, inga designtokens rörs.
-
-## Öppen fråga
-
-Din spec anger svenska titlar/descriptions för de engelska URL:erna `/high-protein-meals` och `/plant-based-meals`. Idag har de engelsk metadata och deras svenska motsvarigheter (`/proteinrika-maltider`, `/plantbaserade-maltider`) har svensk. Jag föreslår att lägga din svenska text på de svenska URL:erna och behålla engelsk metadata på de engelska — annars bryts hreflang-logiken. Säg till om du hellre vill ha svenskan exakt på de engelska URL:erna.
+Filer som berörs: `src/routes/index.tsx`, `src/routes/products.tsx` (ny `head()`), kategoriroutes för de svenska URL:erna, `src/data/categoryContent.ts`, `src/pages/categories/CategoryPage.tsx`, `src/lib/i18n.ts`, `src/pages/Products.tsx`, `src/routes/product.$handle.tsx` (loader), `public/robots.txt`, `scripts/generate-sitemap.ts`. Inga nya routes, inga URL-ändringar, inga designtokens rörs.
