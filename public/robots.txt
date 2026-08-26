@@ -1,15 +1,20 @@
 User-agent: *
+Allow: /
 
+Disallow: /admin
+Disallow: /admin/
+Disallow: /mcp
+Disallow: /unsubscribe
+Disallow: /*?q=
+Disallow: /*?s=
+Disallow: /*?search=
+Disallow: /*?page=
+Disallow: /*?utm_
 Disallow: /?feed=
-
 Disallow: /?cat=
-
 Disallow: /?p=
-
 Disallow: /?replytocom=
-
 Disallow: /feed/
-
 Disallow: /comments/feed/
 
 Sitemap: https://plaently.com/sitemap.xml
