@@ -38,6 +38,7 @@ const CategoryPage = ({ categoryKey }: Props) => {
         locale={lang}
         alternates={alternates}
         routeOwnsLinks
+        routeOwnsMetadata
       />
 
       {/* Hero */}
