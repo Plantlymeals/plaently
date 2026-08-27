@@ -65,11 +65,10 @@ export function displayProductTitle(title: string | undefined | null): string {
 
 /**
  * Origin used for absolute, crawler-facing asset URLs.
- * Must be a domain that actually serves this app's /public assets — plaently.com
- * currently resolves to the Shopify storefront and 404s on /images/*, which made
- * Product JSON-LD images unfetchable for Google.
+ * plaently.com now serves this app directly (verified: /images/* returns 200),
+ * so assets and canonicals share the same primary domain.
  */
-export const ASSET_ORIGIN = "https://www.plantlymeals.com";
+export const ASSET_ORIGIN = "https://plaently.com";
 
 /** Existing multi-cup imagery already used on the site for mixed bundles. */
 const MIXED_BUNDLE_IMAGE = "/images/products/starter-pack.webp";

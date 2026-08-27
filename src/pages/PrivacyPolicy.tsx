@@ -165,7 +165,7 @@ const PrivacyPolicy = () => {
     if (lang !== routeLang) setLang(routeLang);
   }, [isEn, lang, setLang]);
 
-  const baseUrl = "https://plantlymeals.com";
+  const baseUrl = "https://plaently.com";
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [

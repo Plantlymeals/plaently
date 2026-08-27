@@ -89,7 +89,7 @@ const Terms = () => {
     { hreflang: "x-default", path: "/kopsvillkor" },
   ];
 
-  const baseUrl = "https://plantlymeals.com";
+  const baseUrl = "https://plaently.com";
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
