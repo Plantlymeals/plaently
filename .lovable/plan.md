@@ -1,52 +1,31 @@
-# Fix: plaently.com serves Shopify instead of the Lovable app
+# plaently.com serverar nu Lovable-appen — avslutande städning
 
-## What I verified just now (read-only)
+## Vad jag just verifierade (read-only, live)
 
-- Lovable domain status: `plaently.com` (primary) and `www.plaently.com` are both **active/connected**, project is published.
-- DNS at Simply.com is **correct**:
-  - `plaently.com` A -> `185.158.133.1`
-  - `www.plaently.com` A -> `185.158.133.1`
-  - `_lovable.plaently.com` TXT -> verification value present
-  - So yes, `185.158.133.1` is the right Lovable IP and your records are right.
-- Despite that, `https://plaently.com/` returns **Shopify storefront HTML** (Shopify checkout token, `shopify-digital-wallet`, `/cdn/shopifycloud/...` scripts), and `https://plaently.com/about` returns **404**.
-- `https://plaently.lovable.app/` 302-redirects to `https://plaently.com/`, so the Lovable app itself is fine and published.
+- `https://plaently.com/` → 200 och levererar **Lovable-appen** (rätt title, canonical, JSON-LD). Inga Shopify-taggar kvar.
+- `https://www.plaently.com/` → 302 till apex.
+- `/about`, `/products`, `/faq`, `/blog`, `/product/carbonara-box-12-cups`, `/sitemap.xml` → alla 200.
+- `/images/products/pasta-carbonara.webp` → 200 på plaently.com.
+- Canonical + hreflang på startsidan pekar korrekt på `https://plaently.com/`.
 
-## Root cause
+Domänbytet är alltså klart. Shopify-konflikten är löst.
 
-The domain is still **connected as a storefront domain inside Shopify**. Shopify and Lovable both terminate custom domains on the same shared edge (Cloudflare for SaaS), and Shopify's registration for `plaently.com` still wins the hostname routing. So requests never reach the Lovable app, no matter what the A-record says. The blank/odd page you see is the Shopify storefront, and every app route (`/about`, `/products`, `/product/...`) 404s because Shopify has no such pages.
+## Kvar att göra (kodändringar)
 
-DNS is not the problem. Nothing needs to change at Simply.com.
+1. **Flippa asset-origin till huvuddomänen**
+   - `src/lib/productImages.ts`: `ASSET_ORIGIN` från `https://www.plantlymeals.com` → `https://plaently.com`.
+   - Effekt: Product JSON-LD `image`, `og:image` och `twitter:image` pekar på huvuddomänen istället för den gamla aliasdomänen.
 
-## Fix (manual steps in Shopify, ~5 minutes)
+2. **Rätta hårdkodad bas-URL på två juridiska sidor**
+   - `src/pages/PrivacyPolicy.tsx` och `src/pages/Terms.tsx` använder `https://plantlymeals.com` som `baseUrl` för canonical/hreflang → ändra till `https://plaently.com`.
 
-1. Shopify Admin -> Settings -> Domains.
-2. Set the primary domain to `plantly-website-cms-fyvdr.myshopify.com` (the permanent domain) if it is not already.
-3. **Remove** `plaently.com` and `www.plaently.com` from the connected domains list.
-4. Wait 5-15 minutes for the hostname release to propagate at the edge.
-5. Reload `https://plaently.com/` — it should now serve the Lovable app.
+3. **Ersätt preview-baserad og:image på startsidan**
+   - Startsidan skickar idag en `r2.dev`-preview-bild som `og:image`/`twitter:image`. Byt till en stabil produktbild på `https://plaently.com/images/hero-product.webp` i `src/routes/index.tsx`.
 
-Checkout, cart and Storefront API keep working: they run on the permanent `*.myshopify.com` domain, which is untouched.
+4. **Regenerera sitemap** via `scripts/generate-sitemap.ts` så alla URL:er är på `plaently.com`, och publicera.
 
-## Correct target DNS (already in place — confirm only)
+5. **Efter publicering (utanför koden):** skicka in sitemap på nytt i Search Console för `https://plaently.com/`.
 
-| Type | Name | Value |
-|---|---|---|
-| A | `@` | `185.158.133.1` |
-| A | `www` | `185.158.133.1` |
-| TXT | `_lovable` | `lovable_verify=...` (already present) |
+## Vad som INTE ändras
 
-No CNAME to Shopify, no `shops.myshopify.com` record, no leftover A records to `23.227.38.x`. If Simply.com still has any of those alongside, delete them.
-
-## Verification after the Shopify removal
-
-I will re-check, without changing code:
-
-- `https://plaently.com/` returns Lovable-rendered HTML (no `shopify-checkout-api-token` in the source)
-- `https://www.plaently.com/` 301s to the apex
-- `/about`, `/products`, `/faq`, `/blog` and the 12 `/product/<handle>` routes return 200
-- `/images/products/*.webp` returns 200 on plaently.com
-- add-to-cart still opens Shopify checkout
-
-## Follow-up once the domain serves the app
-
-Only after the above passes, the remaining phases from the migration plan apply: flip `ASSET_ORIGIN` in the code from `www.plantlymeals.com` to `https://plaently.com`, regenerate the sitemap, and resubmit in Search Console. Those are code changes and are not part of this fix.
+Design, checkout, Shopify Storefront API (kör vidare på `*.myshopify.com`), routing och redirect-logik rörs inte.
