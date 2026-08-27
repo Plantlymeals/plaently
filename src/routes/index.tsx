@@ -4,6 +4,7 @@ import Index, { HOME_SCHEMA } from "@/pages/Index";
 const HOME_TITLE = "PLÄNTLY | Hälsosam snabbmat med 20g protein";
 const HOME_DESCRIPTION = "Hälsosam snabbmat med 20g protein per portion — riktig mat, inget pulver. Klar på 5 minuter, bara tillsätt kokande vatten. Utvecklat i Sverige, hantverk från Italien.";
 const HOME_URL = "https://plaently.com/";
+const HOME_IMAGE = "https://plaently.com/images/hero-product.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
