@@ -16,9 +16,11 @@ export const Route = createFileRoute("/")({
       { property: "og:url", content: HOME_URL },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "sv_SE" },
+      { property: "og:image", content: HOME_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: HOME_TITLE },
       { name: "twitter:description", content: HOME_DESCRIPTION },
+      { name: "twitter:image", content: HOME_IMAGE },
     ],
     links: [
       { rel: "canonical", href: HOME_URL },
