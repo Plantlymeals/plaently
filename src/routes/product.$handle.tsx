@@ -8,7 +8,12 @@ export const Route = createFileRoute("/product/$handle")({
   beforeLoad: ({ params }) => {
     const canonical = canonicalizeHandle(params.handle);
     if (canonical !== params.handle) {
-      throw redirect({ to: "/product/$handle", params: { handle: canonical }, replace: true });
+      throw redirect({
+        to: "/product/$handle",
+        params: { handle: canonical },
+        replace: true,
+        statusCode: 301,
+      });
     }
   },
   head: ({ params }) => getProductRouteHead(params.handle),
