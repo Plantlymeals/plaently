@@ -53,7 +53,7 @@ const translations: Record<string, Record<Lang, string>> = {
 
  // Trust
  "trust.rating": { sv: "4.8/5 från 500 + recensioner", en: "4.8/5 from 500+ reviews" },
- "trust.loved": { sv: "Älskad av yrkesverksamma, atleter och moderna arbetsplatser.", en: "Loved by professionals, athletes and modern workplaces." },
+ "trust.loved": { sv: "Utvecklat i Sverige, hantverk från Italien.", en: "Developed in Sweden, crafted in Italy." },
  "trust.realFood": { sv: "Riktig mat — inte ett pulver", en: "Real food — not a powder" },
   "trust.offices": { sv: "Kontor", en: "Offices" },
  "trust.athletes": { sv: "Atleter", en: "Athletes" },
@@ -72,8 +72,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "why.lowSugarDesc": { sv: "Råvaror du känner igen", en: "Real ingredients you recognise" },
  "why.readyInMinutes": { sv: "Klart på minuter", en: "Ready in Minutes" },
  "why.readyInMinutesDesc": { sv: "Tillsätt bara hett vatten och njut", en: "Just add hot water and enjoy" },
- "why.sustainable": { sv: "Hållbart", en: "Plant-Forward" },
- "why.sustainableDesc": { sv: "Lägre CO₂ än traditionella proteinalternativ", en: "Less CO₂ than traditional protein alternatives" },
+  "why.sustainable": { sv: "Inget kylskåp behövs", en: "No fridge needed" },
+  "why.sustainableDesc": { sv: "Rumstemperat – perfekt för kontoret, resan eller skafferiet.", en: "Room temperature — perfect for the office, travel or pantry." },
  "why.balanced": { sv: "Balanserad näring", en: "Balanced Nutrition" },
  "why.balancedDesc": { sv: "Balanserade makron per portion", en: "Balanced macros per serving" },
 
