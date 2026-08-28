@@ -10,13 +10,15 @@ import HowItWorks from "@/components/home/HowItWorks";
 import NutritionPreview from "@/components/home/NutritionPreview";
 import InternalLinks from "@/components/InternalLinks";
 import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
-import { lazy, Suspense, Component, ReactNode } from "react";
-
-const LifestyleSection   = lazy(() => import("@/components/home/LifestyleSection"));
-const BundleSection      = lazy(() => import("@/components/home/BundleSection"));
-const MealFinderQuiz     = lazy(() => import("@/components/home/MealFinderQuiz"));
-const TestimonialsSection = lazy(() => import("@/components/home/TestimonialsSection"));
-const FinalCTA           = lazy(() => import("@/components/home/FinalCTA"));
+import { Component, ReactNode } from "react";
+// Statiska imports: React.lazy + Suspense fick SSR-strömmen att time:a ut
+// ("Stream lifetime exceeded") på startsidan. Sektionerna hämtar sin data i
+// useEffect (klientsidan), så de kan renderas direkt under SSR.
+import LifestyleSection from "@/components/home/LifestyleSection";
+import BundleSection from "@/components/home/BundleSection";
+import MealFinderQuiz from "@/components/home/MealFinderQuiz";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import FinalCTA from "@/components/home/FinalCTA";
 
 // ─── ErrorBoundary ───────────────────────────────────────────────────────────
 // Isolerar varje lazy-sektion så att en krasch inte tar ner resten av sidan.
@@ -41,21 +43,15 @@ class SectionErrorBoundary extends Component<
 }
 
 // ─── LazySection ─────────────────────────────────────────────────────────────
-// Wrapper som kombinerar ErrorBoundary + Suspense med en minHeight-placeholder
-// för att förhindra CLS (Cumulative Layout Shift) medan komponenten laddas.
+// Isolerar varje sektion i en egen ErrorBoundary. Ingen Suspense här längre —
+// den blockerade SSR-strömmen.
 const LazySection = ({
   children,
-  height = 400,
+  height: _height = 400,
 }: {
   children: ReactNode;
   height?: number;
-}) => (
-  <SectionErrorBoundary>
-    <Suspense fallback={<div style={{ minHeight: `${height}px` }} aria-hidden="true" />}>
-      {children}
-    </Suspense>
-  </SectionErrorBoundary>
-);
+}) => <SectionErrorBoundary>{children}</SectionErrorBoundary>;
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export const HOME_SCHEMA = {
