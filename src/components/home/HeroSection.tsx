@@ -35,7 +35,7 @@ const HeroSection = () => {
             </ul>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="rounded-full px-8 text-base font-semibold bg-background text-foreground hover:bg-background/90">
-                <Link to="/products">{t("hero.ctaStarter")}</Link>
+                <Link to="/product/starter-pack-12-cups-1">{t("hero.ctaStarter")}</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-semibold border-background/50 text-background bg-background/15 hover:bg-background/25">
                 <Link to={ctaLink} className="text-secondary-foreground">{t("hero.ctaTry")}</Link>
