@@ -76,24 +76,30 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
   },
 };
 
-const HANDLE_ALIASES: Record<string, string> = {
+export const HANDLE_ALIASES: Record<string, string> = {
   "monthly-box-30-cups": "monthly-box-24-cups",
   "office-pack-60-cups": "office-pack-48-cups",
   "big-office-pack-120-cups": "big-office-pack-96-cups",
 };
 
+/** Normalizes any incoming/legacy handle to the single canonical handle. */
+export function canonicalizeHandle(handle: string): string {
+  const withoutPrefix = handle.replace(/^plant-based-/, "");
+  return HANDLE_ALIASES[withoutPrefix] ?? withoutPrefix;
+}
+
 export function getProductSeo(handle: string | undefined): ProductSeoEntry | undefined {
   if (!handle) return undefined;
-  const withoutPrefix = handle.replace(/^plant-based-/, "");
-  return PRODUCT_SEO[HANDLE_ALIASES[withoutPrefix] ?? withoutPrefix];
+  return PRODUCT_SEO[canonicalizeHandle(handle)];
 }
 
 export function getProductRouteHead(handle: string) {
-  const seo = getProductSeo(handle);
-  const image = resolveProductImageUrl({ handle, title: seo?.schema.name ?? handle });
+  const canonicalHandle = canonicalizeHandle(handle);
+  const seo = getProductSeo(canonicalHandle);
+  const image = resolveProductImageUrl({ handle: canonicalHandle, title: seo?.schema.name ?? canonicalHandle });
   const title = seo?.sv.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
   const description = seo?.sv.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
-  const url = `https://plaently.com/product/${handle}`;
+  const url = `https://plaently.com/product/${canonicalHandle}`;
   return {
     meta: [
       { title },
