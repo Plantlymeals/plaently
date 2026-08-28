@@ -95,12 +95,28 @@ async function fetchShopifyHandles(): Promise<SitemapEntry[]> {
       data?: { products?: { edges: Array<{ node: { handle: string; updatedAt?: string } }> } };
     };
     const edges = json.data?.products?.edges ?? [];
-    return edges.map((e) => ({
-      path: `/product/${e.node.handle}`,
-      lastmod: e.node.updatedAt?.slice(0, 10),
-      changefreq: "weekly",
-      priority: "0.8",
-    }));
+    // Legacy Shopify handles map to their canonical replacement so the sitemap
+    // never lists duplicate URLs. Keep in sync with HANDLE_ALIASES.
+    const HANDLE_ALIASES: Record<string, string> = {
+      "monthly-box-30-cups": "monthly-box-24-cups",
+      "office-pack-60-cups": "office-pack-48-cups",
+      "big-office-pack-120-cups": "big-office-pack-96-cups",
+    };
+    const seen = new Set<string>();
+    const entries: SitemapEntry[] = [];
+    for (const e of edges) {
+      const raw = e.node.handle.replace(/^plant-based-/, "");
+      const handle = HANDLE_ALIASES[raw] ?? raw;
+      if (seen.has(handle)) continue;
+      seen.add(handle);
+      entries.push({
+        path: `/product/${handle}`,
+        lastmod: e.node.updatedAt?.slice(0, 10),
+        changefreq: "weekly",
+        priority: "0.8",
+      });
+    }
+    return entries;
   } catch (e) {
     console.warn("sitemap: shopify fetch failed", e);
     return [];
