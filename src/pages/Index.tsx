@@ -43,21 +43,15 @@ class SectionErrorBoundary extends Component<
 }
 
 // ─── LazySection ─────────────────────────────────────────────────────────────
-// Wrapper som kombinerar ErrorBoundary + Suspense med en minHeight-placeholder
-// för att förhindra CLS (Cumulative Layout Shift) medan komponenten laddas.
+// Isolerar varje sektion i en egen ErrorBoundary. Ingen Suspense här längre —
+// den blockerade SSR-strömmen.
 const LazySection = ({
   children,
-  height = 400,
+  height: _height = 400,
 }: {
   children: ReactNode;
   height?: number;
-}) => (
-  <SectionErrorBoundary>
-    <Suspense fallback={<div style={{ minHeight: `${height}px` }} aria-hidden="true" />}>
-      {children}
-    </Suspense>
-  </SectionErrorBoundary>
-);
+}) => <SectionErrorBoundary>{children}</SectionErrorBoundary>;
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export const HOME_SCHEMA = {
