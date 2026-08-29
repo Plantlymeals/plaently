@@ -3,6 +3,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { Loader2, RotateCcw, Send, Sparkles, Square, X } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
+import { CONSENT_EVENT, CONSENT_OPEN_EVENT } from "@/lib/cookieConsent";
 
 export default function AiAssistant() {
   const { lang, t } = useTranslation();
@@ -18,11 +19,30 @@ export default function AiAssistant() {
 
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [bannerHeight, setBannerHeight] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const busy = status === "submitted" || status === "streaming";
   const failed = status === "error";
+
+  // Keep the widget above the cookie-consent banner when it is visible.
+  useEffect(() => {
+    const measure = () => {
+      const banner = document.querySelector<HTMLElement>("[data-consent-banner]");
+      setBannerHeight(banner ? banner.getBoundingClientRect().height : 0);
+    };
+    const measureNextTick = () => window.setTimeout(measure, 0);
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener(CONSENT_OPEN_EVENT, measureNextTick);
+    window.addEventListener(CONSENT_EVENT, measureNextTick);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener(CONSENT_OPEN_EVENT, measureNextTick);
+      window.removeEventListener(CONSENT_EVENT, measureNextTick);
+    };
+  }, []);
 
 useEffect(() => {
     if (!open) return undefined;
