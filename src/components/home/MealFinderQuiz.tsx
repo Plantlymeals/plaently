@@ -199,7 +199,7 @@ const MealFinderQuiz = () => {
             <div className="space-y-6 text-center animate-fade-up">
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">{t("quiz.yourMatch")}</p>
               <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
-                <img src={bundle.image} alt={bundle.name} className="w-full h-full object-contain" />
+                <img src={bundle.image} alt={`${bundle.name} – rekommenderat PLÄNTLY-paket`} className="w-full h-full object-contain" />
               </div>
               <h3 className="font-heading text-2xl md:text-3xl font-bold">{bundle.name}</h3>
               <p className="text-muted-foreground max-w-md mx-auto">{result ? EXPLANATIONS[result] : ""}</p>
