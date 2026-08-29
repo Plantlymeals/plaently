@@ -4,12 +4,11 @@ import { DefaultChatTransport } from "ai";
 import { Loader2, RotateCcw, Send, Sparkles, Square, X } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { CONSENT_EVENT, CONSENT_OPEN_EVENT } from "@/lib/cookieConsent";
-
 // FEATURE FLAG — AI meal assistant is OFFLINE pending review.
 // It makes live dietary claims (vegan/vegetarian) to customers via an LLM
 // without human review, which is a real risk on a live food site.
 // Set to true ONLY after the claims pipeline has been reviewed and tested.
-const AI_ASSISTANT_ENABLED = false;
+import { AI_ASSISTANT_ENABLED } from "@/lib/aiAssistantFlag";
 
 export default function AiAssistant() {
   const { lang, t } = useTranslation();
