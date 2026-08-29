@@ -66,18 +66,22 @@ useEffect(() => {
 
   return (
     <>
-      <button
+<button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? t("ai.close") : t("ai.open")}
         aria-expanded={open}
-        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-lg shadow-green-600/30 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
+        style={{ bottom: `calc(${bannerHeight}px + 1.25rem)` }}
+        className="fixed right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-green-600 text-white shadow-lg shadow-green-600/30 transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-600 focus-visible:ring-offset-2"
       >
         {open ? <X className="h-6 w-6" /> : <Sparkles className="h-6 w-6" />}
       </button>
 
       {open && (
-        <div className="fixed bottom-20 right-5 z-[90] flex w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+        <div
+          style={{ bottom: `calc(${bannerHeight}px + 5rem)` }}
+          className="fixed right-5 z-[90] flex w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-2xl"
+        >
           {/* Header */}
           <div className="flex items-center justify-between bg-gradient-to-r from-emerald-600 to-green-600 px-4 py-3 text-white">
             <div className="flex items-center gap-2.5">
