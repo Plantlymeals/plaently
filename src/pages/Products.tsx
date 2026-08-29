@@ -111,8 +111,25 @@ const ProductDetail = () => {
   if (loading) {
     const fallbackTitle = pageSeo?.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
     const fallbackDescription = pageSeo?.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
-    return <Layout><SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata /><div className="container py-20 text-center"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" /></div></Layout>;
+    const ssrCopy = getProductSsrCopy(productHandle, pageLocale);
+    return (
+      <Layout>
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata />
+        <section className="py-12 md:py-20">
+          <div className="container">
+            <div className="space-y-3 max-w-2xl">
+              <h1 className="font-heading text-3xl md:text-4xl font-bold">{ssrCopy.name}</h1>
+              <p className="text-sm text-muted-foreground leading-relaxed">{ssrCopy.description}</p>
+            </div>
+            <div className="py-16 text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
+            </div>
+          </div>
+        </section>
+      </Layout>
+    );
   }
+
 
   if (!product) {
     const fallbackTitle = pageSeo?.title ?? "Produkten hittades inte | PLÄNTLY";
