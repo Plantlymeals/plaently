@@ -438,7 +438,24 @@ const translations: Record<string, Record<Lang, string>> = {
  "quiz.starterExplanation": { sv: "Perfekt för att prova PLÄNTLY — 12 måltider för att utforska alla våra smaker i din egen takt.", en: "Perfect for trying PLÄNTLY — 12 meals to explore all our flavours at your own pace." },
  "quiz.athleteExplanation": { sv: "Designad för aktiva livsstilar — 24 proteinrika måltider som håller dig laddad genom varje pass.", en: "Designed for active lifestyles — 24 high-protein meals to keep you fuelled through every session." },
  "quiz.officeExplanation": { sv: "Hälsosamma luncher fixade — 48 måltider för den upptagna yrkespersonen som vill ha näring utan krångel.", en: "Healthy lunches sorted — 48 meals for the busy professional who wants nutrition without the hassle." },
-  "quiz.bigOfficeExplanation": { sv: "Mätta hela teamet — 96 måltider till bästa pris per portion. Perfekt för kontor och grupper.", en: "Feed the whole team — 96 meals at the best price per serving. Perfect for offices and groups." },
+"quiz.bigOfficeExplanation": { sv: "Mätta hela teamet — 96 måltider till bästa pris per portion. Perfekt för kontor och grupper.", en: "Feed the whole team — 96 meals at the best price per serving. Perfect for offices and groups." },
+
+ // AI assistant
+ "ai.title": { sv: "PLÄNTLY AI", en: "PLÄNTLY AI" },
+ "ai.subtitle": { sv: "Din måltidsassistent", en: "Your meal assistant" },
+ "ai.greeting": { sv: "Hej! Jag är PLÄNTLY AI. Berätta vad du är sugen på – smak, proteinmål eller tillfälle – så hjälper jag dig välja rätt måltid eller paket.", en: "Hi! I'm PLÄNTLY AI. Tell me what you're craving – flavour, protein goals or occasion – and I'll help you pick the right meal or bundle." },
+ "ai.placeholder": { sv: "Skriv din fråga…", en: "Type your question…" },
+ "ai.send": { sv: "Skicka", en: "Send" },
+ "ai.stop": { sv: "Stoppa", en: "Stop" },
+ "ai.thinking": { sv: "Tänker…", en: "Thinking…" },
+ "ai.suggestion1": { sv: "Rekommendera en måltid", en: "Recommend a meal" },
+ "ai.suggestion2": { sv: "Bäst efter träning?", en: "Best after a workout?" },
+ "ai.suggestion3": { sv: "Skillnad på paketen?", en: "What's the difference between bundles?" },
+ "ai.error": { sv: "Något gick fel. Försök igen.", en: "Something went wrong. Please try again." },
+ "ai.retry": { sv: "Försök igen", en: "Retry" },
+ "ai.poweredBy": { sv: "Drivs av Lovable AI", en: "Powered by Lovable AI" },
+ "ai.open": { sv: "Öppna AI-assistenten", en: "Open AI assistant" },
+ "ai.close": { sv: "Stäng AI-assistenten", en: "Close AI assistant" },
 };
 
 export const useLangStore = create<LangStore>()(
