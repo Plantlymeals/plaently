@@ -5,6 +5,12 @@ import { Loader2, RotateCcw, Send, Sparkles, Square, X } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { CONSENT_EVENT, CONSENT_OPEN_EVENT } from "@/lib/cookieConsent";
 
+// FEATURE FLAG — AI meal assistant is OFFLINE pending review.
+// It makes live dietary claims (vegan/vegetarian) to customers via an LLM
+// without human review, which is a real risk on a live food site.
+// Set to true ONLY after the claims pipeline has been reviewed and tested.
+const AI_ASSISTANT_ENABLED = false;
+
 export default function AiAssistant() {
   const { lang, t } = useTranslation();
   const langRef = useRef(lang);
@@ -58,10 +64,13 @@ useEffect(() => {
     return () => window.clearTimeout(id);
   }, [open]);
 
-  useEffect(() => {
+useEffect(() => {
     const el = scrollRef.current;
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, status]);
+
+  // Widget is behind a feature flag: return early (after all hooks) when off.
+  if (!AI_ASSISTANT_ENABLED) return null;
 
   const submit = (text: string) => {
     const value = text.trim();
