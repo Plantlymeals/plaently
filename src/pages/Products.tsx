@@ -30,7 +30,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
-  const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
+  const [, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
