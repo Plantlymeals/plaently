@@ -21,7 +21,7 @@ import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
-import { getProductSeo } from "@/lib/productSeo";
+import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
