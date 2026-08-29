@@ -42,7 +42,7 @@ const Footer = () => {
             <p className="text-sm text-primary-foreground/60 leading-relaxed">{t("footer.desc")}</p>
           </div>
           <div className="space-y-4">
-            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h3>
+            <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h2>
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.products"), path: "/products" },
@@ -66,7 +66,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-4">
-            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.support")}</h3>
+            <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.support")}</h2>
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.faq"), path: "/faq" },
@@ -80,7 +80,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-4">
-            <h3 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.stayUpdated")}</h3>
+            <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.stayUpdated")}</h2>
             <p className="text-sm text-primary-foreground/60">{t("footer.newsletterDesc")}</p>
             <form onSubmit={handleSubscribe} className="flex gap-2">
               <Input type="email" aria-label={t("footer.emailPlaceholder")} placeholder={t("footer.emailPlaceholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/60 rounded-full" />
@@ -92,7 +92,7 @@ const Footer = () => {
         {/* HTML sitemap — gives Googlebot a direct crawl path to every public landing page from any page on the site. */}
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.categories")}</h3>
+            <h2 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.categories")}</h2>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {BLOG_CATEGORIES.map((c) => (
                 <Link key={c.slug} to={`/blog/category/${c.slug}`} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">
@@ -102,7 +102,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h3>
+            <h2 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h2>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {(lang === "sv"
                 ? [
@@ -125,7 +125,7 @@ const Footer = () => {
             </nav>
           </div>
           <div className="space-y-3">
-            <h3 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.flavoursPacks")}</h3>
+            <h2 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.flavoursPacks")}</h2>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {[
                 { label: "Fusilli Bolognese", path: "/product/plant-based-fusilli-bolognese" },
