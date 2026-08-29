@@ -25,10 +25,11 @@ const ChatRequest = z.object({
 function normalizeMessages(messages: UIMessage[]): UIMessage[] {
   return messages.map((m) => {
     if (Array.isArray(m.parts) && m.parts.length > 0) return m;
-    const content = (m as unknown as { content?: Array<{ type?: string; text?: string }> }).content;
+    const content = (m as unknown as { content?: Array<{ type?: string; text?: string }> | string })
+      .content;
     const parts = Array.isArray(content)
       ? content.map((c) => ({ type: "text" as const, text: c.text ?? "" }))
-      : [{ type: "text" as const, text: typeof m.content === "string" ? m.content : "" }];
+      : [{ type: "text" as const, text: typeof content === "string" ? content : "" }];
     return { ...m, parts };
   });
 }
