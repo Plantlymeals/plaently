@@ -37,7 +37,11 @@ const Layout = ({ children }: LayoutProps) => {
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <NewsletterPopup />
+      {popupReady && (
+        <Suspense fallback={null}>
+          <NewsletterPopup />
+        </Suspense>
+      )}
     </div>
   );
 };
