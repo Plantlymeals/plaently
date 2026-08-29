@@ -21,6 +21,18 @@ const ChatRequest = z.object({
   lang: z.enum(["sv", "en"]).optional().default("sv"),
 });
 
+/** The AI SDK's UIMessage shape always carries `parts`; tolerate `content`-only payloads. */
+function normalizeMessages(messages: UIMessage[]): UIMessage[] {
+  return messages.map((m) => {
+    if (Array.isArray(m.parts) && m.parts.length > 0) return m;
+    const content = (m as unknown as { content?: Array<{ type?: string; text?: string }> }).content;
+    const parts = Array.isArray(content)
+      ? content.map((c) => ({ type: "text" as const, text: c.text ?? "" }))
+      : [{ type: "text" as const, text: typeof m.content === "string" ? m.content : "" }];
+    return { ...m, parts };
+  });
+}
+
 export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
