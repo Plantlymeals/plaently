@@ -13,6 +13,13 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const { pathname, hash } = useLocation();
+  // Defer loading the popup chunk until well after first paint (it only
+  // shows itself after 15s anyway) — identical behaviour, lighter first load.
+  const [popupReady, setPopupReady] = useState(false);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setPopupReady(true), 4000);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (hash) {
