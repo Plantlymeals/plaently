@@ -26,18 +26,26 @@ export default function AiAssistant() {
   const busy = status === "submitted" || status === "streaming";
   const failed = status === "error";
 
-  // Keep the widget above the cookie-consent banner when it is visible.
+// Keep the widget above the cookie-consent banner when it is visible.
   useEffect(() => {
     const measure = () => {
       const banner = document.querySelector<HTMLElement>("[data-consent-banner]");
       setBannerHeight(banner ? banner.getBoundingClientRect().height : 0);
     };
     const measureNextTick = () => window.setTimeout(measure, 0);
-    measure();
+    // The banner may mount after this effect runs, so re-measure on a delay
+    // and watch the DOM for the banner appearing or disappearing.
+    const t1 = window.setTimeout(measure, 0);
+    const t2 = window.setTimeout(measure, 400);
+    const observer = new MutationObserver(measure);
+    observer.observe(document.body, { childList: true, subtree: true });
     window.addEventListener("resize", measure);
     window.addEventListener(CONSENT_OPEN_EVENT, measureNextTick);
     window.addEventListener(CONSENT_EVENT, measureNextTick);
     return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+      observer.disconnect();
       window.removeEventListener("resize", measure);
       window.removeEventListener(CONSENT_OPEN_EVENT, measureNextTick);
       window.removeEventListener(CONSENT_EVENT, measureNextTick);
