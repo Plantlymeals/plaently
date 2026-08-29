@@ -12,7 +12,13 @@ import SavingsBadge from "@/components/SavingsBadge";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
 import { displayProductTitle } from "@/lib/productImages";
-import bundleMixImage from "@/assets/paket-mix-4-smaker.jpg.asset.json";
+// Optimised WebP variants of the mixed-bundle photo (same image, smaller bytes).
+const BUNDLE_MIX_SRC = "/images/bundles/paket-mix-4-smaker-960.webp";
+const BUNDLE_MIX_SRCSET = [
+  "/images/bundles/paket-mix-4-smaker-640.webp 640w",
+  "/images/bundles/paket-mix-4-smaker-960.webp 960w",
+  "/images/bundles/paket-mix-4-smaker-1073.webp 1073w",
+].join(", ");
 
 const MIXED_BUNDLE_NAMES = [
   "starter pack", "startpaket",
