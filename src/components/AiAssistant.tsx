@@ -66,7 +66,7 @@ useEffect(() => {
 
   return (
     <>
-<button
+      <button
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? t("ai.close") : t("ai.open")}
