@@ -1,6 +1,8 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { ProductDetail } from "@/pages/Products";
 import { getProductRouteHead, canonicalizeHandle } from "@/lib/productSeo";
+import { buildProductJsonLd } from "@/lib/productSchema";
+import { loadProductSchemaData } from "@/lib/seoLoaders";
 
 export const Route = createFileRoute("/product/$handle")({
   // Legacy/aliased Shopify handles redirect to the single canonical URL so the
@@ -16,6 +18,24 @@ export const Route = createFileRoute("/product/$handle")({
       });
     }
   },
-  head: ({ params }) => getProductRouteHead(params.handle),
+  loader: ({ params }) => loadProductSchemaData(canonicalizeHandle(params.handle)),
+  head: ({ params, loaderData }) => ({
+    ...getProductRouteHead(params.handle),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(
+          buildProductJsonLd({
+            handle: params.handle,
+            offer: loaderData?.offer ?? null,
+            rating: loaderData?.rating ?? null,
+            shopifyImageUrl: loaderData?.shopifyImageUrl ?? null,
+            name: loaderData?.name ?? null,
+            description: loaderData?.description ?? null,
+          })
+        ),
+      },
+    ],
+  }),
   component: ProductDetail,
 });
