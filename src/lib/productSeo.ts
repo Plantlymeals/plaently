@@ -129,3 +129,26 @@ export function getProductRouteHead(handle: string) {
     ],
   };
 }
+/**
+ * Product-specific copy that must exist in the *server-rendered* HTML so each
+ * /product/:handle page has unique body content on first paint (Google folded
+ * pages together as duplicates when only the meta tags differed).
+ */
+export function getProductSsrCopy(handle: string | undefined, locale: "sv" | "en" = "sv"): { name: string; description: string } {
+  const canonical = canonicalizeHandle(handle ?? "");
+  const seo = getProductSeo(canonical);
+  if (seo) {
+    return { name: seo.schema.name, description: seo[locale].description };
+  }
+  const name = canonical
+    .split("-")
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  return {
+    name: name || "PLÄNTLY",
+    description: locale === "sv"
+      ? `${name} från PLÄNTLY – proteinmåltid med 20g protein, klar på 5 minuter.`
+      : `${name} from PLÄNTLY – protein meal with 20g protein, ready in 5 minutes.`,
+  };
+}
