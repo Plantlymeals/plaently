@@ -237,7 +237,7 @@ const BundleSection = () => {
                   <div className="-mt-2 mb-5 -mx-2 rounded-2xl overflow-hidden bg-white/5 aspect-[4/3] flex items-center justify-center">
                     <img
                       src={b.image_url}
-                      alt={b.name}
+                      alt={`${b.name} – PLÄNTLY proteinmåltider i kopp`}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />

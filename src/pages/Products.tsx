@@ -30,7 +30,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
   const [loading, setLoading] = useState(true);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
-  const [reviewData, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
+  const [, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
   const { t, lang } = useTranslation();
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
@@ -161,90 +161,8 @@ const ProductDetail = () => {
     shopifyUrl: image?.url ?? null,
   });
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: productSeo?.schema.name ?? displayProductTitle(product.title),
-    description: productSeo?.schema.description ?? product.description,
-    image: [schemaImageUrl],
-    url: `https://plaently.com/product/${productHandle ?? product.handle}`,
-    brand: { "@type": "Brand", name: "PLÄNTLY" },
-    ...(productSeo && {
-      sku: productSeo.schema.sku,
-      nutrition: {
-        "@type": "NutritionInformation",
-        servingSize: productSeo.schema.servingSize,
-        calories: productSeo.schema.calories,
-        proteinContent: productSeo.schema.protein,
-      },
-    }),
-    ...(price && {
-      offers: {
-        "@type": "Offer",
-        price: parseFloat(price.amount).toFixed(2),
-        priceCurrency: price.currencyCode,
-        availability: selectedVariant?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-        seller: { "@type": "Organization", name: "PLÄNTLY AB" },
-        hasMerchantReturnPolicy: {
-          "@type": "MerchantReturnPolicy",
-          returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-          merchantReturnDays: 14,
-          returnMethod: "https://schema.org/ReturnByMail",
-          returnFees: "https://schema.org/ReturnShippingFees",
-          applicableCountry: "SE",
-        },
-        shippingDetails: {
-          "@type": "OfferShippingDetails",
-          shippingRate: {
-            "@type": "MonetaryAmount",
-            value: "49",
-            currency: "SEK",
-          },
-          shippingDestination: {
-            "@type": "DefinedRegion",
-            addressCountry: "SE",
-          },
-          deliveryTime: {
-            "@type": "ShippingDeliveryTime",
-            handlingTime: {
-              "@type": "QuantitativeValue",
-              minValue: 0,
-              maxValue: 1,
-              unitCode: "d",
-            },
-            transitTime: {
-              "@type": "QuantitativeValue",
-              minValue: 2,
-              maxValue: 4,
-              unitCode: "d",
-            },
-          },
-        },
-      },
-    }),
-    ...(reviewData.count > 0 && {
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: reviewData.avg.toFixed(1),
-        reviewCount: reviewData.count,
-        bestRating: "5",
-        worstRating: "1",
-      },
-      review: reviewData.items.slice(0, 10).map((r) => ({
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: r.rating,
-          bestRating: "5",
-          worstRating: "1",
-        },
-        author: { "@type": "Person", name: r.author_name },
-        datePublished: r.created_at,
-        ...(r.title && { name: r.title }),
-        reviewBody: r.body,
-      })),
-    }),
-  };
+  // Product JSON-LD now lives in the route head() (src/routes/product.$handle.tsx)
+  // so it ships in the server-rendered HTML instead of being injected client-side.
 
   return (
     <Layout>
@@ -255,7 +173,7 @@ const ProductDetail = () => {
         type="product"
         locale={pageLocale}
         image={schemaImageUrl}
-        jsonLd={jsonLd}
+        
         routeOwnsLinks
         routeOwnsMetadata
       />

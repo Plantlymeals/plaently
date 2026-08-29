@@ -48,7 +48,7 @@ const StarterPackHighlight = () => {
             <div className="space-y-5">
               <img
                 src="/images/hero-product.webp"
-                alt="PLÄNTLY Starter Pack"
+                alt="PLÄNTLY Starter Pack – 12 koppar växtbaserade proteinmåltider med 20g protein per portion"
                 className="w-full max-w-[280px] mx-auto md:mx-0 object-contain"
                 width={280}
                 height={157}
