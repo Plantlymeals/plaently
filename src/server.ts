@@ -44,12 +44,35 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+const IMMUTABLE_ASSET_PATTERN = /^\/images\/.+\.(webp|avif|png|jpe?g|svg|gif|ico)$/i;
+const LONG_LIVED_ASSET_PATTERN = /^\/(favicon\.ico|favicon(-\d+x\d+)?\.png|apple-touch-icon\.png|placeholder\.svg)$/i;
+
+// Static files are served by the platform's asset handler, which does not read
+// a Netlify/Cloudflare Pages style public/_headers file. Set caching here.
+function applyAssetCacheHeaders(request: Request, response: Response): Response {
+  if (response.status !== 200 && response.status !== 304) return response;
+  const { pathname } = new URL(request.url);
+  const immutable = IMMUTABLE_ASSET_PATTERN.test(pathname);
+  if (!immutable && !LONG_LIVED_ASSET_PATTERN.test(pathname)) return response;
+
+  const headers = new Headers(response.headers);
+  headers.set(
+    "cache-control",
+    immutable ? "public, max-age=31536000, immutable" : "public, max-age=604800",
+  );
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {
