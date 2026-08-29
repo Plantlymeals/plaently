@@ -96,6 +96,7 @@ const Index = () => {
       <StarterPackHighlight />
       <TrustSection />
       <ProblemSolution />
+      <BundleSection />
       <ProductOverview />
       <NutritionPreview />
       <WhySection />
@@ -113,7 +114,6 @@ const Index = () => {
 
       {/* ── Lazy-laddade sektioner (egna Suspense = oberoende laddning) ── */}
       <LazySection height={500}><LifestyleSection /></LazySection>
-      <LazySection height={600}><BundleSection /></LazySection>
       <LazySection height={500}><MealFinderQuiz /></LazySection>
       <LazySection height={400}><TestimonialsSection /></LazySection>
       <LazySection height={300}><FinalCTA /></LazySection>

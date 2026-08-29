@@ -31,14 +31,16 @@ const translations: Record<string, Record<Lang, string>> = {
  "hero.ctaTry": { sv: "Prova PLÄNTLY", en: "Try PLÄNTLY" },
  "hero.badge1": { sv: "20g protein", en: "20g protein" },
  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
-  "hero.badge3": { sv: "Riktiga råvaror", en: "Real ingredients" },
+ "hero.badge3": { sv: "Riktiga råvaror", en: "Real ingredients" },
+ "hero.fromPrice": { sv: "Från 33 kr/kopp", en: "From 33 kr/cup" },
 
  // Problem → Solution
  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
  "ps.problemTitle": { sv: "Snabbmat är ohälsosamt.", en: "Fast food is unhealthy." },
  "ps.problemDesc": { sv: "Hälsosam mat tar tid du inte har.\n\n", en: "Healthy food takes time you don't have." },
  "ps.solutionTitle": { sv: "PLÄNTLY = hälsosam snabbmat.", en: "PLÄNTLY = healthy fast food." },
- "ps.solutionDesc": { sv: "Riktiga måltider med 20g plantprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
+"ps.solutionDesc": { sv: "Riktiga måltider med 20g plantprotein. Klara på 5 minuter.", en: "Real meals with 20g plant protein. Ready in 5 minutes." },
+"ps.ctaBundles": { sv: "Välj ditt paket ↓", en: "Choose your pack ↓" },
 
  // Starter Pack highlight
  "starter.badge": { sv: "Begränsat erbjudande", en: "Limited offer" },
@@ -165,6 +167,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "bundles.feat.singleFlavor": { sv: "{count} stycken {name}", en: "{count} packs of {name}" },
   "bundles.feat.freeShipSe": { sv: "Fri frakt i Sverige", en: "Free shipping in Sweden" },
   "bundles.feat.delivered": { sv: "Levereras inom 2-4 vardagar", en: "Delivered in 2-4 business days" },
+  "bundles.feat.noCommitment": { sv: "Ingen bindningstid", en: "No commitment" },
  "bundles.feat.monthlyMix": { sv: "Valfri mix varje månad", en: "Custom mix every month" },
  "bundles.feat.freeShipAlways": { sv: "Fri frakt i Sverige", en: "Free shipping in Sweden" },
  "bundles.feat.cancelAnytime": { sv: "Avsluta när som helst", en: "Cancel anytime" },
@@ -219,7 +222,7 @@ const translations: Record<string, Record<Lang, string>> = {
  // Final CTA
  "cta.headline": { sv: "Ät smartare. Lev bättre.", en: "Eat smarter. Live better." },
  "cta.subheadline": { sv: "Gå med dem som valde riktig mat istället för pulver och shakes.", en: "Join those who chose real food over powders and shakes." },
- "cta.button": { sv: "Handla PLÄNTLY", en: "Shop PLÄNTLY" },
+ "cta.button": { sv: "Prova alla fyra smakerna", en: "Try all four flavours" },
 
  // Cart
  "cart.title": { sv: "Varukorg", en: "Cart" },
@@ -405,8 +408,8 @@ const translations: Record<string, Record<Lang, string>> = {
  "quiz.title": { sv: "Hitta ditt perfekta paket", en: "Find your perfect pack" },
  "quiz.subtitle": { sv: "Svara på 3 snabba frågor — vi matchar dig med rätt paket.", en: "Answer 3 quick questions — we'll match you with the right pack." },
  "quiz.quizTitle": { sv: "Måltidsquiz", en: "Meal Quiz" },
- "quiz.quizDesc": { sv: "Osäker på vilket paket som passar dig? Vi hjälper dig — det tar bara 30 sekunder.", en: "Not sure which pack suits you? We'll help — it only takes 30 seconds." },
- "quiz.start": { sv: "Starta quiz", en: "Start quiz" },
+ "quiz.quizDesc": { sv: "Osäker på vilket paket som passar dig? Vi hjälper dig hitta rätt på 3 snabba frågor.", en: "Not sure which pack suits you? We'll help you find the right one in 3 quick questions." },
+ "quiz.start": { sv: "Hitta min smak", en: "Find my flavour" },
  "quiz.question": { sv: "Fråga", en: "Question" },
  "quiz.of": { sv: "av", en: "of" },
  "quiz.back": { sv: "Tillbaka", en: "Back" },
