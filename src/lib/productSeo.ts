@@ -82,15 +82,24 @@ export const HANDLE_ALIASES: Record<string, string> = {
   "big-office-pack-120-cups": "big-office-pack-96-cups",
 };
 
-/** Normalizes any incoming/legacy handle to the single canonical handle. */
+/**
+ * Normalizes any incoming/legacy handle to the single canonical handle used in
+ * URLs and Shopify lookups. The `plant-based-` prefix is part of the real
+ * Shopify handles, so it must NOT be stripped here.
+ */
 export function canonicalizeHandle(handle: string): string {
+  return HANDLE_ALIASES[handle] ?? handle;
+}
+
+/** SEO copy is keyed without the `plant-based-` prefix. */
+function seoKey(handle: string): string {
   const withoutPrefix = handle.replace(/^plant-based-/, "");
   return HANDLE_ALIASES[withoutPrefix] ?? withoutPrefix;
 }
 
 export function getProductSeo(handle: string | undefined): ProductSeoEntry | undefined {
   if (!handle) return undefined;
-  return PRODUCT_SEO[canonicalizeHandle(handle)];
+  return PRODUCT_SEO[seoKey(handle)];
 }
 
 export function getProductRouteHead(handle: string) {
