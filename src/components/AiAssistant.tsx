@@ -24,11 +24,10 @@ export default function AiAssistant() {
   const busy = status === "submitted" || status === "streaming";
   const failed = status === "error";
 
-  useEffect(() => {
-    if (open) {
-      const id = window.setTimeout(() => inputRef.current?.focus(), 60);
-      return () => window.clearTimeout(id);
-    }
+useEffect(() => {
+    if (!open) return undefined;
+    const id = window.setTimeout(() => inputRef.current?.focus(), 60);
+    return () => window.clearTimeout(id);
   }, [open]);
 
   useEffect(() => {
