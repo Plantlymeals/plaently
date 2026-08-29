@@ -1,4 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
+import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const ProblemSolution = () => {
@@ -26,6 +27,13 @@ const ProblemSolution = () => {
               {t("ps.solutionTitle")}
             </h2>
             <p className="text-base md:text-lg opacity-95">{t("ps.solutionDesc")}</p>
+            <Button
+              size="lg"
+              className="mt-6 rounded-full px-8 text-base font-semibold bg-background text-foreground hover:bg-background/90"
+              onClick={() => document.getElementById("paket")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              {t("ps.ctaBundles")}
+            </Button>
           </div>
         </div>
       </div>

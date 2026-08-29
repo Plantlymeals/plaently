@@ -347,7 +347,7 @@ const Products = () => {
               {[...products]
                 .filter((p) => {
                   const title = p.node.title.toLowerCase();
-                  return !getBundleCupsFromTitle(title) && !title.includes("taster") && !title.includes("pack");
+                  return !getBundleCupsFromTitle(title) && !title.includes("taster") && !title.includes("pack") && !title.includes("box");
                 })
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;

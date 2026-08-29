@@ -78,6 +78,7 @@ function featuresForBundle(cups: number, isSubscription: boolean): string[] {
       "bundles.feat.mix4",
       "bundles.feat.freeShipAlways",
       "bundles.feat.delivered",
+      "bundles.feat.noCommitment",
       "bundles.feat.priorityCs",
     ];
   }
@@ -85,6 +86,7 @@ function featuresForBundle(cups: number, isSubscription: boolean): string[] {
     "bundles.feat.mix4",
     "bundles.feat.freeShipSe",
     "bundles.feat.delivered",
+    "bundles.feat.noCommitment",
   ];
 }
 
@@ -174,7 +176,7 @@ const BundleSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-28 bg-[#0a0a0a] text-white">
+    <section id="paket" className="py-20 md:py-28 bg-[#0a0a0a] text-white">
       <div className="container space-y-14">
         <div className="text-center space-y-3 animate-fade-up">
           <p className="text-xs font-bold tracking-[0.2em] text-primary uppercase">{t("bundles.eyebrow")}</p>
