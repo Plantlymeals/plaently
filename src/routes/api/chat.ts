@@ -56,9 +56,9 @@ export const Route = createFileRoute("/api/chat")({
           return Response.json({ error: "AI is not configured" }, { status: 500 });
         }
 
-        const [catalog, modelMessages] = await Promise.all([
+const [catalog, modelMessages] = await Promise.all([
           buildProductCatalog(),
-          convertToModelMessages(messages as UIMessage[]),
+          convertToModelMessages(normalizeMessages(messages as UIMessage[])),
         ]);
 
         const initialRunId = getLovableAiGatewayRunId(request);
