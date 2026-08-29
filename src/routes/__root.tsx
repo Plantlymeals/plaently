@@ -19,6 +19,7 @@ import { useCartSync } from "@/hooks/useCartSync";
 import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import CookieConsent from "@/components/CookieConsent";
+import AiAssistant from "@/components/AiAssistant";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import { clearChunkReloadGuard, reloadOnceForChunkError } from "@/lib/chunkReload";
