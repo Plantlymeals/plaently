@@ -82,10 +82,11 @@ const CookieConsent = () => {
   const policyHref = lang === "en" ? "/privacy-policy" : "/integritetspolicy";
 
   return (
-    <div
+<div
       role="dialog"
       aria-modal="false"
       aria-label={c.settingsTitle}
+      data-consent-banner="true"
       className="fixed inset-x-0 bottom-0 z-[60] p-3 sm:p-4"
     >
       <div className="mx-auto w-full max-w-3xl rounded-2xl border border-border bg-card text-card-foreground shadow-2xl">
