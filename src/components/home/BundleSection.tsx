@@ -233,10 +233,15 @@ const BundleSection = () => {
                 {showMixedImage && (
                   <div className="-mt-7 -mx-7 md:-mt-8 md:-mx-8 mb-6 rounded-t-3xl overflow-hidden aspect-video bg-white/5 shrink-0">
                     <img
-                      src={bundleMixImage.url}
+                      src={BUNDLE_MIX_SRC}
+                      srcSet={BUNDLE_MIX_SRCSET}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      width={1073}
+                      height={575}
                       alt={t("bundles.mixImageAlt")}
                       className="w-full h-full object-cover"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 )}
