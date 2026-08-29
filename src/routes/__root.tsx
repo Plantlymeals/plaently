@@ -201,7 +201,8 @@ function InnerApp() {
     <ChunkErrorBoundary>
       <LegacyQueryRedirect />
       <Outlet />
-      <CookieConsent />
+<CookieConsent />
+      <AiAssistant />
     </ChunkErrorBoundary>
   );
 }
