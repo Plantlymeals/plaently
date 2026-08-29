@@ -173,7 +173,7 @@ const ProductDetail = () => {
         type="product"
         locale={pageLocale}
         image={schemaImageUrl}
-        jsonLd={jsonLd}
+        
         routeOwnsLinks
         routeOwnsMetadata
       />
