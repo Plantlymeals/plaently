@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useLocation } from "@/lib/router-compat";
 import Header from "./Header";
 import Footer from "./Footer";
-import NewsletterPopup from "./NewsletterPopup";
+
+// The newsletter popup only appears after 15s and pulls in framer-motion,
+// so it is code-split out of the initial page bundle.
+const NewsletterPopup = lazy(() => import("./NewsletterPopup"));
 
 interface LayoutProps {
   children: React.ReactNode;
