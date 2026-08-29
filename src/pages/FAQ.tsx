@@ -40,6 +40,8 @@ const FAQPage = () => {
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("faq.title")}</h1>
             <p className="text-muted-foreground text-lg">{t("faq.subtitle")}</p>
           </div>
+          {/* Heading level between the H1 and the accordion's H3 triggers. */}
+          <h2 className="sr-only">{lang === "sv" ? "Vanliga frågor och svar" : "Frequently asked questions"}</h2>
           <Accordion type="single" collapsible className="space-y-3 animate-fade-up">
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} value={faq.id} className="rounded-xl border border-border/50 px-6 shadow-card">
