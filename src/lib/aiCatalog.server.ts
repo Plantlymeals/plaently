@@ -39,11 +39,15 @@ export async function buildProductCatalog(): Promise<string> {
         .order("sort_order", { ascending: true }),
     ]);
 
-    if (productsRes.error) throw productsRes.error;
-    const products: ProductRow[] = productsRes.data ?? [];
+if (productsRes.error) throw productsRes.error;
+    const products: Array<
+      Pick<ProductRow, "name" | "slug" | "price" | "protein" | "calories" | "description" | "allergens" | "prep_time">
+    > = productsRes.data ?? [];
     if (products.length === 0) return FALLBACK_CATALOG;
 
-    const bundles: BundleRow[] = bundlesRes.error ? [] : (bundlesRes.data ?? []);
+    const bundles: Array<
+      Pick<BundleRow, "name" | "meal_count" | "price" | "per_meal_price" | "description" | "badge">
+    > = bundlesRes.error ? [] : (bundlesRes.data ?? []);
     const lines: string[] = [];
 
     lines.push("PRODUCTS:");
