@@ -336,10 +336,16 @@ const Products = () => {
   // klienten datan en gång efter hydrering, så sidan aldrig blir tom.
   useEffect(() => {
     if (!loaderData?.error) return;
-    fetchShopifyProducts(20).then((data) => {
-      setProducts(data);
-      setLoading(false);
-    });
+    fetchShopifyProducts(20)
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("Products: klientfallback misslyckades", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
     supabase
       .from("products")
       .select("slug,image_url")
