@@ -39,6 +39,21 @@ async def bar_display(page) -> str:
     )
 
 
+CONSENT_INIT = """
+localStorage.setItem('plaently_cookie_consent_v1',
+  JSON.stringify({ consent: { analytics: true, marketing: true }, timestamp: Date.now() }));
+sessionStorage.setItem('newsletter-dismissed', 'true');
+"""
+
+
+async def new_context(pw, viewport):
+    """Ny browsercontext utan störande overlays (cookie-banner, popup)."""
+    browser = await pw.chromium.launch(headless=True)
+    ctx = await browser.new_context(viewport=viewport)
+    await ctx.add_init_script(CONSENT_INIT)
+    return browser, ctx
+
+
 async def open_page(context, path: str):
     """Öppna sidan och vänta in full hydrering + client-only komponenter."""
     page = await context.new_page()
@@ -57,8 +72,7 @@ async def scroll_past_hero(page) -> None:
 
 
 async def test_home_mobile(pw) -> None:
-    browser = await pw.chromium.launch(headless=True)
-    ctx = await browser.new_context(viewport=MOBILE)
+    browser, ctx = await new_context(pw, MOBILE)
     page = await open_page(ctx, "/")
 
     check("mobil: dold före scroll", (await bar_display(page)) in ("absent", "none"))
@@ -99,8 +113,7 @@ async def test_home_mobile(pw) -> None:
 
 
 async def test_not_on_other_pages(pw) -> None:
-    browser = await pw.chromium.launch(headless=True)
-    ctx = await browser.new_context(viewport=MOBILE)
+    browser, ctx = await new_context(pw, MOBILE)
     for path in ("/faq", "/product/starter-pack-12-cups-1"):
         page = await open_page(ctx, path)
         await scroll_past_hero(page)
@@ -118,7 +131,7 @@ async def test_hidden_above_sm(pw) -> None:
         display = await bar_display(page)
         check(f"{width}px: baren dold (sm:hidden)", display in ("absent", "none"), f"display={display}")
         await ctx.close()
-    await browser.close()
+        await browser.close()
 
 
 async def main() -> None:
