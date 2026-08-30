@@ -28,7 +28,7 @@ const StickyMobileCta = () => {
   if (!isHome || !visible) return null;
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-background/95 backdrop-blur-lg border-t border-border/50 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center justify-between gap-3 animate-fade-up">
+    <div data-testid="sticky-mobile-cta" className="fixed bottom-0 inset-x-0 z-40 sm:hidden bg-background/95 backdrop-blur-lg border-t border-border/50 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] flex items-center justify-between gap-3 animate-fade-up">
       <p className="text-sm font-semibold text-foreground whitespace-nowrap">
         {t("hero.fromPrice")}
       </p>
