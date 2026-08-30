@@ -1,29 +1,55 @@
-# Sticky mobil-CTA-bar
+# Server-rendera produktlistan på /products
 
-En fast CTA-bar längst ner på skärmen, synlig endast på mobil (<640px), som visas efter att besökaren scrollat förbi hero-sektionen.
+Idag levererar `/products` ett tomt skal till Google och till besökare med långsam uppkoppling: `<main>` innehåller breadcrumb, H1 och sedan en spinner. Produkterna hämtas i `useEffect`, som aldrig körs under serverrendering. Den här planen flyttar hämtningen till servern så att produktkorten, priserna och produkt-JSON-LD finns i HTML:en direkt.
 
-## Vad som byggs
+Omfattning: endast produktlistan `/products`. Produktdetaljsidorna (`/product/$handle`) rörs inte i det här steget.
 
-1. **Ny komponent** `src/components/home/StickyMobileCta.tsx`:
-   - `fixed bottom-0 inset-x-0`, klassen `sm:hidden` (samma 640px-brytpunkt som headerns "Handla nu"-knapp som använder `hidden sm:inline-flex`).
-   - Vänster: pristext via befintlig i18n-nyckel `hero.fromPrice` ("Från 33 kr/kopp" / "From 33 kr/cup") — återanvänder redan översatt text, ingen ny copy.
-   - Höger: knapp "Välj paket" (sv) / "Choose bundle" (en) — nya i18n-nycklar `cta.choosePackage` i `src/lib/i18n.ts`. Knappen kör `document.getElementById("paket")?.scrollIntoView({ behavior: "smooth" })` mot befintliga `id="paket"` i BundleSection.
-   - Synlighetslogik: scroll-lyssnare (passiv, med rAF-throttle) jämför `window.scrollY` mot hero-sektionens nederkant (`document.querySelector("section.gradient-hero")` + offsetHeight). Baren renderas med translate/opacity-transition: dold nedanför skärmen tills man scrollat förbi hero, glider in, glider ut igen högst upp. Inga krockar med hero-knapparna.
-   - Styling: sajtens mörka fasta bakgrund (samma palett som BundleSection, `#0a0a0a`), vit text, `shadow-[0_-4px_16px_rgba(0,0,0,0.25)]` upptill, `z-40` (över innehåll, under modaler som använder `z-[100]`/`z-[101]`), `padding-bottom: env(safe-area-inset-bottom)` för iOS home indicator. Knappen återanvänder sajtens `Button`-komponent (rounded-full, primary) för konsekvent stil.
-   - SSR-säker: scroll-lyssnaren sätts upp i `useEffect`, initialt dold vid serverrendering (ingen hydration-mismatch).
+## Vad som ändras
 
-2. **Montering** i `src/pages/Index.tsx` (startsidan): `<StickyMobileCta />` läggs sist inuti `Layout`, utanför sektionsflödet (fixed-position påverkar inte layouten). Endast startsidan får baren — inga andra sidor rörs.
+**1. Ny serverfunktion för produktdata**
 
-3. **Inget annat ändras** — ingen layout, styling eller innehåll påverkas utanför den nya baren.
+En ny fil `src/lib/products.functions.ts` med en `createServerFn` som:
+- Anropar Shopify Storefront API på servern och returnerar de fält listan behöver (titel, handle, pris, valuta, bild-URL, alt-text, tags).
+- Hämtar bildöverstyrningar från `products`-tabellen (slug + image_url) i samma anrop.
+- Returnerar ett rent, serialiserbart DTO — inga klasser, inga funktioner.
+- Tillämpar samma filtrering som listan gör idag (paket/"pack"/"box"/"taster" exkluderas) så att resultatet matchar det som visas nu, exakt.
+
+Shopify-token läses i handlern. Den nuvarande `VITE_SHOPIFY_STOREFRONT_TOKEN` är redan publik (storefront-tokens är avsedda att exponeras), så samma värde kan användas server-side utan nya hemligheter.
+
+**2. Route-loader på /products**
+
+`src/routes/products.tsx` får en `loader` som anropar serverfunktionen, plus en utökad `head()` som lägger till `ItemList`-JSON-LD med produkternas namn, URL:er och priser — server-renderat.
+
+**3. Komponenten renderar loader-datan direkt**
+
+`src/pages/Products.tsx` (grid-komponenten, rad 306+) läser produkterna via `getRouteApi("/products")` istället för att starta i `loading = true`. Spinnern försvinner ur den server-renderade HTML:en och korten finns där direkt. Befintlig markup, styling, filtrering och `useBundleMix`-logik för "lägg i varukorg" behålls oförändrad — bara datakällan byts.
+
+`ProductDetail` i samma fil lämnas orörd.
+
+## Vad som INTE ändras
+
+- Ingen visuell förändring. Samma kort, samma layout, samma texter.
+- Varukorg, Shopify-checkout, i18n (SV/EN) och routing rörs inte.
+- Produktdetaljsidorna behåller sitt nuvarande beteende.
 
 ## Verifiering före publicering
 
-- Sätta preview till mobilvy och skärmdumpa: baren dold högst upp, synlig efter scroll förbi hero, knappen scrollar mjukt till Paket-sektionen.
-- Kontrollera att baren inte täcker footerns innehåll (ev. safe-padding om det behövs — rapporteras isåfall innan ändring).
-- Publiceras inte förrän du godkänt förhandsgranskningen.
+Efter ändringen körs samma curl-kommandon som du använde, mot preview och sedan mot produktion efter publicering:
+
+```
+curl -s -A "Mozilla/5.0" <url>/products | grep -o "SEK" | wc -l
+curl -s -A "Mozilla/5.0" <url>/products | grep -c "lägg i varukorg"
+curl -s -A "Mozilla/5.0" <url>/products | grep -o '"@type":"ItemList"' | wc -l
+curl -s -A "Mozilla/5.0" <url>/products | sed -n '/<main/,/<\/main>/p'
+```
+
+Godkänt = produktnamn och priser finns i `<main>`, ItemList-JSON-LD finns, ingen spinner. Jag klistrar in den råa outputen, inte en sammanfattning.
+
+Dessutom: visuell jämförelse i preview (desktop + mobil) mot nuvarande sida, och kontroll att "lägg i varukorg" fortfarande fungerar efter hydrering.
 
 ## Tekniska detaljer
 
-- Berörda filer: `src/components/home/StickyMobileCta.tsx` (ny), `src/pages/Index.tsx` (en monteringsrad), `src/lib/i18n.ts` (två nya nycklar sv/en).
-- z-index-skala i projektet: modaler 100–101, så baren får 40.
-- Brytpunkt: Tailwind `sm:` = 640px, samma som headern.
+- Berörda filer: `src/lib/products.functions.ts` (ny), `src/routes/products.tsx` (loader + ItemList-schema), `src/pages/Products.tsx` (grid-komponenten läser loader-data).
+- `createServerFn` från `@tanstack/react-start`; loadern anropar den, `head({ loaderData })` bygger JSON-LD.
+- Om Shopify-anropet fallerar på servern returnerar serverfunktionen en tom lista med felflagga; komponenten faller då tillbaka på ett klientanrop, så sidan aldrig blir tom för riktiga besökare.
+- `src/lib/shopify.ts` importerar `sonner` på modulnivå — serverfunktionen använder därför en egen, toast-fri hämtningsväg istället för att importera den filen, så att ingen UI-kod dras in i servergrafen.
