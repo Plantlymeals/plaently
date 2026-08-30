@@ -85,7 +85,7 @@ function cleanProductTitle(title: string): string {
 export async function fetchProductListForSsr(): Promise<ProductListResult> {
   // Publik Storefront-token (samma som exponeras i klientbundlets import.meta.env).
   // VITE_*-variabler bakas in vid build — process.env i den publicerade workern saknar dem.
-  const token = import.meta.env.VITE_SHOPIFY_STOREFRONT_TOKEN as string;
+  const token = import.meta.env["VITE_SHOPIFY_STOREFRONT_TOKEN"] as string;
   if (!token) {
     console.error("fetchProductListForSsr: VITE_SHOPIFY_STOREFRONT_TOKEN saknas");
     return { products: [], imageOverrides: {}, error: true };
