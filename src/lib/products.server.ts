@@ -50,6 +50,23 @@ const LIST_QUERY = `
               }
             }
           }
+          variants(first: 1) {
+            edges {
+              node {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+                availableForSale
+                selectedOptions {
+                  name
+                  value
+                }
+              }
+            }
+          }
         }
       }
     }
