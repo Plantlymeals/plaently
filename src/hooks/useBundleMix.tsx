@@ -5,16 +5,9 @@ import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
-const BUNDLE_KEYS = ["big office", "office", "monthly", "athlete", "starter"] as const;
-const CUPS: Record<string, number> = {
-  starter: 12, athlete: 24, monthly: 24, office: 48, "big office": 96,
-};
-
-export function getBundleCupsFromTitle(title: string): number | null {
-  const lower = title.toLowerCase();
-  const key = BUNDLE_KEYS.find((k) => lower.includes(k));
-  return key ? (CUPS[key] ?? null) : null;
-}
+// Filterlogiken är flyttad till den delade modulen productFilters.ts —
+// re-exporteras här för befintliga importörer. Ändra villkoren där, inte här.
+export { getBundleCupsFromTitle } from "@/lib/productFilters";
 
 export function useBundleMix() {
   const addItem = useCartStore((s) => s.addItem);
