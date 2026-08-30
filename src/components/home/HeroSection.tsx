@@ -41,6 +41,7 @@ const HeroSection = () => {
                 <Link to={ctaLink} className="text-secondary-foreground">{t("hero.ctaTry")}</Link>
               </Button>
             </div>
+            <p className="text-xs text-primary-foreground/80 [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)]">{t("cta.riskReversal")}</p>
             <p className="text-sm font-medium text-primary-foreground/90 [text-shadow:0_1px_8px_hsl(0_0%_0%_/_0.35)]">{t("hero.fromPrice")}</p>
             <ShippingBadge variant="light" />
           </div>
