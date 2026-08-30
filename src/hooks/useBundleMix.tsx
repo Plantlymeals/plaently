@@ -7,7 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 
 // Filterlogiken är flyttad till den delade modulen productFilters.ts —
 // re-exporteras här för befintliga importörer. Ändra villkoren där, inte här.
-export { getBundleCupsFromTitle } from "@/lib/productFilters";
+import { getBundleCupsFromTitle } from "@/lib/productFilters";
+export { getBundleCupsFromTitle };
 
 export function useBundleMix() {
   const addItem = useCartStore((s) => s.addItem);
