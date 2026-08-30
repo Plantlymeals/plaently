@@ -1,4 +1,6 @@
 import { Link, useParams } from "@/lib/router-compat";
+import { getRouteApi } from "@tanstack/react-router";
+import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import DOMPurify from "dompurify";
@@ -303,15 +305,37 @@ const ProductDetail = () => {
   );
 };
 
+const productsRoute = getRouteApi("/products");
+
 // Products grid page
 const Products = () => {
-  const [products, setProducts] = useState<ShopifyProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>({});
+  const loaderData = productsRoute.useLoaderData();
+  const [products, setProducts] = useState<ShopifyProduct[]>(() =>
+    (loaderData?.products ?? []).map((p) => ({
+      node: {
+        id: p.id,
+        title: p.title,
+        description: "",
+        handle: p.handle,
+        tags: p.tags,
+        priceRange: { minVariantPrice: p.price },
+        images: { edges: p.image ? [{ node: p.image }] : [] },
+        variants: { edges: p.variant ? [{ node: p.variant }] : [] },
+        options: [],
+      },
+    }))
+  );
+  const [loading, setLoading] = useState(() => !loaderData || loaderData.error);
+  const [imageOverrides, setImageOverrides] = useState<Record<string, string>>(
+    () => loaderData?.imageOverrides ?? {}
+  );
   const { t, lang } = useTranslation();
   const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
+  // Fallback: om server-hämtningen misslyckades (t.ex. Shopify nere) hämtar
+  // klienten datan en gång efter hydrering, så sidan aldrig blir tom.
   useEffect(() => {
+    if (!loaderData?.error) return;
     fetchShopifyProducts(20).then((data) => {
       setProducts(data);
       setLoading(false);
@@ -326,7 +350,7 @@ const Products = () => {
         for (const r of data as any[]) if (r.image_url) map[r.slug] = r.image_url;
         setImageOverrides(map);
       });
-  }, []);
+  }, [loaderData?.error]);
 
   return (
     <Layout>
@@ -345,10 +369,8 @@ const Products = () => {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[...products]
-                .filter((p) => {
-                  const title = p.node.title.toLowerCase();
-                  return !getBundleCupsFromTitle(title) && !title.includes("taster") && !title.includes("pack") && !title.includes("box");
-                })
+                // Samma delade filterfunktion som servern använder — se productFilters.ts
+                .filter((p) => isListableProduct(p.node.title))
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const cupMeta = getCupMeta(product.node.title);
