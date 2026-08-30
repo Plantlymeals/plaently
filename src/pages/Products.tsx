@@ -369,10 +369,8 @@ const Products = () => {
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {[...products]
-                .filter((p) => {
-                  const title = p.node.title.toLowerCase();
-                  return !getBundleCupsFromTitle(title) && !title.includes("taster") && !title.includes("pack") && !title.includes("box");
-                })
+                // Samma delade filterfunktion som servern använder — se productFilters.ts
+                .filter((p) => isListableProduct(p.node.title))
                 .sort((a, b) => parseFloat(a.node.priceRange.minVariantPrice.amount) - parseFloat(b.node.priceRange.minVariantPrice.amount)).map((product) => {
                 const image = product.node.images.edges[0]?.node;
                 const cupMeta = getCupMeta(product.node.title);

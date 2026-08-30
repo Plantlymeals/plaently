@@ -12,6 +12,13 @@ export interface ProductListItem {
   tags: string[];
   price: { amount: string; currencyCode: string };
   image: { url: string; altText: string | null } | null;
+  variant: {
+    id: string;
+    title: string;
+    price: { amount: string; currencyCode: string };
+    availableForSale: boolean;
+    selectedOptions: Array<{ name: string; value: string }>;
+  } | null;
 }
 
 export interface ProductListResult {
