@@ -123,9 +123,8 @@ async def test_not_on_other_pages(pw) -> None:
 
 
 async def test_hidden_above_sm(pw) -> None:
-    browser = await pw.chromium.launch(headless=True)
     for width in (700, 1024):
-        ctx = await browser.new_context(viewport={"width": width, "height": 800})
+        browser, ctx = await new_context(pw, {"width": width, "height": 800})
         page = await open_page(ctx, "/")
         await scroll_past_hero(page)
         display = await bar_display(page)
