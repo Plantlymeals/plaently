@@ -41,7 +41,7 @@ async def bar_display(page) -> str:
 
 CONSENT_INIT = """
 localStorage.setItem('plaently_cookie_consent_v1',
-  JSON.stringify({ consent: { analytics: true, marketing: true }, timestamp: Date.now() }));
+  JSON.stringify({ necessary: true, analytics: true, marketing: true, version: 1, updatedAt: new Date().toISOString() }));
 sessionStorage.setItem('newsletter-dismissed', 'true');
 """
 
