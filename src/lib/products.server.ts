@@ -123,6 +123,23 @@ export async function fetchProductListForSsr(): Promise<ProductListResult> {
                 altText: node.images.edges[0].node.altText ?? null,
               }
             : null,
+          variant: node.variants?.edges?.[0]?.node
+            ? {
+                id: String(node.variants.edges[0].node.id),
+                title: String(node.variants.edges[0].node.title ?? ""),
+                price: {
+                  amount: String(node.variants.edges[0].node.price?.amount ?? "0"),
+                  currencyCode: String(node.variants.edges[0].node.price?.currencyCode ?? "SEK"),
+                },
+                availableForSale: Boolean(node.variants.edges[0].node.availableForSale),
+                selectedOptions: Array.isArray(node.variants.edges[0].node.selectedOptions)
+                  ? node.variants.edges[0].node.selectedOptions.map((o: any) => ({
+                      name: String(o?.name ?? ""),
+                      value: String(o?.value ?? ""),
+                    }))
+                  : [],
+              }
+            : null,
         } satisfies ProductListItem;
       })
       // Samma filter som klienten — enda implementationen, se productFilters.ts
