@@ -140,7 +140,7 @@ const MealFinderQuiz = () => {
       await supabase.from("contact_submissions").insert({
         name: "Måltidsquiz",
         email: trimmed,
-        message: `Quiz-resultat: ${result ? BUNDLES_META[result].name : "okänt"}`,
+        message: `Quiz-resultat: ${result ? (BUNDLES_META[result]?.name ?? "okänt") : "okänt"}`,
       });
     } catch (e) {
       console.error("Quiz email save failed:", e);
