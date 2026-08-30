@@ -222,7 +222,8 @@ const translations: Record<string, Record<Lang, string>> = {
  // Final CTA
  "cta.headline": { sv: "Ät smartare. Lev bättre.", en: "Eat smarter. Live better." },
  "cta.subheadline": { sv: "Gå med dem som valde riktig mat istället för pulver och shakes.", en: "Join those who chose real food over powders and shakes." },
- "cta.button": { sv: "Prova alla fyra smakerna", en: "Try all four flavours" },
+  "cta.button": { sv: "Prova alla fyra smakerna", en: "Try all four flavours" },
+  "cta.riskReversal": { sv: "Leverans 2–4 vardagar · Ingen prenumeration · 14 dagars ångerrätt", en: "Delivery in 2–4 business days · No subscription · 14-day right of withdrawal" },
 
  // Cart
  "cart.title": { sv: "Varukorg", en: "Cart" },
@@ -418,7 +419,15 @@ const translations: Record<string, Record<Lang, string>> = {
  "quiz.yourMatch": { sv: "Din match", en: "Your match" },
  "quiz.addToCart": { sv: "Lägg i varukorg", en: "Add to cart" },
  "quiz.loading": { sv: "Laddar…", en: "Loading…" },
- "quiz.retake": { sv: "Gör om quiz", en: "Retake quiz" },
+  "quiz.retake": { sv: "Gör om quiz", en: "Retake quiz" },
+  "quiz.emailTitle": { sv: "Ditt resultat är klart!", en: "Your result is ready!" },
+  "quiz.emailDesc": { sv: "Ange din e-post så skickar vi din matchning + 10% rabatt på första köpet.", en: "Enter your email and we'll send your match + 10% off your first order." },
+  "quiz.emailPlaceholder": { sv: "din@epost.se", en: "you@email.com" },
+  "quiz.emailSubmit": { sv: "Se mitt resultat", en: "See my result" },
+  "quiz.emailSkip": { sv: "Hoppa över, visa resultatet direkt", en: "Skip — show my result directly" },
+  "quiz.emailError": { sv: "Ange en giltig e-postadress", en: "Please enter a valid email address" },
+  "quiz.emailConsent": { sv: "Genom att skicka godkänner du vår", en: "By submitting you agree to our" },
+  "quiz.privacyPolicy": { sv: "integritetspolicy.", en: "privacy policy." },
 
  // Quiz questions
  "quiz.q1": { sv: "Hur skulle du beskriva din livsstil?", en: "How would you describe your lifestyle?" },

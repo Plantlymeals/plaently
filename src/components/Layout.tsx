@@ -6,6 +6,8 @@ import Footer from "./Footer";
 // The newsletter popup only appears after 15s and pulls in framer-motion,
 // so it is code-split out of the initial page bundle.
 const NewsletterPopup = lazy(() => import("./NewsletterPopup"));
+// Mobile sticky CTA: client-only (scroll listener), code-split like the popup.
+const StickyMobileCta = lazy(() => import("./home/StickyMobileCta"));
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -40,6 +42,7 @@ const Layout = ({ children }: LayoutProps) => {
       {popupReady && (
         <Suspense fallback={null}>
           <NewsletterPopup />
+          <StickyMobileCta />
         </Suspense>
       )}
     </div>

@@ -235,6 +235,7 @@ const ProductDetail = () => {
                   {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
                 </Button>
               </div>
+              <p className="text-xs text-muted-foreground">{t("cta.riskReversal")}</p>
               {bundleContents.length > 0 && (
                 <div className="rounded-2xl border border-border/60 bg-secondary/40 p-5">
                   <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-muted-foreground mb-3">
@@ -295,6 +296,7 @@ const ProductDetail = () => {
             <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
             </Button>
+            <p className="text-xs opacity-80">{t("cta.riskReversal")}</p>
           </div>
 
           <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} />
