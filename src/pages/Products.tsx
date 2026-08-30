@@ -320,7 +320,7 @@ const Products = () => {
         tags: p.tags,
         priceRange: { minVariantPrice: p.price },
         images: { edges: p.image ? [{ node: p.image }] : [] },
-        variants: { edges: [] },
+        variants: { edges: p.variant ? [{ node: p.variant }] : [] },
         options: [],
       },
     }))
