@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Link } from "@/lib/router-compat";
+import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight, ArrowLeft, Sparkles, ShoppingCart, Loader2 } from "lucide-react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
 import { useTranslation } from "@/lib/i18n";
@@ -42,6 +45,9 @@ const MealFinderQuiz = () => {
   const [result, setResult] = useState<BundleKey | null>(null);
   const [shopifyProduct, setShopifyProduct] = useState<ShopifyProduct | null>(null);
   const [loadingProduct, setLoadingProduct] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
   const { t } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -122,6 +128,30 @@ const MealFinderQuiz = () => {
     if (step > 0) { setSelectedOption(null); setStep(step - 1); }
   };
 
+  const handleEmailSubmit = async () => {
+    const trimmed = email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setEmailError(true);
+      return;
+    }
+    setEmailError(false);
+    setEmailSending(true);
+    try {
+      await supabase.from("contact_submissions").insert({
+        name: "Måltidsquiz",
+        email: trimmed,
+        message: `Quiz-resultat: ${result ? BUNDLES_META[result].name : "okänt"}`,
+      });
+    } catch (e) {
+      console.error("Quiz email save failed:", e);
+    } finally {
+      setEmailSending(false);
+      setStep(step + 1);
+    }
+  };
+
+  const handleEmailSkip = () => setStep(step + 1);
+
   const handleAddToCart = async () => {
     if (!shopifyProduct) return;
     await handleAdd(shopifyProduct);
@@ -132,7 +162,8 @@ const MealFinderQuiz = () => {
   };
 
   const bundle = result ? BUNDLES_META[result] : null;
-  const isResultStep = step === QUESTIONS.length + 1;
+  const isEmailStep = step === QUESTIONS.length + 1;
+  const isResultStep = step === QUESTIONS.length + 2;
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
@@ -192,6 +223,45 @@ const MealFinderQuiz = () => {
                   {step === QUESTIONS.length ? t("quiz.seeResult") : t("quiz.next")} <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </div>
+            </div>
+          )}
+
+          {isEmailStep && (
+            <div className="space-y-6 text-center animate-fade-up">
+              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                <Sparkles className="w-8 h-8 text-primary" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="font-heading text-xl font-semibold">{t("quiz.emailTitle")}</h3>
+                <p className="text-muted-foreground text-sm max-w-md mx-auto">{t("quiz.emailDesc")}</p>
+              </div>
+              <form
+                onSubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }}
+                className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+              >
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t("quiz.emailPlaceholder")}
+                  className="flex-1 rounded-full"
+                  aria-label={t("quiz.emailPlaceholder")}
+                />
+                <Button type="submit" disabled={emailSending} size="lg" className="rounded-full font-semibold px-8">
+                  {emailSending ? <Loader2 className="w-4 h-4 animate-spin" /> : t("quiz.emailSubmit")}
+                </Button>
+              </form>
+              {emailError && <p className="text-sm text-destructive">{t("quiz.emailError")}</p>}
+              <p className="text-xs text-muted-foreground">
+                {t("quiz.emailConsent")}{" "}
+                <Link to="/integritetspolicy" className="underline">{t("quiz.privacyPolicy")}</Link>
+              </p>
+              <button
+                onClick={handleEmailSkip}
+                className="text-xs text-muted-foreground underline underline-offset-2 hover:text-foreground transition-colors"
+              >
+                {t("quiz.emailSkip")}
+              </button>
             </div>
           )}
 
