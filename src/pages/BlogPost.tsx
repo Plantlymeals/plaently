@@ -170,7 +170,6 @@ const BlogPostPage = () => {
         image={post.cover_image_url || undefined}
         routeOwnsMetadata
         routeOwnsLinks
-        jsonLd={[blogPostingSchema, breadcrumbSchema]}
         locale={postLocale}
         alternates={[
           { hreflang: "sv", path: svPath },
