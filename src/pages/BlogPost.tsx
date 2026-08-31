@@ -128,37 +128,7 @@ const BlogPostPage = () => {
   const canonicalUrl = `https://plaently.com${canonicalPath}`;
   const categorySlug = getCategorySlug(post.category);
 
-  const blogPostingSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.published_at,
-    dateModified: post.updated_at || post.published_at,
-    author: { "@type": "Person", name: post.author || "PLÄNTLY" },
-    image: post.cover_image_url || undefined,
-    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
-    publisher: {
-      "@type": "Organization",
-      name: "PLÄNTLY",
-      logo: { "@type": "ImageObject", url: "https://plaently.com/images/logo.png" },
-    },
-    inLanguage: postLocale === "sv" ? "sv-SE" : "en-GB",
-    ...(post.category ? { articleSection: post.category } : {}),
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: postLocale === "sv" ? "Hem" : "Home", item: "https://plaently.com" },
-      { "@type": "ListItem", position: 2, name: postLocale === "sv" ? "Blogg" : "Blog", item: "https://plaently.com/blog" },
-      ...(categorySlug && post.category
-        ? [{ "@type": "ListItem", position: 3, name: post.category, item: `https://plaently.com/blog/category/${categorySlug}` }]
-        : []),
-      { "@type": "ListItem", position: categorySlug ? 4 : 3, name: post.title, item: canonicalUrl },
-    ],
-  };
+  // BlogPosting + BreadcrumbList JSON-LD are emitted server-side by the route head().
 
   return (
     <Layout>
