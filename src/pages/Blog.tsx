@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from "@/lib/router-compat";
+import { getRouteApi } from "@tanstack/react-router";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Layout from "@/components/Layout";
@@ -12,8 +13,13 @@ import { getLinks, HOME_LINK_KEYS } from "@/data/internalLinks";
 
 type BlogPost = Tables<"blog_posts">;
 
+// getRouteApi avoids importing the route file (which imports this page).
+const routeApi = getRouteApi("/blog");
+
 const Blog = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+  // Server-rendered Swedish posts so /blog is not an empty shell for crawlers.
+  const initialPosts = (routeApi.useLoaderData()?.posts ?? []) as unknown as BlogPost[];
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
   const { lang, t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategorySlug = searchParams.get("category");
@@ -66,6 +72,8 @@ const Blog = () => {
         ogDescription="Tips, råd och inspiration om växtbaserat protein, hälsosam snabbmat och hur du äter bättre utan att kompromissa med tid."
         path="/blog"
         locale={lang}
+        routeOwnsMetadata
+        routeOwnsLinks
         jsonLd={breadcrumbSchema}
       />
       <section className="py-12 md:py-20">

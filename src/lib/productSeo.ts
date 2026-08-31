@@ -87,8 +87,20 @@ export const HANDLE_ALIASES: Record<string, string> = {
  * URLs and Shopify lookups. The `plant-based-` prefix is part of the real
  * Shopify handles, so it must NOT be stripped here.
  */
+/**
+ * Short meal slugs that were published without the `plant-based-` prefix.
+ * Kept separate from HANDLE_ALIASES because seoKey() strips the prefix before
+ * looking up copy — merging them there would create a lookup cycle.
+ */
+const PREFIX_ALIASES: Record<string, string> = {
+  "fusilli-bolognese": "plant-based-fusilli-bolognese",
+  "pasta-carbonara": "plant-based-pasta-carbonara",
+  "smoky-bbq-lentils": "plant-based-smoky-bbq-lentils",
+  "yellow-curry-rice": "plant-based-yellow-curry-rice",
+};
+
 export function canonicalizeHandle(handle: string): string {
-  return HANDLE_ALIASES[handle] ?? handle;
+  return PREFIX_ALIASES[handle] ?? HANDLE_ALIASES[handle] ?? handle;
 }
 
 /** SEO copy is keyed without the `plant-based-` prefix. */
