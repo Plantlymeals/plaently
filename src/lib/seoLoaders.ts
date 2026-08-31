@@ -35,6 +35,8 @@ async function fetchRating(productSlug: string): Promise<ProductRating> {
 }
 
 export type ProductSchemaData = {
+  /** true = Shopify confirmed no such product, false = upstream error/timeout. */
+  confirmedMiss: boolean;
   offer: ProductOffer;
   rating: ProductRating;
   shopifyImageUrl: string | null;
@@ -43,6 +45,7 @@ export type ProductSchemaData = {
 };
 
 const EMPTY_PRODUCT_DATA: ProductSchemaData = {
+  confirmedMiss: false,
   offer: null,
   rating: null,
   shopifyImageUrl: null,
@@ -55,11 +58,12 @@ export async function loadProductSchemaData(handle: string): Promise<ProductSche
   return withTimeout(
     (async () => {
       const product = await fetchShopifyProductByHandle(handle);
-      if (!product) return EMPTY_PRODUCT_DATA;
+      if (!product) return { ...EMPTY_PRODUCT_DATA, confirmedMiss: true };
       const variant = product.variants?.edges?.[0]?.node;
       const price = variant?.price ?? product.priceRange?.minVariantPrice;
       const rating = await fetchRating(product.handle).catch(() => null);
       return {
+        confirmedMiss: false,
         offer: price
           ? {
               price: parseFloat(price.amount).toFixed(2),
