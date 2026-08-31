@@ -32,7 +32,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "hero.badge1": { sv: "20g protein", en: "20g protein" },
  "hero.badge2": { sv: "Klart på 5 min", en: "Ready in 5 min" },
  "hero.badge3": { sv: "Riktiga råvaror", en: "Real ingredients" },
- "hero.fromPrice": { sv: "Från 33 kr/kopp", en: "From 33 kr/cup" },
+  "hero.fromPrice": { sv: "Från 33 kr/måltid", en: "From 33 kr/cup" },
 
  // Problem → Solution
  "ps.eyebrow": { sv: "Problem → Lösning", en: "Problem → Solution" },
