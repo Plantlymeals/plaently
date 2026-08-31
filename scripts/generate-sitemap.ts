@@ -105,7 +105,9 @@ async function fetchShopifyHandles(): Promise<SitemapEntry[]> {
     const seen = new Set<string>();
     const entries: SitemapEntry[] = [];
     for (const e of edges) {
-      const raw = e.node.handle.replace(/^plant-based-/, "");
+      // The `plant-based-` prefix is part of the real Shopify handle and must
+      // NOT be stripped — stripping it produced sitemap URLs that 404.
+      const raw = e.node.handle;
       const handle = HANDLE_ALIASES[raw] ?? raw;
       if (seen.has(handle)) continue;
       seen.add(handle);
