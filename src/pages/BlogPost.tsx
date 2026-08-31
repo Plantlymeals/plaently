@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useNavigate } from "@/lib/router-compat";
+import { getRouteApi } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import DOMPurify from "dompurify";
 import Layout from "@/components/Layout";
@@ -15,11 +16,17 @@ import { getCategoryLandingLinks } from "@/data/internalLinks";
 
 type BlogPost = Tables<"blog_posts"> & { translation_slug?: string | null };
 
+// getRouteApi avoids importing the route file (which imports this page).
+const routeApi = getRouteApi("/blog_/$slug");
+
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Server-rendered post so title/meta/schema and the article body are in the
+  // first HTML response.
+  const initialPost = (routeApi.useLoaderData()?.post ?? null) as unknown as BlogPost | null;
+  const [post, setPost] = useState<BlogPost | null>(initialPost);
+  const [loading, setLoading] = useState(!initialPost);
   const [related, setRelated] = useState<BlogPost[]>([]);
   const { lang, t, setLang } = useTranslation();
   // Language we asked the UI to switch to when the post loaded. While this is
@@ -31,6 +38,7 @@ const BlogPostPage = () => {
   // Load the post by its exact slug (slugs are unique across languages).
   useEffect(() => {
     if (!slug) return;
+    if (post?.slug === slug) return; // already server-rendered
     setLoading(true);
     const now = new Date().toISOString();
     supabase
@@ -160,6 +168,8 @@ const BlogPostPage = () => {
         path={canonicalPath}
         type="article"
         image={post.cover_image_url || undefined}
+        routeOwnsMetadata
+        routeOwnsLinks
         jsonLd={[blogPostingSchema, breadcrumbSchema]}
         locale={postLocale}
         alternates={[
