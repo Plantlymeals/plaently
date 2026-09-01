@@ -72,7 +72,7 @@ const Blog = () => {
         ogDescription="Tips, råd och inspiration om växtbaserat protein, hälsosam snabbmat och hur du äter bättre utan att kompromissa med tid."
         path="/blog"
         locale={lang}
-        routeOwnsMetadata
+        routeOwnsMetadata={lang === "sv"}
         routeOwnsLinks
         jsonLd={breadcrumbSchema}
       />
