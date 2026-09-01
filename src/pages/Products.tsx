@@ -3,7 +3,7 @@ import { getRouteApi } from "@tanstack/react-router";
 import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import DOMPurify from "dompurify";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -257,7 +257,7 @@ const ProductDetail = () => {
               {translatedHtml && (
                 <div
                   className="prose prose-sm max-w-none [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-base [&_h3]:mt-6 [&_h3]:mb-2 [&_table]:w-full [&_table]:rounded-xl [&_table]:overflow-hidden [&_table]:border [&_table]:border-border/50 [&_th]:bg-secondary [&_th]:px-4 [&_th]:py-2 [&_th]:text-left [&_th]:text-xs [&_th]:font-semibold [&_th]:uppercase [&_th]:tracking-wide [&_th]:text-muted-foreground [&_td]:px-4 [&_td]:py-2 [&_td]:text-sm [&_td]:border-t [&_td]:border-border/30 [&_p]:text-sm [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_strong]:text-foreground"
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(translatedHtml) }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(translatedHtml) }}
                 />
               )}
             </div>

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useNavigate } from "@/lib/router-compat";
 import { getRouteApi } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import DOMPurify from "dompurify";
+import { sanitizeHtml } from "@/lib/sanitizeHtml";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -190,7 +190,7 @@ const BlogPostPage = () => {
           {post.content && (
             <div
               className="prose prose-lg max-w-none [&_h2]:font-heading [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:mt-10 [&_h2]:mb-4 [&_h3]:font-heading [&_h3]:font-semibold [&_h3]:text-xl [&_h3]:mt-8 [&_h3]:mb-3 [&_p]:text-base [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_strong]:text-foreground [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_ul]:text-muted-foreground [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:space-y-2 [&_ol]:text-muted-foreground"
-              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.content) }}
             />
           )}
 
