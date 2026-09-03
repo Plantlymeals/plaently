@@ -21,10 +21,11 @@ Engelska sidan behåller sin struktur, sin egen title/meta och sitt innehåll.
 
 ## 4. Hreflang-par
 
-Båda sidorna får:
+Vardera sida refererar till både sig själv och den andra sidan, plus x-default. Identiska hreflang-taggar på båda sidorna:
+
 - `hreflang="sv"` → `https://plaently.com/proteinmaltider`
 - `hreflang="en"` → `https://plaently.com/high-protein-meals`
-- `hreflang="x-default"` → svenska versionen
+- `hreflang="x-default"` → `https://plaently.com/high-protein-meals` (engelska huvudsidan)
 
 ## 5. Gamla URL:en
 
