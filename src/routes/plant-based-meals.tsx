@@ -4,5 +4,5 @@ import { buildCategoryHead } from "@/lib/categoryHead";
 
 export const Route = createFileRoute("/plant-based-meals")({
   head: () => buildCategoryHead("plant-based-meals", "en"),
-  component: () => <CategoryPage categoryKey="plant-based-meals" />,
+  component: () => <CategoryPage categoryKey="plant-based-meals" routeLang="en" />,
 });
