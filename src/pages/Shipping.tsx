@@ -4,7 +4,7 @@ import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useTranslation } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n";
 import { Package, Truck, Clock, AlertTriangle, RotateCcw } from "lucide-react";
 import { MARKETS, marketLabel, type Market } from "@/lib/markets";
 import { useMarketStore } from "@/stores/marketStore";
@@ -155,10 +155,18 @@ const COPY = {
  },
 } as const;
 
-const Shipping = () => {
- const { lang } = useTranslation();
- const c = COPY[lang === "sv" ? "sv" : "en"];
- const isEn = lang !== "sv";
+export const SHIPPING_SEO = {
+  sv: { title: COPY.sv.seoTitle, description: COPY.sv.seoDesc },
+  en: { title: COPY.en.seoTitle, description: COPY.en.seoDesc },
+} as const;
+
+interface ShippingProps {
+  routeLang: Lang;
+}
+
+const Shipping = ({ routeLang }: ShippingProps) => {
+ const isEn = routeLang === "en";
+ const c = COPY[isEn ? "en" : "sv"];
   const currentMarket = useMarketStore((s) => s.market);
   const setMarket = useMarketStore((s) => s.setMarket);
   const compareTitle = isEn ? "Shipping by market" : "Frakt per marknad";
@@ -177,7 +185,7 @@ const Shipping = () => {
 
  return (
  <Layout>
- <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} />
+ <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} routeOwnsMetadata routeOwnsLinks />
 
  <section className="bg-foreground text-background py-20 md:py-28">
  <div className="container max-w-4xl text-center space-y-6">

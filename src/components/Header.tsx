@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Link, useLocation } from "@/lib/router-compat";
+import { Link, useLocation, useNavigate } from "@/lib/router-compat";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useTranslation } from "@/lib/i18n";
 import MarketSelector from "@/components/MarketSelector";
+import { getLocalizedSisterPath } from "@/lib/localizedRoutes";
 const logo = "/images/logo.png";
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { lang, t, setLang } = useTranslation();
+  const navigate = useNavigate();
 
   const navItems = [
     { label: t("nav.home"), path: "/" },
@@ -24,7 +26,12 @@ const Header = () => {
     { label: t("nav.contact"), path: "/contact" },
   ];
 
-  const toggleLang = () => setLang(lang === "sv" ? "en" : "sv");
+  const toggleLang = () => {
+    const next = lang === "sv" ? "en" : "sv";
+    setLang(next);
+    const sister = getLocalizedSisterPath(location.pathname, next);
+    if (sister) navigate(sister);
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
