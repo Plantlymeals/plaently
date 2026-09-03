@@ -2,7 +2,7 @@ import { Link } from "@/lib/router-compat";
 import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { RotateCcw, ShieldCheck, Truck, Scale, AlertTriangle, Check } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n";
 
 const COPY = {
   sv: {
@@ -77,9 +77,17 @@ const COPY = {
   },
 } as const;
 
-const Terms = () => {
-  const { lang } = useTranslation();
-  const isEn = lang !== "sv";
+export const TERMS_SEO = {
+  sv: { title: COPY.sv.seoTitle, description: COPY.sv.seoDesc },
+  en: { title: COPY.en.seoTitle, description: COPY.en.seoDesc },
+} as const;
+
+interface TermsProps {
+  routeLang: Lang;
+}
+
+const Terms = ({ routeLang }: TermsProps) => {
+  const isEn = routeLang === "en";
   const c = COPY[isEn ? "en" : "sv"];
   const path = isEn ? "/terms-of-service" : "/kopsvillkor";
   const privacyPath = isEn ? "/privacy-policy" : "/integritetspolicy";
@@ -118,7 +126,7 @@ const Terms = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={COPY.sv.seoTitle} ogDescription={COPY.sv.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex routeOwnsMetadata routeOwnsLinks />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">
