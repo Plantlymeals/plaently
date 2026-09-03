@@ -1,46 +1,51 @@
-# Fix nyckelordskannibalisering på "proteinmåltider"
+# Fix: sv/en-sidpar visar fel språk i innehållet
 
-Idag finns redan en svensk sida på `/proteinrika-maltider` som är hreflang-parad med `/high-protein-meals`. Att lägga till `/proteinmaltider` vid sidan av den skulle skapa ny intern kannibalisering mellan två nästan identiska svenska sidor. Planen flyttar därför den svenska sidan till `/proteinmaltider`, skriver om innehållet mot "proteinmåltider" och 301-redirectar den gamla URL:en.
+## Verifierat i koden
 
-## 1. Ny svensk landningssida `/proteinmaltider`
+- `src/lib/i18n.ts` (rad 473–501): `useLangStore` har `lang: "sv"` som default och persistas i localStorage (`plantely-lang`). `useTranslation()` returnerar det globala värdet.
+- `src/pages/categories/CategoryPage.tsx` rad 20–21: `const { lang } = useTranslation(); const c = getCategoryContent(categoryKey, lang);` — innehållet styrs alltså av storen, inte av URL:en.
+- Alla 5 kategoriroutefiler (t.ex. `high-protein-meals.tsx`, `proteinrika-maltider.tsx`) skickar rätt språk till `buildCategoryHead(key, lang)` men renderar `<CategoryPage categoryKey="..." />` utan språk. Bekräftat: title/meta är korrekt per URL, brödtexten är det inte.
+- `src/routes/frakt.tsx`, `shipping.tsx`, `kopsvillkor.tsx`, `terms-of-service.tsx` saknar helt `head()` — endast `component: Shipping/Terms`. `Shipping.tsx` rad 161 och `Terms.tsx` rad 82 gör `const isEn = lang !== "sv"` från den globala storen, och även `path`/`alternates`/canonical härleds därifrån — så canonical kan peka på fel URL.
+- `src/components/Header.tsx` rad 27: `toggleLang` flippar bara den globala flaggan, ingen navigering till systersidan.
 
-- Ny route `src/routes/proteinmaltider.tsx` som renderar samma kategorisida med svensk lokalisering.
-- Innehållet skrivs om till egen svensk text (inte översättning): H1 "Proteinmåltider – 20 g protein på 5 minuter", omskriven ingress, "Kort svar"-block, jämförelsetabell och avsnittsrubriker där "proteinmåltider" och närliggande varianter (proteinrik lunch, färdiga proteinmåltider) används naturligt.
-- Egen svensk `<title>` och meta description med "proteinmåltider" som primärt sökord.
-- FAQ på sidan behålls/anpassas till svenska sökfrågor och speglas i FAQPage-schemat.
-- Compliance behålls: Bolognese + Smoky BBQ = veganska, Carbonara + Yellow Curry = vegetariska. Ingen "100 % veganskt".
+## Vad som ändras
 
-## 2. `/high-protein-meals` orörd
+### 1. Kategoriroutes skickar språk vidare (5 par, 10 filer)
+`high-protein-meals.tsx`, `proteinrika-maltider.tsx`, `healthy-fast-food.tsx`, `nyttig-snabbmat.tsx`, `healthy-instant-meals.tsx`, `halsosamma-snabbmaltider.tsx`, `plant-based-meals.tsx`, `plantbaserade-maltider.tsx`, `protein-cups.tsx`, `proteinkoppar.tsx`:
 
-Engelska sidan behåller sin struktur, sin egen title/meta och sitt innehåll.
+```tsx
+component: () => <CategoryPage categoryKey="high-protein-meals" routeLang="en" />
+```
 
-## 3. Canonical och språk
+(samma `lang`-värde som redan går till `buildCategoryHead`).
 
-- `/proteinmaltider`: `html lang="sv"`, self-referencing canonical mot `https://plaently.com/proteinmaltider`.
-- `/high-protein-meals`: self-referencing canonical mot sig själv, `lang="en"`.
+### 2. `src/pages/categories/CategoryPage.tsx`
+- Ny prop `routeLang: Lang` (obligatorisk).
+- `const c = getCategoryContent(categoryKey, routeLang);`
+- Alla `lang === "sv" ? ... : ...` i sidinnehållet (rad 91–193: breadcrumbs, CTA-text, "Vanliga frågor", "Utforska mer") byter till `routeLang`.
+- `SEOHead locale={routeLang}`; hreflang-listan är redan URL-baserad och rörs inte.
+- Global store fortsätter styra header/footer.
 
-## 4. Hreflang-par
+### 3. `src/pages/Shipping.tsx` och `src/pages/Terms.tsx`
+- Ny prop `routeLang: Lang`; `const isEn = routeLang === "en"` ersätter `lang !== "sv"`.
+- `path`, `alternates`, `privacyPath`, `jsonLd.inLanguage`, `marketLabel()` följer med automatiskt.
+- `ogTitle`/`ogDescription` som idag är hårdkodade till `COPY.sv` blir språkriktiga.
 
-Vardera sida refererar till både sig själv och den andra sidan, plus x-default. Identiska hreflang-taggar på båda sidorna:
+### 4. Route-specifik `head()` för frakt/shipping och köpvillkor/terms
+Ny hjälpfil `src/lib/staticPageHead.ts` i samma stil som `categoryHead.ts`:
+`buildStaticPageHead({ svPath, enPath, lang, title, description, noindex })` som returnerar title, description, robots, og:*, twitter:*, canonical (self) och hreflang sv/en/x-default (x-default = sv, som kategorisidorna).
 
-- `hreflang="sv"` → `https://plaently.com/proteinmaltider`
-- `hreflang="en"` → `https://plaently.com/high-protein-meals`
-- `hreflang="x-default"` → `https://plaently.com/high-protein-meals` (engelska huvudsidan)
+- `frakt.tsx` → `head: () => buildStaticPageHead(shippingHead("sv"))`, `component: () => <Shipping routeLang="sv" />`
+- `shipping.tsx` → samma med `"en"`
+- `kopsvillkor.tsx` / `terms-of-service.tsx` → samma mönster, behåller `noindex`
+- Titel/description hämtas från en delad COPY-källa så SSR-head och sidan inte kan glida isär (flyttar `COPY.seoTitle`/`seoDesc` till en exporterad konstant).
+- `SEOHead` i dessa sidor sätts till `routeOwnsMetadata`/`routeOwnsLinks` för att undvika dubbletter, precis som kategorisidorna gör.
 
-## 5. Gamla URL:en
+### 5. `src/components/Header.tsx` — språkväxlaren navigerar
+- Bygg en URL-karta för de språkade sidparen (5 kategorisidor + frakt/shipping + kopsvillkor/terms + redan befintliga privacy-paren).
+- Vid klick: sätt `setLang(next)` **och** navigera till systersidan om nuvarande pathname finns i kartan; annars bara flippa flaggan som idag.
 
-`/proteinrika-maltider` ger en server-side 301 till `/proteinmaltider` så länkkraft och indexering flyttas över. Sitemap uppdateras: gamla URL:en tas bort, nya läggs till.
-
-## 6. Om oss-sidan
-
-- Title och meta description skrivs om till varumärkes-/story-fokus (Stockholm, grundarhistoria, riktiga råvaror) utan "proteinmåltider" som sökordsmål. Nuvarande title "Om PLÄNTLY | Växtbaserade Proteinmåltider från Stockholm" ersätts.
-- En kontextuell länk läggs in i brödtexten med ankartexten "våra proteinmåltider" som pekar på `/proteinmaltider`.
-
-## Tekniskt
-
-- `src/data/categoryContent.ts`: `svSlugByKey["high-protein-meals"]` blir `proteinmaltider`, svenska texterna för nyckeln skrivs om.
-- `src/lib/localeAlternates.ts`: paret uppdateras till `["/proteinmaltider", "/high-protein-meals"]`.
-- `src/lib/legacyRedirects.ts` + route för `/proteinrika-maltider` ger 301 (server-side, inte JS-redirect).
-- `src/lib/i18n.ts`: nya `seo.about.*`-strängar och en ny nyckel för länktexten i `src/pages/About.tsx`.
-- `src/data/internalLinks.ts` och `scripts/generate-sitemap.ts` pekas om till nya sluggen; `public/sitemap.xml` regenereras.
-- Verifiering: curl mot lokal SSR för `<title>`, canonical, hreflang och 301-statuskod.
+## Tekniska noter
+- Ingen ändring av default `lang: "sv"` i storen — bara att sidinnehåll för språkade URL:er inte längre läser den.
+- Inga URL:er ändras, inga redirects, ingen sitemap-ändring behövs.
+- Verifiering efter build: `curl` mot varje engelsk URL och kontrollera att H1/brödtext i rå HTML är engelsk och att canonical/hreflang pekar rätt; samma för svenska motsvarigheten.
