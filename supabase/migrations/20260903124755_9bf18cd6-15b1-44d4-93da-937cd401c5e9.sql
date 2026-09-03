@@ -1,0 +1,1 @@
+REVOKE ALL ON public.email_send_state FROM anon, authenticated;
