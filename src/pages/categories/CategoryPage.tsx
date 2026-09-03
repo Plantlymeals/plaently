@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n";
 import {
   getCategoryContent,
   enSlugByKey,
@@ -14,10 +14,11 @@ import {
 
 interface Props {
   categoryKey: CategoryKey;
+  routeLang: Lang;
 }
 
-const CategoryPage = ({ categoryKey }: Props) => {
-  const { lang } = useTranslation();
+const CategoryPage = ({ categoryKey, routeLang }: Props) => {
+  const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
 
   const enSlug = enSlugByKey[categoryKey];
