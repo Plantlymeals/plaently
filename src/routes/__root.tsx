@@ -16,7 +16,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
-import LegacyQueryRedirect from "@/components/LegacyQueryRedirect";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import CookieConsent from "@/components/CookieConsent";
 import AiAssistant from "@/components/AiAssistantMount";
@@ -195,7 +194,6 @@ function InnerApp() {
   useCartSync();
   return (
     <ChunkErrorBoundary>
-      <LegacyQueryRedirect />
       <Outlet />
 <CookieConsent />
       <AiAssistant />
