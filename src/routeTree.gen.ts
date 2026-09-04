@@ -17,24 +17,16 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FraktRouteImport } from './routes/frakt'
 import { Route as HalsosammaSnabbmaltiderRouteImport } from './routes/halsosamma-snabbmaltider'
-import { Route as HealthyFastFoodRouteImport } from './routes/healthy-fast-food'
-import { Route as HealthyInstantMealsRouteImport } from './routes/healthy-instant-meals'
-import { Route as HighProteinMealsRouteImport } from './routes/high-protein-meals'
 import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
 import { Route as KopsvillkorRouteImport } from './routes/kopsvillkor'
 import { Route as LifestyleRouteImport } from './routes/lifestyle'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as NutritionRouteImport } from './routes/nutrition'
 import { Route as NyttigSnabbmatRouteImport } from './routes/nyttig-snabbmat'
-import { Route as PlantBasedMealsRouteImport } from './routes/plant-based-meals'
 import { Route as PlantbaseradeMaltiderRouteImport } from './routes/plantbaserade-maltider'
-import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProductsRouteImport } from './routes/products'
-import { Route as ProteinCupsRouteImport } from './routes/protein-cups'
 import { Route as ProteinkopparRouteImport } from './routes/proteinkoppar'
 import { Route as ProteinrikaMaltiderRouteImport } from './routes/proteinrika-maltider'
-import { Route as ShippingRouteImport } from './routes/shipping'
-import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -98,21 +90,6 @@ const HalsosammaSnabbmaltiderRoute = HalsosammaSnabbmaltiderRouteImport.update({
   path: '/halsosamma-snabbmaltider',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HealthyFastFoodRoute = HealthyFastFoodRouteImport.update({
-  id: '/healthy-fast-food',
-  path: '/healthy-fast-food',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HealthyInstantMealsRoute = HealthyInstantMealsRouteImport.update({
-  id: '/healthy-instant-meals',
-  path: '/healthy-instant-meals',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HighProteinMealsRoute = HighProteinMealsRouteImport.update({
-  id: '/high-protein-meals',
-  path: '/high-protein-meals',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
   id: '/integritetspolicy',
   path: '/integritetspolicy',
@@ -143,29 +120,14 @@ const NyttigSnabbmatRoute = NyttigSnabbmatRouteImport.update({
   path: '/nyttig-snabbmat',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlantBasedMealsRoute = PlantBasedMealsRouteImport.update({
-  id: '/plant-based-meals',
-  path: '/plant-based-meals',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PlantbaseradeMaltiderRoute = PlantbaseradeMaltiderRouteImport.update({
   id: '/plantbaserade-maltider',
   path: '/plantbaserade-maltider',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
-  id: '/privacy-policy',
-  path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProteinCupsRoute = ProteinCupsRouteImport.update({
-  id: '/protein-cups',
-  path: '/protein-cups',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProteinkopparRoute = ProteinkopparRouteImport.update({
@@ -176,16 +138,6 @@ const ProteinkopparRoute = ProteinkopparRouteImport.update({
 const ProteinrikaMaltiderRoute = ProteinrikaMaltiderRouteImport.update({
   id: '/proteinrika-maltider',
   path: '/proteinrika-maltider',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShippingRoute = ShippingRouteImport.update({
-  id: '/shipping',
-  path: '/shipping',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
-  id: '/terms-of-service',
-  path: '/terms-of-service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
@@ -312,24 +264,16 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
   '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
-  '/healthy-fast-food': typeof HealthyFastFoodRoute
-  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
-  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
   '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
-  '/plant-based-meals': typeof PlantBasedMealsRoute
   '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
-  '/protein-cups': typeof ProteinCupsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/shipping': typeof ShippingRoute
-  '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -361,24 +305,16 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
   '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
-  '/healthy-fast-food': typeof HealthyFastFoodRoute
-  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
-  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
   '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
-  '/plant-based-meals': typeof PlantBasedMealsRoute
   '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
-  '/protein-cups': typeof ProteinCupsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/shipping': typeof ShippingRoute
-  '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -412,24 +348,16 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
   '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
-  '/healthy-fast-food': typeof HealthyFastFoodRoute
-  '/healthy-instant-meals': typeof HealthyInstantMealsRoute
-  '/high-protein-meals': typeof HighProteinMealsRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
   '/mcp': typeof McpRoute
   '/nutrition': typeof NutritionRoute
   '/nyttig-snabbmat': typeof NyttigSnabbmatRoute
-  '/plant-based-meals': typeof PlantBasedMealsRoute
   '/plantbaserade-maltider': typeof PlantbaseradeMaltiderRoute
-  '/privacy-policy': typeof PrivacyPolicyRoute
   '/products': typeof ProductsRoute
-  '/protein-cups': typeof ProteinCupsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/shipping': typeof ShippingRoute
-  '/terms-of-service': typeof TermsOfServiceRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -464,24 +392,16 @@ export interface FileRouteTypes {
     | '/faq'
     | '/frakt'
     | '/halsosamma-snabbmaltider'
-    | '/healthy-fast-food'
-    | '/healthy-instant-meals'
-    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
     | '/nyttig-snabbmat'
-    | '/plant-based-meals'
     | '/plantbaserade-maltider'
-    | '/privacy-policy'
     | '/products'
-    | '/protein-cups'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/shipping'
-    | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -513,24 +433,16 @@ export interface FileRouteTypes {
     | '/faq'
     | '/frakt'
     | '/halsosamma-snabbmaltider'
-    | '/healthy-fast-food'
-    | '/healthy-instant-meals'
-    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
     | '/nyttig-snabbmat'
-    | '/plant-based-meals'
     | '/plantbaserade-maltider'
-    | '/privacy-policy'
     | '/products'
-    | '/protein-cups'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/shipping'
-    | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -563,24 +475,16 @@ export interface FileRouteTypes {
     | '/faq'
     | '/frakt'
     | '/halsosamma-snabbmaltider'
-    | '/healthy-fast-food'
-    | '/healthy-instant-meals'
-    | '/high-protein-meals'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
     | '/mcp'
     | '/nutrition'
     | '/nyttig-snabbmat'
-    | '/plant-based-meals'
     | '/plantbaserade-maltider'
-    | '/privacy-policy'
     | '/products'
-    | '/protein-cups'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/shipping'
-    | '/terms-of-service'
     | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -614,24 +518,16 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   FraktRoute: typeof FraktRoute
   HalsosammaSnabbmaltiderRoute: typeof HalsosammaSnabbmaltiderRoute
-  HealthyFastFoodRoute: typeof HealthyFastFoodRoute
-  HealthyInstantMealsRoute: typeof HealthyInstantMealsRoute
-  HighProteinMealsRoute: typeof HighProteinMealsRoute
   IntegritetspolicyRoute: typeof IntegritetspolicyRoute
   KopsvillkorRoute: typeof KopsvillkorRoute
   LifestyleRoute: typeof LifestyleRoute
   McpRoute: typeof McpRoute
   NutritionRoute: typeof NutritionRoute
   NyttigSnabbmatRoute: typeof NyttigSnabbmatRoute
-  PlantBasedMealsRoute: typeof PlantBasedMealsRoute
   PlantbaseradeMaltiderRoute: typeof PlantbaseradeMaltiderRoute
-  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProductsRoute: typeof ProductsRoute
-  ProteinCupsRoute: typeof ProteinCupsRoute
   ProteinkopparRoute: typeof ProteinkopparRoute
   ProteinrikaMaltiderRoute: typeof ProteinrikaMaltiderRoute
-  ShippingRoute: typeof ShippingRoute
-  TermsOfServiceRoute: typeof TermsOfServiceRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -703,27 +599,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HalsosammaSnabbmaltiderRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/healthy-fast-food': {
-      id: '/healthy-fast-food'
-      path: '/healthy-fast-food'
-      fullPath: '/healthy-fast-food'
-      preLoaderRoute: typeof HealthyFastFoodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/healthy-instant-meals': {
-      id: '/healthy-instant-meals'
-      path: '/healthy-instant-meals'
-      fullPath: '/healthy-instant-meals'
-      preLoaderRoute: typeof HealthyInstantMealsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/high-protein-meals': {
-      id: '/high-protein-meals'
-      path: '/high-protein-meals'
-      fullPath: '/high-protein-meals'
-      preLoaderRoute: typeof HighProteinMealsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/integritetspolicy': {
       id: '/integritetspolicy'
       path: '/integritetspolicy'
@@ -766,13 +641,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NyttigSnabbmatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/plant-based-meals': {
-      id: '/plant-based-meals'
-      path: '/plant-based-meals'
-      fullPath: '/plant-based-meals'
-      preLoaderRoute: typeof PlantBasedMealsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/plantbaserade-maltider': {
       id: '/plantbaserade-maltider'
       path: '/plantbaserade-maltider'
@@ -780,25 +648,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlantbaseradeMaltiderRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/privacy-policy': {
-      id: '/privacy-policy'
-      path: '/privacy-policy'
-      fullPath: '/privacy-policy'
-      preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products': {
       id: '/products'
       path: '/products'
       fullPath: '/products'
       preLoaderRoute: typeof ProductsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/protein-cups': {
-      id: '/protein-cups'
-      path: '/protein-cups'
-      fullPath: '/protein-cups'
-      preLoaderRoute: typeof ProteinCupsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/proteinkoppar': {
@@ -813,20 +667,6 @@ declare module '@tanstack/react-router' {
       path: '/proteinrika-maltider'
       fullPath: '/proteinrika-maltider'
       preLoaderRoute: typeof ProteinrikaMaltiderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shipping': {
-      id: '/shipping'
-      path: '/shipping'
-      fullPath: '/shipping'
-      preLoaderRoute: typeof ShippingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms-of-service': {
-      id: '/terms-of-service'
-      path: '/terms-of-service'
-      fullPath: '/terms-of-service'
-      preLoaderRoute: typeof TermsOfServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/unsubscribe': {
@@ -1025,24 +865,16 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   FraktRoute: FraktRoute,
   HalsosammaSnabbmaltiderRoute: HalsosammaSnabbmaltiderRoute,
-  HealthyFastFoodRoute: HealthyFastFoodRoute,
-  HealthyInstantMealsRoute: HealthyInstantMealsRoute,
-  HighProteinMealsRoute: HighProteinMealsRoute,
   IntegritetspolicyRoute: IntegritetspolicyRoute,
   KopsvillkorRoute: KopsvillkorRoute,
   LifestyleRoute: LifestyleRoute,
   McpRoute: McpRoute,
   NutritionRoute: NutritionRoute,
   NyttigSnabbmatRoute: NyttigSnabbmatRoute,
-  PlantBasedMealsRoute: PlantBasedMealsRoute,
   PlantbaseradeMaltiderRoute: PlantbaseradeMaltiderRoute,
-  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProductsRoute: ProductsRoute,
-  ProteinCupsRoute: ProteinCupsRoute,
   ProteinkopparRoute: ProteinkopparRoute,
   ProteinrikaMaltiderRoute: ProteinrikaMaltiderRoute,
-  ShippingRoute: ShippingRoute,
-  TermsOfServiceRoute: TermsOfServiceRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
