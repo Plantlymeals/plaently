@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "@/lib/router-compat";
-import { getAlternates, normalizePath } from "@/lib/localeAlternates";
+import { normalizePath } from "@/lib/normalizePath";
 
 interface SEOHeadProps {
   title: string;
@@ -10,7 +10,6 @@ interface SEOHeadProps {
   type?: string | undefined;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
   locale?: "sv" | "en" | undefined;
-  alternates?: { hreflang: string; path: string }[] | undefined;
   /** Swedish title/description used for OG + Twitter cards (falls back to title/description). */
   ogTitle?: string | undefined;
   ogDescription?: string | undefined;
