@@ -42,9 +42,6 @@ export const buildStaticPageHead = ({
     ],
     links: [
       { rel: "canonical", href: selfUrl },
-      { rel: "alternate", hrefLang: "sv", href: svUrl },
-      { rel: "alternate", hrefLang: "en", href: enUrl },
-      { rel: "alternate", hrefLang: "x-default", href: svUrl },
     ],
   };
 };

@@ -79,7 +79,7 @@ const CookieConsent = () => {
 
   if (!open) return null;
 
-  const policyHref = lang === "en" ? "/privacy-policy" : "/integritetspolicy";
+  const policyHref = "/integritetspolicy";
 
   return (
 <div

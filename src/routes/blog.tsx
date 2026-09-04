@@ -29,9 +29,6 @@ export const Route = createFileRoute("/blog")({
     ],
     links: [
       { rel: "canonical", href: URL },
-      { rel: "alternate", hrefLang: "sv", href: URL },
-      { rel: "alternate", hrefLang: "en", href: URL },
-      { rel: "alternate", hrefLang: "x-default", href: URL },
     ],
   }),
   component: Blog,
