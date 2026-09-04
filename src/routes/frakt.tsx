@@ -7,7 +7,6 @@ export const Route = createFileRoute("/frakt")({
     buildStaticPageHead({
       lang: "sv",
       svPath: "/frakt",
-      enPath: "/shipping",
       ...SHIPPING_SEO.sv,
     }),
   component: () => <Shipping routeLang="sv" />,

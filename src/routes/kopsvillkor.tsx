@@ -7,7 +7,6 @@ export const Route = createFileRoute("/kopsvillkor")({
     buildStaticPageHead({
       lang: "sv",
       svPath: "/kopsvillkor",
-      enPath: "/terms-of-service",
       noindex: true,
       ...TERMS_SEO.sv,
     }),

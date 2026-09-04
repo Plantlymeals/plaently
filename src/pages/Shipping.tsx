@@ -176,16 +176,11 @@ const Shipping = ({ routeLang }: ShippingProps) => {
   const yourMarket = isEn ? "Your market" : "Din marknad";
   const standardLabel = isEn ? "Standard shipping" : "Standardfrakt";
   const freeOverLabel = isEn ? "Free shipping from" : "Fri frakt från";
- const path = isEn ? "/shipping" : "/frakt";
- const alternates = [
-   { hreflang: "en", path: "/shipping" },
-   { hreflang: "sv", path: "/frakt" },
-   { hreflang: "x-default", path: "/frakt" },
- ];
+ const path = "/frakt";
 
  return (
  <Layout>
- <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} alternates={alternates} routeOwnsMetadata routeOwnsLinks />
+ <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} routeOwnsMetadata routeOwnsLinks />
 
  <section className="bg-foreground text-background py-20 md:py-28">
  <div className="container max-w-4xl text-center space-y-6">

@@ -141,11 +141,6 @@ const BlogPostPage = () => {
         routeOwnsMetadata
         routeOwnsLinks
         locale={postLocale}
-        alternates={[
-          { hreflang: "sv", path: svPath },
-          { hreflang: "en", path: enPath },
-          { hreflang: "x-default", path: svPath },
-        ]}
       />
       <article className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-8">
