@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "@/lib/router-compat";
-import { normalizePath } from "@/lib/localeAlternates";
+import { normalizePath } from "@/lib/normalizePath";
 
 const BASE_URL = "https://plaently.com";
 

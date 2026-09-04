@@ -123,8 +123,6 @@ const BlogPostPage = () => {
   const postLocale: "sv" | "en" = post.language === "sv" ? "sv" : "en";
   const canonicalPath = `/blog/${realSlug}`;
   const translationSlug = post.translation_slug ?? null;
-  const svPath = postLocale === "sv" ? canonicalPath : translationSlug ? `/blog/${translationSlug}` : canonicalPath;
-  const enPath = postLocale === "en" ? canonicalPath : translationSlug ? `/blog/${translationSlug}` : canonicalPath;
   const canonicalUrl = `https://plaently.com${canonicalPath}`;
   const categorySlug = getCategorySlug(post.category);
 
@@ -141,11 +139,6 @@ const BlogPostPage = () => {
         routeOwnsMetadata
         routeOwnsLinks
         locale={postLocale}
-        alternates={[
-          { hreflang: "sv", path: svPath },
-          { hreflang: "en", path: enPath },
-          { hreflang: "x-default", path: svPath },
-        ]}
       />
       <article className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-8">

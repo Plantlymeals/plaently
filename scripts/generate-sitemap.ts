@@ -24,11 +24,6 @@ const staticEntries: SitemapEntry[] = [
   { path: "/products", changefreq: "daily", priority: "1.0" },
   { path: "/nutrition", changefreq: "monthly", priority: "0.7" },
   { path: "/lifestyle", changefreq: "monthly", priority: "0.7" },
-  { path: "/high-protein-meals", changefreq: "monthly", priority: "0.85" },
-  { path: "/plant-based-meals", changefreq: "monthly", priority: "0.85" },
-  { path: "/healthy-instant-meals", changefreq: "monthly", priority: "0.85" },
-  { path: "/healthy-fast-food", changefreq: "monthly", priority: "0.9" },
-  { path: "/protein-cups", changefreq: "monthly", priority: "0.85" },
   { path: "/proteinrika-maltider", changefreq: "monthly", priority: "0.85" },
   { path: "/plantbaserade-maltider", changefreq: "monthly", priority: "0.85" },
   { path: "/halsosamma-snabbmaltider", changefreq: "monthly", priority: "0.85" },
@@ -50,9 +45,6 @@ const staticEntries: SitemapEntry[] = [
   { path: "/frakt", changefreq: "yearly", priority: "0.4" },
   { path: "/integritetspolicy", changefreq: "yearly", priority: "0.3" },
   { path: "/kopsvillkor", changefreq: "yearly", priority: "0.3" },
-  { path: "/shipping", changefreq: "yearly", priority: "0.4" },
-  { path: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
-  { path: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
 ];
 
 async function fetchBlogSlugs(): Promise<SitemapEntry[]> {
@@ -64,7 +56,16 @@ async function fetchBlogSlugs(): Promise<SitemapEntry[]> {
     );
     if (!res.ok) return [];
     const rows = (await res.json()) as Array<{ slug: string; updated_at?: string }>;
-    return rows.map((r) => ({
+    // English duplicates now 301 to their Swedish counterparts (src/server.ts),
+    // so they must never appear in the sitemap.
+    const REDIRECTED_SLUGS = new Set([
+      "best-high-protein-vegan-meals",
+      "healthy-instant-meals-for-busy-people",
+      "quick-healthy-lunch-ideas",
+      "what-to-eat-for-lunch-at-work",
+      "why-meal-cups-beat-powders-and-shakes",
+    ]);
+    return rows.filter((r) => !REDIRECTED_SLUGS.has(r.slug)).map((r) => ({
       path: `/blog/${r.slug}`,
       lastmod: r.updated_at?.slice(0, 10),
       changefreq: "monthly",

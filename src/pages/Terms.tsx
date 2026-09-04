@@ -89,13 +89,8 @@ interface TermsProps {
 const Terms = ({ routeLang }: TermsProps) => {
   const isEn = routeLang === "en";
   const c = COPY[isEn ? "en" : "sv"];
-  const path = isEn ? "/terms-of-service" : "/kopsvillkor";
-  const privacyPath = isEn ? "/privacy-policy" : "/integritetspolicy";
-  const alternates = [
-    { hreflang: "en", path: "/terms-of-service" },
-    { hreflang: "sv", path: "/kopsvillkor" },
-    { hreflang: "x-default", path: "/kopsvillkor" },
-  ];
+  const path = "/kopsvillkor";
+  const privacyPath = "/integritetspolicy";
 
   const baseUrl = "https://plaently.com";
   const jsonLd = {
@@ -126,7 +121,7 @@ const Terms = ({ routeLang }: TermsProps) => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex routeOwnsMetadata routeOwnsLinks />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} noindex routeOwnsMetadata routeOwnsLinks />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

@@ -24,9 +24,6 @@ export const Route = createFileRoute("/products")({
     ],
     links: [
       { rel: "canonical", href: URL },
-      { rel: "alternate", hrefLang: "sv", href: URL },
-      { rel: "alternate", hrefLang: "en", href: URL },
-      { rel: "alternate", hrefLang: "x-default", href: URL },
     ],
     scripts:
       loaderData && !loaderData.error && loaderData.products.length > 0

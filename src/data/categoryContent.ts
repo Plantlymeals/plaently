@@ -63,20 +63,12 @@ export const svSlugByKey: Record<CategoryKey, string> = {
   "protein-cups": "proteinkoppar",
 };
 
-export const enSlugByKey: Record<CategoryKey, string> = {
-  "high-protein-meals": "high-protein-meals",
-  "plant-based-meals": "plant-based-meals",
-  "healthy-instant-meals": "healthy-instant-meals",
-  "healthy-fast-food": "healthy-fast-food",
-  "protein-cups": "protein-cups",
-};
-
 const relatedEn = (exclude: CategoryKey): RelatedLink[] => [
-  { slug: "/healthy-fast-food", label: "Healthy fast food" },
-  { slug: "/high-protein-meals", label: "High protein meals" },
-  { slug: "/plant-based-meals", label: "Plant-based meals" },
-  { slug: "/protein-cups", label: "Protein cups" },
-].filter((r) => r.slug !== `/${enSlugByKey[exclude]}`).slice(0, 3);
+  { slug: "/nyttig-snabbmat", label: "Healthy fast food" },
+  { slug: "/proteinrika-maltider", label: "High protein meals" },
+  { slug: "/plantbaserade-maltider", label: "Plant-based meals" },
+  { slug: "/proteinkoppar", label: "Protein cups" },
+].filter((r) => r.slug !== `/${svSlugByKey[exclude]}`).slice(0, 3);
 
 const relatedSv = (exclude: CategoryKey): RelatedLink[] => [
   { slug: "/nyttig-snabbmat", label: "Hälsosam snabbmat" },
@@ -88,7 +80,7 @@ const relatedSv = (exclude: CategoryKey): RelatedLink[] => [
 const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   "high-protein-meals": {
     en: {
-      slug: "high-protein-meals",
+      slug: "proteinrika-maltider",
       breadcrumbName: "High Protein Meals",
       metaTitle: "High Protein Meals | 20g Protein Ready in 5 Minutes | PLÄNTLY",
       metaDescription: "High protein meals with 20g plant protein per serving. Ready in 5 minutes. No prep, no cooking, no compromise. Developed in Sweden. Crafted in Italy.",
@@ -129,7 +121,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         links: [
           { label: "See our protein cups", path: "/products" },
           { label: "Full nutrition facts", path: "/nutrition" },
-          { label: "Plant-based meals", path: "/plant-based-meals" },
+          { label: "Plant-based meals", path: "/plantbaserade-maltider" },
         ],
       },
       comparison: {
@@ -222,7 +214,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   },
   "plant-based-meals": {
     en: {
-      slug: "plant-based-meals",
+      slug: "plantbaserade-maltider",
       breadcrumbName: "Plant-Based Meals",
       metaTitle: "Plant-Based Meals | 20g Protein | Ready in 5 Minutes | PLÄNTLY",
       metaDescription: "Plant-based meals with 20g protein per serving. Not just for plant-based eaters — for everyone who wants to eat smarter. Ready in 5 minutes. Developed in Sweden. Crafted in Italy.",
@@ -267,7 +259,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         links: [
           { label: "See our protein cups", path: "/products" },
           { label: "Full nutrition facts", path: "/nutrition" },
-          { label: "High protein meals", path: "/high-protein-meals" },
+          { label: "High protein meals", path: "/proteinrika-maltider" },
         ],
       },
       comparison: {
@@ -364,7 +356,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   },
   "healthy-instant-meals": {
     en: {
-      slug: "healthy-instant-meals",
+      slug: "halsosamma-snabbmaltider",
       breadcrumbName: "Healthy Instant Meals",
       metaTitle: "Healthy Instant Meals | Real Food in 5 Minutes | PLÄNTLY",
       metaDescription: "Healthy instant meals with 20g plant protein and balanced nutrition. The smart way to eat fast without sacrificing real food.",
@@ -456,7 +448,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   },
   "healthy-fast-food": {
     en: {
-      slug: "healthy-fast-food",
+      slug: "nyttig-snabbmat",
       breadcrumbName: "Healthy Fast Food",
       metaTitle: "Healthy Fast Food | 20g Protein in 5 Minutes | PLÄNTLY",
       metaDescription: "Healthy fast food that actually delivers. 20g protein per meal, ready in 5 minutes. Developed in Sweden. Crafted in Italy. No compromise.",
@@ -494,8 +486,8 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
         body: "PLÄNTLY is healthy fast food in a cup: pasta, legumes, vegetables and spices with 20g of plant protein, ready in 5 minutes with boiling water. It is as fast as a takeaway lunch, but you can read every ingredient. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
         links: [
           { label: "See our protein cups", path: "/products" },
-          { label: "High protein meals", path: "/high-protein-meals" },
-          { label: "Plant-based meals", path: "/plant-based-meals" },
+          { label: "High protein meals", path: "/proteinrika-maltider" },
+          { label: "Plant-based meals", path: "/plantbaserade-maltider" },
         ],
       },
       faqs: [
@@ -566,7 +558,7 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   },
   "protein-cups": {
     en: {
-      slug: "protein-cups",
+      slug: "proteinkoppar",
       breadcrumbName: "Protein Cups",
       metaTitle: "Protein Cups | 20g Protein Instant Meals | PLÄNTLY",
       metaDescription: "PLÄNTLY Protein Cups — 20g plant protein per cup, ready in 5 minutes. The smartest protein meal you can keep in your desk drawer, gym bag or kitchen.",

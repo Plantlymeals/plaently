@@ -46,9 +46,9 @@ const Footer = () => {
             <nav className="flex flex-col gap-2">
               {[
                 { label: t("nav.products"), path: "/products" },
-                { label: t("footer.highProtein"), path: "/high-protein-meals" },
-                { label: t("footer.plantBased"), path: "/plant-based-meals" },
-                { label: t("footer.instantMeals"), path: "/healthy-instant-meals" },
+                { label: t("footer.highProtein"), path: "/proteinrika-maltider" },
+                { label: t("footer.plantBased"), path: "/plantbaserade-maltider" },
+                { label: t("footer.instantMeals"), path: "/halsosamma-snabbmaltider" },
                 { label: t("nav.nutrition"), path: "/nutrition" },
                 { label: t("nav.lifestyle"), path: "/lifestyle" },
                 { label: t("nav.about"), path: "/about" },
@@ -71,9 +71,9 @@ const Footer = () => {
               {[
                 { label: t("nav.faq"), path: "/faq" },
                 { label: t("nav.contact"), path: "/contact" },
-                { label: t("footer.shipping"), path: "/shipping" },
-                { label: t("footer.privacy"), path: lang === "sv" ? "/integritetspolicy" : "/privacy-policy" },
-                { label: t("footer.terms"), path: "/terms-of-service" },
+                { label: t("footer.shipping"), path: "/frakt" },
+                { label: t("footer.privacy"), path: "/integritetspolicy" },
+                { label: t("footer.terms"), path: "/kopsvillkor" },
               ].map((item) => (
                 <Link key={item.path} to={item.path} className="text-sm text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
               ))}
@@ -113,11 +113,11 @@ const Footer = () => {
                     { label: "Proteinkoppar", path: "/proteinkoppar" },
                   ]
                 : [
-                    { label: "High Protein Meals", path: "/high-protein-meals" },
-                    { label: "Plant-Based Meals", path: "/plant-based-meals" },
-                    { label: "Healthy Instant Meals", path: "/healthy-instant-meals" },
-                    { label: "Healthy Fast Food", path: "/healthy-fast-food" },
-                    { label: "Protein Cups", path: "/protein-cups" },
+                    { label: "High Protein Meals", path: "/proteinrika-maltider" },
+                    { label: "Plant-Based Meals", path: "/plantbaserade-maltider" },
+                    { label: "Healthy Instant Meals", path: "/halsosamma-snabbmaltider" },
+                    { label: "Healthy Fast Food", path: "/nyttig-snabbmat" },
+                    { label: "Protein Cups", path: "/proteinkoppar" },
                   ]
               ).map((item) => (
                 <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>

@@ -135,9 +135,6 @@ export function getProductRouteHead(handle: string) {
     ],
     links: [
       { rel: "canonical", href: url },
-      { rel: "alternate", hrefLang: "sv", href: url },
-      { rel: "alternate", hrefLang: "en", href: url },
-      { rel: "alternate", hrefLang: "x-default", href: url },
     ],
   };
 }

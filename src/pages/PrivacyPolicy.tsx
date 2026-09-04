@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { Building2, Lock, Clock, FileText, Check } from "lucide-react";
 import { useEffect } from "react";
-import { useLocation } from "@/lib/router-compat";
 import { useTranslation } from "@/lib/i18n";
 
 const COPY = {
@@ -149,16 +148,10 @@ const COPY = {
 } as const;
 
 const PrivacyPolicy = () => {
-  const { pathname } = useLocation();
   const { lang, setLang } = useTranslation();
-  const isEn = pathname === "/privacy-policy";
+  const isEn = false;
   const c = COPY[isEn ? "en" : "sv"];
-  const path = isEn ? "/privacy-policy" : "/integritetspolicy";
-  const alternates = [
-    { hreflang: "en", path: "/privacy-policy" },
-    { hreflang: "sv", path: "/integritetspolicy" },
-    { hreflang: "x-default", path: "/integritetspolicy" },
-  ];
+  const path = "/integritetspolicy";
 
   useEffect(() => {
     const routeLang = isEn ? "en" : "sv";
@@ -194,7 +187,7 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} alternates={alternates} noindex />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} noindex />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

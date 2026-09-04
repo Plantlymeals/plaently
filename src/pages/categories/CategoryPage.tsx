@@ -5,12 +5,7 @@ import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import type { Lang } from "@/lib/i18n";
-import {
-  getCategoryContent,
-  enSlugByKey,
-  svSlugByKey,
-  type CategoryKey,
-} from "@/data/categoryContent";
+import { getCategoryContent, type CategoryKey } from "@/data/categoryContent";
 
 interface Props {
   categoryKey: CategoryKey;
@@ -21,15 +16,6 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
 
-  const enSlug = enSlugByKey[categoryKey];
-  const svSlug = svSlugByKey[categoryKey];
-
-  const alternates = [
-    { hreflang: "en", path: `/${enSlug}` },
-    { hreflang: "sv", path: `/${svSlug}` },
-    { hreflang: "x-default", path: `/${svSlug}` },
-  ];
-
   return (
     <Layout>
       <SEOHead
@@ -37,7 +23,6 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
         description={c.metaDescription}
         path={`/${c.slug}`}
         locale={lang}
-        alternates={alternates}
         routeOwnsLinks
         routeOwnsMetadata
       />

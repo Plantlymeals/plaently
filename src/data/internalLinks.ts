@@ -12,23 +12,23 @@ export interface InternalLink {
 const LINKS: Record<string, Record<Lang, InternalLink>> = {
   highProtein: {
     sv: { label: "proteinrika måltider", path: "/proteinrika-maltider", hint: "Proteinrik lunch som mättar hela eftermiddagen." },
-    en: { label: "high protein meals", path: "/high-protein-meals", hint: "High protein lunches that keep you full all afternoon." },
+    en: { label: "high protein meals", path: "/proteinrika-maltider", hint: "High protein lunches that keep you full all afternoon." },
   },
   plantBased: {
     sv: { label: "plantbaserade måltider", path: "/plantbaserade-maltider", hint: "Plantbaserad mat med riktigt protein och fiber." },
-    en: { label: "plant-based meals", path: "/plant-based-meals", hint: "Plant-based food with real protein and fibre." },
+    en: { label: "plant-based meals", path: "/plantbaserade-maltider", hint: "Plant-based food with real protein and fibre." },
   },
   instantMeals: {
     sv: { label: "hälsosamma snabbmåltider", path: "/halsosamma-snabbmaltider", hint: "Klar på 5 minuter — utan kompromiss på näring." },
-    en: { label: "healthy instant meals", path: "/healthy-instant-meals", hint: "Ready in 5 minutes — without cutting nutrition." },
+    en: { label: "healthy instant meals", path: "/halsosamma-snabbmaltider", hint: "Ready in 5 minutes — without cutting nutrition." },
   },
   fastFood: {
     sv: { label: "nyttig snabbmat", path: "/nyttig-snabbmat", hint: "Snabbmat som faktiskt är nyttig." },
-    en: { label: "healthy fast food", path: "/healthy-fast-food", hint: "Fast food that is actually good for you." },
+    en: { label: "healthy fast food", path: "/nyttig-snabbmat", hint: "Fast food that is actually good for you." },
   },
   proteinCups: {
     sv: { label: "proteinkoppar", path: "/proteinkoppar", hint: "Instant cup meals med 20 g plantprotein." },
-    en: { label: "protein cups", path: "/protein-cups", hint: "Instant cup meals with 20 g plant protein." },
+    en: { label: "protein cups", path: "/proteinkoppar", hint: "Instant cup meals with 20 g plant protein." },
   },
   nutrition: {
     sv: { label: "näringsinnehåll", path: "/nutrition", hint: "Protein, fiber och näring — hela profilen." },

@@ -90,6 +90,32 @@ function isGoneLegacyUrl(request: Request): boolean {
   );
 }
 
+// Phase 2: one URL per page, in Swedish. Exact path matches only — never a
+// prefix — and every target is final, so each redirect is a single hop.
+const SWEDISH_URL_REDIRECTS: Record<string, string> = {
+  "/blog/best-high-protein-vegan-meals": "/blog/best-high-protein-vegan-meals-sv",
+  "/blog/healthy-instant-meals-for-busy-people": "/blog/healthy-instant-meals-for-busy-people-sv",
+  "/blog/quick-healthy-lunch-ideas": "/blog/quick-healthy-lunch-ideas-sv",
+  "/blog/what-to-eat-for-lunch-at-work": "/blog/what-to-eat-for-lunch-at-work-sv",
+  "/blog/why-meal-cups-beat-powders-and-shakes": "/blog/darfor-slar-maltidskoppar-pulver-och-shakes",
+  "/healthy-fast-food": "/nyttig-snabbmat",
+  "/high-protein-meals": "/proteinrika-maltider",
+  "/plant-based-meals": "/plantbaserade-maltider",
+  "/healthy-instant-meals": "/halsosamma-snabbmaltider",
+  "/protein-cups": "/proteinkoppar",
+  "/shipping": "/frakt",
+  "/privacy-policy": "/integritetspolicy",
+  "/terms-of-service": "/kopsvillkor",
+};
+
+function resolveSwedishRedirect(request: Request): string | null {
+  const url = new URL(request.url);
+  const path = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, "") : url.pathname;
+  const target = SWEDISH_URL_REDIRECTS[path];
+  if (!target) return null;
+  return `${target}${url.search}`;
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     if (isGoneLegacyUrl(request)) {
@@ -98,6 +124,12 @@ export default {
         headers: { "content-type": "text/html; charset=utf-8" },
       });
     }
+
+    const swedishTarget = resolveSwedishRedirect(request);
+    if (swedishTarget) {
+      return new Response(null, { status: 301, headers: { location: swedishTarget } });
+    }
+
 
     try {
 

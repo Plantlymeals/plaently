@@ -1,16 +1,14 @@
 // SSR head metadata for the category landing pages. Route head() owns title,
-// description, canonical, hreflang and the FAQPage schema so crawlers see them
+// description, canonical and the FAQPage schema so crawlers see them
 // in the server HTML; SEOHead only refines OG/Twitter on the client.
-import { getCategoryContent, enSlugByKey, svSlugByKey, type CategoryKey } from "@/data/categoryContent";
+import { getCategoryContent, svSlugByKey, type CategoryKey } from "@/data/categoryContent";
 import type { Lang } from "@/lib/i18n";
 
 const BASE_URL = "https://plaently.com";
 
 export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
   const c = getCategoryContent(key, lang);
-  const svUrl = `${BASE_URL}/${svSlugByKey[key]}`;
-  const enUrl = `${BASE_URL}/${enSlugByKey[key]}`;
-  const selfUrl = lang === "en" ? enUrl : svUrl;
+  const selfUrl = `${BASE_URL}/${svSlugByKey[key]}`;
 
   const faqSchema = c.faqs.length
     ? {
@@ -40,9 +38,6 @@ export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
     ],
     links: [
       { rel: "canonical", href: selfUrl },
-      { rel: "alternate", hrefLang: "sv", href: svUrl },
-      { rel: "alternate", hrefLang: "en", href: enUrl },
-      { rel: "alternate", hrefLang: "x-default", href: svUrl },
     ],
     ...(faqSchema
       ? { scripts: [{ type: "application/ld+json", children: JSON.stringify(faqSchema) }] }

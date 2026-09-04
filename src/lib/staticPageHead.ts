@@ -1,6 +1,6 @@
-// SSR head metadata for static language-paired pages (shipping, terms).
-// The route owns title, description, canonical and hreflang so crawlers see
-// the correct language for the URL in the server HTML.
+// SSR head metadata for the static policy pages (frakt, köpvillkor).
+// The route owns title, description and canonical so crawlers see them in the
+// server HTML.
 import type { Lang } from "@/lib/i18n";
 
 const BASE_URL = "https://plaently.com";
@@ -8,7 +8,6 @@ const BASE_URL = "https://plaently.com";
 export interface StaticPageHeadOptions {
   lang: Lang;
   svPath: string;
-  enPath: string;
   title: string;
   description: string;
   noindex?: boolean;
@@ -17,14 +16,11 @@ export interface StaticPageHeadOptions {
 export const buildStaticPageHead = ({
   lang,
   svPath,
-  enPath,
   title,
   description,
   noindex = false,
 }: StaticPageHeadOptions) => {
-  const svUrl = `${BASE_URL}${svPath}`;
-  const enUrl = `${BASE_URL}${enPath}`;
-  const selfUrl = lang === "en" ? enUrl : svUrl;
+  const selfUrl = `${BASE_URL}${svPath}`;
 
   return {
     meta: [
@@ -42,9 +38,6 @@ export const buildStaticPageHead = ({
     ],
     links: [
       { rel: "canonical", href: selfUrl },
-      { rel: "alternate", hrefLang: "sv", href: svUrl },
-      { rel: "alternate", hrefLang: "en", href: enUrl },
-      { rel: "alternate", hrefLang: "x-default", href: svUrl },
     ],
   };
 };

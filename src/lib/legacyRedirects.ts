@@ -6,9 +6,8 @@
  * "index.html"). Redirecting them consolidates link equity so they stop
  * competing with the primary page in Google's index.
  *
- * NOTE: the Swedish/English page pairs (e.g. /frakt vs /shipping) are NOT in
- * this map — they are real language variants tied together with hreflang and
- * must both stay indexable.
+ * NOTE: the former English URLs (e.g. /shipping) are redirected in src/server.ts;
+ * this map only covers other legacy aliases.
  */
 export const LEGACY_REDIRECTS: Record<string, string> = {
   // WordPress-era / alternate home paths
@@ -39,12 +38,12 @@ export const LEGACY_REDIRECTS: Record<string, string> = {
   "/livsstil": "/lifestyle",
 
   // Policy pages (primary language variant kept, alias folded in)
-  "/privacy": "/privacy-policy",
+  "/privacy": "/integritetspolicy",
   "/integritet": "/integritetspolicy",
-  "/terms": "/terms-of-service",
+  "/terms": "/kopsvillkor",
   "/villkor": "/kopsvillkor",
   "/leverans": "/frakt",
-  "/delivery": "/shipping",
+  "/delivery": "/frakt",
 };
 
 /** Stale Shopify product handles → corrected handles. */

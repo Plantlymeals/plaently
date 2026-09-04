@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "@/lib/router-compat";
-import { getAlternates, normalizePath } from "@/lib/localeAlternates";
+import { normalizePath } from "@/lib/normalizePath";
 
 interface SEOHeadProps {
   title: string;
@@ -10,7 +10,6 @@ interface SEOHeadProps {
   type?: string | undefined;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
   locale?: "sv" | "en" | undefined;
-  alternates?: { hreflang: string; path: string }[] | undefined;
   /** Swedish title/description used for OG + Twitter cards (falls back to title/description). */
   ogTitle?: string | undefined;
   ogDescription?: string | undefined;
@@ -29,28 +28,12 @@ const KEYWORDS = {
   en: "plant-based protein meals, protein meals, healthy fast food, 20g plant protein, instant protein meal Sweden, PLÄNTLY, quick protein food, plant protein meal, protein meal 5 minutes, healthy office lunch",
 } as const;
 
-const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", alternates, ogTitle, ogDescription, noindex, routeOwnsLinks = false, routeOwnsMetadata = false }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, image, type = "website", jsonLd, locale = "sv", ogTitle, ogDescription, noindex, routeOwnsLinks = false, routeOwnsMetadata = false }: SEOHeadProps) => {
   const { pathname } = useLocation();
-  // Canonical always self-references the URL actually being visited, so a
-  // language toggle can never point two URLs at the same canonical.
+  // Canonical always self-references the URL actually being visited. Every page
+  // has exactly one Swedish URL, so no hreflang alternates are emitted.
   const canonicalPath = normalizePath(pathname || path);
   const url = `${BASE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`;
-  // One tag per language. Callers may provide a pair explicitly, but Swedish
-  // is always the default locale for this site.
-  const requestedAlternates = alternates ?? getAlternates(canonicalPath);
-  const alternateByLanguage = new Map(
-    requestedAlternates.map((alternate) => [alternate.hreflang, alternate])
-  );
-  const swedishAlternate = alternateByLanguage.get("sv");
-  if (swedishAlternate) {
-    alternateByLanguage.set("x-default", {
-      hreflang: "x-default",
-      path: swedishAlternate.path,
-    });
-  }
-  const hreflangs = ["sv", "en", "x-default"]
-    .map((hreflang) => alternateByLanguage.get(hreflang))
-    .filter((alternate): alternate is { hreflang: string; path: string } => Boolean(alternate));
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
   const ogLocale = locale === "en" ? "en_GB" : "sv_SE";
   const socialTitle = ogTitle || title;
@@ -65,7 +48,6 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
       {!routeOwnsMetadata && <meta name="keywords" content={KEYWORDS[locale]} />}
       {!routeOwnsMetadata && <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />}
       {!routeOwnsLinks && <link rel="canonical" href={url} />}
-      {!routeOwnsLinks && hreflangs.map((a) => <link key={a.hreflang} rel="alternate" hrefLang={a.hreflang} href={`${BASE_URL}${a.path}`} />)}
       {!routeOwnsMetadata && <meta property="og:title" content={socialTitle} />}
       {!routeOwnsMetadata && <meta property="og:description" content={socialDescription} />}
       {!routeOwnsMetadata && <meta property="og:url" content={url} />}
