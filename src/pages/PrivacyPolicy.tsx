@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import { Building2, Lock, Clock, FileText, Check } from "lucide-react";
 import { useEffect } from "react";
-import { useLocation } from "@/lib/router-compat";
 import { useTranslation } from "@/lib/i18n";
 
 const COPY = {
@@ -149,7 +148,6 @@ const COPY = {
 } as const;
 
 const PrivacyPolicy = () => {
-  const { pathname } = useLocation();
   const { lang, setLang } = useTranslation();
   const isEn = false;
   const c = COPY[isEn ? "en" : "sv"];

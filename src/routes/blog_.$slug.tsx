@@ -28,7 +28,6 @@ export const Route = createFileRoute("/blog_/$slug")({
     const categorySlug = getCategorySlug(post.category);
     const image = post.cover_image_url || undefined;
     const translationPath = post.translation_slug ? `/blog/${post.translation_slug}` : `/blog/${params.slug}`;
-    const svPath = locale === "sv" ? `/blog/${params.slug}` : translationPath;
     const enPath = locale === "en" ? `/blog/${params.slug}` : translationPath;
 
     return {
