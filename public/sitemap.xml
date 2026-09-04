@@ -21,31 +21,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://plaently.com/high-protein-meals</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/plant-based-meals</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/healthy-instant-meals</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/healthy-fast-food</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/protein-cups</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://plaently.com/proteinrika-maltider</loc>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -146,52 +121,13 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://plaently.com/shipping</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/terms-of-service</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/healthy-instant-meals-for-busy-people</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://plaently.com/blog/healthy-instant-meals-for-busy-people-sv</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://plaently.com/blog/best-high-protein-vegan-meals</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://plaently.com/blog/darfor-slar-maltidskoppar-pulver-och-shakes</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/quick-healthy-lunch-ideas</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -210,12 +146,6 @@
   </url>
   <url>
     <loc>https://plaently.com/blog/what-to-eat-for-lunch-at-work-sv</loc>
-    <lastmod>2026-05-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://plaently.com/blog/why-meal-cups-beat-powders-and-shakes</loc>
     <lastmod>2026-05-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
