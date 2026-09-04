@@ -67,9 +67,40 @@ function applyAssetCacheHeaders(request: Request, response: Response): Response 
   });
 }
 
+// Dead WordPress-era legacy URLs: answer 410 Gone so Google drops them.
+// Matches ONLY the six conditions below — never query params in general,
+// so utm_*, ?page=, ?s= and ?q= keep working normally.
+const GONE_BODY =
+  '<!doctype html><html lang="sv"><head><meta charset="utf-8">' +
+  '<meta name="robots" content="noindex"><title>410 Gone</title></head>' +
+  "<body><h1>410 Gone</h1><p>Den h\u00e4r sidan finns inte l\u00e4ngre.</p></body></html>";
+
+function isGoneLegacyUrl(request: Request): boolean {
+  const url = new URL(request.url);
+  const q = url.searchParams;
+  const p = q.get("p");
+  return (
+    q.has("feed") ||
+    (q.has("p") && p !== null && p !== "" && /^\d+$/.test(p)) ||
+    q.has("cat") ||
+    q.has("page_id") ||
+    q.has("replytocom") ||
+    url.pathname === "/feed/" ||
+    url.pathname === "/comments/feed/"
+  );
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    if (isGoneLegacyUrl(request)) {
+      return new Response(GONE_BODY, {
+        status: 410,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
+
     try {
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
