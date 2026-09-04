@@ -90,9 +90,48 @@ function isGoneLegacyUrl(request: Request): boolean {
   );
 }
 
-// Phase 2: one URL per page, in Swedish. Exact path matches only — never a
-// prefix — and every target is final, so each redirect is a single hop.
-const SWEDISH_URL_REDIRECTS: Record<string, string> = {
+// Single source of truth for permanent redirects: legacy WordPress-era
+// aliases, stale Shopify handles and the former English URLs. Exact path
+// matches only, lowercased and without trailing slash. Every target is a final
+// destination that answers 200 — never another key in this map — so each
+// redirect is exactly one hop.
+const PERMANENT_REDIRECTS: Record<string, string> = {
+  // Legacy / alternate home paths
+  "/home": "/",
+  "/index.html": "/",
+  "/index.php": "/",
+  "/start": "/",
+
+  // Shop
+  "/produkter": "/products",
+  "/shop": "/products",
+  "/butik": "/products",
+  "/store": "/products",
+
+  // Content pages
+  "/om-oss": "/about",
+  "/om": "/about",
+  "/kontakt": "/contact",
+  "/kontakta-oss": "/contact",
+  "/faqs": "/faq",
+  "/vanliga-fragor": "/faq",
+  "/fragor-och-svar": "/faq",
+  "/blogg": "/blog",
+  "/news": "/blog",
+  "/nyheter": "/blog",
+  "/nutrition-facts": "/nutrition",
+  "/naring": "/nutrition",
+  "/livsstil": "/lifestyle",
+
+  // Policy pages — aliases point straight at the Swedish destination
+  "/privacy": "/integritetspolicy",
+  "/integritet": "/integritetspolicy",
+  "/terms": "/kopsvillkor",
+  "/villkor": "/kopsvillkor",
+  "/leverans": "/frakt",
+  "/delivery": "/frakt",
+
+  // Phase 2: former English URLs → their Swedish counterpart
   "/blog/best-high-protein-vegan-meals": "/blog/best-high-protein-vegan-meals-sv",
   "/blog/healthy-instant-meals-for-busy-people": "/blog/healthy-instant-meals-for-busy-people-sv",
   "/blog/quick-healthy-lunch-ideas": "/blog/quick-healthy-lunch-ideas-sv",
@@ -108,12 +147,35 @@ const SWEDISH_URL_REDIRECTS: Record<string, string> = {
   "/terms-of-service": "/kopsvillkor",
 };
 
-function resolveSwedishRedirect(request: Request): string | null {
+/** Stale Shopify product handles → corrected handles. */
+const HANDLE_REDIRECTS: Record<string, string> = {
+  "office-pack-60-cups": "office-pack-48-cups",
+  "big-office-pack-120-cups": "big-office-pack-96-cups",
+  "monthly-box-30-cups": "monthly-box-24-cups",
+};
+
+// Returns the final destination path for a request, or null when the URL is
+// already canonical. Handles alias paths, stale product handles, the legacy
+// /products/:slug pattern and trailing-slash normalisation in one pass.
+function resolvePermanentRedirect(request: Request): string | null {
   const url = new URL(request.url);
-  const path = url.pathname.length > 1 ? url.pathname.replace(/\/+$/, "") : url.pathname;
-  const target = SWEDISH_URL_REDIRECTS[path];
-  if (!target) return null;
-  return `${target}${url.search}`;
+  const raw = url.pathname;
+  const path = raw.length > 1 ? raw.replace(/\/+$/, "").toLowerCase() : raw.toLowerCase();
+
+  const mapped = PERMANENT_REDIRECTS[path];
+  if (mapped && mapped !== raw) return `${mapped}${url.search}`;
+
+  const productMatch = path.match(/^\/(?:product|products)\/([^/]+)$/);
+  if (productMatch) {
+    const handle = productMatch[1] ?? "";
+    const primary = `/product/${HANDLE_REDIRECTS[handle] ?? handle}`;
+    return primary === raw ? null : `${primary}${url.search}`;
+  }
+
+  // Trailing slash / uppercase variants of any other path are duplicates too.
+  if (path !== raw && path !== "") return `${path}${url.search}`;
+
+  return null;
 }
 
 export default {
@@ -125,9 +187,9 @@ export default {
       });
     }
 
-    const swedishTarget = resolveSwedishRedirect(request);
-    if (swedishTarget) {
-      return new Response(null, { status: 301, headers: { location: swedishTarget } });
+    const redirectTarget = resolvePermanentRedirect(request);
+    if (redirectTarget) {
+      return new Response(null, { status: 301, headers: { location: redirectTarget } });
     }
 
 

@@ -31,12 +31,14 @@ const Blog = () => {
       .select("*")
       .eq("is_published", true)
       .lte("published_at", now)
-      .eq("language", lang)
+      // Swedish is the only published language on the site; never follow the
+      // language store here or the list would link to URLs that 301.
+      .eq("language", "sv")
       .order("published_at", { ascending: false })
       .then(({ data }) => {
         if (data) setPosts(data);
       });
-  }, [lang]);
+  }, []);
 
   const filteredPosts = useMemo(() => {
     if (!activeCategorySlug) return posts;
