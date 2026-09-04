@@ -123,7 +123,6 @@ const BlogPostPage = () => {
   const postLocale: "sv" | "en" = post.language === "sv" ? "sv" : "en";
   const canonicalPath = `/blog/${realSlug}`;
   const translationSlug = post.translation_slug ?? null;
-  const enPath = postLocale === "en" ? canonicalPath : translationSlug ? `/blog/${translationSlug}` : canonicalPath;
   const canonicalUrl = `https://plaently.com${canonicalPath}`;
   const categorySlug = getCategorySlug(post.category);
 
