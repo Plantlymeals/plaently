@@ -113,11 +113,7 @@ export async function issueStarterOffer(rawEmail: string, ip: string, market: 'S
     return { status: 'error', message: 'shopify_unavailable' };
   }
 
-  const productId = await findStarterPackProductId(tokens);
-  if (!productId) {
-    console.error('[starter-offer] Starter Pack product not found');
-    return { status: 'error', message: 'product_not_found' };
-  }
+  const productId = STARTER_PACK_PRODUCT_ID;
 
   const code = generateCode();
   try {
