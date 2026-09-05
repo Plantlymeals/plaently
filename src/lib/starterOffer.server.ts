@@ -2,7 +2,7 @@
 // SECURITY: everything about the discount (50%, Starter Pack only, 1 use,
 // once per customer, allocation_limit 1) is hardcoded here. The only value
 // that comes from the browser is the email address.
-import { getShopifyTokenCandidates, shopifyWithFallback } from './shopifyDiscounts.server';
+import { getShopifyTokens, shopifyWithFallback, type TokenCandidate } from './shopifyDiscounts.server';
 
 export const STARTER_OFFER_LIMIT = 500;
 const STARTER_PACK_HANDLES = ['starter-pack-12-cups-1', 'starter-pack-12-cups'];
@@ -104,7 +104,7 @@ export async function issueStarterOffer(rawEmail: string, ip: string, market: 'S
   }
 
   // 4. Create the Shopify price rule + discount code (all values hardcoded).
-  const tokens = getShopifyTokenCandidates('starter-offer');
+  const tokens = await getShopifyTokens('starter-offer');
   if (tokens.length === 0) {
     console.error('[starter-offer] no Shopify admin token available');
     return { status: 'error', message: 'shopify_unavailable' };
