@@ -6,6 +6,9 @@ import { getShopifyTokens, shopifyWithFallback, type TokenCandidate } from './sh
 
 export const STARTER_OFFER_LIMIT = 500;
 const STARTER_PACK_HANDLES = ['starter-pack-12-cups-1', 'starter-pack-12-cups'];
+// Numeric Shopify product ID for "Starter Pack — 12 Cups". Hardcoded so the
+// app only needs discount scopes (the client-credentials app lacks read_products).
+const STARTER_PACK_PRODUCT_ID = 15554614133062;
 
 const RATE_LIMIT_HOURLY = 5;
 const RATE_LIMIT_DAILY = 10;

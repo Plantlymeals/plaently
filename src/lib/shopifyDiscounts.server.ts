@@ -36,10 +36,7 @@ export async function mintClientCredentialsToken(): Promise<string | null> {
   if (mintedToken && mintedToken.expiresAt > Date.now() + 60_000) return mintedToken.token;
   const clientId = process.env['SHOPIFY_CLIENT_ID'];
   const clientSecret = process.env['SHOPIFY_CLIENT_SECRET'];
-  if (!clientId || !clientSecret) {
-    console.error('[shopify] client credentials missing', { hasId: !!clientId, hasSecret: !!clientSecret });
-    return null;
-  }
+  if (!clientId || !clientSecret) return null;
   try {
     const res = await fetch(`https://${SHOPIFY_STORE_DOMAIN}/admin/oauth/access_token`, {
       method: 'POST',
@@ -71,7 +68,6 @@ export async function mintClientCredentialsToken(): Promise<string | null> {
 export async function getShopifyTokens(userId: string): Promise<TokenCandidate[]> {
   const candidates = getShopifyTokenCandidates(userId);
   const minted = await mintClientCredentialsToken();
-  console.error('[shopify] token candidates', { minted: !!minted, staticCount: candidates.length });
   if (minted && !candidates.some((c) => c.token === minted)) {
     candidates.unshift({ token: minted, source: 'client-credentials' });
   }
