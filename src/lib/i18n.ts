@@ -355,10 +355,10 @@ const translations: Record<string, Record<Lang, string>> = {
  
  // Starter Pack offer (199 kr, one-time per new customer, max 500)
  "offer.title": { sv: "Starter Pack för 199 kr", en: "Starter Pack for 199 kr" },
- "offer.subtitle": { sv: "12 koppar, fyra smaker. En kod per ny kund.", en: "12 cups, mix your flavours. One code per new customer." },
+  "offer.subtitle": { sv: "12 måltider, fyra smaker. En kod per ny kund.", en: "12 cups, mix your flavours. One code per new customer." },
  "offer.priceSE": { sv: "199 kr", en: "199 kr" },
  "offer.priceEU": { sv: "ca 17,90 €", en: "approx. 17,90 €" },
- "offer.remaining": { sv: "", en: "{n} of 500 left" },
+  "offer.remaining": { sv: "\n", en: "{n} of 500 left" },
  "offer.yourCode": { sv: "Din personliga kod", en: "Your personal code" },
  "offer.copy": { sv: "Kopiera", en: "Copy" },
  "offer.copied": { sv: "Kopierad!", en: "Copied!" },
