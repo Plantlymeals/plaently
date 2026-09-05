@@ -277,6 +277,7 @@ const CART_LINES_REMOVE_MUTATION = `
 `;
 
 function formatCheckoutUrl(checkoutUrl: string): string {
+  if (!checkoutUrl || typeof checkoutUrl !== 'string') return checkoutUrl || '';
   try {
     const url = new URL(checkoutUrl);
     url.searchParams.set('channel', 'online_store');
