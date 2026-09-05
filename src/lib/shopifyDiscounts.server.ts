@@ -71,6 +71,7 @@ export async function mintClientCredentialsToken(): Promise<string | null> {
 export async function getShopifyTokens(userId: string): Promise<TokenCandidate[]> {
   const candidates = getShopifyTokenCandidates(userId);
   const minted = await mintClientCredentialsToken();
+  console.error('[shopify] token candidates', { minted: !!minted, staticCount: candidates.length });
   if (minted && !candidates.some((c) => c.token === minted)) {
     candidates.unshift({ token: minted, source: 'client-credentials' });
   }
