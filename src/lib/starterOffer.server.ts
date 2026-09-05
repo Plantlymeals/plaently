@@ -2,10 +2,13 @@
 // SECURITY: everything about the discount (50%, Starter Pack only, 1 use,
 // once per customer, allocation_limit 1) is hardcoded here. The only value
 // that comes from the browser is the email address.
-import { getShopifyTokenCandidates, shopifyWithFallback } from './shopifyDiscounts.server';
+import { getShopifyTokens, shopifyWithFallback, type TokenCandidate } from './shopifyDiscounts.server';
 
 export const STARTER_OFFER_LIMIT = 500;
-const STARTER_PACK_HANDLES = ['starter-pack-12-cups-1', 'starter-pack-12-cups'];
+
+// Numeric Shopify product ID for "Starter Pack — 12 Cups". Hardcoded so the
+// app only needs discount scopes (the client-credentials app lacks read_products).
+const STARTER_PACK_PRODUCT_ID = 15554614133062;
 
 const RATE_LIMIT_HOURLY = 5;
 const RATE_LIMIT_DAILY = 10;
@@ -38,22 +41,6 @@ function generateCode(): string {
   let out = '';
   for (const b of bytes) out += alphabet[b % alphabet.length];
   return `STARTER-${out}`;
-}
-
-async function findStarterPackProductId(tokens: ReturnType<typeof getShopifyTokenCandidates>): Promise<number | null> {
-  for (const handle of STARTER_PACK_HANDLES) {
-    try {
-      const res = await shopifyWithFallback(
-        `/products.json?handle=${encodeURIComponent(handle)}&fields=id,handle&limit=1`,
-        tokens,
-      );
-      const product = res?.products?.[0];
-      if (product?.id) return product.id as number;
-    } catch (error) {
-      console.error('[starter-offer] product lookup failed', error);
-    }
-  }
-  return null;
 }
 
 export async function issueStarterOffer(rawEmail: string, ip: string, market: 'SE' | 'EU'): Promise<StarterOfferResult> {
@@ -104,17 +91,13 @@ export async function issueStarterOffer(rawEmail: string, ip: string, market: 'S
   }
 
   // 4. Create the Shopify price rule + discount code (all values hardcoded).
-  const tokens = getShopifyTokenCandidates('starter-offer');
+  const tokens = await getShopifyTokens('starter-offer');
   if (tokens.length === 0) {
     console.error('[starter-offer] no Shopify admin token available');
     return { status: 'error', message: 'shopify_unavailable' };
   }
 
-  const productId = await findStarterPackProductId(tokens);
-  if (!productId) {
-    console.error('[starter-offer] Starter Pack product not found');
-    return { status: 'error', message: 'product_not_found' };
-  }
+  const productId = STARTER_PACK_PRODUCT_ID;
 
   const code = generateCode();
   try {
