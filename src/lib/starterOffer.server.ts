@@ -40,7 +40,7 @@ function generateCode(): string {
   return `STARTER-${out}`;
 }
 
-async function findStarterPackProductId(tokens: ReturnType<typeof getShopifyTokenCandidates>): Promise<number | null> {
+async function findStarterPackProductId(tokens: TokenCandidate[]): Promise<number | null> {
   for (const handle of STARTER_PACK_HANDLES) {
     try {
       const res = await shopifyWithFallback(

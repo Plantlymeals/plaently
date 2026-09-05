@@ -28,6 +28,52 @@ export function getShopifyTokenCandidates(userId: string): TokenCandidate[] {
   return candidates;
 }
 
+// Dev Dashboard apps don't expose a copyable shpat_ token; mint a short-lived
+// Admin API token via the client credentials grant instead.
+let mintedToken: { token: string; expiresAt: number } | null = null;
+
+export async function mintClientCredentialsToken(): Promise<string | null> {
+  if (mintedToken && mintedToken.expiresAt > Date.now() + 60_000) return mintedToken.token;
+  const clientId = process.env['SHOPIFY_CLIENT_ID'];
+  const clientSecret = process.env['SHOPIFY_CLIENT_SECRET'];
+  if (!clientId || !clientSecret) return null;
+  try {
+    const res = await fetch(`https://${SHOPIFY_STORE_DOMAIN}/admin/oauth/access_token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: 'client_credentials',
+      }),
+    });
+    if (!res.ok) {
+      console.error('[shopify] client credentials grant failed', res.status);
+      return null;
+    }
+    const json = (await res.json()) as { access_token?: string; expires_in?: number };
+    if (!json.access_token) return null;
+    mintedToken = {
+      token: json.access_token,
+      expiresAt: Date.now() + (json.expires_in ?? 86399) * 1000,
+    };
+    return mintedToken.token;
+  } catch (error) {
+    console.error('[shopify] client credentials grant error', error);
+    return null;
+  }
+}
+
+/** Async candidate list with the minted client-credentials token first. */
+export async function getShopifyTokens(userId: string): Promise<TokenCandidate[]> {
+  const candidates = getShopifyTokenCandidates(userId);
+  const minted = await mintClientCredentialsToken();
+  if (minted && !candidates.some((c) => c.token === minted)) {
+    candidates.unshift({ token: minted, source: 'client-credentials' });
+  }
+  return candidates;
+}
+
 async function shopify(path: string, token: string, source: string, init: RequestInit = {}) {
   const res = await fetch(`${SHOPIFY_ADMIN_API}${path}`, {
     ...init,
@@ -79,7 +125,7 @@ export type DiscountAction =
   | { action: 'delete'; price_rule_id: number };
 
 export async function runDiscountAction(input: DiscountAction, userId: string) {
-  const tokens = getShopifyTokenCandidates(userId);
+  const tokens = await getShopifyTokens(userId);
   if (tokens.length === 0) {
     throw new ShopifyAuthError('No Shopify Admin API access token available. Add a valid Shopify Admin API access token for this store and try again.');
   }
