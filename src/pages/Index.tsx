@@ -54,38 +54,6 @@ const LazySection = ({
 }) => <SectionErrorBoundary>{children}</SectionErrorBoundary>;
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
-export const HOME_SCHEMA = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://plaently.com/#organization",
-      name: "PLÄNTLY AB",
-      url: "https://plaently.com",
-      logo: "https://plaently.com/images/logo.png",
-      description: "Växtbaserade proteinmåltider med 20g protein — klara på 5 minuter.",
-      foundingDate: "2025",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "Vretensborgsvägen 5",
-        postalCode: "126 30",
-        addressLocality: "Hägersten",
-        addressCountry: "SE",
-      },
-      email: "hello@plaently.com",
-      sameAs: ["https://www.instagram.com/plaently"],
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://plaently.com/#website",
-      url: "https://plaently.com",
-      name: "PLÄNTLY",
-      publisher: { "@id": "https://plaently.com/#organization" },
-      inLanguage: ["sv-SE", "en-GB"],
-    },
-  ],
-};
-
 const Index = () => {
   const { t, lang } = useTranslation();
 
