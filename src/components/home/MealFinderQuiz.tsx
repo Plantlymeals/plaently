@@ -10,6 +10,7 @@ import { useTranslation } from "@/lib/i18n";
 import { getBundleSavings } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
+import { useStarterOfferClaim } from "@/hooks/useStarterOffer";
 import bolognese from "@/assets/cup-bolognese.webp";
 import carbonara from "@/assets/cup-carbonara.webp";
 import curry from "@/assets/cup-curry.webp";
@@ -48,6 +49,9 @@ const MealFinderQuiz = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
+  const [offerCode, setOfferCode] = useState<string | null>(null);
+  const [offerNotice, setOfferNotice] = useState<string | null>(null);
+  const { submit: claimOffer } = useStarterOfferClaim();
   const { t } = useTranslation();
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -144,6 +148,30 @@ const MealFinderQuiz = () => {
       });
     } catch (e) {
       console.error("Quiz email save failed:", e);
+    }
+    try {
+      const claim = await claimOffer(trimmed.toLowerCase());
+      if (claim.status === "issued") {
+        setOfferCode(claim.code);
+        setOfferNotice(null);
+        supabase.functions
+          .invoke("send-transactional-email", {
+            body: {
+              templateName: "starter-offer-code",
+              recipientEmail: trimmed.toLowerCase(),
+              data: { code: claim.code },
+              idempotencyKey: `starter-offer-${trimmed.toLowerCase()}`,
+            },
+          })
+          .catch((err) => console.error("offer email failed", err));
+      } else if (claim.status === "already_claimed") {
+        setOfferCode(claim.code);
+        setOfferNotice(t("offer.alreadyClaimed"));
+      } else if (claim.status === "sold_out") {
+        setOfferNotice(t("offer.soldOut"));
+      }
+    } catch (e) {
+      console.error("Quiz offer claim failed:", e);
     } finally {
       setEmailSending(false);
       setStep(step + 1);
@@ -267,6 +295,19 @@ const MealFinderQuiz = () => {
 
           {isResultStep && bundle && (
             <div className="space-y-6 text-center animate-fade-up">
+              {(offerCode || offerNotice) && (
+                <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4 max-w-md mx-auto">
+                  {offerCode ? (
+                    <>
+                      <p className="text-xs text-muted-foreground">{offerNotice ?? t("offer.yourCode")}</p>
+                      <p className="font-mono text-lg font-bold tracking-wider mt-1">{offerCode}</p>
+                      <p className="text-xs text-muted-foreground mt-2">{t("offer.codeHint")}</p>
+                    </>
+                  ) : (
+                    <p className="text-sm font-semibold">{offerNotice}</p>
+                  )}
+                </div>
+              )}
               <p className="text-xs font-semibold uppercase tracking-widest text-primary">{t("quiz.yourMatch")}</p>
               <div className="w-32 h-32 mx-auto rounded-2xl overflow-hidden bg-muted flex items-center justify-center">
                 <img src={bundle.image} alt={`${bundle.name} – rekommenderat PLÄNTLY-paket`} className="w-full h-full object-contain" />
