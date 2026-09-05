@@ -520,6 +520,63 @@ export type Database = {
         }
         Relationships: []
       }
+      starter_pack_offer_attempts: {
+        Row: {
+          created_at: string
+          id: string
+          ip_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip_hash?: string
+        }
+        Relationships: []
+      }
+      starter_pack_offer_codes: {
+        Row: {
+          code: string
+          created_at: string
+          email: string
+          id: string
+          issued_at: string
+          market: string
+          redeemed_at: string | null
+          shopify_discount_code_id: string | null
+          shopify_price_rule_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          email: string
+          id?: string
+          issued_at?: string
+          market?: string
+          redeemed_at?: string | null
+          shopify_discount_code_id?: string | null
+          shopify_price_rule_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          email?: string
+          id?: string
+          issued_at?: string
+          market?: string
+          redeemed_at?: string | null
+          shopify_discount_code_id?: string | null
+          shopify_price_rule_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
@@ -689,6 +746,7 @@ export type Database = {
           read_ct: number
         }[]
       }
+      starter_pack_offer_issued_count: { Args: never; Returns: number }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

@@ -160,7 +160,22 @@ const HANDLE_REDIRECTS: Record<string, string> = {
 function resolvePermanentRedirect(request: Request): string | null {
   const url = new URL(request.url);
   const raw = url.pathname;
+
+  // Case-sensitive internal endpoints (server function RPC ids, API routes)
+  // must never be rewritten - their ids are base64 and contain uppercase.
+  const rawLower = raw.toLowerCase();
+  if (
+    rawLower.startsWith("/_serverfn/") ||
+    rawLower.startsWith("/api/") ||
+    rawLower.startsWith("/_build/") ||
+    rawLower.startsWith("/.mcp/") ||
+    rawLower.startsWith("/.well-known/")
+  ) {
+    return null;
+  }
+
   const path = raw.length > 1 ? raw.replace(/\/+$/, "").toLowerCase() : raw.toLowerCase();
+
 
   const mapped = PERMANENT_REDIRECTS[path];
   if (mapped && mapped !== raw) return `${mapped}${url.search}`;

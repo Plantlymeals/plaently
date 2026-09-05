@@ -18,6 +18,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
 import CookieConsent from "@/components/CookieConsent";
+import AutoLanguage from "@/components/AutoLanguage";
 import AiAssistant from "@/components/AiAssistantMount";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
@@ -192,6 +193,7 @@ function InnerApp() {
   useCartSync();
   return (
     <ChunkErrorBoundary>
+      <AutoLanguage />
       <Outlet />
 <CookieConsent />
       <AiAssistant />
