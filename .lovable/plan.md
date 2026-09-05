@@ -1,60 +1,45 @@
-# 199 kr Starter Pack-erbjudande + automatiskt språkval
+# Del 3 + Del 4 — sex avgränsade ändringar
 
-Ersätter 10 %-löftet med en riktig engångskod per ny kund, max 500 st totalt, och gör språkvalet landsbaserat för förstagångsbesökare.
+Rör inte: 410-regeln, 199 kr-erbjudandets backend, admin-panelens auktorisering, `routeLang`-strukturen.
 
-## Bekräftelse på säkerhetskraven
+## Steg 1 — 301: /halsosamma-snabbmaltider → /nyttig-snabbmat
 
-- Den nya publika funktionen tar emot **exakt ett** värde: e-postadressen. Inget annat från webbläsaren når Shopify.
-- Rabatt (50 %), produkt (Starter Pack), antal användningar (1) och "en gång per kund" är **hårdkodade på servern**.
-- Admin-panelens `runDiscountAction` och dess inloggnings- och adminrollskontroll (`requireSupabaseAuth` + `has_role`) **ändras inte alls**. Den nya funktionen är en egen, smal väg till Shopify.
+- Ny rad i `PERMANENT_REDIRECTS` (`src/server.ts`).
+- Viktigt: raden `/healthy-instant-meals` → `/halsosamma-snabbmaltider` finns redan. Om den lämnas orörd blir det en kedja på två hopp. Jag pekar därför om den direkt till `/nyttig-snabbmat` (enda ändringen i en befintlig rad, för att hålla ett hopp per omdirigering).
+- Ta bort sidan ur sitemap-genereringen (`scripts/generate-sitemap.ts`, `supabase/functions/sitemap/index.ts`, `public/sitemap.xml`) och ta bort ruttfilen `src/routes/halsosamma-snabbmaltider.tsx`.
+- Peka om interna länkar direkt: `src/components/Footer.tsx` (3 ställen), `src/data/internalLinks.ts`, `src/data/categoryContent.ts` (relaterade-länkar och slug-mappning).
 
-### Skillnaden mellan de två vägarna
+## Steg 2 — Fas 2-städning
 
-| | Admin-panelen | Nya erbjudandefunktionen |
-|---|---|---|
-| Vem får anropa | Inloggad admin | Vem som helst (besökare) |
-| Input | Fri rabattdefinition (list/create/update/disable/delete) | Endast e-postadress |
-| Vad kan skapas | Vilken rabatt som helst | Endast 50 % på Starter Pack, 1 användning, en per kund |
-| Skyddsräcken | Adminroll | E-postvalidering, en kod per e-post, tak på 500 |
+- `__root.tsx`: `inLanguage` blir bara `"sv-SE"`.
+- `AdminBlog.tsx`: nya inlägg defaultar till `language: "sv"`.
+- `PrivacyPolicy.tsx`: självreferensen till `plaently.com/privacy-policy` byts till `/integritetspolicy`; död `isEn`-kod (alltid `false`) tas bort.
+- Döda `isEn`-grenar i `Shipping.tsx` och `Terms.tsx` samt engelska innehållsblock i `categoryContent.ts` tas bort. `routeLang` som struktur lämnas orörd.
+- Bloggens hreflang: bekräftas borta sedan Fas 2 (kontrolleras, ingen ändring om den redan är borta).
 
-## Steg 1 — Databas
+## Steg 3 — Kundvagn: konkret rekommendation vid fri frakt-baren
 
-Ny tabell `starter_pack_offer_codes`: e-post (unik, lowercase), kod, Shopify-prisregel-id, Shopify-rabattkod-id, utfärdad tid, marknad (SE/EU), inlöst tid (kan fyllas i senare av orderflödet).
+Under progressbaren i `CartDrawer.tsx`, när det fattas belopp till fri frakt:
 
-- Webbläsaren kan varken läsa eller skriva raderna — bara backend.
-- En liten publik funktion returnerar **enbart antalet** utfärdade koder, för "X av 500 kvar". Inga personuppgifter exponeras.
+- Räkna ut hur många enskilda koppar à 39 kr som täcker mellanskillnaden.
+- Fattas det 160 kr eller mer: rekommendera **Starter Pack (12 måltider, 399 kr)** som ett klick.
+- Fattas det mindre: rekommendera **närmaste enskilda kopp** med antal, t.ex. "Lägg till 2 × Fusilli Bolognese (78 kr) så blir frakten fri" med en lägg-till-knapp.
+- Ren frontend mot befintlig katalog, ingen ny data.
 
-## Steg 2 — Serverfunktion som utfärdar koden
+## Steg 4 — Produktsida: uppsälj mot Starter Pack
 
-Ny fil `src/lib/starterOffer.functions.ts` + `starterOffer.server.ts`. Flödet:
+Exakt text (svenska): **"Spara ~15 % med Starter Pack — 12 måltider för 399 kr, 33 kr per måltid i stället för 39 kr."** med knappen "Se Starter Pack" som länkar till Starter Pack-produktsidan. Visas inte på Starter Pack-sidan själv.
 
-1. Validerar e-postformat.
-2. E-posten finns redan → `already_claimed`.
-3. Antal rader ≥ 500 → `sold_out`.
-4. Annars: genererar `STARTER-XXXXXX` och skapar i Shopify Admin API en price rule med `value_type: "percentage"`, `value: -50`, riktad mot Starter Pack-produkten, `usage_limit: 1`, `once_per_customer: true`, samt tillhörande rabattkod. Shopify Markets sköter valutan i kassan.
-5. Sparar raden och returnerar koden.
+## Steg 5 — "Begränsat erbjudande"-badgen
 
-Anropen mot Shopify återanvänder befintlig token-hantering (`getShopifyTokenCandidates` / `shopifyWithFallback`) — ingen ny hemlighet behövs, och admin-vägen rörs inte.
+Badgen (`starter.badge`) kopplas till samma `getStarterOfferCount` som popupen och visar "Begränsat erbjudande · X av 500 kvar". Går kopplingen inte i det här steget tas ordet "begränsat" bort.
 
-## Steg 3 — Popup, quiz och mejl
+## Steg 6 — detectMarket()s SSR-flimmer
 
-- `NewsletterPopup.tsx` och `MealFinderQuiz.tsx`: texten byts från 10 % till 199 kr-erbjudandet, svenska och engelska i `src/lib/i18n.ts`.
-- Prisvisning: **199 kr** för marknad SE, **~17,90 €** för marknad EU (samma två marknader som redan finns). Inga nya valutor byggs.
-- Formuläret anropar nya funktionen och visar tre lägen: kod utfärdad (kod syns direkt med kopieringsknapp), redan använt, slutsålt (formuläret döljs).
-- Räknare "X av 500 kvar" i popupen och på Starter Pack-produktsidan, så "Begränsat erbjudande" blir sant.
-- Ny mejlmall `starter-offer-code` som skickar den riktiga koden; `newsletter-welcome` används inte längre i det här flödet.
-
-## Steg 4 — Automatiskt gränssnittsspråk efter land
-
-- Servern läser besökarens land från hostingens geo-header och skickar in det till sidan.
-- `useLangStore` i `src/lib/i18n.ts`: sparad preferens vinner alltid. Annars Sverige → svenska, övriga länder → engelska. Saknas landsuppgift → svenska som idag.
-- Växlingsknappen i `Header.tsx` fungerar precis som idag och vinner alltid.
-- Endast gränssnittstexter. Kategori-, produkt- och bloggsidor samt `detectMarket()` rörs inte.
-
-## Rörs inte
-
-`src/server.ts` (410-regeln och 301-blocket), `public/robots.txt`, sitemap-genereringen, produktinnehåll, strukturerad data och admin-panelens auktorisering.
+- Läs besökarens land på servern via befintliga `getVisitorCountry` och skicka ned ett färdigt marknadsvärde i första renderingen.
+- `marketStore` initieras från det serverbestämda värdet i stället för att gissa på tidszon vid modulladdning; sparad användarvald marknad har fortfarande företräde.
+- Resultat: ett enda värde för frakt/pris från första paint, inga tre steg.
 
 ## Ordning
 
-Databasen först (kräver ditt godkännande), sedan serverfunktionen, därefter popup/quiz/mejl, och sist språkdetekteringen.
+Steg 1+2, sedan 3+4, sedan 5, sist 6. Efter varje block: typkontroll och lokal verifiering av att alla omdirigeringsmål svarar 200 utan kedja.
