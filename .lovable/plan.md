@@ -1,26 +1,37 @@
-# Ta bort trasig söksmall ur WebSite-schemat
+# Rensa strukturerad data på startsidan
 
-## 1. Ta bort SearchAction från WebSite-schemat
+## 1. Ta bort SearchAction ur WEBSITE_SCHEMA
 Fil: `src/routes/__root.tsx`
 
 Ta bort hela `potentialAction`-objektet ur konstanten `WEBSITE_SCHEMA`. Kvarvarande fält: `@context`, `@type`, `name`, `alternateName`, `url`, `inLanguage`, `publisher`.
 
-## 2. Ta bort det tredje JSON-LD-blocket utan @type
-Fil: `src/routes/index.tsx`
+Efteråt ska strängen `search_term_string` inte finnas kvar någonstans i projektet.
 
-Startsidan renderar i dag tre JSON-LD-block:
-1. `ORG_SCHEMA` (Organization) från `__root.tsx`
-2. `WEBSITE_SCHEMA` (WebSite) från `__root.tsx`
-3. `HOME_SCHEMA` från `index.tsx`
+## 2. Ta bort HOME_SCHEMA och flytta foundingDate till ORG_SCHEMA
+Filer: `src/routes/index.tsx`, `src/pages/Index.tsx`, `src/routes/__root.tsx`
 
-`HOME_SCHEMA` består av en `@graph` som innehåller ytterligare en Organization och en WebSite — dubletter av block 1 och 2 — och har själv ingen `@type` på toppnivå. Det är det blocket Google rapporterar som strukturerad data utan typ.
+Startsidan renderar i dag tre JSON-LD-block. Block 3 (`HOME_SCHEMA`) är en `@graph` som duplicerar Organization och WebSite från `__root.tsx`. Enda unika fältet i `HOME_SCHEMA` är `foundingDate: "2025"`.
 
-Åtgärd: ta bort importen av `HOME_SCHEMA` från `src/pages/Index` och ta bort `scripts`-posten med `JSON.stringify(HOME_SCHEMA)` i `src/routes/index.tsx`.
+Åtgärder:
+- Lägg till `"@id": "https://plaently.com/#organization"` och `foundingDate: "2025"` i `ORG_SCHEMA` i `__root.tsx`.
+- Ta bort importen av `HOME_SCHEMA` från `src/routes/index.tsx`.
+- Ta bort `scripts`-posten med `JSON.stringify(HOME_SCHEMA)` i `src/routes/index.tsx`.
+- Ta bort konstanten `HOME_SCHEMA` från `src/pages/Index.tsx` (används bara där).
 
-## 3. Verifiering
-- Kör en global sökning efter `search_term_string` — endast kvarvarande förekomst ska vara borta.
-- Kontrollera att alla JSON-LD-block på startsidan parsar som giltig JSON och har en `@type`.
-- Kontrollera att `src/server.ts`, `public/robots.txt` och sitemap-genereringen inte rörs.
+## 3. Koppla ihop WebSite och Organization med @id
+Fil: `src/routes/__root.tsx`
 
-## Teknisk motivering
-SearchAction med bokstavligen `{search_term_string}` har fått Google att försöka hämta en ogiltig URL. Samtidigt är `@graph`-blocket på startsidan redundant eftersom samma entiteter redan serveras via `__root.tsx`, och dess avsaknad av toppnivå-`@type` ger ett valideringsfel.
+- Lägg till `"@id": "https://plaently.com/#website"` i `WEBSITE_SCHEMA`.
+- Ersätt `WEBSITE_SCHEMA.publisher` med `{ "@id": "https://plaently.com/#organization" }` så att WebSite refererar till den fullständiga Organization-entiteten i stället för att duplicera ett halvt objekt.
+
+## Rör inte
+- `src/server.ts` (410-regeln och 301-blocket)
+- `public/robots.txt`
+- Sitemap-genereringen
+
+## Verifiering
+- Startsidan renderar exakt två JSON-LD-block, inte tre.
+- Ingen förekomst av `search_term_string` i projektet.
+- `ORG_SCHEMA` innehåller: `legalName`, fyra `alternateName`, fyra `sameAs`, `address`, `logo`, `email`, `description`, `foundingDate`, `@id`.
+- `WEBSITE_SCHEMA.publisher` är en `{ "@id": ... }`-referens.
+- Båda blocken parsar som giltig JSON.
