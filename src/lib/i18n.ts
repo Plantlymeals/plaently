@@ -349,16 +349,16 @@ const translations: Record<string, Record<Lang, string>> = {
  "newsletter.alreadyDesc": { sv: "Denna e-post är redan registrerad.", en: "This email is already registered." },
  "newsletter.error": { sv: "Något gick fel", en: "Something went wrong" },
  "newsletter.errorDesc": { sv: "Försök igen senare.", en: "Please try again later." },
- "newsletter.disclaimer": { sv: "Genom att prenumerera godkänner du att ta emot marknadsföringsmail.\nAvprenumerera när som helst. Inget spam, aldrig.", en: "By subscribing you agree to receive marketing emails.\nUnsubscribe anytime. No spam, ever." },
+ "newsletter.disclaimer": { sv: "Genom att prenumerera godkänner du att ta emot marknadsföringsmail.\nAvprenumerera när som helst.", en: "By subscribing you agree to receive marketing emails.\nUnsubscribe anytime. No spam, ever." },
  "newsletter.close": { sv: "Stäng", en: "Close" },
 
  
  // Starter Pack offer (199 kr, one-time per new customer, max 500)
  "offer.title": { sv: "Starter Pack för 199 kr", en: "Starter Pack for 199 kr" },
- "offer.subtitle": { sv: "12 koppar, mixa dina smaker. En kod per ny kund.", en: "12 cups, mix your flavours. One code per new customer." },
+ "offer.subtitle": { sv: "12 koppar, fyra smaker. En kod per ny kund.", en: "12 cups, mix your flavours. One code per new customer." },
  "offer.priceSE": { sv: "199 kr", en: "199 kr" },
  "offer.priceEU": { sv: "ca 17,90 €", en: "approx. 17,90 €" },
- "offer.remaining": { sv: "{n} av 500 kvar", en: "{n} of 500 left" },
+ "offer.remaining": { sv: "", en: "{n} of 500 left" },
  "offer.yourCode": { sv: "Din personliga kod", en: "Your personal code" },
  "offer.copy": { sv: "Kopiera", en: "Copy" },
  "offer.copied": { sv: "Kopierad!", en: "Copied!" },
