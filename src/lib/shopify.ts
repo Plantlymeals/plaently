@@ -3,7 +3,10 @@ import { toast } from "sonner";
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'plantly-website-cms-fyvdr.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = import.meta.env['VITE_SHOPIFY_STOREFRONT_TOKEN'] as string;
+const SHOPIFY_STOREFRONT_TOKEN =
+  (import.meta.env['VITE_SHOPIFY_STOREFRONT_TOKEN'] as string | undefined) ||
+  (import.meta.env['VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN'] as string | undefined) ||
+  '';
 
 // Shopify retained older cup counts in these handles after the bundle sizes
 // changed. Keep the public, indexed URLs stable while resolving the live item.
@@ -60,6 +63,10 @@ export interface ShopifyProduct {
 }
 
 export async function storefrontApiRequest(query: string, variables: any = {}) {
+  if (!SHOPIFY_STOREFRONT_TOKEN) {
+    throw new Error('Shopify Storefront access token saknas. Kontrollera att VITE_SHOPIFY_STOREFRONT_TOKEN är satt i projektets miljövariabler.');
+  }
+
   const response = await fetch(SHOPIFY_STOREFRONT_URL, {
     method: 'POST',
     headers: {
