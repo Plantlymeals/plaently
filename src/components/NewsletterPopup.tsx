@@ -4,20 +4,24 @@ import { motion, AnimatePresence, type MotionProps } from "framer-motion";
 const MotionDiv = motion.div as React.FC<
   MotionProps & React.HTMLAttributes<HTMLDivElement>
 >;
-import { X, Gift, Truck, Mail } from "lucide-react";
+import { X, Gift, Truck, Mail, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
+import { useStarterOfferClaim, useStarterOfferCount } from "@/hooks/useStarterOffer";
+import { useMarketStore } from "@/stores/marketStore";
 const logo = "/images/logo.png";
 
 const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
   const { t } = useTranslation();
+  const market = useMarketStore((s) => s.market);
+  const { remaining, soldOut } = useStarterOfferCount();
+  const { state, submit } = useStarterOfferClaim();
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem("newsletter-dismissed");
@@ -31,41 +35,65 @@ const NewsletterPopup = () => {
     sessionStorage.setItem("newsletter-dismissed", "true");
   };
 
+  const handleCopy = async (code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable */
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || loading) return;
-    setLoading(true);
-    const { error } = await supabase.from("newsletter_subscribers").insert({ email: email.trim().toLowerCase() });
-    if (error) {
-      setLoading(false);
-      if (error.code === "23505") {
-        toast.info(t("newsletter.alreadySubscribed"), { description: t("newsletter.alreadyDesc") });
-      } else {
-        toast.error(t("newsletter.error"), { description: t("newsletter.errorDesc") });
-      }
+    const value = email.trim().toLowerCase();
+    if (!value || state.status === "loading") return;
+
+    const result = await submit(value);
+
+    if (result.status === "invalid_email") {
+      toast.error(t("newsletter.error"), { description: t("quiz.emailError") });
       return;
     }
-    // Fire-and-forget welcome email via Lovable Emails (transactional)
-    supabase.functions
-      .invoke("send-transactional-email", {
-        body: {
-          templateName: "newsletter-welcome",
-          recipientEmail: email.trim().toLowerCase(),
-          idempotencyKey: `newsletter-welcome-${email.trim().toLowerCase()}`,
-        },
-      })
-      .catch((err) => console.error("welcome email failed", err));
-    setLoading(false);
-    setSubmitted(true);
-    sessionStorage.setItem("newsletter-dismissed", "true");
-    setTimeout(() => setIsOpen(false), 2000);
+    if (result.status === "rate_limited") {
+      toast.error(t("offer.rateLimited"), { description: t("offer.rateLimitedDesc") });
+      return;
+    }
+    if (result.status === "error") {
+      toast.error(t("offer.error"), { description: t("offer.errorDesc") });
+      return;
+    }
+
+    if (result.status === "issued") {
+      sessionStorage.setItem("newsletter-dismissed", "true");
+      // Keep the newsletter list in sync (ignore duplicates).
+      await supabase.from("newsletter_subscribers").insert({ email: value });
+      // Fire-and-forget: send the real code by email.
+      supabase.functions
+        .invoke("send-transactional-email", {
+          body: {
+            templateName: "starter-offer-code",
+            recipientEmail: value,
+            data: { code: result.code },
+            idempotencyKey: `starter-offer-${value}`,
+          },
+        })
+        .catch((err) => console.error("offer email failed", err));
+    }
   };
+
+  const priceLabel = market === "SE" ? t("offer.priceSE") : t("offer.priceEU");
 
   const benefits = [
     { icon: Gift, title: t("newsletter.benefit1Title"), desc: t("newsletter.benefit1Desc") },
     { icon: Truck, title: t("newsletter.benefit2Title"), desc: t("newsletter.benefit2Desc") },
     { icon: Mail, title: t("newsletter.benefit3Title"), desc: t("newsletter.benefit3Desc") },
   ];
+
+  const issuedCode = state.status === "issued" ? state.code : null;
+  const claimedCode = state.status === "already_claimed" ? state.code : null;
+  const offerSoldOut = soldOut || state.status === "sold_out";
 
   return (
     <AnimatePresence>
@@ -79,14 +107,47 @@ const NewsletterPopup = () => {
               </button>
               <div className="bg-primary pt-8 pb-6 px-6 text-center">
                 <img src={logo} alt="PLÄNTLY" className="h-8 mx-auto mb-3 brightness-0 invert" width={160} height={32} />
-                <h2 className="text-xl font-heading font-bold text-primary-foreground">{t("newsletter.title")}</h2>
-                <p className="text-primary-foreground/80 text-sm mt-1">{t("newsletter.subtitle")}</p>
+                <h2 className="text-xl font-heading font-bold text-primary-foreground">{t("offer.title")}</h2>
+                <p className="text-primary-foreground/80 text-sm mt-1">
+                  {priceLabel} · {t("offer.subtitle")}
+                </p>
+                {remaining !== null && !offerSoldOut && (
+                  <p className="text-primary-foreground/90 text-xs mt-2 font-semibold">
+                    {t("offer.remaining").replace("{n}", String(remaining))}
+                  </p>
+                )}
               </div>
               <div className="p-6">
-                {submitted ? (
+                {issuedCode || claimedCode ? (
+                  <div className="text-center py-2">
+                    {issuedCode ? (
+                      <>
+                        <p className="text-sm text-muted-foreground">{t("offer.yourCode")}</p>
+                        <div className="mt-2 flex items-center justify-center gap-2">
+                          <span className="font-mono text-lg font-bold tracking-wider border-2 border-dashed border-primary rounded-xl px-4 py-2">
+                            {issuedCode}
+                          </span>
+                          <Button type="button" variant="outline" size="sm" className="rounded-full" onClick={() => handleCopy(issuedCode)}>
+                            {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                            <span className="ml-1">{copied ? t("offer.copied") : t("offer.copy")}</span>
+                          </Button>
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-3">{t("offer.codeHint")}</p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-lg font-heading font-semibold text-foreground">{t("offer.alreadyClaimed")}</p>
+                        <p className="text-muted-foreground text-sm mt-1">{t("offer.alreadyClaimedDesc")}</p>
+                        {claimedCode && (
+                          <p className="font-mono text-base font-bold tracking-wider mt-3">{claimedCode}</p>
+                        )}
+                      </>
+                    )}
+                  </div>
+                ) : offerSoldOut ? (
                   <div className="text-center py-4">
-                    <p className="text-lg font-heading font-semibold text-foreground">{t("newsletter.success")}</p>
-                    <p className="text-muted-foreground text-sm mt-1">{t("newsletter.successDesc")}</p>
+                    <p className="text-lg font-heading font-semibold text-foreground">{t("offer.soldOut")}</p>
+                    <p className="text-muted-foreground text-sm mt-1">{t("offer.soldOutDesc")}</p>
                   </div>
                 ) : (
                   <>
@@ -105,8 +166,8 @@ const NewsletterPopup = () => {
                     </div>
                     <form onSubmit={handleSubmit} className="space-y-3">
                       <Input type="email" placeholder={t("newsletter.placeholder")} value={email} onChange={(e) => setEmail(e.target.value)} required className="rounded-full" />
-                      <Button type="submit" className="w-full rounded-full font-semibold" disabled={loading}>
-                        {loading ? t("newsletter.submitting") : t("newsletter.submit")}
+                      <Button type="submit" className="w-full rounded-full font-semibold" disabled={state.status === "loading"}>
+                        {state.status === "loading" ? t("newsletter.submitting") : t("newsletter.submit")}
                       </Button>
                     </form>
                     <p className="text-[11px] text-muted-foreground text-center mt-4 leading-relaxed">
