@@ -72,6 +72,7 @@ const GA_LOADER = `(function () {
 const ORG_SCHEMA = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": "https://plaently.com/#organization",
   name: "PLÄNTLY AB",
   legalName: "PLÄNTLY AB",
   alternateName: ["Plaently", "Plantly", "PLAENTLY", "Pläntly"],
@@ -80,6 +81,7 @@ const ORG_SCHEMA = JSON.stringify({
   email: "hello@plaently.com",
   description:
     "Riktiga måltider med 20g protein — inget pulver, ingen shake. Klart på 5 minuter.",
+  foundingDate: "2025",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Vretensborgsvägen 5",
@@ -98,16 +100,12 @@ const ORG_SCHEMA = JSON.stringify({
 const WEBSITE_SCHEMA = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://plaently.com/#website",
   name: "PLÄNTLY",
   alternateName: ["Plaently", "Plantly", "Pläntly"],
   url: "https://plaently.com",
   inLanguage: ["sv-SE", "en-GB"],
-  publisher: { "@type": "Organization", name: "PLÄNTLY", url: "https://plaently.com" },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://plaently.com/products?q={search_term_string}",
-    "query-input": "required name=search_term_string",
-  },
+  publisher: { "@id": "https://plaently.com/#organization" },
 });
 
 const OG_IMAGE =
