@@ -172,7 +172,22 @@ function resolvePermanentRedirect(request: Request): string | null {
     return primary === raw ? null : `${primary}${url.search}`;
   }
 
-  // Trailing slash / uppercase variants of any other path are duplicates too.
+  // Never rewrite case-sensitive file/asset or tool paths: Vite bundles carry
+  // mixed-case hashes and /.mcp tool names are camelCase, so lowercasing them
+  // 301s a real file to a 404. Skip anything with a file extension or under a
+  // reserved prefix.
+  const lastSegment = path.slice(path.lastIndexOf("/") + 1);
+  if (
+    lastSegment.includes(".") ||
+    path.startsWith("/_build/") ||
+    path.startsWith("/.mcp/") ||
+    path.startsWith("/.well-known/") ||
+    path.startsWith("/images/")
+  ) {
+    return null;
+  }
+
+  // Trailing slash / uppercase variants of page paths are duplicates too.
   if (path !== raw && path !== "") return `${path}${url.search}`;
 
   return null;
