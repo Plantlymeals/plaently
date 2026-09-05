@@ -5,7 +5,7 @@
 import { getShopifyTokens, shopifyWithFallback, type TokenCandidate } from './shopifyDiscounts.server';
 
 export const STARTER_OFFER_LIMIT = 500;
-const STARTER_PACK_HANDLES = ['starter-pack-12-cups-1', 'starter-pack-12-cups'];
+
 // Numeric Shopify product ID for "Starter Pack — 12 Cups". Hardcoded so the
 // app only needs discount scopes (the client-credentials app lacks read_products).
 const STARTER_PACK_PRODUCT_ID = 15554614133062;
@@ -41,22 +41,6 @@ function generateCode(): string {
   let out = '';
   for (const b of bytes) out += alphabet[b % alphabet.length];
   return `STARTER-${out}`;
-}
-
-async function findStarterPackProductId(tokens: TokenCandidate[]): Promise<number | null> {
-  for (const handle of STARTER_PACK_HANDLES) {
-    try {
-      const res = await shopifyWithFallback(
-        `/products.json?handle=${encodeURIComponent(handle)}&fields=id,handle&limit=1`,
-        tokens,
-      );
-      const product = res?.products?.[0];
-      if (product?.id) return product.id as number;
-    } catch (error) {
-      console.error('[starter-offer] product lookup failed', error);
-    }
-  }
-  return null;
 }
 
 export async function issueStarterOffer(rawEmail: string, ip: string, market: 'SE' | 'EU'): Promise<StarterOfferResult> {
