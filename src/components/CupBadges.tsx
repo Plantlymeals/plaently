@@ -1,14 +1,17 @@
 import { Flame, Dumbbell, Leaf } from "lucide-react";
 import type { CupMeta } from "@/lib/productImages";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
 
 interface Props {
   meta: CupMeta;
   size?: "sm" | "md";
+  /** Page-scoped language (product pages take language from the URL). */
+  locale?: Lang;
 }
 
-export const CupBadges = ({ meta, size = "sm" }: Props) => {
-  const { t } = useTranslation();
+export const CupBadges = ({ meta, size = "sm", locale }: Props) => {
+  const { t: globalT } = useTranslation();
+  const t = locale ? (key: string) => tLocale(key, locale) : globalT;
   const px = size === "md" ? "px-2.5 py-1 text-xs" : "px-2 py-0.5 text-[10px]";
   const icon = size === "md" ? "h-3.5 w-3.5" : "h-3 w-3";
   return (

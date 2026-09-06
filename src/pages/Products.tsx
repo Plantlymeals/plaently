@@ -1,5 +1,5 @@
 import { Link, useParams } from "@/lib/router-compat";
-import { getRouteApi } from "@tanstack/react-router";
+import { getRouteApi, useRouterState } from "@tanstack/react-router";
 import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Loader2, Check, Flame, Leaf, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, useLocaleTranslation } from "@/lib/i18n";
 import { translateProductHtml, translateProductText } from "@/lib/productDescription";
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
@@ -24,6 +24,7 @@ import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/p
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
+import { getApprovedEnCopy } from "@/data/productCopyEn";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -34,7 +35,16 @@ const ProductDetail = () => {
   const [imageOverride, setImageOverride] = useState<string | null>(null);
   const [, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
-  const { t, lang } = useTranslation();
+  // Page language comes from the URL (route context), never from the global
+  // persisted language store — so the server-rendered HTML is already in the
+  // right language for crawlers and first-time visitors.
+  const pageLocale = useRouterState({
+    select: (state) =>
+      state.matches.some((m) => (m.context as { pageLocale?: "sv" | "en" })?.pageLocale === "en")
+        ? ("en" as const)
+        : ("sv" as const),
+  });
+  const { t } = useLocaleTranslation(pageLocale);
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -57,7 +67,6 @@ const ProductDetail = () => {
     };
   }, [productHandle]);
 
-  const pageLocale: "sv" | "en" = "sv";
   const pageSeo = productSeo?.[pageLocale];
 
   useEffect(() => {
@@ -116,7 +125,7 @@ const ProductDetail = () => {
     const ssrCopy = getProductSsrCopy(productHandle, pageLocale);
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata />
         <section className="py-12 md:py-20">
           <div className="container">
             <div className="space-y-3 max-w-2xl">
@@ -138,7 +147,7 @@ const ProductDetail = () => {
     const fallbackDescription = pageSeo?.description ?? "Utforska PLÄNTLYs proteinmåltider.";
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks routeOwnsMetadata />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks routeOwnsMetadata />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
           <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
@@ -151,14 +160,19 @@ const ProductDetail = () => {
   const image = product.images.edges[0]?.node;
   const cupMeta = getCupMeta(product.title);
   const price = selectedVariant?.price;
-  const translatedHtml = translateProductHtml(product.descriptionHtml, lang);
-  const translatedDesc = translateProductText(product.description, lang);
+  // English long text (ingredients / nutrition / allergens) is only used when a
+  // manually reviewed version exists; otherwise the Swedish original is shown.
+  const approvedEnHtml = pageLocale === "en" ? getApprovedEnCopy(productHandle ?? product.handle) : null;
+  const translatedHtml =
+    approvedEnHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "en" ? "sv" : pageLocale);
+  const translatedDesc = translateProductText(product.description, pageLocale);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
   // Enskilda koppar säljs inte längre styckvis — de leder till Starter Pack.
   const isSingleCup = isListableProduct(product.title);
-  const STARTER_PACK_PATH = "/product/starter-pack-12-cups-1";
+  const STARTER_PACK_PATH =
+    pageLocale === "en" ? "/en/product/starter-pack-12-cups-1" : "/product/starter-pack-12-cups-1";
 
   const schemaImageUrl = resolveProductImageUrl({
     handle: productHandle ?? product.handle,
@@ -175,7 +189,7 @@ const ProductDetail = () => {
       <SEOHead
         title={pageSeo?.title ?? `${displayProductTitle(product.title)} – 20g protein på 5 min | PLÄNTLY`}
         description={pageSeo?.description || translateProductText(product.description, pageLocale) || `Hälsosam ${displayProductTitle(product.title).toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`}
-        path={`/product/${productHandle ?? product.handle}`}
+        path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? product.handle}`}
         type="product"
         locale={pageLocale}
         image={schemaImageUrl}
@@ -187,17 +201,17 @@ const ProductDetail = () => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: pageLocale === "sv" ? "Produkter" : "Products", path: "/products" },
               { label: displayProductTitle(product.title) },
             ]}
-            lang={lang}
+            lang={pageLocale}
           />
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
           </Link>
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
-              {cupMeta && <CupBadges meta={cupMeta} size="md" />}
+              {cupMeta && <CupBadges meta={cupMeta} size="md" locale={pageLocale} />}
               {imageOverride ? (
                 <img src={imageOverride} alt={displayProductTitle(product.title)} className="h-full w-full object-cover" />
               ) : cupMeta ? (
@@ -225,6 +239,7 @@ const ProductDetail = () => {
                           title={displayProductTitle(product.title)}
                           bundlePrice={amount}
                           currencyCode={price.currencyCode}
+                          locale={pageLocale}
                           showFullPrice
                         />
                       ) : (
@@ -315,7 +330,7 @@ const ProductDetail = () => {
             <p className="text-xs opacity-80">{t("cta.riskReversal")}</p>
           </div>
 
-          <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} />
+          <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} locale={pageLocale} />
         </div>
       </section>
       <MixBuilderDialog {...dialogProps} />

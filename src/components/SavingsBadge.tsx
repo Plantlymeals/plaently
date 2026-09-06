@@ -1,6 +1,6 @@
 import { Star, Heart } from "lucide-react";
 import { getBundleSavings } from "@/lib/bundleSavings";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export type SavingsBadgeVariant = "primary" | "default" | "value" | "trial";
@@ -16,6 +16,8 @@ interface SavingsBadgeProps {
   size?: "xs" | "sm";
   className?: string;
   fullPriceClassName?: string;
+  /** Page-scoped language (product pages take language from the URL). */
+  locale?: Lang;
 }
 
 /**
@@ -33,8 +35,10 @@ const SavingsBadge = ({
   size = "xs",
   className,
   fullPriceClassName,
+  locale,
 }: SavingsBadgeProps) => {
-  const { t } = useTranslation();
+  const { t: globalT } = useTranslation();
+  const t = locale ? (key: string) => tLocale(key, locale) : globalT;
   const savings = getBundleSavings(title, bundlePrice);
   if (!savings || savings.savingsAmount <= 0) return null;
 

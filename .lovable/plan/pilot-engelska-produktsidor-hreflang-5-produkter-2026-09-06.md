@@ -22,16 +22,18 @@ Lösningen är avgränsad till produktsidorna:
 ## Övriga steg
 
 1. **Ny route** `src/routes/en.product.$handle.tsx`, spegling av den svenska: kanonisk 301 på gamla handles, samma loader och `notFound()`-regel, `notFoundComponent`, `component: ProductDetail`. Head byggs med `getProductRouteHead(handle, "en")` och `buildProductJsonLd({ ..., locale: "en" })`.
-2. **`getProductRouteHead(handle, locale = "sv")`** väljer `seo.en` vid engelska; svenska sidan oförändrad. Canonical pekar på sig själv på båda.
+2. `**getProductRouteHead(handle, locale = "sv")**` väljer `seo.en` vid engelska; svenska sidan oförändrad. Canonical pekar på sig själv på båda.
 3. **Manuellt granskad engelsk allergen-/näringstext** i en ny liten datafil, en post per pilotprodukt. Används när `pageLocale === "en"` i stället för den regelbaserade översättningen. Saknas godkänd text visas den svenska originaltexten — aldrig en gissning. Fram tills du skriftligen godkänt de fem texterna får de engelska sidorna `noindex, follow` och läggs inte i sitemap.
 4. **Hreflang**: svenska sidan pekar `sv` → sig själv, `en` → `/en/product/{handle}`, `x-default` → svenska. Engelska sidan omvänt. Byggs i `getProductRouteHead`s `links`.
-5. **`buildProductJsonLd(input, locale = "sv")`**: `getProductSsrCopy(handle, locale)`, `url` och `offers.url` mot den faktiska adressen, `inLanguage` `en-GB`/`sv-SE`. `shippingDestination`, `shippingRate` och `applicableCountry` lämnas medvetet som svenska värden i piloten — det hör till det separata Shopify-marknadsspåret.
+5. `**buildProductJsonLd(input, locale = "sv")**`: `getProductSsrCopy(handle, locale)`, `url` och `offers.url` mot den faktiska adressen, `inLanguage` `en-GB`/`sv-SE`. `shippingDestination`, `shippingRate` och `applicableCountry` lämnas medvetet som svenska värden i piloten — det hör till det separata Shopify-marknadsspåret.
 6. **Sitemap**: `scripts/generate-sitemap.ts` lägger till de fem `/en/product/...`-adresserna, först efter godkänd text.
 7. **Pris/valuta**: samma marknadslogik som resten av sajten (EUR för EU). Ingen ny prislogik. De fyra smakerna visar fortsatt inget pris efter styckköps-borttagningen, så pris syns i praktiken bara på Starter Pack. `createShopifyCart`/`buyerIdentity` rörs inte.
 
 ## Rörs inte
 
 Kategorisidor, blogg, startsida, `routeLang`, admin, de svenska produktsidornas innehåll och adresser, interna länkar från den svenska sajten, globalt språkval för övriga sajten.
+
+Be dem bekräfta att `lang`-destruktureringen på rad 37 i `ProductDetail` helt ersätts av `pageLocale` (inte bara att en ny hjälpare läggs till bredvid) — annars är det lätt hänt att just de här två raderna blir kvar orörda eftersom de inte ser ut som ett i18n-anrop. Med den bekräftelsen är jag redo att godkänna bygget.
 
 ## Verifiering innan commit
 
