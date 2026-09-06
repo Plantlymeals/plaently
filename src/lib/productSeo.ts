@@ -114,13 +114,33 @@ export function getProductSeo(handle: string | undefined): ProductSeoEntry | und
   return PRODUCT_SEO[seoKey(handle)];
 }
 
-export function getProductRouteHead(handle: string) {
+export function productUrl(handle: string, locale: "sv" | "en" = "sv"): string {
+  const canonicalHandle = canonicalizeHandle(handle);
+  return locale === "en"
+    ? `https://plaently.com/en/product/${canonicalHandle}`
+    : `https://plaently.com/product/${canonicalHandle}`;
+}
+
+export function getProductRouteHead(
+  handle: string,
+  locale: "sv" | "en" = "sv",
+  options: { noindex?: boolean; hasEnglishAlternate?: boolean } = {}
+) {
   const canonicalHandle = canonicalizeHandle(handle);
   const seo = getProductSeo(canonicalHandle);
   const image = resolveProductImageUrl({ handle: canonicalHandle, title: seo?.schema.name ?? canonicalHandle });
-  const title = seo?.sv.title ?? "Proteinmåltid – 20g protein | PLÄNTLY";
-  const description = seo?.sv.description ?? "Riktig proteinmåltid med 20g protein, klar på 5 minuter.";
-  const url = `https://plaently.com/product/${canonicalHandle}`;
+  const copy = locale === "en" ? seo?.en : seo?.sv;
+  const title =
+    copy?.title ??
+    (locale === "en" ? "Protein meal – 20g protein | PLÄNTLY" : "Proteinmåltid – 20g protein | PLÄNTLY");
+  const description =
+    copy?.description ??
+    (locale === "en"
+      ? "A real protein meal with 20g protein, ready in 5 minutes."
+      : "Riktig proteinmåltid med 20g protein, klar på 5 minuter.");
+  const svUrl = productUrl(canonicalHandle, "sv");
+  const enUrl = productUrl(canonicalHandle, "en");
+  const url = locale === "en" ? enUrl : svUrl;
   return {
     meta: [
       { title },
@@ -129,12 +149,21 @@ export function getProductRouteHead(handle: string) {
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:type", content: "product" },
+      { property: "og:locale", content: locale === "en" ? "en_GB" : "sv_SE" },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: image },
       { name: "twitter:image", content: image },
+      ...(options.noindex ? [{ name: "robots", content: "noindex, follow" }] : []),
     ],
     links: [
       { rel: "canonical", href: url },
+      ...(options.hasEnglishAlternate
+        ? [
+            { rel: "alternate", hrefLang: "sv", href: svUrl },
+            { rel: "alternate", hrefLang: "en", href: enUrl },
+            { rel: "alternate", hrefLang: "x-default", href: svUrl },
+          ]
+        : []),
     ],
   };
 }
