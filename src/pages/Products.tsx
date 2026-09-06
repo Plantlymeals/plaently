@@ -212,7 +212,7 @@ const ProductDetail = () => {
               <div className="space-y-3">
                 <h1 className="font-heading text-3xl md:text-4xl font-bold">{displayProductTitle(product.title)}</h1>
               </div>
-              {price && (
+              {price && !isSingleCup && (
                 (() => {
                   const amount = parseFloat(price.amount);
                   const savings = getBundleSavings(displayProductTitle(product.title), amount);
