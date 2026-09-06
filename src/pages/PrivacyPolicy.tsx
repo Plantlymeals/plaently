@@ -140,7 +140,7 @@ const COPY = {
     security: ["All data traffic is encrypted with HTTPS/TLS", "Card details are never handled by us — payment via certified providers", "Access to personal data is restricted to relevant staff"],
     s9Body: "In case of a personal data breach, we report to IMY within 72 hours.",
     s10Title: "10. Changes",
-    s10Body: "The current version is always available at plaently.com/privacy-policy. We notify of material changes via email.",
+    s10Body: "The current version is always available at plaently.com/integritetspolicy. We notify of material changes via email.",
     s11Title: "11. Contact",
     contactLines: ["PLÄNTLY AB · Reg. no. SE559400472201", "Vretensborgsvägen 5, 126 30 Hägersten", "hello@plaently.com", "www.plaently.com"],
     footerNote: "Prepared in accordance with the EU General Data Protection Regulation (GDPR), the Swedish Act (2022:482) on Electronic Communications and IMY's guidelines.",
@@ -149,14 +149,12 @@ const COPY = {
 
 const PrivacyPolicy = () => {
   const { lang, setLang } = useTranslation();
-  const isEn = false;
-  const c = COPY[isEn ? "en" : "sv"];
+  const c = COPY["sv"];
   const path = "/integritetspolicy";
 
   useEffect(() => {
-    const routeLang = isEn ? "en" : "sv";
-    if (lang !== routeLang) setLang(routeLang);
-  }, [isEn, lang, setLang]);
+    if (lang !== "sv") setLang("sv");
+  }, [lang, setLang]);
 
   const baseUrl = "https://plaently.com";
   const jsonLd = {
@@ -178,7 +176,7 @@ const PrivacyPolicy = () => {
         url: `${baseUrl}${path}`,
         name: c.seoTitle,
         description: c.seoDesc,
-        inLanguage: isEn ? "en" : "sv-SE",
+        inLanguage: "sv-SE",
         publisher: { "@id": `${baseUrl}/#organization` },
         dateModified: "2026-05-01",
       },
@@ -187,7 +185,7 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} noindex />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale="sv" noindex />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

@@ -105,7 +105,7 @@ const WEBSITE_SCHEMA = JSON.stringify({
   name: "PLÄNTLY",
   alternateName: ["Plaently", "Plantly", "Pläntly"],
   url: "https://plaently.com",
-  inLanguage: ["sv-SE", "en-GB"],
+  inLanguage: ["sv-SE"],
   publisher: { "@id": "https://plaently.com/#organization" },
 });
 

@@ -16,7 +16,6 @@ import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as FraktRouteImport } from './routes/frakt'
-import { Route as HalsosammaSnabbmaltiderRouteImport } from './routes/halsosamma-snabbmaltider'
 import { Route as IntegritetspolicyRouteImport } from './routes/integritetspolicy'
 import { Route as KopsvillkorRouteImport } from './routes/kopsvillkor'
 import { Route as LifestyleRouteImport } from './routes/lifestyle'
@@ -83,11 +82,6 @@ const FaqRoute = FaqRouteImport.update({
 const FraktRoute = FraktRouteImport.update({
   id: '/frakt',
   path: '/frakt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HalsosammaSnabbmaltiderRoute = HalsosammaSnabbmaltiderRouteImport.update({
-  id: '/halsosamma-snabbmaltider',
-  path: '/halsosamma-snabbmaltider',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IntegritetspolicyRoute = IntegritetspolicyRouteImport.update({
@@ -263,7 +257,6 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
-  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
@@ -304,7 +297,6 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
-  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
@@ -347,7 +339,6 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
   '/frakt': typeof FraktRoute
-  '/halsosamma-snabbmaltider': typeof HalsosammaSnabbmaltiderRoute
   '/integritetspolicy': typeof IntegritetspolicyRoute
   '/kopsvillkor': typeof KopsvillkorRoute
   '/lifestyle': typeof LifestyleRoute
@@ -391,7 +382,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/frakt'
-    | '/halsosamma-snabbmaltider'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
@@ -432,7 +422,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/frakt'
-    | '/halsosamma-snabbmaltider'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
@@ -474,7 +463,6 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faq'
     | '/frakt'
-    | '/halsosamma-snabbmaltider'
     | '/integritetspolicy'
     | '/kopsvillkor'
     | '/lifestyle'
@@ -517,7 +505,6 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
   FraktRoute: typeof FraktRoute
-  HalsosammaSnabbmaltiderRoute: typeof HalsosammaSnabbmaltiderRoute
   IntegritetspolicyRoute: typeof IntegritetspolicyRoute
   KopsvillkorRoute: typeof KopsvillkorRoute
   LifestyleRoute: typeof LifestyleRoute
@@ -590,13 +577,6 @@ declare module '@tanstack/react-router' {
       path: '/frakt'
       fullPath: '/frakt'
       preLoaderRoute: typeof FraktRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/halsosamma-snabbmaltider': {
-      id: '/halsosamma-snabbmaltider'
-      path: '/halsosamma-snabbmaltider'
-      fullPath: '/halsosamma-snabbmaltider'
-      preLoaderRoute: typeof HalsosammaSnabbmaltiderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/integritetspolicy': {
@@ -864,7 +844,6 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
   FraktRoute: FraktRoute,
-  HalsosammaSnabbmaltiderRoute: HalsosammaSnabbmaltiderRoute,
   IntegritetspolicyRoute: IntegritetspolicyRoute,
   KopsvillkorRoute: KopsvillkorRoute,
   LifestyleRoute: LifestyleRoute,

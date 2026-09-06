@@ -48,7 +48,6 @@ const Footer = () => {
                 { label: t("nav.products"), path: "/products" },
                 { label: t("footer.highProtein"), path: "/proteinrika-maltider" },
                 { label: t("footer.plantBased"), path: "/plantbaserade-maltider" },
-                { label: t("footer.instantMeals"), path: "/halsosamma-snabbmaltider" },
                 { label: t("nav.nutrition"), path: "/nutrition" },
                 { label: t("nav.lifestyle"), path: "/lifestyle" },
                 { label: t("nav.about"), path: "/about" },
@@ -108,14 +107,12 @@ const Footer = () => {
                 ? [
                     { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
                     { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
-                    { label: "Hälsosamma snabbmåltider", path: "/halsosamma-snabbmaltider" },
                     { label: "Nyttig snabbmat", path: "/nyttig-snabbmat" },
                     { label: "Proteinkoppar", path: "/proteinkoppar" },
                   ]
                 : [
                     { label: "High Protein Meals", path: "/proteinrika-maltider" },
                     { label: "Plant-Based Meals", path: "/plantbaserade-maltider" },
-                    { label: "Healthy Instant Meals", path: "/halsosamma-snabbmaltider" },
                     { label: "Healthy Fast Food", path: "/nyttig-snabbmat" },
                     { label: "Protein Cups", path: "/proteinkoppar" },
                   ]

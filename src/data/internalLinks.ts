@@ -18,10 +18,6 @@ const LINKS: Record<string, Record<Lang, InternalLink>> = {
     sv: { label: "plantbaserade måltider", path: "/plantbaserade-maltider", hint: "Plantbaserad mat med riktigt protein och fiber." },
     en: { label: "plant-based meals", path: "/plantbaserade-maltider", hint: "Plant-based food with real protein and fibre." },
   },
-  instantMeals: {
-    sv: { label: "hälsosamma snabbmåltider", path: "/halsosamma-snabbmaltider", hint: "Klar på 5 minuter — utan kompromiss på näring." },
-    en: { label: "healthy instant meals", path: "/halsosamma-snabbmaltider", hint: "Ready in 5 minutes — without cutting nutrition." },
-  },
   fastFood: {
     sv: { label: "nyttig snabbmat", path: "/nyttig-snabbmat", hint: "Snabbmat som faktiskt är nyttig." },
     en: { label: "healthy fast food", path: "/nyttig-snabbmat", hint: "Fast food that is actually good for you." },
@@ -56,19 +52,18 @@ export const HOME_LINK_KEYS: LinkKey[] = [
   "fastFood",
   "highProtein",
   "plantBased",
-  "instantMeals",
   "proteinCups",
 ];
 
 // Blog category slug -> the landing pages that topic should funnel into.
 const CATEGORY_TARGETS: Record<string, LinkKey[]> = {
-  "future-of-fast-food": ["fastFood", "instantMeals", "products"],
+  "future-of-fast-food": ["fastFood", "proteinCups", "products"],
   "modern-nutrition": ["nutrition", "highProtein", "plantBased"],
-  "fuel-your-day": ["instantMeals", "highProtein", "lifestyle"],
+  "fuel-your-day": ["fastFood", "highProtein", "lifestyle"],
   "plant-protein-101": ["plantBased", "highProtein", "nutrition"],
   "behind-plantly": ["products", "plantBased", "lifestyle"],
   "conscious-living": ["plantBased", "lifestyle", "fastFood"],
-  "quick-and-real": ["instantMeals", "fastFood", "proteinCups"],
+  "quick-and-real": ["fastFood", "products", "proteinCups"],
   "performance-and-recovery": ["highProtein", "proteinCups", "nutrition"],
 };
 
