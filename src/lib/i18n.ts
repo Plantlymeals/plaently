@@ -525,3 +525,22 @@ export const useTranslation = () => {
  const setLang = useLangStore((s) => s.setLang);
  return { lang, t, setLang };
 };
+
+/**
+ * Page-scoped translation lookup.
+ *
+ * Product pages take their language from the URL (route context), never from
+ * the global persisted `useLangStore`, so the server-rendered HTML is already
+ * in the right language for crawlers. Same keys, same table — only the
+ * language source differs.
+ */
+export const tLocale = (key: string, locale: Lang): string => {
+  const entry = translations[key];
+  if (!entry) return key;
+  return entry[locale] || entry.sv || key;
+};
+
+export const useLocaleTranslation = (locale: Lang) => {
+  const t = (key: string) => tLocale(key, locale);
+  return { t, lang: locale };
+};
