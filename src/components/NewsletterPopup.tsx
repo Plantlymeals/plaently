@@ -111,7 +111,7 @@ const NewsletterPopup = () => {
                 <p className="text-primary-foreground/80 text-sm mt-1">
                   {priceLabel} · {t("offer.subtitle")}
                 </p>
-                {remaining !== null && !offerSoldOut && (
+                {remaining !== null && !offerSoldOut && t("offer.remaining").trim() !== "" && (
                   <p className="text-primary-foreground/90 text-xs mt-2 font-semibold">
                     {t("offer.remaining").replace("{n}", String(remaining))}
                   </p>
