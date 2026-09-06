@@ -71,7 +71,7 @@ const NewsletterPopup = () => {
           body: {
             templateName: "starter-offer-code",
             recipientEmail: value,
-            data: { code: result.code },
+            templateData: { code: result.code },
             idempotencyKey: `starter-offer-${value}`,
           },
         })
