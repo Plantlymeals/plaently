@@ -36,7 +36,7 @@ const AdminBlog = () => {
 
   const startNew = () => {
     setEditing("new"); setIsNew(true);
-    setForm({ slug: "", title: "", excerpt: "", content: "", cover_image_url: "", author: "", category: "", language: "en", is_published: false, published_at: null });
+    setForm({ slug: "", title: "", excerpt: "", content: "", cover_image_url: "", author: "", category: "", language: "sv", is_published: false, published_at: null });
   };
 
   const startEdit = (p: BlogPost) => { setEditing(p.id); setForm({ ...p }); setIsNew(false); };
@@ -51,7 +51,7 @@ const AdminBlog = () => {
     const payload = {
       slug: form['slug'], title: form['title'], excerpt: form['excerpt'], content: form['content'],
       cover_image_url: form['cover_image_url'], author: form['author'], category: form['category'],
-      language: form['language'] || "en",
+      language: form['language'] || "sv",
       is_published: form['is_published'], published_at: publishedAt,
     };
     if (isNew) {
@@ -90,7 +90,7 @@ const AdminBlog = () => {
             <div className="space-y-1"><label className="text-xs font-medium">Author</label><Input value={form['author'] ?? ""} onChange={e => setForm({ ...form, author: e.target.value })} className="rounded-xl" /></div>
             <div className="space-y-1">
               <label className="text-xs font-medium">Language *</label>
-              <Select value={form['language'] ?? "en"} onValueChange={(v) => setForm({ ...form, language: v, category: "" })}>
+              <Select value={form['language'] ?? "sv"} onValueChange={(v) => setForm({ ...form, language: v, category: "" })}>
                 <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">English</SelectItem>
@@ -104,7 +104,7 @@ const AdminBlog = () => {
                 <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select a category" /></SelectTrigger>
                 <SelectContent>
                   {BLOG_CATEGORIES.map((c) => {
-                    const label = (form['language'] ?? "en") === "sv" ? c.sv : c.en;
+                    const label = (form['language'] ?? "sv") === "sv" ? c.sv : c.en;
                     return <SelectItem key={c.slug} value={label}>{label}</SelectItem>;
                   })}
                 </SelectContent>

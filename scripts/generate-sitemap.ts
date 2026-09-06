@@ -26,7 +26,6 @@ const staticEntries: SitemapEntry[] = [
   { path: "/lifestyle", changefreq: "monthly", priority: "0.7" },
   { path: "/proteinrika-maltider", changefreq: "monthly", priority: "0.85" },
   { path: "/plantbaserade-maltider", changefreq: "monthly", priority: "0.85" },
-  { path: "/halsosamma-snabbmaltider", changefreq: "monthly", priority: "0.85" },
   { path: "/nyttig-snabbmat", changefreq: "monthly", priority: "0.9" },
   { path: "/proteinkoppar", changefreq: "monthly", priority: "0.85" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
