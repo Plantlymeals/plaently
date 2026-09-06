@@ -10,6 +10,10 @@ import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
 import { Progress } from "@/components/ui/progress";
+import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import { pickFreeShippingBundle } from "@/lib/bundleMatch";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
