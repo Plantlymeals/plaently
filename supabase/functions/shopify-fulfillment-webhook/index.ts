@@ -52,16 +52,40 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
+
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+  );
+
+  // Count Starter Pack offer redemptions from real orders. Idempotent:
+  // shopify_order_id is unique, so webhook retries never double-count.
+  const STARTER_OFFER_CODE = 'STARTER199';
+  const discountCodes = Array.isArray(order?.discount_codes) ? order.discount_codes : [];
+  const starterDiscount = discountCodes.find(
+    (d: any) => String(d?.code ?? '').trim().toUpperCase() === STARTER_OFFER_CODE,
+  );
+  if (starterDiscount) {
+    const { error: redemptionError } = await supabase.from('starter_offer_redemptions').upsert(
+      {
+        shopify_order_id: orderId,
+        order_number: order?.order_number ? String(order.order_number) : (order?.name ?? null),
+        customer_email: email ? email.toLowerCase() : null,
+        discount_amount: Number(starterDiscount?.amount) || null,
+      },
+      { onConflict: 'shopify_order_id', ignoreDuplicates: true },
+    );
+    if (redemptionError) {
+      console.error('Failed to record starter offer redemption', redemptionError, { orderId });
+    }
+  }
+
   if (!email) {
     return new Response(JSON.stringify({ ok: true, skipped: 'no_email' }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-  );
 
   // Skip suppressed addresses
   const { data: suppressed } = await supabase
