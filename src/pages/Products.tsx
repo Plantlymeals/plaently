@@ -399,7 +399,7 @@ const Products = () => {
                 const image = product.node.images.edges[0]?.node;
                 const cupMeta = getCupMeta(product.node.title);
                 const override = imageOverrides[product.node.handle];
-                const price = product.node.priceRange.minVariantPrice;
+                
                 return (
                   <div key={product.node.id} className="group flex flex-col h-full rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
