@@ -159,9 +159,9 @@ export function getProductRouteHead(
       { rel: "canonical", href: url },
       ...(options.hasEnglishAlternate
         ? [
-            { rel: "alternate", hrefLang: "sv", href: svUrl },
-            { rel: "alternate", hrefLang: "en", href: enUrl },
-            { rel: "alternate", hrefLang: "x-default", href: svUrl },
+            { rel: "alternate", hreflang: "sv", href: svUrl },
+            { rel: "alternate", hreflang: "en", href: enUrl },
+            { rel: "alternate", hreflang: "x-default", href: svUrl },
           ]
         : []),
     ],
