@@ -750,8 +750,6 @@ export type Database = {
         Returns: boolean
       }
       publish_due_blog_posts: { Args: never; Returns: number }
-      starter_offer_redeemed_count: { Args: never; Returns: number }
-      starter_pack_offer_issued_count: { Args: never; Returns: number }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
