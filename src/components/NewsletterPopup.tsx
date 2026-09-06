@@ -88,7 +88,7 @@ const NewsletterPopup = () => {
   ];
 
   const issuedCode = state.status === "issued" ? state.code : null;
-  const claimedCode = state.status === "already_claimed" ? state.code : null;
+  const claimedCode: string | null = null;
   const offerSoldOut = soldOut || state.status === "sold_out";
 
   return (
