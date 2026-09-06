@@ -56,10 +56,6 @@ const NewsletterPopup = () => {
       toast.error(t("newsletter.error"), { description: t("quiz.emailError") });
       return;
     }
-    if (result.status === "rate_limited") {
-      toast.error(t("offer.rateLimited"), { description: t("offer.rateLimitedDesc") });
-      return;
-    }
     if (result.status === "error") {
       toast.error(t("offer.error"), { description: t("offer.errorDesc") });
       return;
