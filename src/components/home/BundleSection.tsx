@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import { findShopifyMatch, parsePriceNumber } from "@/lib/bundleMatch";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Check, Loader2 } from "lucide-react";
@@ -33,13 +34,6 @@ function isMixedBundle(name: string): boolean {
 }
 
 type Highlight = "trial" | "popular" | "value" | "subscription" | null;
-
-function parsePriceNumber(value: string | null | undefined): number | null {
-  if (!value) return null;
-  const cleaned = String(value).replace(/[^\d.,-]/g, "").replace(",", ".");
-  const n = parseFloat(cleaned);
-  return Number.isFinite(n) ? n : null;
-}
 
 function badgeToHighlight(badge: string | null | undefined): Highlight {
   const b = (badge ?? "").toLowerCase();
@@ -94,29 +88,6 @@ function featuresForBundle(cups: number, isSubscription: boolean): string[] {
     "bundles.feat.delivered",
     "bundles.feat.noCommitment",
   ];
-}
-
-function findShopifyMatch(
-  bundle: BundleRow,
-  products: ShopifyProduct[]
-): ShopifyProduct | null {
-  // Explicit Shopify link from the admin is the source of truth.
-  if (bundle.shopify_product_id) {
-    const direct = products.find((p) => p.node.id === bundle.shopify_product_id);
-    if (direct) return direct;
-  }
-  // Fallback: loose name match for legacy bundles without a link yet.
-  const n = bundle.name.toLowerCase().trim();
-  if (!n) return null;
-  const exact = products.find((p) => p.node.title.toLowerCase().trim() === n);
-  if (exact) return exact;
-  return (
-    products.find(
-      (p) =>
-        p.node.title.toLowerCase().includes(n) ||
-        n.includes(p.node.title.toLowerCase())
-    ) ?? null
-  );
 }
 
 const BundleSection = () => {

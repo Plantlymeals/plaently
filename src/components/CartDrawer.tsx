@@ -10,6 +10,10 @@ import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 import { useMarketConfig } from "@/stores/marketStore";
 import { marketLabel } from "@/lib/markets";
 import { Progress } from "@/components/ui/progress";
+import { fetchShopifyProducts, type ShopifyProduct } from "@/lib/shopify";
+import { pickFreeShippingBundle } from "@/lib/bundleMatch";
+import { useBundleMix } from "@/hooks/useBundleMix";
+import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +22,8 @@ export const CartDrawer = () => {
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
   const { t, lang } = useTranslation();
   const [bundles, setBundles] = useState<BundleRow[]>([]);
+  const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
+  const { handleAdd, dialogProps, isLoading: mixLoading } = useBundleMix();
   const marketCfg = useMarketConfig();
   const marketName = marketLabel(marketCfg.code, lang);
   const threshold = marketCfg.freeShippingThresholdSek;
@@ -27,6 +33,18 @@ export const CartDrawer = () => {
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
   useEffect(() => { if (isOpen && bundles.length === 0) fetchPublishedBundles().then(setBundles); }, [isOpen, bundles.length]);
+  useEffect(() => {
+    if (isOpen && shopifyBundles.length === 0) {
+      fetchShopifyProducts(30, "product_type:Bundle OR title:Box").then((data) => {
+        if (data) setShopifyBundles(data);
+      });
+    }
+  }, [isOpen, shopifyBundles.length]);
+
+  const suggestion =
+    items.length > 0 && !qualifiesFreeShipping && remaining > 0
+      ? pickFreeShippingBundle(bundles, shopifyBundles, remaining)
+      : null;
 
   const getBundleComponents = (title: string): Array<{ name: string; quantity: number }> => {
     const titleLower = title.toLowerCase();
@@ -165,6 +183,32 @@ export const CartDrawer = () => {
                     </span>
                   </div>
                 </div>
+                {suggestion && (
+                  <div className="rounded-xl border border-primary/30 bg-primary/5 p-3">
+                    <p className="text-[11px] font-semibold text-primary mb-2">{t("cart.unlockFreeShipping")}</p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
+                        {suggestion.imageUrl && (
+                          <img src={suggestion.imageUrl} alt={suggestion.bundle.name} className="w-full h-full object-cover" loading="lazy" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{suggestion.bundle.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {suggestion.price.toFixed(0)} {suggestion.currencyCode}
+                        </p>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="rounded-full flex-shrink-0"
+                        disabled={isLoading || mixLoading}
+                        onClick={() => handleAdd(suggestion.product)}
+                      >
+                        {t("cart.addBundle")}
+                      </Button>
+                    </div>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">{t("cart.total")}</span>
                   <span className="text-xl font-bold text-primary">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
@@ -176,6 +220,7 @@ export const CartDrawer = () => {
             </>
           )}
         </div>
+        <MixBuilderDialog {...dialogProps} />
       </SheetContent>
     </Sheet>
   );
