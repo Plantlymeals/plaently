@@ -220,6 +220,7 @@ export const CartDrawer = () => {
             </>
           )}
         </div>
+        <MixBuilderDialog {...dialogProps} />
       </SheetContent>
     </Sheet>
   );
