@@ -291,6 +291,11 @@ const translations: Record<string, Record<Lang, string>> = {
    sv: "Lägg till {amount} {currency} till för fri frakt i {market}",
    en: "Add {amount} {currency} more for free shipping in {market}",
  },
+ "cart.unlockFreeShipping": {
+   sv: "Lägg till detta och få fri frakt",
+   en: "Add this and get free shipping",
+ },
+ "cart.addBundle": { sv: "Lägg till", en: "Add" },
  "cart.shippingLabel": { sv: "Frakt", en: "Shipping" },
  "cart.shippingFree": { sv: "GRATIS", en: "FREE" },
 
