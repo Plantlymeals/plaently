@@ -235,9 +235,15 @@ const ProductDetail = () => {
                 })()
               )}
               <div className="flex flex-wrap gap-3">
-                <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
-                </Button>
+                {isSingleCup ? (
+                  <Button asChild className="rounded-full px-8 font-semibold">
+                    <Link to={STARTER_PACK_PATH}>{t("products.tryInStarterPack")}</Link>
+                  </Button>
+                ) : (
+                  <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
+                    {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+                  </Button>
+                )}
               </div>
               <p className="text-xs text-muted-foreground">{t("cta.riskReversal")}</p>
               {bundleContents.length > 0 && (
