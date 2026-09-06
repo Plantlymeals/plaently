@@ -520,6 +520,33 @@ export type Database = {
         }
         Relationships: []
       }
+      starter_offer_redemptions: {
+        Row: {
+          created_at: string
+          customer_email: string | null
+          discount_amount: number | null
+          id: string
+          order_number: string | null
+          shopify_order_id: string
+        }
+        Insert: {
+          created_at?: string
+          customer_email?: string | null
+          discount_amount?: number | null
+          id?: string
+          order_number?: string | null
+          shopify_order_id: string
+        }
+        Update: {
+          created_at?: string
+          customer_email?: string | null
+          discount_amount?: number | null
+          id?: string
+          order_number?: string | null
+          shopify_order_id?: string
+        }
+        Relationships: []
+      }
       starter_pack_offer_attempts: {
         Row: {
           created_at: string
@@ -746,6 +773,7 @@ export type Database = {
           read_ct: number
         }[]
       }
+      starter_offer_redeemed_count: { Args: never; Returns: number }
       starter_pack_offer_issued_count: { Args: never; Returns: number }
     }
     Enums: {
