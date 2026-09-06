@@ -3,7 +3,7 @@ import { ProductDetail } from "@/pages/Products";
 import { getProductRouteHead, canonicalizeHandle } from "@/lib/productSeo";
 import { buildProductJsonLd } from "@/lib/productSchema";
 import { loadProductSchemaData } from "@/lib/seoLoaders";
-import { isEnglishPilotHandle, hasApprovedEnCopy } from "@/data/productCopyEn";
+import { isEnglishPilotHandle, isEnglishPageReady } from "@/data/productCopyEn";
 import Layout from "@/components/Layout";
 
 export const Route = createFileRoute("/en/product/$handle")({
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/en/product/$handle")({
       ...getProductRouteHead(params.handle, "en", {
         // Stays out of the index until the English allergen/nutrition text has
         // been manually reviewed and approved.
-        noindex: !hasApprovedEnCopy(params.handle),
+        noindex: !isEnglishPageReady(params.handle),
         hasEnglishAlternate: true,
       }),
       scripts: [

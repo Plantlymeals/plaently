@@ -153,7 +153,7 @@ function generateSitemap(entries: SitemapEntry[]) {
  */
 async function englishPilotEntries(): Promise<SitemapEntry[]> {
   const mod = await import("../src/data/productCopyEn");
-  return mod.EN_PILOT_HANDLES.filter((h: string) => mod.hasApprovedEnCopy(h)).map((handle: string) => ({
+  return mod.EN_PILOT_HANDLES.filter((h: string) => mod.isEnglishPageReady(h)).map((handle: string) => ({
     path: `/en/product/${handle}`,
     changefreq: "weekly" as const,
     priority: "0.7",

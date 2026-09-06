@@ -149,3 +149,24 @@ export function getApprovedEnCopy(handle: string | undefined): string | null {
 export function hasApprovedEnCopy(handle: string | undefined): boolean {
   return getApprovedEnCopy(handle) !== null;
 }
+
+/**
+ * Only single flavours have their own ingredient/nutrition/allergen text that
+ * must be reviewed. Bundles (Starter Pack) render their contents from bundle
+ * data, so they never need an EN_PRODUCT_COPY entry.
+ */
+export const EN_HANDLES_REQUIRING_APPROVAL = [
+  "plant-based-fusilli-bolognese",
+  "plant-based-pasta-carbonara",
+  "plant-based-yellow-curry-rice",
+  "plant-based-smoky-bbq-lentils",
+] as const;
+
+export function needsApprovedEnCopy(handle: string): boolean {
+  return (EN_HANDLES_REQUIRING_APPROVAL as readonly string[]).includes(canonicalizeHandle(handle));
+}
+
+/** Whether the English page may be indexed and listed in the sitemap. */
+export function isEnglishPageReady(handle: string): boolean {
+  return !needsApprovedEnCopy(handle) || hasApprovedEnCopy(handle);
+}

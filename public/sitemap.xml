@@ -236,6 +236,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://plaently.com/en/product/starter-pack-12-cups-1</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://plaently.com/en/product/plant-based-fusilli-bolognese</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
