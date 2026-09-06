@@ -211,7 +211,7 @@ const ProductDetail = () => {
           </Link>
           <div className="grid lg:grid-cols-2 gap-16">
             <div className="relative h-80 md:h-[28rem] rounded-2xl flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
-              {cupMeta && <CupBadges meta={cupMeta} size="md" />}
+              {cupMeta && <CupBadges meta={cupMeta} size="md" locale={pageLocale} />}
               {imageOverride ? (
                 <img src={imageOverride} alt={displayProductTitle(product.title)} className="h-full w-full object-cover" />
               ) : cupMeta ? (
@@ -239,6 +239,7 @@ const ProductDetail = () => {
                           title={displayProductTitle(product.title)}
                           bundlePrice={amount}
                           currencyCode={price.currencyCode}
+                          locale={pageLocale}
                           showFullPrice
                         />
                       ) : (
