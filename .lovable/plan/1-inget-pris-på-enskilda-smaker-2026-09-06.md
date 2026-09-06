@@ -1,4 +1,4 @@
-# Ta bort priset på de fyra smakerna + räta upp knapparna
+- Ta bort priset på de fyra smakerna + räta upp knapparna
 
 ## 1. Inget pris på enskilda smaker
 
@@ -23,3 +23,5 @@ Skärmdumpar av startsidans smaksektion, `/products`, en smaksida (Smoky BBQ Len
 ## Rörs inte
 
 Ordet "koppar"/"kopp", 199 kr-kampanjen/STARTER199, frakt, marknadsval, adminpanelen och Shopify-katalogen.
+
+En sak att dubbelkolla innan ni committar: i `Products.tsx` används både `getBundleSavings` och `SavingsBadge` på **två ställen** i samma fil — dels i grid-kortet (rad 419–432, som tas bort) och dels i `ProductDetail`s prisblock för paket (rad 218 och 224, som ska vara kvar oförändrat). När ni städar bort grid-kortets prisblock, se till att importerna av `getBundleSavings` (rad 18) och `SavingsBadge` (rad 17) **inte** tas bort från filen — de behövs fortfarande av `ProductDetail`. I `ProductOverview.tsx` är det tvärtom korrekt att städa bort dem helt, eftersom den filen inte använder dem någon annanstans.

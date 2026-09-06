@@ -212,7 +212,7 @@ const ProductDetail = () => {
               <div className="space-y-3">
                 <h1 className="font-heading text-3xl md:text-4xl font-bold">{displayProductTitle(product.title)}</h1>
               </div>
-              {price && (
+              {price && !isSingleCup && (
                 (() => {
                   const amount = parseFloat(price.amount);
                   const savings = getBundleSavings(displayProductTitle(product.title), amount);
@@ -399,9 +399,9 @@ const Products = () => {
                 const image = product.node.images.edges[0]?.node;
                 const cupMeta = getCupMeta(product.node.title);
                 const override = imageOverrides[product.node.handle];
-                const price = product.node.priceRange.minVariantPrice;
+                
                 return (
-                  <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
+                  <div key={product.node.id} className="group flex flex-col h-full rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`/product/${product.node.handle}`}>
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                         {cupMeta && <CupBadges meta={cupMeta} />}
@@ -415,23 +415,9 @@ const Products = () => {
                           <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                         )}
                       </div>
-                      <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
-                      {(() => {
-                        const amount = parseFloat(price.amount);
-                        return (
-                          <div className="mb-3 space-y-1">
-                            <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
-                            <SavingsBadge
-                              title={displayProductTitle(product.node.title)}
-                              bundlePrice={amount}
-                              currencyCode={price.currencyCode}
-                              showFullPrice
-                            />
-                          </div>
-                        );
-                      })()}
+                      <h2 className="font-heading font-semibold text-sm leading-tight mb-4 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
                     </Link>
-                    <Button asChild className="w-full rounded-full font-semibold text-sm" size="sm">
+                    <Button asChild className="w-full rounded-full font-semibold text-sm mt-auto" size="sm">
                       <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
                     </Button>
                   </div>
