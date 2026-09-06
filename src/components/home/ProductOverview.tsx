@@ -16,8 +16,9 @@ const ProductOverview = () => {
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
-    fetchShopifyProducts(4).then((data) => {
-      if (data) setProducts(data);
+    // Hämta brett och filtrera till de fyra smakerna — aldrig ett paket.
+    fetchShopifyProducts(20).then((data) => {
+      if (data) setProducts(data.filter((p) => isListableProduct(p.node.title)).slice(0, 4));
     });
   }, []);
 
