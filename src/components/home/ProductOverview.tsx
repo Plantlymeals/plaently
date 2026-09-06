@@ -34,9 +34,8 @@ const ProductOverview = () => {
           {products.map((product) => {
             const image = product.node.images.edges[0]?.node;
             const cupMeta = getCupMeta(product.node.title);
-            const price = product.node.priceRange.minVariantPrice;
             return (
-              <div key={product.node.id} className="group rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up">
+              <div key={product.node.id} className="group flex flex-col h-full rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1 animate-fade-up">
                 <Link to={`/product/${product.node.handle}`}>
                   <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                     {cupMeta && <CupBadges meta={cupMeta} />}
