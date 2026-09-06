@@ -47,7 +47,7 @@ export const Route = createFileRoute("/en/product/$handle")({
       ...getProductRouteHead(params.handle, "en", {
         // Stays out of the index until the English allergen/nutrition text has
         // been manually reviewed and approved.
-        noindex: !hasApprovedEnCopy(params.handle),
+        noindex: !isEnglishPageReady(params.handle),
         hasEnglishAlternate: true,
       }),
       scripts: [
