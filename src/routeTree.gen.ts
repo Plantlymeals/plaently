@@ -42,6 +42,7 @@ import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiContactReplyEmailRouteImport } from './routes/api/contact-reply-email'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
@@ -220,6 +221,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactReplyEmailRoute = ApiContactReplyEmailRouteImport.update({
+  id: '/api/contact-reply-email',
+  path: '/api/contact-reply-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog_/$slug',
   path: '/blog/$slug',
@@ -308,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -352,6 +359,7 @@ export interface FileRoutesByTo {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
@@ -398,6 +406,7 @@ export interface FileRoutesById {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin_/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products_/$slug': typeof ProductsSlugRoute
@@ -445,6 +454,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
@@ -489,6 +499,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
@@ -534,6 +545,7 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin_/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog_/$slug'
     | '/product/$handle'
     | '/products_/$slug'
@@ -570,6 +582,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiContactReplyEmailRoute: typeof ApiContactReplyEmailRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
@@ -815,6 +828,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact-reply-email': {
+      id: '/api/contact-reply-email'
+      path: '/api/contact-reply-email'
+      fullPath: '/api/contact-reply-email'
+      preLoaderRoute: typeof ApiContactReplyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog_/$slug': {
       id: '/blog_/$slug'
       path: '/blog/$slug'
@@ -942,6 +962,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminLoginRoute: AdminLoginRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiContactReplyEmailRoute: ApiContactReplyEmailRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProductHandleRoute: ProductHandleRoute,
   ProductsSlugRoute: ProductsSlugRoute,
