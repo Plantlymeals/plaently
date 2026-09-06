@@ -1,4 +1,4 @@
-import { canonicalizeHandle, getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
+import { canonicalizeHandle, getProductSeo, getProductSsrCopy, productUrl } from "@/lib/productSeo";
 import { resolveProductImageUrl } from "@/lib/productImages";
 
 export type ProductOffer = {
@@ -20,6 +20,7 @@ export type ProductSchemaInput = {
   imageOverrideUrl?: string | null;
   name?: string | null;
   description?: string | null;
+  locale?: "sv" | "en";
 };
 
 /**
@@ -30,9 +31,14 @@ export type ProductSchemaInput = {
 export function buildProductJsonLd(input: ProductSchemaInput): Record<string, unknown> {
   const handle = canonicalizeHandle(input.handle);
   const seo = getProductSeo(handle);
-  const ssr = getProductSsrCopy(handle, "sv");
+  const locale = input.locale ?? "sv";
+  const ssr = getProductSsrCopy(handle, locale);
   const name = seo?.schema.name ?? input.name ?? ssr.name;
-  const description = seo?.schema.description ?? input.description ?? ssr.description;
+  const description =
+    locale === "en"
+      ? (seo?.en.description ?? input.description ?? ssr.description)
+      : (seo?.schema.description ?? input.description ?? ssr.description);
+  const pageUrl = productUrl(handle, locale);
   const image = resolveProductImageUrl({
     handle,
     title: name,
@@ -49,7 +55,8 @@ export function buildProductJsonLd(input: ProductSchemaInput): Record<string, un
     name,
     description,
     image: [image],
-    url: `https://plaently.com/product/${handle}`,
+    url: pageUrl,
+    inLanguage: locale === "en" ? "en-GB" : "sv-SE",
     brand: { "@type": "Brand", name: "PLÄNTLY" },
     ...(seo && {
       sku: seo.schema.sku,
@@ -63,7 +70,7 @@ export function buildProductJsonLd(input: ProductSchemaInput): Record<string, un
     ...(offer && {
       offers: {
         "@type": "Offer",
-        url: `https://plaently.com/product/${handle}`,
+        url: pageUrl,
         price: offer.price,
         priceCurrency: offer.currency,
         availability: offer.available
