@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useTranslation } from "@/lib/i18n";
 import { useStarterOfferClaim, useStarterOfferCount } from "@/hooks/useStarterOffer";
-import { useMarketStore } from "@/stores/marketStore";
+import { useEffectiveMarket } from "@/stores/marketStore";
 const logo = "/images/logo.png";
 
 const NewsletterPopup = () => {
@@ -19,7 +19,7 @@ const NewsletterPopup = () => {
   const [email, setEmail] = useState("");
   const [copied, setCopied] = useState(false);
   const { t } = useTranslation();
-  const market = useMarketStore((s) => s.market);
+  const market = useEffectiveMarket();
   const { remaining, soldOut } = useStarterOfferCount();
   const { state, submit } = useStarterOfferClaim();
 

@@ -4,7 +4,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useMarketStore } from "@/stores/marketStore";
+import { useMarketStore, useEffectiveMarket } from "@/stores/marketStore";
 import { MARKETS, marketLabel, type Market } from "@/lib/markets";
 import { useTranslation } from "@/lib/i18n";
 import { ChevronDown } from "lucide-react";
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const MarketSelector = ({ variant = "header" }: Props) => {
-  const market = useMarketStore((s) => s.market);
+  const market = useEffectiveMarket();
   const setMarket = useMarketStore((s) => s.setMarket);
   const { lang, t } = useTranslation();
   const current = MARKETS[market];
