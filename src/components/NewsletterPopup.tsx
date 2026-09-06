@@ -66,16 +66,11 @@ const NewsletterPopup = () => {
       // Keep the newsletter list in sync (ignore duplicates).
       await supabase.from("newsletter_subscribers").insert({ email: value });
       // Fire-and-forget: send the real code by email.
-      supabase.functions
-        .invoke("send-transactional-email", {
-          body: {
-            templateName: "starter-offer-code",
-            recipientEmail: value,
-            templateData: { code: result.code },
-            idempotencyKey: `starter-offer-${value}`,
-          },
-        })
-        .catch((err) => console.error("offer email failed", err));
+      fetch("/api/public/starter-offer-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: value, code: result.code }),
+      }).catch((err) => console.error("offer email failed", err));
     }
   };
 
