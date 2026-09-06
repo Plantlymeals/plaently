@@ -51,17 +51,11 @@ export function useStarterOfferClaim() {
           case "issued":
             next = { status: "issued", code: res.code };
             break;
-          case "already_claimed":
-            next = { status: "already_claimed", code: res.code };
-            break;
           case "sold_out":
             next = { status: "sold_out" };
             break;
           case "invalid_email":
             next = { status: "invalid_email" };
-            break;
-          case "rate_limited":
-            next = { status: "rate_limited" };
             break;
           default:
             next = { status: "error" };
