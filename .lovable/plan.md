@@ -1,44 +1,44 @@
-# Pilot: engelska produktsidor + hreflang
+# Pilot: engelska produktsidor + hreflang (5 produkter)
 
-Mål: ge fem produkter en egen engelsk URL så vi kan mäta om EU-besökare hittar oss via sökning. Inget på startsidan, kategorisidorna eller bloggen rörs.
+Fem produkter får en egen, genuint engelsk adress så vi kan mäta om EU-besökare hittar oss via sökning. Startsida, kategorisidor, blogg och resten av sajtens språkval rörs inte.
 
-## Pilotens omfattning (5 sidor)
+Piloten omfattar: Starter Pack (`starter-pack-12-cups-1`), Fusilli Bolognese, Pasta Carbonara, Yellow Curry & Rice, Smoky BBQ Lentils. Andra produkter får ingen engelsk adress och läggs inte i sitemap.
 
-Engelska sidor byggs bara för:
+## Hur sidans språk skiljs från sajtens globala språkval
 
-- Starter Pack (starter-pack-12-cups-1)
-- Fusilli Bolognese
-- Pasta Carbonara
-- Yellow Curry & Rice
-- Smoky BBQ Lentils
+Detta är kärnan. Idag styrs allt synligt på produktsidan (knapptexter, brödsmulor, ingrediens- och allergentext) av det globala, sparade språkvalet `useLangStore`, som sätts först efter att sidan laddats. Det ger fel språk i det första serversvaret — alltså exakt det Google läser.
 
-Övriga paket (Monthly Box, Office Pack, Big Office Pack, smak-boxarna) väntar tills Search Console visar utslag. En engelsk adress för en produkt utanför listan visar inget eget innehåll och tas inte med i sitemap.
+Lösningen är avgränsad till produktsidorna:
 
-## QA av den engelska långtexten (allergener/näring)
+- Varje produktroute talar om sitt eget språk via route-context (`pageLocale: "sv" | "en"`), satt i `beforeLoad` — samma mekanism som redan används för besökarens marknad i `__root.tsx`. Språket kommer alltså från adressen, inte från en sparad inställning.
+- I `ProductDetail` byts `const { t, lang } = useTranslation()` mot en liten lokal hjälpare, t.ex. `useLocaleTranslation(pageLocale)` i `src/lib/i18n.ts`: den slår upp samma översättningsnycklar i samma `translations`-tabell, men med det språk routen anger. Alla befintliga `t("...")`-anrop i komponenten står kvar oförändrade — bara källan till språket byts. Ingen ny översättningstabell, ingen nyckel dupliceras.
+- `translateProductHtml` / `translateProductText` får `pageLocale` i stället för `lang`.
+- Resultat: inget i produktsidans utdata beror på `useLangStore`, varken på `/product/$handle` eller `/en/product/$handle`. Resten av sajten (header, startsida, `AutoLanguage.tsx`) fortsätter fungera precis som idag.
 
-Den regelbaserade översättningen får inte ensam avgöra hur allergener presenteras.
+## Länken till Starter Pack
 
-- För de fem pilotprodukterna skrivs den engelska ingrediens-, närings- och allergentexten som fast, manuellt granskad text i koden – inte automatöversatt vid visning.
-- Du (eller den som ansvarar för produktdata) läser igenom de fem engelska texterna och godkänner dem skriftligt innan sidorna läggs i sitemap.
-- Tills godkännandet finns markeras de engelska sidorna som "visa men indexera inte", så de aldrig hamnar i Google med ogranskad allergentext.
-- Saknas godkänd engelsk text för en produkt visas den svenska originaltexten för ingredienser/allergener i stället för en gissning.
+`STARTER_PACK_PATH` (och den andra CTA:n längre ned) byggs av `pageLocale`: `/en/product/starter-pack-12-cups-1` på engelska sidor, `/product/starter-pack-12-cups-1` annars. Bekräftat sett: "tillbaka till produkterna" pekar även på engelska sidor mot `/products`, eftersom ingen engelsk produktlista ingår i piloten — medvetet, inte en miss.
 
-## Så byggs det (tekniskt)
+## Övriga steg
 
-1. **Ny route** `src/routes/en.product.$handle.tsx` som återanvänder `ProductDetail` men skickar `locale: "en"` via route-context. `pageLocale` i `src/pages/Products.tsx` slutar vara hårdkodad `"sv"` och läses från routen; svenska routen skickar fortsatt `"sv"`. Samma handle-kanonisering/301 och 404-beteende som svenska routen.
-2. **Koppla in befintlig engelsk copy**: `getProductRouteHead(handle, locale)` väljer `seo.en` vid `"en"`, annars oförändrat `seo.sv`. `getProductSsrCopy` har redan `locale`. `buildProductJsonLd(input, locale)` sätter `inLanguage` och `applicableCountry` efter locale.
-3. **Allergendata**: en manuellt granskad engelsk text per pilotprodukt läggs i en ny liten datafil och används i stället för `translateProductText` för ingrediens-/närings-/allergenavsnittet på `/en/`-sidorna.
-4. **Hreflang + canonical**: båda sidorna får `sv` → `/product/{handle}`, `en` → `/en/product/{handle}`, `x-default` → svenska URL:en. Canonical pekar på sig själv.
-5. **Sitemap**: `scripts/generate-sitemap.ts` lägger till `/en/product/{handle}` för de fem pilot-handles, men först när den engelska texten är godkänd.
-6. **Pris/valuta**: den engelska sidan följer samma marknadsval som resten av sajten (EUR för EU-besökare). Ingen ny prislogik. Notera: de fyra enskilda smakerna visar redan inget pris/köpknapp efter styckköps-borttagningen – det är oförändrat, så pris i praktiken bara på Starter Pack.
+1. **Ny route** `src/routes/en.product.$handle.tsx`, spegling av den svenska: kanonisk 301 på gamla handles, samma loader och `notFound()`-regel, `notFoundComponent`, `component: ProductDetail`. Head byggs med `getProductRouteHead(handle, "en")` och `buildProductJsonLd({ ..., locale: "en" })`.
+2. **`getProductRouteHead(handle, locale = "sv")`** väljer `seo.en` vid engelska; svenska sidan oförändrad. Canonical pekar på sig själv på båda.
+3. **Manuellt granskad engelsk allergen-/näringstext** i en ny liten datafil, en post per pilotprodukt. Används när `pageLocale === "en"` i stället för den regelbaserade översättningen. Saknas godkänd text visas den svenska originaltexten — aldrig en gissning. Fram tills du skriftligen godkänt de fem texterna får de engelska sidorna `noindex, follow` och läggs inte i sitemap.
+4. **Hreflang**: svenska sidan pekar `sv` → sig själv, `en` → `/en/product/{handle}`, `x-default` → svenska. Engelska sidan omvänt. Byggs i `getProductRouteHead`s `links`.
+5. **`buildProductJsonLd(input, locale = "sv")`**: `getProductSsrCopy(handle, locale)`, `url` och `offers.url` mot den faktiska adressen, `inLanguage` `en-GB`/`sv-SE`. `shippingDestination`, `shippingRate` och `applicableCountry` lämnas medvetet som svenska värden i piloten — det hör till det separata Shopify-marknadsspåret.
+6. **Sitemap**: `scripts/generate-sitemap.ts` lägger till de fem `/en/product/...`-adresserna, först efter godkänd text.
+7. **Pris/valuta**: samma marknadslogik som resten av sajten (EUR för EU). Ingen ny prislogik. De fyra smakerna visar fortsatt inget pris efter styckköps-borttagningen, så pris syns i praktiken bara på Starter Pack. `createShopifyCart`/`buyerIdentity` rörs inte.
 
 ## Rörs inte
 
-Kategorisidor, blogg, startsida, `routeLang`, `createShopifyCart`/`buyerIdentity`, admin, svenska produktsidornas innehåll och URL:er, interna länkar.
+Kategorisidor, blogg, startsida, `routeLang`, admin, de svenska produktsidornas innehåll och adresser, interna länkar från den svenska sajten, globalt språkval för övriga sajten.
 
-## Verifiering
+## Verifiering innan commit
 
-- Hämta rå HTML för svensk och engelsk sida: rätt språk i titel/beskrivning, korrekta hreflang-par åt båda hållen, canonical på sig själv.
-- JSON-LD på engelska sidan är på engelska.
-- Skärmbild av `/en/product/starter-pack-12-cups-1` och en smak.
-- Sitemap innehåller de nya URL:erna först efter godkänd text.
+- Rå server-HTML (före hydrering) för `/product/starter-pack-12-cups-1`, `/en/product/starter-pack-12-cups-1` och en smaksida på båda språken: hela brödtexten, knapptexter, brödsmulor och allergentabell ska redan vara på rätt språk.
+- Svenska sidan renderar identiskt med före ändringen.
+- Klick på Starter Pack-CTA från engelsk smaksida stannar på `/en/...`.
+- JSON-LD på engelska sidan: `url`/`offers.url` mot `/en/product/...`, `inLanguage: en-GB`.
+- Korrekta hreflang-par åt båda håll, self-canonical på båda.
+- Skärmbilder av engelska Starter Pack-sidan och en smaksida.
+- Sidorna förblir `noindex` och utanför sitemap tills du godkänt de fem engelska texterna.
