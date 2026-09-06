@@ -8,10 +8,8 @@ export type ClaimState =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "issued"; code: string }
-  | { status: "already_claimed"; code: string | null }
   | { status: "sold_out" }
   | { status: "invalid_email" }
-  | { status: "rate_limited" }
   | { status: "error" };
 
 /** Read-only counter of how many of the 500 offer codes are left. */
@@ -51,17 +49,11 @@ export function useStarterOfferClaim() {
           case "issued":
             next = { status: "issued", code: res.code };
             break;
-          case "already_claimed":
-            next = { status: "already_claimed", code: res.code };
-            break;
           case "sold_out":
             next = { status: "sold_out" };
             break;
           case "invalid_email":
             next = { status: "invalid_email" };
-            break;
-          case "rate_limited":
-            next = { status: "rate_limited" };
             break;
           default:
             next = { status: "error" };

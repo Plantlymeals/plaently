@@ -164,9 +164,6 @@ const MealFinderQuiz = () => {
             },
           })
           .catch((err) => console.error("offer email failed", err));
-      } else if (claim.status === "already_claimed") {
-        setOfferCode(claim.code);
-        setOfferNotice(t("offer.alreadyClaimed"));
       } else if (claim.status === "sold_out") {
         setOfferNotice(t("offer.soldOut"));
       }
