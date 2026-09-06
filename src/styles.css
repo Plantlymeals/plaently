@@ -96,7 +96,7 @@
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(0 0% 8%);
 
-  --primary: hsl(100 48% 45%);
+  --primary: hsl(100 48% 33%);
   --primary-foreground: hsl(0 0% 100%);
 
   --secondary: hsl(100 45% 84%);
@@ -113,26 +113,26 @@
 
   --border: hsl(100 15% 88%);
   --input: hsl(100 15% 88%);
-  --ring: hsl(100 48% 45%);
+  --ring: hsl(100 48% 33%);
 
   --radius: 0.75rem;
 
-  --gradient-primary: linear-gradient(180deg, hsl(100 48% 45%) 0%, hsl(90 48% 84%) 100%);
-  --gradient-hero: linear-gradient(180deg, hsl(100 48% 45%) 0%, hsl(90 48% 84%) 100%);
-  --gradient-subtle: linear-gradient(180deg, hsl(100 48% 45%) 0%, hsl(90 48% 84%) 100%);
+  --gradient-primary: linear-gradient(180deg, hsl(100 48% 33%) 0%, hsl(90 48% 84%) 100%);
+  --gradient-hero: linear-gradient(180deg, hsl(100 48% 33%) 0%, hsl(90 48% 84%) 100%);
+  --gradient-subtle: linear-gradient(180deg, hsl(100 48% 33%) 0%, hsl(90 48% 84%) 100%);
 
-  --shadow-soft: 0 4px 24px -4px hsl(100 48% 45% / 0.12);
+  --shadow-soft: 0 4px 24px -4px hsl(100 48% 33% / 0.12);
   --shadow-card: 0 2px 16px -2px hsl(0 0% 0% / 0.06);
-  --shadow-elevated: 0 8px 40px -8px hsl(100 48% 45% / 0.18);
+  --shadow-elevated: 0 8px 40px -8px hsl(100 48% 33% / 0.18);
 
   --sidebar-background: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(100 48% 45%);
+  --sidebar-primary: hsl(100 48% 33%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
   --sidebar-accent: hsl(100 45% 95%);
   --sidebar-accent-foreground: hsl(0 0% 8%);
   --sidebar-border: hsl(100 15% 88%);
-  --sidebar-ring: hsl(100 48% 45%);
+  --sidebar-ring: hsl(100 48% 33%);
 }
 
 /* v3 container config: centered, 2rem padding, capped at 1400px */
