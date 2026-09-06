@@ -17,7 +17,12 @@ export interface TemplateEntry {
  *   import { template as welcomeTemplate } from './welcome'
  *   // then add to TEMPLATES: 'welcome': welcomeTemplate
  */
+import { template as newsletterWelcome } from './newsletter-welcome'
+import { template as contactReply } from './contact-reply'
+import { template as starterOfferCode } from './starter-offer-code'
+
 export const TEMPLATES: Record<string, TemplateEntry> = {
-  // Add templates here as they are created, e.g.:
-  // 'welcome': welcomeTemplate,
+  'newsletter-welcome': newsletterWelcome,
+  'contact-reply': contactReply,
+  'starter-offer-code': starterOfferCode,
 }
