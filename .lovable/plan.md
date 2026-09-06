@@ -1,30 +1,38 @@
-# 199 kr-erbjudandet: samma app-inloggning överallt
+# Fast rabattkod STARTER199 istället för unika koder
 
-Shopifys svar bekräftar bilden: appinstallationen har redan rätt behörigheter (bland annat produktläsning och rabatter). Problemet ligger alltså i vilken inloggning koden faktiskt använder, inte i vad appen får göra. Ingen ny hemlighet skapas.
+Erbjudandet slutar helt att prata med Shopify när någon fyller i sin e-post. Alla som anmäler sig får samma kod, `STARTER199`, som du redan skapat i Shopify. Därmed blir hela token-/behörighetsproblemet irrelevant för det här flödet, och diagnosen avbryts.
 
-## Vad koden gör i dag
+## Vad som tas bort
 
-- Rabattflödet provar flera inloggningar i tur och ordning: först app-inloggningen (den som fungerar), därefter de manuellt inlagda nycklarna som svarar 401.
-- Erbjudandet slår inte längre upp produkten i Shopify – produkt-ID:t är hårdkodat – så 403:an vi sett kom bara från vårt eget testanrop, inte från kundflödet.
-- Den automatiska "lämna en recension"-funktionen använder fortfarande en av de manuella nycklarna och måste flyttas över till samma app-inloggning innan de nycklarna tas bort.
+- Skapandet av rabattregel och kod i Shopify vid varje inlösen.
+- IP-gränsen för kodutfärdande (den skyddade just det anropet).
+- Nya rader i `starter_pack_offer_codes`. Tabellen och dess migration lämnas orörda, vi slutar bara skriva till den.
 
-## Steg 1 – bevisa rotorsaken (denna omgång)
+## Vad som byggs
 
-1. Logga i serverloggen exakt vilken inloggning som används och vilket steg som misslyckas (rabattregel eller kod), med Shopifys statuskod och feltext. Inget av detta visas för besökaren.
-2. Besökaren får fortsatt bara en kategori: behörighet, produkt, koden finns redan, eller okänt fel.
-3. Kör ett skarpt test som skapar en rabattregel + kod på riktigt, läser tillbaka dem och tar bort båda direkt. Inget testdata lämnas kvar i Shopify eller i databasen.
-4. Redovisa det faktiska felmeddelandet (eller att det numera fungerar) innan något byggs om.
+1. Popup och quiz samlar in e-post precis som i dag och sparar den till nyhetsbrevet. Svaret innehåller nu den fasta koden direkt. Enda kontrollen: har erbjudandet nått 500 inlösen?
+2. Mejlmallen `starter-offer-code` skickas som förut, men med `STARTER199`.
+3. När räknaren når 500 visas det befintliga "slutsålt"-läget – samma UI, ny datakälla.
 
-## Steg 2 – först efter din bekräftelse
+## Räknaren "X av 500 kvar"
 
-- Låt rabattflödet använda enbart app-inloggningen, så de ogiltiga manuella nycklarna aldrig kan störa.
-- Flytta recensionsutskicket till samma app-inloggning.
-- Först därefter går det att städa bort de två ogiltiga nycklarna.
+Räknas på faktiska ordrar via den befintliga orderwebhooken, som redan verifierar Shopifys signatur innan något läses.
 
-## Oförändrat
+Så läses koden ur ordern: webhookens JSON innehåller en lista `discount_codes`, där varje post har ett `code`-fält (plus belopp och typ). Vi jämför varje `code` skiftlägesokänsligt mot `STARTER199`. Finns den, loggas en rad. Ordernumret sparas som unik nyckel, så samma order aldrig kan räknas två gånger även om Shopify skickar om webhooken (samma idempotensmönster som redan används där).
 
-Rabatten är låst till enbart Starter Pack (produkt-ID 15554614133062), 50 %, en användning per kund, en artikel per order, taket på 500 koder, IP-gränserna, databasens skyddsregler och adminpanelens behörighetskontroll. Rabatten breddas aldrig till hela butiken eller en bred kollektion.
+Ny tabell `starter_offer_redemptions`: order-id (unikt), e-post i lowercase, belopp och tidpunkt.
 
-## Filer som berörs i steg 1
+Skyddsregler för tabellen, samma mönster som övriga känsliga tabeller:
+- Radskydd påslaget, inga policyer för besökare eller inloggade – alltså ingen åtkomst alls utifrån.
+- Endast backend-rollen får läsa och skriva; anon och authenticated får inga rättigheter.
+- Antalet visas publikt via en befintlig, avgränsad funktion som bara returnerar en siffra – aldrig e-postadresser eller ordrar.
 
-`src/lib/starterOffer.server.ts` och `src/lib/shopifyDiscounts.server.ts` – endast loggning och felkategorisering.
+`getStarterOfferCount` pekas om till att räkna rader i den nya tabellen istället för utfärdade koder.
+
+## Rörs inte
+
+Adminpanelens rabattflöde och dess behörighetskontroll, rabattens villkor (200 kr fast avdrag, Starter Pack, en gång per beställning, en per kund, 500 totalt – allt satt i Shopify), `SHOPIFY_ACCESS_TOKEN` och recensionsmejlen (separat spår), språkdetekteringen och marknadsvalet.
+
+## Filer
+
+`src/lib/starterOffer.server.ts`, erbjudandets serverfunktion och hook, popup/quiz-komponenterna, mejlmallen, samt orderwebhooken och en ny databasmigration.
