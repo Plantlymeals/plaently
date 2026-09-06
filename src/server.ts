@@ -211,6 +211,12 @@ function resolvePermanentRedirect(request: Request): string | null {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    // Lovable email routes must reach their handlers untouched.
+    if (new URL(request.url).pathname.startsWith("/lovable/")) {
+      const passthroughHandler = await getServerEntry();
+      return passthroughHandler.fetch(request, env, ctx);
+    }
+
     if (isGoneLegacyUrl(request)) {
       return new Response(GONE_BODY, {
         status: 410,

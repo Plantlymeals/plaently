@@ -44,19 +44,22 @@ const AdminMessages = () => {
   const sendTestEmail = async () => {
     setTestSending(true);
     try {
-      const { error } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-reply",
-          recipientEmail: TEST_EMAIL,
-          templateData: {
-            recipientName: "Ahmet",
-            replyBody: `Test email triggered from admin panel at ${new Date().toLocaleString()}.`,
-            originalMessage: "(test ping from admin dashboard)",
-          },
+      const { data: sessionData } = await supabase.auth.getSession();
+      const res = await fetch("/api/contact-reply-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionData.session?.access_token ?? ""}`,
         },
+        body: JSON.stringify({
+          recipientEmail: TEST_EMAIL,
+          recipientName: "Ahmet",
+          replyBody: `Test email triggered from admin panel at ${new Date().toLocaleString()}.`,
+          originalMessage: "(test ping from admin dashboard)",
+        }),
       });
-      if (error) throw error;
-      toast.success(`Test email queued to ${TEST_EMAIL}`);
+      if (!res.ok) throw new Error(`Send failed (${res.status})`);
+      toast.success(`Test email sent to ${TEST_EMAIL}`);
       // give the queue a moment, then refresh
       setTimeout(fetchLatestTest, 1500);
     } catch (e: any) {
@@ -120,19 +123,24 @@ const AdminMessages = () => {
 
     let emailOk = false;
     try {
-      const { data, error: fnError } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-reply",
-          recipientEmail: m.email,
-          templateData: {
-            recipientName: m.name,
-            replyBody: body,
-            originalMessage: m.message,
-          },
+      const { data: sessionData } = await supabase.auth.getSession();
+      const res = await fetch("/api/contact-reply-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionData.session?.access_token ?? ""}`,
         },
+        body: JSON.stringify({
+          recipientEmail: m.email,
+          recipientName: m.name,
+          replyBody: body,
+          originalMessage: m.message,
+          idempotencyKey: inserted.id,
+        }),
       });
-      emailOk = !fnError && (data as any)?.success !== false;
-      if (fnError) console.error("send-transactional-email failed", fnError);
+      const payload = (await res.json().catch(() => ({}))) as { success?: boolean };
+      emailOk = res.ok && payload.success !== false;
+      if (!emailOk) console.error("contact reply email failed", { status: res.status });
     } catch (e) {
       console.error(e);
     }

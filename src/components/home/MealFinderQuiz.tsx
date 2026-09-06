@@ -156,16 +156,11 @@ const MealFinderQuiz = () => {
         setOfferNotice(null);
         // Keep the newsletter list in sync (ignore duplicates) — also authorizes the email send.
         await supabase.from("newsletter_subscribers").insert({ email: trimmed.toLowerCase() });
-        supabase.functions
-          .invoke("send-transactional-email", {
-            body: {
-              templateName: "starter-offer-code",
-              recipientEmail: trimmed.toLowerCase(),
-              templateData: { code: claim.code },
-              idempotencyKey: `starter-offer-${trimmed.toLowerCase()}`,
-            },
-          })
-          .catch((err) => console.error("offer email failed", err));
+        fetch("/api/public/starter-offer-email", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: trimmed.toLowerCase(), code: claim.code }),
+        }).catch((err) => console.error("offer email failed", err));
       } else if (claim.status === "sold_out") {
         setOfferNotice(t("offer.soldOut"));
       }

@@ -26,7 +26,6 @@ import { Route as PlantbaseradeMaltiderRouteImport } from './routes/plantbaserad
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProteinkopparRouteImport } from './routes/proteinkoppar'
 import { Route as ProteinrikaMaltiderRouteImport } from './routes/proteinrika-maltider'
-import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -42,12 +41,18 @@ import { Route as AdminSeoRouteImport } from './routes/admin.seo'
 import { Route as AdminTestimonialsRouteImport } from './routes/admin.testimonials'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiContactReplyEmailRouteImport } from './routes/api/contact-reply-email'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
 import { Route as Char91DotlovableChar93OauthConsentRouteImport } from './routes/[.lovable]/oauth/consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiPublicStarterOfferEmailRouteImport } from './routes/api/public/starter-offer-email'
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
+import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
+import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -134,11 +139,6 @@ const ProteinrikaMaltiderRoute = ProteinrikaMaltiderRouteImport.update({
   path: '/proteinrika-maltider',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UnsubscribeRoute = UnsubscribeRouteImport.update({
-  id: '/unsubscribe',
-  path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const Char91DotmcpChar93ListToolsRoute =
   Char91DotmcpChar93ListToolsRouteImport.update({
     id: '/.mcp/list-tools',
@@ -216,6 +216,11 @@ const ApiChatRoute = ApiChatRouteImport.update({
   path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactReplyEmailRoute = ApiContactReplyEmailRouteImport.update({
+  id: '/api/contact-reply-email',
+  path: '/api/contact-reply-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog_/$slug',
   path: '/blog/$slug',
@@ -243,11 +248,38 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicStarterOfferEmailRoute =
+  ApiPublicStarterOfferEmailRouteImport.update({
+    id: '/api/public/starter-offer-email',
+    path: '/api/public/starter-offer-email',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogCategorySlugRoute = BlogCategorySlugRouteImport.update({
   id: '/blog_/category/$slug',
   path: '/blog/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
+  id: '/lovable/email/events',
+  path: '/lovable/email/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
+  id: '/lovable/email/auth/preview',
+  path: '/lovable/email/auth/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -267,7 +299,6 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -282,13 +313,19 @@ export interface FileRoutesByFullPath {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -307,7 +344,6 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -322,13 +358,19 @@ export interface FileRoutesByTo {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products/$slug': typeof ProductsSlugRoute
   '/admin': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -349,7 +391,6 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -364,13 +405,19 @@ export interface FileRoutesById {
   '/admin/testimonials': typeof AdminTestimonialsRoute
   '/admin_/login': typeof AdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog_/$slug': typeof BlogSlugRoute
   '/product/$handle': typeof ProductHandleRoute
   '/products_/$slug': typeof ProductsSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
+  '/lovable/email/events': typeof LovableEmailEventsRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -392,7 +439,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -407,13 +453,19 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/lovable/email/events'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -432,7 +484,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -447,13 +498,19 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog/$slug'
     | '/product/$handle'
     | '/products/$slug'
     | '/admin'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/lovable/email/events'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
@@ -473,7 +530,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -488,13 +544,19 @@ export interface FileRouteTypes {
     | '/admin/testimonials'
     | '/admin_/login'
     | '/api/chat'
+    | '/api/contact-reply-email'
     | '/blog_/$slug'
     | '/product/$handle'
     | '/products_/$slug'
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/starter-offer-email'
     | '/blog_/category/$slug'
+    | '/lovable/email/events'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -515,17 +577,22 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ProteinkopparRoute: typeof ProteinkopparRoute
   ProteinrikaMaltiderRoute: typeof ProteinrikaMaltiderRoute
-  UnsubscribeRoute: typeof UnsubscribeRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminLoginRoute: typeof AdminLoginRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiContactReplyEmailRoute: typeof ApiContactReplyEmailRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProductHandleRoute: typeof ProductHandleRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
   Char91DotlovableChar93OauthConsentRoute: typeof Char91DotlovableChar93OauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiPublicStarterOfferEmailRoute: typeof ApiPublicStarterOfferEmailRoute
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
+  LovableEmailEventsRoute: typeof LovableEmailEventsRoute
+  LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
+  LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -649,13 +716,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProteinrikaMaltiderRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/unsubscribe': {
-      id: '/unsubscribe'
-      path: '/unsubscribe'
-      fullPath: '/unsubscribe'
-      preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/.mcp/list-tools': {
       id: '/.mcp/list-tools'
       path: '/.mcp/list-tools'
@@ -761,6 +821,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contact-reply-email': {
+      id: '/api/contact-reply-email'
+      path: '/api/contact-reply-email'
+      fullPath: '/api/contact-reply-email'
+      preLoaderRoute: typeof ApiContactReplyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog_/$slug': {
       id: '/blog_/$slug'
       path: '/blog/$slug'
@@ -796,11 +863,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/starter-offer-email': {
+      id: '/api/public/starter-offer-email'
+      path: '/api/public/starter-offer-email'
+      fullPath: '/api/public/starter-offer-email'
+      preLoaderRoute: typeof ApiPublicStarterOfferEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog_/category/$slug': {
       id: '/blog_/category/$slug'
       path: '/blog/category/$slug'
       fullPath: '/blog/category/$slug'
       preLoaderRoute: typeof BlogCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/events': {
+      id: '/lovable/email/events'
+      path: '/lovable/email/events'
+      fullPath: '/lovable/email/events'
+      preLoaderRoute: typeof LovableEmailEventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -854,19 +956,24 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   ProteinkopparRoute: ProteinkopparRoute,
   ProteinrikaMaltiderRoute: ProteinrikaMaltiderRoute,
-  UnsubscribeRoute: UnsubscribeRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminLoginRoute: AdminLoginRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiContactReplyEmailRoute: ApiContactReplyEmailRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProductHandleRoute: ProductHandleRoute,
   ProductsSlugRoute: ProductsSlugRoute,
   Char91DotlovableChar93OauthConsentRoute:
     Char91DotlovableChar93OauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiPublicStarterOfferEmailRoute: ApiPublicStarterOfferEmailRoute,
   BlogCategorySlugRoute: BlogCategorySlugRoute,
+  LovableEmailEventsRoute: LovableEmailEventsRoute,
+  LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
+  LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
