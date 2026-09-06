@@ -146,9 +146,27 @@ function generateSitemap(entries: SitemapEntry[]) {
   ].join("\n");
 }
 
+/**
+ * English pilot product pages. They are only listed once the manually reviewed
+ * English allergen/nutrition text has been approved (see src/data/productCopyEn.ts) —
+ * until then the pages are noindex and stay out of the sitemap.
+ */
+async function englishPilotEntries(): Promise<SitemapEntry[]> {
+  const mod = await import("../src/data/productCopyEn");
+  return mod.EN_PILOT_HANDLES.filter((h: string) => mod.hasApprovedEnCopy(h)).map((handle: string) => ({
+    path: `/en/product/${handle}`,
+    changefreq: "weekly" as const,
+    priority: "0.7",
+  }));
+}
+
 async function main() {
-  const [blog, products] = await Promise.all([fetchBlogSlugs(), fetchShopifyHandles()]);
-  const entries = [...staticEntries, ...blog, ...products];
+  const [blog, products, english] = await Promise.all([
+    fetchBlogSlugs(),
+    fetchShopifyHandles(),
+    englishPilotEntries().catch(() => [] as SitemapEntry[]),
+  ]);
+  const entries = [...staticEntries, ...blog, ...products, ...english];
   writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
   console.log(`sitemap.xml written (${entries.length} entries)`);
 }
