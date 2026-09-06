@@ -156,16 +156,22 @@ Deno.serve(async (req) => {
       }
       const adminClient = createClient(supabaseUrl, supabaseServiceKey)
       const fiveMinAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString()
-      const { data: sub, error: subErr } = await adminClient
+      // The offer code may be re-requested by an address that subscribed earlier,
+      // so only the welcome mail requires a *recent* signup.
+      let subQuery = adminClient
         .from('newsletter_subscribers')
         .select('email, created_at')
         .eq('email', requestedRecipient)
-        .gte('created_at', fiveMinAgo)
-        .maybeSingle()
+      if (templateName !== 'starter-offer-code') {
+        subQuery = subQuery.gte('created_at', fiveMinAgo)
+      }
+      const { data: sub, error: subErr } = await subQuery.maybeSingle()
       if (subErr || !sub) {
-        console.warn('Newsletter welcome blocked — recipient not a recent subscriber', {
+        console.warn('Transactional email blocked — recipient is not a subscriber', {
           requestedRecipient,
+          templateName,
         })
+
         return new Response(
           JSON.stringify({ error: 'Forbidden' }),
           { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
