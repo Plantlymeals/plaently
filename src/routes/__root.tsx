@@ -23,7 +23,10 @@ import AiAssistant from "@/components/AiAssistantMount";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import { clearChunkReloadGuard, reloadOnceForChunkError } from "@/lib/chunkReload";
+import { getVisitorCountry } from "@/lib/geo.functions";
+import { marketFromCountry, type Market } from "@/lib/markets";
 import appCss from "../styles.css?url";
+
 
 // ported from main.tsx — recover from stale chunk errors after a new deploy by reloading once.
 if (typeof window !== "undefined") {
