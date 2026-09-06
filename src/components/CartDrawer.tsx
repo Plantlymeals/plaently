@@ -183,6 +183,32 @@ export const CartDrawer = () => {
                     </span>
                   </div>
                 </div>
+                {suggestion && (
+                  <div className="rounded-xl border border-primary/30 bg-primary/5 p-3">
+                    <p className="text-[11px] font-semibold text-primary mb-2">{t("cart.unlockFreeShipping")}</p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
+                        {suggestion.imageUrl && (
+                          <img src={suggestion.imageUrl} alt={suggestion.bundle.name} className="w-full h-full object-cover" loading="lazy" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium truncate">{suggestion.bundle.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {suggestion.price.toFixed(0)} {suggestion.currencyCode}
+                        </p>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="rounded-full flex-shrink-0"
+                        disabled={isLoading || mixLoading}
+                        onClick={() => handleAdd(suggestion.product)}
+                      >
+                        {t("cart.addBundle")}
+                      </Button>
+                    </div>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">{t("cart.total")}</span>
                   <span className="text-xl font-bold text-primary">{items[0]?.price.currencyCode} {totalPrice.toFixed(2)}</span>
