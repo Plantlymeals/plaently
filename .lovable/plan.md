@@ -1,27 +1,22 @@
-# Felsökning: 199 kr-erbjudandet ger "Något gick fel"
+# Steg 1 — hitta det faktiska Shopify-felet för 199 kr-erbjudandet
 
-## Vad som redan är uteslutet (mätt nu mot butiken)
+Målet med den här omgången är enbart diagnos: få fram det riktiga felmeddelandet från Shopify när en kod ska skapas. Ingen ändring av erbjudandets villkor, priser eller rabattens omfattning.
 
-- Produkten är rätt: ID 15554614133062 = "Starter Pack — 12 Cups", handtag `starter-pack-12-cups-1`, aktiv.
-- Den nya Admin-nyckeln och den gamla nyckeln ger båda 401 "Invalid API key or access token" — de fungerar inte för den här butiken.
-- App-inloggningen (client credentials), som koden provar först, fungerar: rabatt-API:t svarar 200.
+## Svar på dina två villkor
 
-Felet ligger alltså troligen i själva skapandet av rabatten, inte i produktuppslaget eller i avsaknad av behörighet överlag. Det är ännu inte bevisat.
+1. **Rabatten låses aldrig till hela butiken.** Koden skapas redan låst till enbart Starter Pack (produkt-ID 15554614133062) tillsammans med gränsen på en användning per kund. Det ändras inte i den här omgången, och om produktkopplingen visar sig vara felkällan är förslaget att ge appen läsbehörighet till produkter — inte att bredda rabatten.
 
-## Steg 1: framkalla det exakta felet
+2. **Nycklarna:** en genomgång av all kod visar att `SHOPIFY_ADMIN_API_ACCESS_TOKEN` bara används av rabattflödet (både popup-erbjudandet och adminpanelen går genom samma kod). Men `SHOPIFY_ACCESS_TOKEN` används också av den automatiska "lämna en recension"-utskicket, som skapar en rabattkod åt kunden. Den nyckeln får alltså inte tas bort utan att recensionsutskicket först flyttas över till samma app-inloggning. Ingen av nycklarna tas bort i den här omgången.
 
-Kör ett skarpt test mot butiken som skapar en tillfällig prisregel med exakt samma inställningar som erbjudandet (50 %, en användning, en per kund, låst till Starter Pack), läser av Shopifys hela svar och tar bort regeln igen direkt. Inget rörs i databasen och ingen kund påverkas.
+## Vad som görs nu
 
-## Steg 2: förbättra felrapporteringen
+1. Lägg till tydlig loggning i erbjudande-flödet på servern: vilket inloggningssätt som användes, vilket steg som misslyckades (regel eller kod), Shopifys statuskod och feltext — endast i serverloggen, aldrig till besökaren.
+2. Besökaren fortsätter få ett kategoriserat meddelande (behörighet / produkt / koden finns redan / okänt fel), utan Shopifys råa text.
+3. Kör ett tillfälligt skarpt test som skapar en rabattregel och en kod, läser tillbaka dem och tar bort båda direkt efteråt. Inget testdata lämnas kvar i Shopify eller i databasen.
+4. Redovisa det faktiska felet (eller att det faktiskt fungerar) innan någon fix byggs i Steg 2.
 
-I `src/lib/starterOffer.server.ts` och `src/lib/shopifyDiscounts.server.ts`: logga status, Shopifys felobjekt och vilket steg som misslyckades (prisregel eller kod), samt vilken nyckel som användes. Då syns orsaken direkt i loggarna nästa gång i stället för bara "något gick fel".
+## Tekniska detaljer
 
-## Steg 3: åtgärda utifrån svaret
-
-- Om skapandet nekas på behörighet: komplettera appen med rätt rabattbehörigheter.
-- Om det är produktkopplingen: lås rabatten till hela butiken eller en kollektion i stället för ett enskilt produkt-ID.
-- Oavsett utfall: ta bort de två nycklar som alltid ger 401, så att inga anrop slösas på dem och felmeddelandet inte blir missvisande.
-
-## Rörs inte
-
-Rabattens villkor (50 %, en per kund, en användning), rate limiting, adminpanelens rabattflöde, 410-regeln, robots.txt och språkvalet.
+- Filer som berörs: `src/lib/starterOffer.server.ts` och `src/lib/shopifyDiscounts.server.ts` (endast loggning och felkategorisering).
+- Oförändrat: rabattens 50 %, `target_selection: 'entitled'` med `entitled_product_ids: [15554614133062]`, `allocation_limit: 1`, en användning per kund, taket på 500 koder, IP-gränser, RLS och adminpanelens `runDiscountAction`/behörighetskontroll.
+- Testet körs mot produktionens Shopify-butik och städas upp i samma körning.
