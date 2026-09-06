@@ -156,6 +156,10 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
+  // Enskilda koppar säljs inte längre styckvis — de leder till Starter Pack.
+  const isSingleCup = isListableProduct(product.title);
+  const STARTER_PACK_PATH = "/product/starter-pack-12-cups-1";
+
   const schemaImageUrl = resolveProductImageUrl({
     handle: productHandle ?? product.handle,
     title: product.title,
