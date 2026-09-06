@@ -86,9 +86,8 @@ interface TermsProps {
   routeLang: Lang;
 }
 
-const Terms = ({ routeLang }: TermsProps) => {
-  const isEn = routeLang === "en";
-  const c = COPY[isEn ? "en" : "sv"];
+const Terms = (_props: TermsProps) => {
+  const c = COPY["sv"];
   const path = "/kopsvillkor";
   const privacyPath = "/integritetspolicy";
 
@@ -112,7 +111,7 @@ const Terms = ({ routeLang }: TermsProps) => {
         url: `${baseUrl}${path}`,
         name: c.seoTitle,
         description: c.seoDesc,
-        inLanguage: isEn ? "en" : "sv-SE",
+        inLanguage: "sv-SE",
         publisher: { "@id": `${baseUrl}/#organization` },
         dateModified: "2026-05-01",
       },
@@ -121,7 +120,7 @@ const Terms = ({ routeLang }: TermsProps) => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale={isEn ? "en" : "sv"} noindex routeOwnsMetadata routeOwnsLinks />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale="sv" noindex routeOwnsMetadata routeOwnsLinks />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

@@ -164,23 +164,20 @@ interface ShippingProps {
   routeLang: Lang;
 }
 
-const Shipping = ({ routeLang }: ShippingProps) => {
- const isEn = routeLang === "en";
- const c = COPY[isEn ? "en" : "sv"];
+const Shipping = (_props: ShippingProps) => {
+ const c = COPY["sv"];
   const currentMarket = useMarketStore((s) => s.market);
   const setMarket = useMarketStore((s) => s.setMarket);
-  const compareTitle = isEn ? "Shipping by market" : "Frakt per marknad";
-  const compareSub = isEn
-    ? "We ship to Sweden, the EU and the United Kingdom. Tap a market to see your pricing."
-    : "Vi levererar till Sverige, EU och Storbritannien. Tryck på en marknad för att se ditt pris.";
-  const yourMarket = isEn ? "Your market" : "Din marknad";
-  const standardLabel = isEn ? "Standard shipping" : "Standardfrakt";
-  const freeOverLabel = isEn ? "Free shipping from" : "Fri frakt från";
+  const compareTitle = "Frakt per marknad";
+  const compareSub = "Vi levererar till Sverige, EU och Storbritannien. Tryck på en marknad för att se ditt pris.";
+  const yourMarket = "Din marknad";
+  const standardLabel = "Standardfrakt";
+  const freeOverLabel = "Fri frakt från";
  const path = "/frakt";
 
  return (
  <Layout>
- <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} locale={isEn ? "en" : "sv"} routeOwnsMetadata routeOwnsLinks />
+ <SEOHead title={c.seoTitle} description={c.seoDesc} ogTitle={c.seoTitle} ogDescription={c.seoDesc} path={path} locale="sv" routeOwnsMetadata routeOwnsLinks />
 
  <section className="bg-foreground text-background py-20 md:py-28">
  <div className="container max-w-4xl text-center space-y-6">
@@ -201,8 +198,8 @@ const Shipping = ({ routeLang }: ShippingProps) => {
       <section className="pt-8">
         <div className="container">
           <Breadcrumbs
-            items={[{ label: isEn ? "Shipping" : "Frakt", path }]}
-            lang={isEn ? "en" : "sv"}
+            items={[{ label: "Frakt", path }]}
+            lang="sv"
             className="mb-0"
           />
         </div>
@@ -236,7 +233,7 @@ const Shipping = ({ routeLang }: ShippingProps) => {
                   </span>
                 )}
               </div>
-              <h3 className="font-heading font-bold text-lg mb-3">{marketLabel(m, isEn ? "en" : "sv")}</h3>
+              <h3 className="font-heading font-bold text-lg mb-3">{marketLabel(m, "sv")}</h3>
               <dl className="space-y-2 text-sm">
                 <div className="flex justify-between gap-3">
                   <dt className="text-muted-foreground">{standardLabel}</dt>
