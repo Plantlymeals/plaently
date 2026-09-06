@@ -12,7 +12,7 @@ import { isListableProduct } from "@/lib/productFilters";
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const { t } = useTranslation();
-  const { handleAdd, isLoading, dialogProps } = useBundleMix();
+  const { dialogProps } = useBundleMix();
 
   useEffect(() => {
     // Hämta brett och filtrera till de fyra smakerna — aldrig ett paket.
