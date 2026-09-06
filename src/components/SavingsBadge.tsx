@@ -16,6 +16,8 @@ interface SavingsBadgeProps {
   size?: "xs" | "sm";
   className?: string;
   fullPriceClassName?: string;
+  /** Page-scoped language (product pages take language from the URL). */
+  locale?: Lang;
 }
 
 /**
