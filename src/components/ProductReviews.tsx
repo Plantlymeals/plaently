@@ -7,7 +7,7 @@ import { Star, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
 
 interface Review {
   id: string;
@@ -40,8 +40,13 @@ const StarRow = ({ value, size = 4 }: { value: number; size?: number }) => (
   </div>
 );
 
-const ProductReviews = ({ productSlug, title }: { productSlug: string; title: string }) => {
-  const { t } = useTranslation();
+const ProductReviews = ({
+  productSlug,
+  title,
+  locale,
+}: { productSlug: string; title: string; locale?: Lang }) => {
+  const { t: globalT } = useTranslation();
+  const t = locale ? (key: string) => tLocale(key, locale) : globalT;
   const [reviews, setReviews] = useState<Review[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [submitting, setSubmitting] = useState(false);

@@ -330,7 +330,7 @@ const ProductDetail = () => {
             <p className="text-xs opacity-80">{t("cta.riskReversal")}</p>
           </div>
 
-          <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} />
+          <ProductReviews productSlug={product.handle} title={displayProductTitle(product.title)} locale={pageLocale} />
         </div>
       </section>
       <MixBuilderDialog {...dialogProps} />
