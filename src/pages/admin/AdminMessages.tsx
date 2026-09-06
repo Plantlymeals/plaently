@@ -44,19 +44,22 @@ const AdminMessages = () => {
   const sendTestEmail = async () => {
     setTestSending(true);
     try {
-      const { error } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "contact-reply",
-          recipientEmail: TEST_EMAIL,
-          templateData: {
-            recipientName: "Ahmet",
-            replyBody: `Test email triggered from admin panel at ${new Date().toLocaleString()}.`,
-            originalMessage: "(test ping from admin dashboard)",
-          },
+      const { data: sessionData } = await supabase.auth.getSession();
+      const res = await fetch("/api/contact-reply-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionData.session?.access_token ?? ""}`,
         },
+        body: JSON.stringify({
+          recipientEmail: TEST_EMAIL,
+          recipientName: "Ahmet",
+          replyBody: `Test email triggered from admin panel at ${new Date().toLocaleString()}.`,
+          originalMessage: "(test ping from admin dashboard)",
+        }),
       });
-      if (error) throw error;
-      toast.success(`Test email queued to ${TEST_EMAIL}`);
+      if (!res.ok) throw new Error(`Send failed (${res.status})`);
+      toast.success(`Test email sent to ${TEST_EMAIL}`);
       // give the queue a moment, then refresh
       setTimeout(fetchLatestTest, 1500);
     } catch (e: any) {
