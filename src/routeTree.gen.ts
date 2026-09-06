@@ -26,7 +26,6 @@ import { Route as PlantbaseradeMaltiderRouteImport } from './routes/plantbaserad
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as ProteinkopparRouteImport } from './routes/proteinkoppar'
 import { Route as ProteinrikaMaltiderRouteImport } from './routes/proteinrika-maltider'
-import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -138,11 +137,6 @@ const ProteinkopparRoute = ProteinkopparRouteImport.update({
 const ProteinrikaMaltiderRoute = ProteinrikaMaltiderRouteImport.update({
   id: '/proteinrika-maltider',
   path: '/proteinrika-maltider',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const UnsubscribeRoute = UnsubscribeRouteImport.update({
-  id: '/unsubscribe',
-  path: '/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -305,7 +299,6 @@ export interface FileRoutesByFullPath {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -351,7 +344,6 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -399,7 +391,6 @@ export interface FileRoutesById {
   '/products': typeof ProductsRoute
   '/proteinkoppar': typeof ProteinkopparRoute
   '/proteinrika-maltider': typeof ProteinrikaMaltiderRoute
-  '/unsubscribe': typeof UnsubscribeRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/blog': typeof AdminBlogRoute
@@ -448,7 +439,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -494,7 +484,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -541,7 +530,6 @@ export interface FileRouteTypes {
     | '/products'
     | '/proteinkoppar'
     | '/proteinrika-maltider'
-    | '/unsubscribe'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/blog'
@@ -589,7 +577,6 @@ export interface RootRouteChildren {
   ProductsRoute: typeof ProductsRoute
   ProteinkopparRoute: typeof ProteinkopparRoute
   ProteinrikaMaltiderRoute: typeof ProteinrikaMaltiderRoute
-  UnsubscribeRoute: typeof UnsubscribeRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -727,13 +714,6 @@ declare module '@tanstack/react-router' {
       path: '/proteinrika-maltider'
       fullPath: '/proteinrika-maltider'
       preLoaderRoute: typeof ProteinrikaMaltiderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/unsubscribe': {
-      id: '/unsubscribe'
-      path: '/unsubscribe'
-      fullPath: '/unsubscribe'
-      preLoaderRoute: typeof UnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -976,7 +956,6 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsRoute: ProductsRoute,
   ProteinkopparRoute: ProteinkopparRoute,
   ProteinrikaMaltiderRoute: ProteinrikaMaltiderRoute,
-  UnsubscribeRoute: UnsubscribeRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
