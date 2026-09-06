@@ -7,7 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import type { Lang } from "@/lib/i18n";
 import { Package, Truck, Clock, AlertTriangle, RotateCcw } from "lucide-react";
 import { MARKETS, marketLabel, type Market } from "@/lib/markets";
-import { useMarketStore } from "@/stores/marketStore";
+import { useMarketStore, useEffectiveMarket } from "@/stores/marketStore";
 
 const PARTNER_ICONS: Record<string, typeof Package> = { PostNord: Package, DHL: Truck };
 const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
@@ -166,7 +166,7 @@ interface ShippingProps {
 
 const Shipping = (_props: ShippingProps) => {
  const c = COPY["sv"];
-  const currentMarket = useMarketStore((s) => s.market);
+  const currentMarket = useEffectiveMarket();
   const setMarket = useMarketStore((s) => s.setMarket);
   const compareTitle = "Frakt per marknad";
   const compareSub = "Vi levererar till Sverige, EU och Storbritannien. Tryck på en marknad för att se ditt pris.";
