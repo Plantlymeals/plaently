@@ -22,36 +22,19 @@ const EU_COUNTRIES = new Set([
   "IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES",
 ]);
 
-const TZ_TO_MARKET: Record<string, Market> = {
-  "Europe/Stockholm": "SE",
-  "Europe/London": "UK",
-};
-
 /**
- * Best-effort market detection on the client.
- * No network call, no GDPR cookie required.
+ * Map an edge geo country code (e.g. "SE", "GB", "DE") to a market.
+ * Pure — safe on both server and client.
  */
-export function detectMarket(): Market {
-  if (typeof window === "undefined") return "SE";
-  try {
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (tz && TZ_TO_MARKET[tz]) return TZ_TO_MARKET[tz];
-    if (tz && tz.startsWith("Europe/")) {
-      // Default any other European tz to EU
-      return "EU";
-    }
-    const lang = navigator.language?.toLowerCase() ?? "";
-    if (lang.startsWith("sv")) return "SE";
-    if (lang.includes("-gb") || lang === "en-uk") return "UK";
-    const region = lang.split("-")[1]?.toUpperCase();
-    if (region === "SE") return "SE";
-    if (region === "GB" || region === "UK") return "UK";
-    if (region && EU_COUNTRIES.has(region)) return "EU";
-  } catch {
-    // ignore
-  }
+export function marketFromCountry(country: string | null | undefined): Market {
+  const c = (country ?? "").toUpperCase();
+  if (!c) return "SE";
+  if (c === "SE") return "SE";
+  if (c === "GB" || c === "UK") return "UK";
+  if (EU_COUNTRIES.has(c)) return "EU";
   return "SE";
 }
+
 
 export function marketLabel(market: Market, lang: "sv" | "en"): string {
   const map: Record<Market, { sv: string; en: string }> = {
