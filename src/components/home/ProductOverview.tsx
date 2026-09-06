@@ -9,6 +9,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getCupMeta, displayProductTitle } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
+import { isListableProduct } from "@/lib/productFilters";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
