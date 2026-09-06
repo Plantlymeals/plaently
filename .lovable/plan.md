@@ -1,22 +1,30 @@
-# Steg 1 — hitta det faktiska Shopify-felet för 199 kr-erbjudandet
+# 199 kr-erbjudandet: samma app-inloggning överallt
 
-Målet med den här omgången är enbart diagnos: få fram det riktiga felmeddelandet från Shopify när en kod ska skapas. Ingen ändring av erbjudandets villkor, priser eller rabattens omfattning.
+Shopifys svar bekräftar bilden: appinstallationen har redan rätt behörigheter (bland annat produktläsning och rabatter). Problemet ligger alltså i vilken inloggning koden faktiskt använder, inte i vad appen får göra. Ingen ny hemlighet skapas.
 
-## Svar på dina två villkor
+## Vad koden gör i dag
 
-1. **Rabatten låses aldrig till hela butiken.** Koden skapas redan låst till enbart Starter Pack (produkt-ID 15554614133062) tillsammans med gränsen på en användning per kund. Det ändras inte i den här omgången, och om produktkopplingen visar sig vara felkällan är förslaget att ge appen läsbehörighet till produkter — inte att bredda rabatten.
+- Rabattflödet provar flera inloggningar i tur och ordning: först app-inloggningen (den som fungerar), därefter de manuellt inlagda nycklarna som svarar 401.
+- Erbjudandet slår inte längre upp produkten i Shopify – produkt-ID:t är hårdkodat – så 403:an vi sett kom bara från vårt eget testanrop, inte från kundflödet.
+- Den automatiska "lämna en recension"-funktionen använder fortfarande en av de manuella nycklarna och måste flyttas över till samma app-inloggning innan de nycklarna tas bort.
 
-2. **Nycklarna:** en genomgång av all kod visar att `SHOPIFY_ADMIN_API_ACCESS_TOKEN` bara används av rabattflödet (både popup-erbjudandet och adminpanelen går genom samma kod). Men `SHOPIFY_ACCESS_TOKEN` används också av den automatiska "lämna en recension"-utskicket, som skapar en rabattkod åt kunden. Den nyckeln får alltså inte tas bort utan att recensionsutskicket först flyttas över till samma app-inloggning. Ingen av nycklarna tas bort i den här omgången.
+## Steg 1 – bevisa rotorsaken (denna omgång)
 
-## Vad som görs nu
+1. Logga i serverloggen exakt vilken inloggning som används och vilket steg som misslyckas (rabattregel eller kod), med Shopifys statuskod och feltext. Inget av detta visas för besökaren.
+2. Besökaren får fortsatt bara en kategori: behörighet, produkt, koden finns redan, eller okänt fel.
+3. Kör ett skarpt test som skapar en rabattregel + kod på riktigt, läser tillbaka dem och tar bort båda direkt. Inget testdata lämnas kvar i Shopify eller i databasen.
+4. Redovisa det faktiska felmeddelandet (eller att det numera fungerar) innan något byggs om.
 
-1. Lägg till tydlig loggning i erbjudande-flödet på servern: vilket inloggningssätt som användes, vilket steg som misslyckades (regel eller kod), Shopifys statuskod och feltext — endast i serverloggen, aldrig till besökaren.
-2. Besökaren fortsätter få ett kategoriserat meddelande (behörighet / produkt / koden finns redan / okänt fel), utan Shopifys råa text.
-3. Kör ett tillfälligt skarpt test som skapar en rabattregel och en kod, läser tillbaka dem och tar bort båda direkt efteråt. Inget testdata lämnas kvar i Shopify eller i databasen.
-4. Redovisa det faktiska felet (eller att det faktiskt fungerar) innan någon fix byggs i Steg 2.
+## Steg 2 – först efter din bekräftelse
 
-## Tekniska detaljer
+- Låt rabattflödet använda enbart app-inloggningen, så de ogiltiga manuella nycklarna aldrig kan störa.
+- Flytta recensionsutskicket till samma app-inloggning.
+- Först därefter går det att städa bort de två ogiltiga nycklarna.
 
-- Filer som berörs: `src/lib/starterOffer.server.ts` och `src/lib/shopifyDiscounts.server.ts` (endast loggning och felkategorisering).
-- Oförändrat: rabattens 50 %, `target_selection: 'entitled'` med `entitled_product_ids: [15554614133062]`, `allocation_limit: 1`, en användning per kund, taket på 500 koder, IP-gränser, RLS och adminpanelens `runDiscountAction`/behörighetskontroll.
-- Testet körs mot produktionens Shopify-butik och städas upp i samma körning.
+## Oförändrat
+
+Rabatten är låst till enbart Starter Pack (produkt-ID 15554614133062), 50 %, en användning per kund, en artikel per order, taket på 500 koder, IP-gränserna, databasens skyddsregler och adminpanelens behörighetskontroll. Rabatten breddas aldrig till hela butiken eller en bred kollektion.
+
+## Filer som berörs i steg 1
+
+`src/lib/starterOffer.server.ts` och `src/lib/shopifyDiscounts.server.ts` – endast loggning och felkategorisering.
