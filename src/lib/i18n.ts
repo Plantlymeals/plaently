@@ -335,7 +335,7 @@ const translations: Record<string, Record<Lang, string>> = {
  "newsletter.title": { sv: "Gå med i PLÄNTLY-familjen", en: "Join the PLÄNTLY family" },
  "newsletter.subtitle": { sv: "Få exklusiva erbjudanden & plantbaserad inspiration.", en: "Get exclusive offers & plant-based inspiration." },
  "newsletter.benefit1Title": { sv: "Starter Pack för 199 kr", en: "Starter Pack for 199 kr" },
- "newsletter.benefit1Desc": { sv: "12 koppar, mixa dina smaker. Engångserbjudande per ny kund.", en: "12 cups, mix your flavours. One-time offer per new customer." },
+ "newsletter.benefit1Desc": { sv: "12 måltider, fyra smaker. Engångserbjudande per ny kund.", en: "12 cups, mix your flavours. One-time offer per new customer." },
  "newsletter.benefit2Title": { sv: "Gratis fraktuppdateringar", en: "Free shipping updates" },
  "newsletter.benefit2Desc": { sv: "Bli först med att veta om leveranserbjudanden.", en: "Be the first to know about delivery offers." },
  "newsletter.benefit3Title": { sv: "Recept & tips", en: "Recipes & tips" },
