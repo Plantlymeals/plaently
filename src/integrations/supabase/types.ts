@@ -277,6 +277,7 @@ export type Database = {
           headline: string | null
           id: string
           image_url: string | null
+          is_published: boolean
           metadata: Json | null
           section_key: string
           subheadline: string | null
@@ -289,6 +290,7 @@ export type Database = {
           headline?: string | null
           id?: string
           image_url?: string | null
+          is_published?: boolean
           metadata?: Json | null
           section_key: string
           subheadline?: string | null
@@ -301,6 +303,7 @@ export type Database = {
           headline?: string | null
           id?: string
           image_url?: string | null
+          is_published?: boolean
           metadata?: Json | null
           section_key?: string
           subheadline?: string | null
