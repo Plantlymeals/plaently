@@ -44,7 +44,7 @@ const ProductDetail = () => {
         ? ("en" as const)
         : ("sv" as const),
   });
-  const { t, lang } = useLocaleTranslation(pageLocale);
+  const { t } = useLocaleTranslation(pageLocale);
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -201,10 +201,10 @@ const ProductDetail = () => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: pageLocale === "sv" ? "Produkter" : "Products", path: "/products" },
               { label: displayProductTitle(product.title) },
             ]}
-            lang={lang}
+            lang={pageLocale}
           />
           <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
