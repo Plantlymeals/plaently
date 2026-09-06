@@ -36,7 +36,7 @@ function generateToken(): string {
 // Templates that may only be invoked by an authenticated admin user.
 const ADMIN_ONLY_TEMPLATES = new Set<string>(['contact-reply'])
 // Templates that the public can trigger, scoped to a recently-created subscriber row.
-const PUBLIC_NEWSLETTER_TEMPLATES = new Set<string>(['newsletter-welcome'])
+const PUBLIC_NEWSLETTER_TEMPLATES = new Set<string>(['newsletter-welcome', 'starter-offer-code'])
 
 Deno.serve(async (req) => {
   // Handle CORS preflight

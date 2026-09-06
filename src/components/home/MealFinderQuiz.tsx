@@ -154,12 +154,14 @@ const MealFinderQuiz = () => {
       if (claim.status === "issued") {
         setOfferCode(claim.code);
         setOfferNotice(null);
+        // Keep the newsletter list in sync (ignore duplicates) — also authorizes the email send.
+        await supabase.from("newsletter_subscribers").insert({ email: trimmed.toLowerCase() });
         supabase.functions
           .invoke("send-transactional-email", {
             body: {
               templateName: "starter-offer-code",
               recipientEmail: trimmed.toLowerCase(),
-              data: { code: claim.code },
+              templateData: { code: claim.code },
               idempotencyKey: `starter-offer-${trimmed.toLowerCase()}`,
             },
           })
