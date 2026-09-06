@@ -8,10 +8,8 @@ export type ClaimState =
   | { status: "idle" }
   | { status: "loading" }
   | { status: "issued"; code: string }
-  | { status: "already_claimed"; code: string | null }
   | { status: "sold_out" }
   | { status: "invalid_email" }
-  | { status: "rate_limited" }
   | { status: "error" };
 
 /** Read-only counter of how many of the 500 offer codes are left. */
