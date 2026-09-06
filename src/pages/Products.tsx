@@ -156,6 +156,10 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
 
+  // Enskilda koppar säljs inte längre styckvis — de leder till Starter Pack.
+  const isSingleCup = isListableProduct(product.title);
+  const STARTER_PACK_PATH = "/product/starter-pack-12-cups-1";
+
   const schemaImageUrl = resolveProductImageUrl({
     handle: productHandle ?? product.handle,
     title: product.title,
@@ -231,9 +235,15 @@ const ProductDetail = () => {
                 })()
               )}
               <div className="flex flex-wrap gap-3">
-                <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
-                </Button>
+                {isSingleCup ? (
+                  <Button asChild className="rounded-full px-8 font-semibold">
+                    <Link to={STARTER_PACK_PATH}>{t("products.tryInStarterPack")}</Link>
+                  </Button>
+                ) : (
+                  <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} className="rounded-full px-8 font-semibold">
+                    {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+                  </Button>
+                )}
               </div>
               <p className="text-xs text-muted-foreground">{t("cta.riskReversal")}</p>
               {bundleContents.length > 0 && (
@@ -293,9 +303,15 @@ const ProductDetail = () => {
           <div className="mt-12 rounded-3xl gradient-hero p-10 md:p-14 text-center text-primary-foreground">
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3">{t("productDetail.benefitsTitle")}</h2>
             <p className="max-w-2xl mx-auto opacity-90 mb-6">{t("productDetail.benefitsDesc")}</p>
-            <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
-              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
-            </Button>
+            {isSingleCup ? (
+              <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
+                <Link to={STARTER_PACK_PATH}>{t("products.tryInStarterPack")}</Link>
+              </Button>
+            ) : (
+              <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+              </Button>
+            )}
             <p className="text-xs opacity-80">{t("cta.riskReversal")}</p>
           </div>
 
@@ -415,8 +431,8 @@ const Products = () => {
                         );
                       })()}
                     </Link>
-                    <Button onClick={() => handleAdd(product)} disabled={cartIsLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
-                      {cartIsLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+                    <Button asChild className="w-full rounded-full font-semibold text-sm" size="sm">
+                      <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
                     </Button>
                   </div>
                 );

@@ -105,6 +105,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "products.title": { sv: "Våra måltider", en: "Our Meals" },
   "products.subtitle": { sv: "Riktiga måltider med 20g protein. Tillsätt bara kokande vatten.", en: "Real meals with 20g protein. Just add boiling water." },
  "products.addToCart": { sv: "Lägg i varukorg", en: "Add to cart" },
+ "products.tryInStarterPack": { sv: "Prova i Starter Pack", en: "Try it in the Starter Pack" },
  "products.addedToCart": { sv: "Tillagd i varukorgen!", en: "Added to cart!" },
 
  // Products page

@@ -9,6 +9,7 @@ import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getCupMeta, displayProductTitle } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
+import { isListableProduct } from "@/lib/productFilters";
 
 const ProductOverview = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -16,8 +17,9 @@ const ProductOverview = () => {
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
   useEffect(() => {
-    fetchShopifyProducts(4).then((data) => {
-      if (data) setProducts(data);
+    // Hämta brett och filtrera till de fyra smakerna — aldrig ett paket.
+    fetchShopifyProducts(20).then((data) => {
+      if (data) setProducts(data.filter((p) => isListableProduct(p.node.title)).slice(0, 4));
     });
   }, []);
 
@@ -69,8 +71,8 @@ const ProductOverview = () => {
                     );
                   })()}
                 </Link>
-                <Button onClick={() => handleAdd(product)} disabled={isLoading} className="w-full rounded-full font-semibold text-sm" size="sm">
-                  {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+                <Button asChild className="w-full rounded-full font-semibold text-sm" size="sm">
+                  <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
                 </Button>
               </div>
             );
