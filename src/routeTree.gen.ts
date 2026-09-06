@@ -49,6 +49,7 @@ import { Route as Char91DotlovableChar93OauthConsentRouteImport } from './routes
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicStarterOfferEmailRouteImport } from './routes/api/public/starter-offer-email'
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
+import { Route as EnProductHandleRouteImport } from './routes/en.product.$handle'
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
@@ -259,6 +260,11 @@ const BlogCategorySlugRoute = BlogCategorySlugRouteImport.update({
   path: '/blog/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnProductHandleRoute = EnProductHandleRouteImport.update({
+  id: '/en/product/$handle',
+  path: '/en/product/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailEventsRoute = LovableEmailEventsRouteImport.update({
   id: '/lovable/email/events',
   path: '/lovable/email/events',
@@ -322,6 +328,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/en/product/$handle': typeof EnProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -367,6 +374,7 @@ export interface FileRoutesByTo {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/en/product/$handle': typeof EnProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -414,6 +422,7 @@ export interface FileRoutesById {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
+  '/en/product/$handle': typeof EnProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -462,6 +471,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/en/product/$handle'
     | '/lovable/email/events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -507,6 +517,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/en/product/$handle'
     | '/lovable/email/events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -553,6 +564,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/api/public/starter-offer-email'
     | '/blog_/category/$slug'
+    | '/en/product/$handle'
     | '/lovable/email/events'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -589,6 +601,7 @@ export interface RootRouteChildren {
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiPublicStarterOfferEmailRoute: typeof ApiPublicStarterOfferEmailRoute
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
+  EnProductHandleRoute: typeof EnProductHandleRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -877,6 +890,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogCategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/product/$handle': {
+      id: '/en/product/$handle'
+      path: '/en/product/$handle'
+      fullPath: '/en/product/$handle'
+      preLoaderRoute: typeof EnProductHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/events': {
       id: '/lovable/email/events'
       path: '/lovable/email/events'
@@ -970,6 +990,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiPublicStarterOfferEmailRoute: ApiPublicStarterOfferEmailRoute,
   BlogCategorySlugRoute: BlogCategorySlugRoute,
+  EnProductHandleRoute: EnProductHandleRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
