@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { detectMarket, MARKETS, type Market, type MarketConfig } from "@/lib/markets";
+import { useRouteContext } from "@tanstack/react-router";
+import { MARKETS, type Market, type MarketConfig } from "@/lib/markets";
 
 interface MarketStore {
   market: Market;
@@ -11,7 +12,7 @@ interface MarketStore {
 export const useMarketStore = create<MarketStore>()(
   persist(
     (set) => ({
-      market: detectMarket(),
+      market: "SE",
       hasUserOverride: false,
       setMarket: (m) => set({ market: m, hasUserOverride: true }),
     }),
@@ -23,7 +24,18 @@ export const useMarketStore = create<MarketStore>()(
   )
 );
 
-export const useMarketConfig = (): MarketConfig => {
+/**
+ * The market that actually applies right now:
+ * a manual choice always wins, otherwise the SSR-resolved geo market.
+ */
+export const useEffectiveMarket = (): Market => {
+  const geoMarket = useRouteContext({
+    from: "__root__",
+    select: (c: { geoMarket?: Market }) => c.geoMarket,
+  });
   const market = useMarketStore((s) => s.market);
-  return MARKETS[market];
+  const hasUserOverride = useMarketStore((s) => s.hasUserOverride);
+  return hasUserOverride ? market : (geoMarket ?? "SE");
 };
+
+export const useMarketConfig = (): MarketConfig => MARKETS[useEffectiveMarket()];
