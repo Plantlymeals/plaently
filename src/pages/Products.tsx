@@ -303,9 +303,15 @@ const ProductDetail = () => {
           <div className="mt-12 rounded-3xl gradient-hero p-10 md:p-14 text-center text-primary-foreground">
             <h2 className="font-heading text-2xl md:text-3xl font-bold mb-3">{t("productDetail.benefitsTitle")}</h2>
             <p className="max-w-2xl mx-auto opacity-90 mb-6">{t("productDetail.benefitsDesc")}</p>
-            <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
-              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
-            </Button>
+            {isSingleCup ? (
+              <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
+                <Link to={STARTER_PACK_PATH}>{t("products.tryInStarterPack")}</Link>
+              </Button>
+            ) : (
+              <Button onClick={handleAddToCart} disabled={isLoading || !selectedVariant} size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("products.addToCart")}
+              </Button>
+            )}
             <p className="text-xs opacity-80">{t("cta.riskReversal")}</p>
           </div>
 
