@@ -22,6 +22,8 @@ export const CartDrawer = () => {
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
   const { t, lang } = useTranslation();
   const [bundles, setBundles] = useState<BundleRow[]>([]);
+  const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
+  const { handleAdd, dialogProps, isLoading: mixLoading } = useBundleMix();
   const marketCfg = useMarketConfig();
   const marketName = marketLabel(marketCfg.code, lang);
   const threshold = marketCfg.freeShippingThresholdSek;
