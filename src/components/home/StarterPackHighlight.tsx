@@ -45,7 +45,7 @@ const StarterPackHighlight = () => {
         <div className="relative max-w-4xl mx-auto rounded-3xl bg-card border border-border/60 shadow-elevated p-8 md:p-12 animate-fade-up">
           <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-semibold gap-1.5">
             <Sparkles className="h-3.5 w-3.5" />{" "}
-            {remaining !== null && remaining > 0
+            {remaining !== null && remaining > 0 && t("offer.remaining").trim() !== ""
               ? t("offer.remaining").replace("{n}", String(remaining))
               : t("starter.badge")}
           </Badge>
