@@ -26,7 +26,11 @@ const AdminReviews = () => {
 
   const fetchReviews = async () => {
     setLoading(true);
-    const { data, error } = await supabase.rpc("admin_list_reviews", { _status: filter });
+    const { data, error } = await supabase
+      .from("product_reviews")
+      .select("*")
+      .eq("status", filter)
+      .order("created_at", { ascending: false });
     setLoading(false);
     if (error) { toast.error(error.message); return; }
     setReviews((data as Review[]) || []);
