@@ -50,28 +50,9 @@ const ProductOverview = () => {
                       <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                     )}
                   </div>
-                  <h3 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h3>
-                  {(() => {
-                    const amount = parseFloat(price.amount);
-                    const savings = getBundleSavings(product.node.title, amount);
-                    return (
-                      <div className="mb-3 space-y-1">
-                        <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
-                        {savings && savings.savingsPercent > 0 && (
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs text-muted-foreground line-through">
-                              {price.currencyCode} {savings.fullPrice}
-                            </span>
-                            <span className="inline-block text-[10px] font-semibold text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                              {t("bundles.save")} {savings.savingsPercent}%
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })()}
+                  <h3 className="font-heading font-semibold text-sm leading-tight mb-4 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h3>
                 </Link>
-                <Button asChild className="w-full rounded-full font-semibold text-sm" size="sm">
+                <Button asChild className="w-full rounded-full font-semibold text-sm mt-auto" size="sm">
                   <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
                 </Button>
               </div>
