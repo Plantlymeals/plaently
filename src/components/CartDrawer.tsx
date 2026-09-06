@@ -33,6 +33,18 @@ export const CartDrawer = () => {
 
   useEffect(() => { if (isOpen) syncCart(); }, [isOpen, syncCart]);
   useEffect(() => { if (isOpen && bundles.length === 0) fetchPublishedBundles().then(setBundles); }, [isOpen, bundles.length]);
+  useEffect(() => {
+    if (isOpen && shopifyBundles.length === 0) {
+      fetchShopifyProducts(30, "product_type:Bundle OR title:Box").then((data) => {
+        if (data) setShopifyBundles(data);
+      });
+    }
+  }, [isOpen, shopifyBundles.length]);
+
+  const suggestion =
+    items.length > 0 && !qualifiesFreeShipping && remaining > 0
+      ? pickFreeShippingBundle(bundles, shopifyBundles, remaining)
+      : null;
 
   const getBundleComponents = (title: string): Array<{ name: string; quantity: number }> => {
     const titleLower = title.toLowerCase();
