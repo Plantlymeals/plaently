@@ -415,23 +415,9 @@ const Products = () => {
                           <div className="h-12 w-12 rounded-full bg-muted-foreground/10" aria-hidden="true" />
                         )}
                       </div>
-                      <h2 className="font-heading font-semibold text-sm leading-tight mb-2 group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
-                      {(() => {
-                        const amount = parseFloat(price.amount);
-                        return (
-                          <div className="mb-3 space-y-1">
-                            <p className="text-lg font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</p>
-                            <SavingsBadge
-                              title={displayProductTitle(product.node.title)}
-                              bundlePrice={amount}
-                              currencyCode={price.currencyCode}
-                              showFullPrice
-                            />
-                          </div>
-                        );
-                      })()}
+                      <h2 className="font-heading font-semibold text-sm leading-tight mb-4 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
                     </Link>
-                    <Button asChild className="w-full rounded-full font-semibold text-sm" size="sm">
+                    <Button asChild className="w-full rounded-full font-semibold text-sm mt-auto" size="sm">
                       <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
                     </Button>
                   </div>
