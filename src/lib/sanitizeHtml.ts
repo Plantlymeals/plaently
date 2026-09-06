@@ -7,7 +7,9 @@ import DOMPurify from "dompurify";
  */
 const SERVER_STRIP_TAGS = /<\s*\/?\s*(script|style|iframe|object|embed|link|meta|base|form)\b[^>]*>/gi;
 const SERVER_STRIP_BLOCK = /<\s*(script|style)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi;
-const SERVER_STRIP_EVENT_ATTRS = /\son[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
+// Separator may be whitespace OR a slash (`<img/onerror=...>` is valid HTML).
+// Lookbehind keeps the separator itself intact.
+const SERVER_STRIP_EVENT_ATTRS = /(?<=[\s/])on[a-z]+\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi;
 const SERVER_STRIP_JS_URLS = /\s(?:href|src|xlink:href)\s*=\s*(?:"\s*javascript:[^"]*"|'\s*javascript:[^']*'|javascript:[^\s>]+)/gi;
 
 function serverSanitize(html: string): string {
