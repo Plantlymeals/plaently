@@ -44,6 +44,24 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+// Baseline security headers on every response. CSP is intentionally NOT set
+// yet — it needs a Report-Only observation period first.
+function applySecurityHeaders(response: Response): Response {
+  const headers = new Headers(response.headers);
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("X-Frame-Options", "DENY");
+  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  headers.set(
+    "Permissions-Policy",
+    "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
+  );
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 const IMMUTABLE_ASSET_PATTERN = /^\/images\/.+\.(webp|avif|png|jpe?g|svg|gif|ico)$/i;
 const LONG_LIVED_ASSET_PATTERN = /^\/(favicon\.ico|favicon(-\d+x\d+)?\.png|apple-touch-icon\.png|placeholder\.svg)$/i;
 
@@ -234,13 +252,17 @@ export default {
 
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
+      return applySecurityHeaders(
+        applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response)),
+      );
     } catch (error) {
       console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      return applySecurityHeaders(
+        new Response(renderErrorPage(), {
+          status: 500,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        }),
+      );
     }
   },
 };
