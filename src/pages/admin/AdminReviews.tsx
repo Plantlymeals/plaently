@@ -10,7 +10,6 @@ interface Review {
   id: string;
   product_slug: string;
   author_name: string;
-  author_email: string;
   rating: number;
   title: string | null;
   body: string;
