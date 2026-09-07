@@ -252,13 +252,17 @@ export default {
 
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response));
+      return applySecurityHeaders(
+        applyAssetCacheHeaders(request, await normalizeCatastrophicSsrResponse(response)),
+      );
     } catch (error) {
       console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      return applySecurityHeaders(
+        new Response(renderErrorPage(), {
+          status: 500,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        }),
+      );
     }
   },
 };
