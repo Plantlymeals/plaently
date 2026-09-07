@@ -10,7 +10,6 @@ interface Review {
   id: string;
   product_slug: string;
   author_name: string;
-  author_email: string;
   rating: number;
   title: string | null;
   body: string;
@@ -28,7 +27,7 @@ const AdminReviews = () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("product_reviews")
-      .select("*")
+      .select("id, product_slug, author_name, rating, title, body, status, created_at, approved_at")
       .eq("status", filter)
       .order("created_at", { ascending: false });
     setLoading(false);
@@ -91,8 +90,6 @@ const AdminReviews = () => {
               <div className="space-y-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="font-heading font-semibold">{r.author_name}</span>
-                  <span className="text-xs text-muted-foreground">{r.author_email}</span>
-                  <span className="text-xs text-muted-foreground">·</span>
                   <span className="text-xs text-muted-foreground font-mono">{r.product_slug}</span>
                 </div>
                 <div className="flex items-center gap-2">
