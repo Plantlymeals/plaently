@@ -34,7 +34,7 @@ export type ApprovedDeCopy = { approved: boolean; html: string };
 
 export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
   "plant-based-fusilli-bolognese": {
-    approved: false,
+    approved: true,
     html: `<p>Nicht einfach nur Tomate — ein sonnenverwöhntes Geschmackserlebnis! Unser Geheimnis? Eine großzügige Portion roter Paprika für Tiefe und Komplexität sowie ein Schuss natives Olivenöl extra für einen sanften, fruchtigen Abgang. Begleite uns auf unserer pflanzlichen Reise ins Herz Italiens.</p>
 <h3>Nährwerte</h3>
 <table>
@@ -60,7 +60,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 <p>Nettogewicht: 75 g · Mindesthaltbarkeit: 12 Monate</p>`,
   },
   "plant-based-pasta-carbonara": {
-    approved: false,
+    approved: true,
     html: `<p>Nicht einfach nur Käse und Sahne — pflanzliches Protein trifft auf cremige Pasta! Unser Geheimnis? Ein raffiniertes Spiel aus Erbsen-Texturen und eine würzige Dosis schwarzer Pfeffer und Knoblauch, die den klassischen italienischen Geist einfängt. Begleite uns auf unserer pflanzlichen Reise ins Herz Roms — wo Carbonara auf die Zukunft trifft.</p>
 <h3>Nährwerte</h3>
 <table>
@@ -86,7 +86,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 <p>Nettogewicht: 75 g · Mindesthaltbarkeit: 12 Monate</p>`,
   },
   "plant-based-yellow-curry-rice": {
-    approved: false,
+    approved: true,
     html: `<p>Eine cremige Explosion sonnenwarmer Aromen! Unser pflanzliches Curry basiert auf strukturiertem Sonnenblumenprotein und einer sanften Kokosmilchsauce, die Curry und Koriander perfekt ausbalanciert. Serviert mit Reis — eine vollständige, exotische Mahlzeit, die in Minuten fertig ist. Eine Reise zum südostasiatischen Street Food, eingefangen in einem Becher.</p>
 <h3>Nährwerte</h3>
 <table>
@@ -112,7 +112,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 <p>Nettogewicht: 73 g · Mindesthaltbarkeit: 12 Monate</p>`,
   },
   "plant-based-smoky-bbq-lentils": {
-    approved: false,
+    approved: true,
     html: `<p>Smoky BBQ mit grünen Linsen — jetzt eingefangen in einem warmen Becher! Unser Gericht basiert auf einer großzügigen Grundlage aus strukturiertem Sonnenblumenprotein und grünen Linsen mit der Süße von geräuchertem Paprika, karamellisierten Zwiebeln und der würzigen Note von Knoblauch. Eine BBQ-Hommage für alle, die geschmackvolle Mahlzeiten lieben.</p>
 <h3>Nährwerte</h3>
 <table>
