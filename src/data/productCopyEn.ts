@@ -118,7 +118,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 <table>
 <thead><tr><th>Nutrient</th><th>Per cup (65 g)</th><th>Per 100 g, dry content</th></tr></thead>
 <tbody>
-<tr><td>Energy</td><td>228 kcal / 954 kJ</td><td>351 kcal / 1481 kJ</td></tr>
+<tr><td>Energy</td><td>228 kcal / 954 kJ</td><td>351 kcal / 1468 kJ</td></tr>
 <tr><td>Fat</td><td>2.9 g</td><td>4.5 g</td></tr>
 <tr><td>of which saturates</td><td>0.4 g</td><td>0.6 g</td></tr>
 <tr><td>Carbohydrate</td><td>25.4 g</td><td>39 g</td></tr>
@@ -129,7 +129,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 </tbody>
 </table>
 <h3>Ingredients</h3>
-<p>Texturized sunflower protein 38.5%, precooked green lentils 30.8%, tomato powder, cane sugar, potato starch, red bell pepper, flavourings, salt, onion, yeast, carrot, caramelised sugar powder (caramelised sugar, maltodextrin), herbs and spices, sodium diacetate, garlic.</p>
+<p>Texturized sunflower protein 38.5%, precooked green lentils 30.8%, tomato powder, cane sugar, potato starch, red bell pepper, flavourings, salt, onion, yeast, carrot, caramelised sugar powder (caramelised sugar, maltodextrin), herbs and spices, E262 sodium diacetate, garlic.</p>
 <h3>Allergens</h3>
 <p><strong>Contains:</strong> None (allergen-free).</p>
 <p><strong>May contain:</strong> Wheat, milk, soy and egg.</p>
