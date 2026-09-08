@@ -31,6 +31,7 @@ Hela renderingskedjan för produktsidan gås igenom rad för rad efter fler `===
 ## 3. Nya filer
 
 - `src/data/productCopyDe.ts` — spegel av `productCopyEn.ts`: `DE_PILOT_HANDLES` (samma fem), `DE_PRODUCT_COPY` med de fyra tyska texterna och `approved: false`, `DE_HANDLES_REQUIRING_APPROVAL` (bara de fyra smakerna), `getApprovedDeCopy()`, `hasApprovedDeCopy()`, `needsApprovedDeCopy()`, `isGermanPageReady()`. `<strong>`-taggar sätts tillbaka runt Weizen/Milch inne i ingredienslistorna, precis som i den engelska källan.
+- `src/data/productCopyEn.ts` — oberoende faktarättelse: uppdatera `plant-based-fusilli-bolognese`-ingrediensraden till den korrigerade versionen med `texturized pea proteins 21%` och `flavorings`. `approved: true` behålls; näringstabell och allergentext ändras inte.
 - `src/routes/de.product.$handle.tsx` — kopia av den engelska routen med `/de/product/$handle`, `pageLocale: "de"`, tysk 404-text ("Produkt nicht gefunden" / "Diese Adresse existiert nicht mehr. Siehe unser gesamtes Sortiment unten." / "Zu den Produkten"), och `noindex` styrt av `isGermanPageReady()`. Handles utanför piloten redirectar 301 till den svenska sidan.
 
 ## 4. Sitemap
