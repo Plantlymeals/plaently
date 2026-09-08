@@ -245,7 +245,9 @@ export function translateProductHtml(html: string | undefined | null, lang: Prod
   // described as "vegan"/"100% plant-based". Applies to SV and EN alike.
   if (!html) return "";
   html = sanitizeVeganClaims(html);
-  if (lang === "en" || lang === "de") {
+  // German never reuses the English machine translation; German pages fall
+  // back to the Swedish original until reviewed German copy exists.
+  if (lang === "en") {
     let out = html;
     for (const [re, rep] of SV_TO_EN) out = out.replace(re, rep);
     return sanitizeVeganClaims(out);
