@@ -77,7 +77,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 </tbody>
 </table>
 <h3>Ingredients</h3>
-<p>Pasta (durum <strong>wheat</strong> semolina, pea protein isolate 52%), pea protein 21%, whey powder (contains <strong>milk</strong>), potato starch, sunflower oil in powder (non-hydrogenated high-oleic sunflower oil, glucose syrup, <strong>milk</strong> protein), processed cheese powder (contains <strong>milk</strong>), flavourings (contain <strong>milk</strong>), salt, black pepper, garlic, turmeric.</p>
+<p>Pasta (durum <strong>wheat</strong> semolina, pea protein isolate) 52%, texturized pea protein 21%, whey powder (contains <strong>milk</strong>), potato starch, sunflower oil in powder (non-hydrogenated high-oleic sunflower oil, glucose syrup, <strong>milk</strong> protein), processed cheese powder (contains <strong>milk</strong>), flavourings (contain <strong>milk</strong>), salt, black pepper, garlic, turmeric.</p>
 <h3>Allergens</h3>
 <p><strong>Contains:</strong> Wheat and milk.</p>
 <p><strong>May contain:</strong> Soy and egg.</p>
@@ -103,7 +103,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 </tbody>
 </table>
 <h3>Ingredients</h3>
-<p>Sunflower protein 38.4%, precooked rice 27.4%, potato starch, coconut milk (coconut milk, maltodextrin, sodium caseinate (contains <strong>milk</strong>)), <strong>milk</strong> protein, creamer (glucose syrup, vegetable fat, <strong>milk</strong> protein, stabilizer: E340, anticaking agent: E551, emulsifier: E471), dextrose, salt, cane sugar, natural flavourings, curry powder, lime juice concentrate powder (maltodextrin), carrot, onion, herbs, spices and coriander.</p>
+<p>Texturized sunflower protein 38.4%, precooked rice 27.4%, potato starch, coconut milk (coconut milk, maltodextrin, sodium caseinate (contains <strong>milk</strong>)), <strong>milk</strong> protein, creamer (glucose syrup, vegetable fat, <strong>milk</strong> protein, stabilizer: E340, anticaking agent: E551, emulsifier: E471), dextrose, salt, cane sugar, natural flavourings, curry powder, lime juice concentrate powder (maltodextrin), carrot, onion, herbs, spices and coriander.</p>
 <h3>Allergens</h3>
 <p><strong>Contains:</strong> Milk.</p>
 <p><strong>May contain:</strong> Wheat, soy and egg.</p>
@@ -129,7 +129,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 </tbody>
 </table>
 <h3>Ingredients</h3>
-<p>Sunflower protein 38.5%, precooked green lentils 30.8%, tomato powder, cane sugar, potato starch, red bell pepper, flavourings, salt, onion, yeast, carrot, caramelised sugar powder (caramelised sugar, maltodextrin), herbs and spices, sodium diacetate, garlic.</p>
+<p>Texturized sunflower protein 38.5%, precooked green lentils 30.8%, tomato powder, cane sugar, potato starch, red bell pepper, flavourings, salt, onion, yeast, carrot, caramelised sugar powder (caramelised sugar, maltodextrin), herbs and spices, sodium diacetate, garlic.</p>
 <h3>Allergens</h3>
 <p><strong>Contains:</strong> None (allergen-free).</p>
 <p><strong>May contain:</strong> Wheat, milk, soy and egg.</p>
