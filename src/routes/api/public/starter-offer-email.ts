@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { STARTER_OFFER_CODE } from '@/lib/starterOffer.server'
 
 // Sends the Starter Pack offer code to a newsletter subscriber.
 // Public trigger: the caller must already exist in newsletter_subscribers,
@@ -19,6 +20,10 @@ export const Route = createFileRoute('/api/public/starter-offer-email')({
 
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !code) {
           return Response.json({ error: 'email and code are required' }, { status: 400 })
+        }
+
+        if (code !== STARTER_OFFER_CODE) {
+          return Response.json({ error: 'Invalid code' }, { status: 400 })
         }
 
         const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
