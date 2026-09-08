@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { STARTER_OFFER_CODE } from '@/lib/starterOffer.server'
 
 // Sends the Starter Pack offer code to a newsletter subscriber.
 // Public trigger: the caller must already exist in newsletter_subscribers,
