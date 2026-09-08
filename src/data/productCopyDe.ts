@@ -118,7 +118,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 <table>
 <thead><tr><th>Nährwert</th><th>Pro Becher (65 g)</th><th>Pro 100 g, Trockenmasse</th></tr></thead>
 <tbody>
-<tr><td>Energie</td><td>228 kcal / 954 kJ</td><td>351 kcal / 1481 kJ</td></tr>
+<tr><td>Energie</td><td>228 kcal / 954 kJ</td><td>351 kcal / 1468 kJ</td></tr>
 <tr><td>Fett</td><td>2,9 g</td><td>4,5 g</td></tr>
 <tr><td>davon gesättigte Fettsäuren</td><td>0,4 g</td><td>0,6 g</td></tr>
 <tr><td>Kohlenhydrate</td><td>25,4 g</td><td>39 g</td></tr>
@@ -129,7 +129,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 </tbody>
 </table>
 <h3>Zutaten</h3>
-<p>Texturiertes Sonnenblumenprotein 38,5%, vorgekochte grüne Linsen 30,8%, Tomatenpulver, Rohrzucker, Kartoffelstärke, rote Paprika, Aromen, Salz, Zwiebel, Hefe, Karotte, karamellisierter Zucker (Pulver) (karamellisierter Zucker, Maltodextrin), Kräuter und Gewürze, Natriumdiacetat, Knoblauch.</p>
+<p>Texturiertes Sonnenblumenprotein 38,5%, vorgekochte grüne Linsen 30,8%, Tomatenpulver, Rohrzucker, Kartoffelstärke, rote Paprika, Aromen, Salz, Zwiebel, Hefe, Karotte, karamellisierter Zucker (Pulver) (karamellisierter Zucker, Maltodextrin), Kräuter und Gewürze, E262 Natriumdiacetat, Knoblauch.</p>
 <h3>Allergene</h3>
 <p><strong>Enthält:</strong> Keine (allergenfrei).</p>
 <p><strong>Kann Spuren enthalten von:</strong> Weizen, Milch, Soja und Ei.</p>
