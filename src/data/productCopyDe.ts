@@ -1,5 +1,4 @@
 import { canonicalizeHandle } from "@/lib/productSeo";
-import { hasApprovedEnCopy } from "@/data/productCopyEn";
 
 /**
  * German product pilot.
@@ -170,13 +169,13 @@ export function needsApprovedDeCopy(handle: string): boolean {
 /**
  * Whether the German page may be indexed and listed in the sitemap.
  *
- * German pilot pages reuse the approved English ingredient/nutrition/allergen
- * copy, so a flavour is ready as soon as its English counterpart is ready.
- * The dedicated German long text (DE_PRODUCT_COPY) is intentionally kept
- * unapproved until it has been reviewed; until then the English copy is used.
+ * A flavour is only ready once its own German ingredient/nutrition/allergen
+ * text has been reviewed and approved (`approved: true` in DE_PRODUCT_COPY).
+ * Until then the German page renders the Swedish original, stays noindex and
+ * is kept out of the sitemap.
  */
 export function isGermanPageReady(handle: string): boolean {
   const canonical = canonicalizeHandle(handle);
   if (!needsApprovedDeCopy(canonical)) return true;
-  return hasApprovedEnCopy(canonical);
+  return hasApprovedDeCopy(canonical);
 }

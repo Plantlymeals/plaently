@@ -161,8 +161,8 @@ async function englishPilotEntries(): Promise<SitemapEntry[]> {
 }
 
 /**
- * German pilot product pages. They reuse the approved English ingredient/
- * nutrition/allergen content; listed only once that content is approved.
+ * German pilot product pages. Listed only once the reviewed German
+ * ingredient/nutrition/allergen text has been approved.
  */
 async function germanPilotEntries(): Promise<SitemapEntry[]> {
   const mod = await import("../src/data/productCopyDe");

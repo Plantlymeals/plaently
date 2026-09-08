@@ -25,6 +25,7 @@ import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
 import { getApprovedEnCopy } from "@/data/productCopyEn";
+import { getApprovedDeCopy } from "@/data/productCopyDe";
 import type { ProductPageLocale } from "@/lib/i18n";
 
 const ProductDetail = () => {
@@ -161,13 +162,19 @@ const ProductDetail = () => {
   const image = product.images.edges[0]?.node;
   const cupMeta = getCupMeta(product.title);
   const price = selectedVariant?.price;
-  // English and German long text (ingredients / nutrition / allergens) both use
-  // the same manually reviewed English copy; otherwise the Swedish original is
-  // translated to English.
+  // Long text (ingredients / nutrition / allergens) must come from manually
+  // reviewed copy in the page's own language. English pages use the approved
+  // English copy, German pages the approved German copy. With no approved copy
+  // the page falls back to the Swedish original — never a machine translation
+  // of allergen data into another language.
   const approvedNonSvHtml =
-    pageLocale === "sv" ? null : getApprovedEnCopy(productHandle ?? product.handle);
+    pageLocale === "sv"
+      ? null
+      : pageLocale === "de"
+        ? getApprovedDeCopy(productHandle ?? product.handle)
+        : getApprovedEnCopy(productHandle ?? product.handle);
   const translatedHtml =
-    approvedNonSvHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "sv" ? "sv" : "en");
+    approvedNonSvHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "en" ? "en" : "sv");
   const translatedDesc = translateProductText(product.description, pageLocale);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
