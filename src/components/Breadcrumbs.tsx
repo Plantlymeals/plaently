@@ -16,7 +16,7 @@ const BASE_URL = "https://plaently.com";
 interface BreadcrumbsProps {
   items: Crumb[];
   /** Language for the "Home" root crumb. */
-  lang?: "sv" | "en";
+  lang?: "sv" | "en" | "de";
   /** Emit BreadcrumbList JSON-LD. Disable when the page already supplies it. */
   emitSchema?: boolean;
   className?: string;
@@ -26,8 +26,14 @@ interface BreadcrumbsProps {
  * Visible breadcrumb trail + BreadcrumbList structured data.
  * The home crumb is added automatically — pass only the deeper levels.
  */
+const HOME_LABEL: Record<NonNullable<BreadcrumbsProps["lang"]>, string> = {
+  sv: "Hem",
+  en: "Home",
+  de: "Startseite",
+};
+
 const Breadcrumbs = ({ items, lang = "sv", emitSchema = true, className }: BreadcrumbsProps) => {
-  const trail: Crumb[] = [{ label: lang === "sv" ? "Hem" : "Home", path: "/" }, ...items];
+  const trail: Crumb[] = [{ label: HOME_LABEL[lang ?? "sv"], path: "/" }, ...items];
 
   const schema = {
     "@context": "https://schema.org",

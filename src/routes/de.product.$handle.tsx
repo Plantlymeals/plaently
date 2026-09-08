@@ -3,15 +3,15 @@ import { ProductDetail } from "@/pages/Products";
 import { getProductRouteHead, canonicalizeHandle } from "@/lib/productSeo";
 import { buildProductJsonLd } from "@/lib/productSchema";
 import { loadProductSchemaData } from "@/lib/seoLoaders";
-import { isEnglishPilotHandle, isEnglishPageReady } from "@/data/productCopyEn";
+import { isGermanPilotHandle, isGermanPageReady } from "@/data/productCopyDe";
 import Layout from "@/components/Layout";
 
-export const Route = createFileRoute("/en/product/$handle")({
+export const Route = createFileRoute("/de/product/$handle")({
   beforeLoad: ({ params }) => {
     const canonical = canonicalizeHandle(params.handle);
-    // Only the five pilot products have an English page; everything else
+    // Only the five pilot products have a German page; everything else
     // belongs on the Swedish URL.
-    if (!isEnglishPilotHandle(canonical)) {
+    if (!isGermanPilotHandle(canonical)) {
       throw redirect({
         to: "/product/$handle",
         params: { handle: canonical },
@@ -21,13 +21,13 @@ export const Route = createFileRoute("/en/product/$handle")({
     }
     if (canonical !== params.handle) {
       throw redirect({
-        to: "/en/product/$handle",
+        to: "/de/product/$handle",
         params: { handle: canonical },
         replace: true,
         statusCode: 301,
       });
     }
-    return { pageLocale: "en" as const };
+    return { pageLocale: "de" as const };
   },
   loader: async ({ params }) => {
     const data = await loadProductSchemaData(canonicalizeHandle(params.handle));
@@ -38,16 +38,16 @@ export const Route = createFileRoute("/en/product/$handle")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Product not found — PLÄNTLY" },
+          { title: "Produkt nicht gefunden — PLÄNTLY" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
     }
     return {
-      ...getProductRouteHead(params.handle, "en", {
-        // Stays out of the index until the English allergen/nutrition text has
-        // been manually reviewed and approved.
-        noindex: !isEnglishPageReady(params.handle),
+      ...getProductRouteHead(params.handle, "de", {
+        // Stays out of the index until the German ingredient/nutrition/allergen
+        // text has been manually reviewed and approved.
+        noindex: !isGermanPageReady(params.handle),
       }),
       scripts: [
         {
@@ -55,33 +55,33 @@ export const Route = createFileRoute("/en/product/$handle")({
           children: JSON.stringify(
             buildProductJsonLd({
               handle: params.handle,
-              locale: "en",
-              offer: loaderData.offer ?? null,
-              rating: loaderData.rating ?? null,
-              shopifyImageUrl: loaderData.shopifyImageUrl ?? null,
-              name: loaderData.name ?? null,
-              description: loaderData.description ?? null,
+              locale: "de",
+                  offer: loaderData.offer ?? null,
+                  rating: loaderData.rating ?? null,
+                  shopifyImageUrl: loaderData.shopifyImageUrl ?? null,
+                  name: loaderData.name ?? null,
+                  description: loaderData.description ?? null,
             })
           ),
         },
       ],
     };
   },
-  notFoundComponent: ProductNotFoundEn,
+  notFoundComponent: ProductNotFoundDe,
   component: ProductDetail,
 });
 
-function ProductNotFoundEn() {
+function ProductNotFoundDe() {
   return (
     <Layout>
       <div className="container py-20 text-center space-y-4">
-        <h1 className="font-heading text-3xl font-bold">Product not found</h1>
-        <p className="text-muted-foreground">This address no longer exists. See the full range below.</p>
+        <h1 className="font-heading text-3xl font-bold">Produkt nicht gefunden</h1>
+        <p className="text-muted-foreground">Diese Adresse existiert nicht mehr. Sieh dir unsere Auswahl an.</p>
         <Link
           to="/products"
           className="inline-block rounded-full border border-border px-6 py-2 hover:text-primary"
         >
-          To the products
+          Zu den Produkten
         </Link>
       </div>
     </Layout>

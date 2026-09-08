@@ -1,6 +1,6 @@
 import { Star, Heart } from "lucide-react";
 import { getBundleSavings } from "@/lib/bundleSavings";
-import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
+import { useTranslation, tLocale, type ProductPageLocale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export type SavingsBadgeVariant = "primary" | "default" | "value" | "trial";
@@ -17,7 +17,7 @@ interface SavingsBadgeProps {
   className?: string;
   fullPriceClassName?: string;
   /** Page-scoped language (product pages take language from the URL). */
-  locale?: Lang;
+  locale?: ProductPageLocale;
 }
 
 /**

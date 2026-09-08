@@ -51,7 +51,7 @@ export const EN_PRODUCT_COPY: Record<string, ApprovedEnCopy> = {
 </tbody>
 </table>
 <h3>Ingredients</h3>
-<p>Pasta (durum <strong>wheat</strong> semolina, pea protein isolate 52%), tomato, potato starch, onion, sugar, salt, carrot, garlic, red bell pepper, herbs and spices and extra virgin olive oil.</p>
+<p>Pasta (durum <strong>wheat</strong> semolina, pea protein isolate) 52%, texturized pea proteins 21%, tomato, potato starch, flavorings, onion, sugar, salt, carrot, garlic, red bell pepper, herbs and spices, extra virgin olive oil.</p>
 <h3>Allergens</h3>
 <p><strong>Contains:</strong> Wheat.</p>
 <p><strong>May contain:</strong> Milk, soy and egg.</p>

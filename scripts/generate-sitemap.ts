@@ -160,16 +160,33 @@ async function englishPilotEntries(): Promise<SitemapEntry[]> {
   }));
 }
 
+/**
+ * German pilot product pages. They reuse the approved English ingredient/
+ * nutrition/allergen content; listed only once that content is approved.
+ */
+async function germanPilotEntries(): Promise<SitemapEntry[]> {
+  const mod = await import("../src/data/productCopyDe");
+  return mod.DE_PILOT_HANDLES.filter((h: string) => mod.isGermanPageReady(h)).map((handle: string) => ({
+    path: `/de/product/${handle}`,
+    changefreq: "weekly" as const,
+    priority: "0.7",
+  }));
+}
+
 async function main() {
-  const [blog, products, english] = await Promise.all([
+  const [blog, products, english, german] = await Promise.all([
     fetchBlogSlugs(),
     fetchShopifyHandles(),
     englishPilotEntries().catch((e) => {
       console.warn("sitemap: english pilot entries failed", e);
       return [] as SitemapEntry[];
     }),
+    germanPilotEntries().catch((e) => {
+      console.warn("sitemap: german pilot entries failed", e);
+      return [] as SitemapEntry[];
+    }),
   ]);
-  const entries = [...staticEntries, ...blog, ...products, ...english];
+  const entries = [...staticEntries, ...blog, ...products, ...english, ...german];
   writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
   console.log(`sitemap.xml written (${entries.length} entries)`);
 }

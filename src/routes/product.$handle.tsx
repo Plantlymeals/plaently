@@ -38,9 +38,7 @@ export const Route = createFileRoute("/product/$handle")({
       };
     }
     return {
-      ...getProductRouteHead(params.handle, "sv", {
-        hasEnglishAlternate: isEnglishPilotHandle(params.handle),
-      }),
+      ...getProductRouteHead(params.handle, "sv"),
       scripts: [
         {
           type: "application/ld+json",

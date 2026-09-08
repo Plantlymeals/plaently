@@ -25,6 +25,7 @@ import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
 import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
 import { getApprovedEnCopy } from "@/data/productCopyEn";
+import type { ProductPageLocale } from "@/lib/i18n";
 
 const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
@@ -39,10 +40,10 @@ const ProductDetail = () => {
   // persisted language store — so the server-rendered HTML is already in the
   // right language for crawlers and first-time visitors.
   const pageLocale = useRouterState({
-    select: (state) =>
-      state.matches.some((m) => (m.context as { pageLocale?: "sv" | "en" })?.pageLocale === "en")
-        ? ("en" as const)
-        : ("sv" as const),
+    select: (state) => {
+      const ctx = state.matches.find((m) => (m.context as { pageLocale?: ProductPageLocale })?.pageLocale);
+      return (ctx?.context as { pageLocale?: ProductPageLocale } | undefined)?.pageLocale ?? "sv";
+    },
   });
   const { t } = useLocaleTranslation(pageLocale);
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
@@ -125,7 +126,7 @@ const ProductDetail = () => {
     const ssrCopy = getProductSsrCopy(productHandle, pageLocale);
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "sv" ? "" : `/${pageLocale}`}/product/${productHandle ?? ""}`} type="product" locale={pageLocale} routeOwnsLinks routeOwnsMetadata />
         <section className="py-12 md:py-20">
           <div className="container">
             <div className="space-y-3 max-w-2xl">
@@ -147,7 +148,7 @@ const ProductDetail = () => {
     const fallbackDescription = pageSeo?.description ?? "Utforska PLÄNTLYs proteinmåltider.";
     return (
       <Layout>
-        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks routeOwnsMetadata />
+        <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "sv" ? "" : `/${pageLocale}`}/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks routeOwnsMetadata />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
           <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
@@ -160,11 +161,13 @@ const ProductDetail = () => {
   const image = product.images.edges[0]?.node;
   const cupMeta = getCupMeta(product.title);
   const price = selectedVariant?.price;
-  // English long text (ingredients / nutrition / allergens) is only used when a
-  // manually reviewed version exists; otherwise the Swedish original is shown.
-  const approvedEnHtml = pageLocale === "en" ? getApprovedEnCopy(productHandle ?? product.handle) : null;
+  // English and German long text (ingredients / nutrition / allergens) both use
+  // the same manually reviewed English copy; otherwise the Swedish original is
+  // translated to English.
+  const approvedNonSvHtml =
+    pageLocale === "sv" ? null : getApprovedEnCopy(productHandle ?? product.handle);
   const translatedHtml =
-    approvedEnHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "en" ? "sv" : pageLocale);
+    approvedNonSvHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "sv" ? "sv" : "en");
   const translatedDesc = translateProductText(product.description, pageLocale);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
@@ -172,7 +175,11 @@ const ProductDetail = () => {
   // Enskilda koppar säljs inte längre styckvis — de leder till Starter Pack.
   const isSingleCup = isListableProduct(product.title);
   const STARTER_PACK_PATH =
-    pageLocale === "en" ? "/en/product/starter-pack-12-cups-1" : "/product/starter-pack-12-cups-1";
+    pageLocale === "en"
+      ? "/en/product/starter-pack-12-cups-1"
+      : pageLocale === "de"
+      ? "/de/product/starter-pack-12-cups-1"
+      : "/product/starter-pack-12-cups-1";
 
   const schemaImageUrl = resolveProductImageUrl({
     handle: productHandle ?? product.handle,
@@ -189,7 +196,7 @@ const ProductDetail = () => {
       <SEOHead
         title={pageSeo?.title ?? `${displayProductTitle(product.title)} – 20g protein på 5 min | PLÄNTLY`}
         description={pageSeo?.description || translateProductText(product.description, pageLocale) || `Hälsosam ${displayProductTitle(product.title).toLowerCase()} med 20g protein per portion – snabb, mättande och klimatsmart. Klar på 5 minuter. Beställ online från PLÄNTLY.`}
-        path={`${pageLocale === "en" ? "/en" : ""}/product/${productHandle ?? product.handle}`}
+        path={`${pageLocale === "sv" ? "" : `/${pageLocale}`}/product/${productHandle ?? product.handle}`}
         type="product"
         locale={pageLocale}
         image={schemaImageUrl}
@@ -201,7 +208,7 @@ const ProductDetail = () => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: pageLocale === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: pageLocale === "sv" ? "Produkter" : pageLocale === "de" ? "Produkte" : "Products", path: "/products" },
               { label: displayProductTitle(product.title) },
             ]}
             lang={pageLocale}
