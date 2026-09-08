@@ -1,12 +1,12 @@
 import { Flame, Dumbbell, Leaf } from "lucide-react";
 import type { CupMeta } from "@/lib/productImages";
-import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
+import { useTranslation, tLocale, type ProductPageLocale } from "@/lib/i18n";
 
 interface Props {
   meta: CupMeta;
   size?: "sm" | "md";
   /** Page-scoped language (product pages take language from the URL). */
-  locale?: Lang;
+  locale?: ProductPageLocale;
 }
 
 export const CupBadges = ({ meta, size = "sm", locale }: Props) => {

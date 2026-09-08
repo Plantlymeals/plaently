@@ -7,7 +7,7 @@ import { Star, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { z } from "zod";
-import { useTranslation, tLocale, type Lang } from "@/lib/i18n";
+import { useTranslation, tLocale, type ProductPageLocale } from "@/lib/i18n";
 
 interface Review {
   id: string;
@@ -44,7 +44,7 @@ const ProductReviews = ({
   productSlug,
   title,
   locale,
-}: { productSlug: string; title: string; locale?: Lang }) => {
+}: { productSlug: string; title: string; locale?: ProductPageLocale }) => {
   const { t: globalT } = useTranslation();
   const t = locale ? (key: string) => tLocale(key, locale) : globalT;
   const [reviews, setReviews] = useState<Review[]>([]);

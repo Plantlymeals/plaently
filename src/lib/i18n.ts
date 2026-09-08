@@ -3,6 +3,11 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 export type Lang = "sv" | "en";
 
+/** URL-scoped locales for product pages only. Kept separate from the global
+ *  `Lang` type so adding a product-page language does not force a full-site
+ *  translation. */
+export type ProductPageLocale = "sv" | "en" | "de";
+
 interface LangStore {
  lang: Lang;
  setLang: (lang: Lang) => void;
@@ -496,6 +501,66 @@ const translations: Record<string, Record<Lang, string>> = {
  "ai.close": { sv: "Stäng AI-assistenten", en: "Close AI assistant" },
 };
 
+/**
+ * Minimal German copy for the product-page pilot only.
+ *
+ * These keys are intentionally NOT part of the global `translations` table
+ * because the German pilot is scoped to product pages; using a separate table
+ * avoids forcing a German translation of the entire site.
+ *
+ * `tLocale` falls back to Swedish when a key is missing, so a German value
+ * can never resolve to an empty string.
+ */
+const productPageDe: Record<string, string> = {
+  "bundles.value": "Wert",
+  "bundles.whatsInside": "Was ist enthalten",
+  "cta.riskReversal": "Lieferung in 2–4 Werktagen · Kein Abo · 14 Tage Widerrufsrecht",
+  "product.vegan": "Vegan",
+  "product.vegetarian": "Vegetarisch",
+  "productDetail.benefitsDesc": "Pflanzliches Protein, ausgewogene Makros und echte Zutaten — in der Zeit, die es braucht, Wasser zum Kochen zu bringen.",
+  "productDetail.benefitsTitle": "Gesundes Fast Food",
+  "productDetail.nutritionClean": "Echte Zutaten, keine künstlichen Zusatzstoffe",
+  "productDetail.nutritionMacros": "Ausgewogene Makros und 5–9 g Ballaststoffe",
+  "productDetail.nutritionProtein": "20 g pflanzliches Protein pro Portion",
+  "productDetail.nutritionTitle": "Nährwert-Highlights",
+  "productDetail.prepStep1": "Becher öffnen",
+  "productDetail.prepStep2": "Heißes Wasser bis zur Markierung hinzufügen",
+  "productDetail.prepStep3": "Umrühren und 5 Min. warten",
+  "productDetail.prepTitle": "Fertig in 5 Minuten",
+  "productDetail.tasteDesc": "Von Köchen in Stockholm entwickelt, um echten, überzeugenden Geschmack zu liefern — kein Kompromiss.",
+  "productDetail.tasteTitle": "Geschmack zuerst",
+  "products.addToCart": "In den Warenkorb",
+  "products.backToProducts": "Zurück zu den Produkten",
+  "products.noProducts": "Keine Produkte gefunden.",
+  "products.notFound": "Produkt nicht gefunden",
+  "products.pageSubtitle": "Pflanzliche Proteinmahlzeiten, fertig in 5 Minuten.\nWähle deine Favoriten.",
+  "products.pageTitle": "Unsere Proteinmahlzeiten",
+  "products.perMeal": "pro Mahlzeit",
+  "products.tryInStarterPack": "Im Starter Pack probieren",
+  "reviews.approvalNote": "Deine Bewertung wird nach Freigabe durch das Team sichtbar.",
+  "reviews.cancel": "Abbrechen",
+  "reviews.countMany": "Bewertungen",
+  "reviews.countOne": "Bewertung",
+  "reviews.errBodyMin": "Die Bewertung muss mindestens 5 Zeichen lang sein",
+  "reviews.errInvalidEmail": "Ungültige E-Mail-Adresse",
+  "reviews.errNameRequired": "Name ist erforderlich",
+  "reviews.errPickRating": "Bitte eine Bewertung auswählen",
+  "reviews.formTitle": "Bewertung",
+  "reviews.labelBody": "Deine Bewertung *",
+  "reviews.labelEmail": "E-Mail * (wird nicht veröffentlicht)",
+  "reviews.labelName": "Name *",
+  "reviews.labelRating": "Deine Bewertung *",
+  "reviews.labelTitle": "Titel",
+  "reviews.noReviews": "Noch keine Bewertungen — sei die/der Erste.",
+  "reviews.placeholderOptional": "Optional",
+  "reviews.submit": "Bewertung absenden",
+  "reviews.submitSuccess": "Danke! Deine Bewertung erscheint nach Freigabe.",
+  "reviews.title": "Kundenbewertungen",
+  "reviews.write": "Bewertung schreiben",
+  "seo.products.description": "Vier pflanzliche Proteinmahlzeiten mit 20 g Protein pro Portion. Fertig in 5 Minuten — einfach kochendes Wasser bis zur schwarzen Linie hinzufügen.",
+  "seo.products.title": "Pflanzliche Proteinmahlzeiten | 4 Sorten — PLÄNTLY",
+};
+
 export const useLangStore = create<LangStore>()(
  persist(
  (set, get) => ({
@@ -534,13 +599,16 @@ export const useTranslation = () => {
  * in the right language for crawlers. Same keys, same table — only the
  * language source differs.
  */
-export const tLocale = (key: string, locale: Lang): string => {
+export const tLocale = (key: string, locale: Lang | ProductPageLocale): string => {
+  if (locale === "de") {
+    return productPageDe[key] ?? tLocale(key, "sv");
+  }
   const entry = translations[key];
   if (!entry) return key;
-  return entry[locale] || entry.sv || key;
+  return entry[locale as Lang] || entry.sv || key;
 };
 
-export const useLocaleTranslation = (locale: Lang) => {
+export const useLocaleTranslation = (locale: Lang | ProductPageLocale) => {
   const t = (key: string) => tLocale(key, locale);
   return { t, lang: locale };
 };

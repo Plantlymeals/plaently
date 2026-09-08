@@ -1,4 +1,4 @@
-import type { Lang } from "./i18n";
+import type { ProductPageLocale } from "./i18n";
 
 // Ordered: longest phrases first so substring matches don't clobber larger ones.
 const EN_TO_SV: Array<[RegExp, string]> = [
@@ -240,12 +240,12 @@ export function sanitizeVeganClaims(input: string): string {
     .replace(/\bvegansk[at]?\s+(carbonara|yellow\s+curry|curry)\b/gi, "$1");
 }
 
-export function translateProductHtml(html: string | undefined | null, lang: Lang): string {
+export function translateProductHtml(html: string | undefined | null, lang: ProductPageLocale): string {
   // Carbonara and Yellow Curry contain milk protein — they may never be
   // described as "vegan"/"100% plant-based". Applies to SV and EN alike.
   if (!html) return "";
   html = sanitizeVeganClaims(html);
-  if (lang !== "sv") {
+  if (lang === "en" || lang === "de") {
     let out = html;
     for (const [re, rep] of SV_TO_EN) out = out.replace(re, rep);
     return sanitizeVeganClaims(out);
@@ -278,6 +278,6 @@ export function translateProductHtml(html: string | undefined | null, lang: Lang
   return sanitizeVeganClaims(out);
 }
 
-export function translateProductText(text: string | undefined | null, lang: Lang): string {
+export function translateProductText(text: string | undefined | null, lang: ProductPageLocale): string {
   return translateProductHtml(text || "", lang);
 }
