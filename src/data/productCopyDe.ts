@@ -77,7 +77,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 </tbody>
 </table>
 <h3>Zutaten</h3>
-<p>Pasta (Hart<strong>weizen</strong>grieß, Erbsenproteinisolat 52%), Erbsenprotein 21%, Molkenpulver (enthält <strong>Milch</strong>), Kartoffelstärke, Sonnenblumenöl-Pulver (nicht gehärtetes High-Oleic-Sonnenblumenöl, Glukosesirup, <strong>Milch</strong>protein), Schmelzkäsepulver (enthält <strong>Milch</strong>), Aromen (enthalten <strong>Milch</strong>), Salz, schwarzer Pfeffer, Knoblauch, Kurkuma.</p>
+<p>Pasta (Hart<strong>weizen</strong>grieß, Erbsenproteinisolat) 52%, texturiertes Erbsenprotein 21%, Molkenpulver (enthält <strong>Milch</strong>), Kartoffelstärke, Sonnenblumenöl-Pulver (nicht gehärtetes High-Oleic-Sonnenblumenöl, Glukosesirup, <strong>Milch</strong>protein), Schmelzkäsepulver (enthält <strong>Milch</strong>), Aromen (enthalten <strong>Milch</strong>), Salz, schwarzer Pfeffer, Knoblauch, Kurkuma.</p>
 <h3>Allergene</h3>
 <p><strong>Enthält:</strong> Weizen und Milch.</p>
 <p><strong>Kann Spuren enthalten von:</strong> Soja und Ei.</p>
@@ -103,7 +103,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 </tbody>
 </table>
 <h3>Zutaten</h3>
-<p>Sonnenblumenprotein 38,4%, vorgekochter Reis 27,4%, Kartoffelstärke, Kokosmilch (Kokosmilch, Maltodextrin, Natriumcaseinat (enthält <strong>Milch</strong>)), <strong>Milch</strong>protein, Cremer (Glukosesirup, Pflanzenfett, <strong>Milch</strong>protein, Stabilisator: E340, Trennmittel: E551, Emulgator: E471), Traubenzucker, Salz, Rohrzucker, natürliche Aromen, Currypulver, Limettensaftkonzentrat-Pulver (Maltodextrin), Karotte, Zwiebel, Kräuter, Gewürze und Koriander.</p>
+<p>Texturiertes Sonnenblumenprotein 38,4%, vorgekochter Reis 27,4%, Kartoffelstärke, Kokosmilch (Kokosmilch, Maltodextrin, Natriumcaseinat (enthält <strong>Milch</strong>)), <strong>Milch</strong>protein, Cremer (Glukosesirup, Pflanzenfett, <strong>Milch</strong>protein, Stabilisator: E340, Trennmittel: E551, Emulgator: E471), Traubenzucker, Salz, Rohrzucker, natürliche Aromen, Currypulver, Limettensaftkonzentrat-Pulver (Maltodextrin), Karotte, Zwiebel, Kräuter, Gewürze und Koriander.</p>
 <h3>Allergene</h3>
 <p><strong>Enthält:</strong> Milch.</p>
 <p><strong>Kann Spuren enthalten von:</strong> Weizen, Soja und Ei.</p>
@@ -129,7 +129,7 @@ export const DE_PRODUCT_COPY: Record<string, ApprovedDeCopy> = {
 </tbody>
 </table>
 <h3>Zutaten</h3>
-<p>Sonnenblumenprotein 38,5%, vorgekochte grüne Linsen 30,8%, Tomatenpulver, Rohrzucker, Kartoffelstärke, rote Paprika, Aromen, Salz, Zwiebel, Hefe, Karotte, karamellisierter Zucker (Pulver) (karamellisierter Zucker, Maltodextrin), Kräuter und Gewürze, Natriumdiacetat, Knoblauch.</p>
+<p>Texturiertes Sonnenblumenprotein 38,5%, vorgekochte grüne Linsen 30,8%, Tomatenpulver, Rohrzucker, Kartoffelstärke, rote Paprika, Aromen, Salz, Zwiebel, Hefe, Karotte, karamellisierter Zucker (Pulver) (karamellisierter Zucker, Maltodextrin), Kräuter und Gewürze, Natriumdiacetat, Knoblauch.</p>
 <h3>Allergene</h3>
 <p><strong>Enthält:</strong> Keine (allergenfrei).</p>
 <p><strong>Kann Spuren enthalten von:</strong> Weizen, Milch, Soja und Ei.</p>
