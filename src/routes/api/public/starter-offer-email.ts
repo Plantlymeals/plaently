@@ -22,6 +22,10 @@ export const Route = createFileRoute('/api/public/starter-offer-email')({
           return Response.json({ error: 'email and code are required' }, { status: 400 })
         }
 
+        if (code !== STARTER_OFFER_CODE) {
+          return Response.json({ error: 'Invalid code' }, { status: 400 })
+        }
+
         const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
         const { data: subscriber, error: subError } = await supabaseAdmin
           .from('newsletter_subscribers')
