@@ -164,7 +164,10 @@ async function main() {
   const [blog, products, english] = await Promise.all([
     fetchBlogSlugs(),
     fetchShopifyHandles(),
-    englishPilotEntries().catch(() => [] as SitemapEntry[]),
+    englishPilotEntries().catch((e) => {
+      console.warn("sitemap: english pilot entries failed", e);
+      return [] as SitemapEntry[];
+    }),
   ]);
   const entries = [...staticEntries, ...blog, ...products, ...english];
   writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
