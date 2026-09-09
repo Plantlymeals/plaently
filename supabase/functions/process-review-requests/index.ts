@@ -159,14 +159,21 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   // Authorize: either internal cron secret OR admin JWT.
-  const internalSecret = Deno.env.get('INTERNAL_WEBHOOK_SECRET');
   const providedInternal = req.headers.get('X-Internal-Secret');
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   );
 
-  let authorized = !!(internalSecret && providedInternal && providedInternal === internalSecret);
+  let authorized = false;
+  if (providedInternal) {
+    // Single source of truth: the vault secret the cron job also sends.
+    const { data: vaultSecret } = await supabase.rpc('get_internal_webhook_secret');
+    const envSecret = Deno.env.get('INTERNAL_WEBHOOK_SECRET');
+    authorized =
+      (typeof vaultSecret === 'string' && vaultSecret.length > 0 && providedInternal === vaultSecret) ||
+      (!!envSecret && providedInternal === envSecret);
+  }
   if (!authorized) {
     const auth = req.headers.get('Authorization') ?? '';
     const token = auth.replace('Bearer ', '');
@@ -180,12 +187,6 @@ Deno.serve(async (req) => {
   }
   if (!authorized) return json({ error: 'Unauthorized' }, 401);
 
-  const priceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
-  const shopifyToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN');
-  if (!priceRuleId || !shopifyToken) {
-    return json({ error: 'Shopify credentials not configured' }, 500);
-  }
-
   const { data: due, error: queryErr } = await supabase
     .from('review_requests')
     .select('*')
@@ -196,7 +197,14 @@ Deno.serve(async (req) => {
     .limit(BATCH_SIZE);
 
   if (queryErr) return json({ error: queryErr.message }, 500);
+  // Nothing to send: succeed before touching Shopify credentials.
   if (!due || due.length === 0) return json({ ok: true, processed: 0 });
+
+  const priceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
+  const shopifyToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN');
+  if (!priceRuleId || !shopifyToken) {
+    return json({ error: 'Shopify credentials not configured' }, 500);
+  }
 
   let sent = 0;
   let failed = 0;
