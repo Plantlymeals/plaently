@@ -195,9 +195,11 @@ export function getProductRouteHead(
     ],
     links: [
       { rel: "canonical", href: url },
-      ...availableLocales
-        .filter((l) => l !== locale)
-        .map((l) => ({ rel: "alternate" as const, hreflang: l, href: productUrl(canonicalHandle, l) })),
+      ...availableLocales.map((l) => ({
+        rel: "alternate" as const,
+        hreflang: l,
+        href: productUrl(canonicalHandle, l),
+      })),
       { rel: "alternate" as const, hreflang: "x-default", href: productUrl(canonicalHandle, "sv") },
     ],
   };

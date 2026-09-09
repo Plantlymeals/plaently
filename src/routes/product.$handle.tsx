@@ -3,7 +3,7 @@ import { ProductDetail } from "@/pages/Products";
 import { getProductRouteHead, canonicalizeHandle } from "@/lib/productSeo";
 import { buildProductJsonLd } from "@/lib/productSchema";
 import { loadProductSchemaData } from "@/lib/seoLoaders";
-import { isEnglishPilotHandle } from "@/data/productCopyEn";
+
 import Layout from "@/components/Layout";
 
 export const Route = createFileRoute("/product/$handle")({
