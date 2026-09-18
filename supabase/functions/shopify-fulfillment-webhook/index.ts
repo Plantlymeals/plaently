@@ -25,15 +25,24 @@ Deno.serve(async (req) => {
     return new Response('Method not allowed', { status: 405, headers: corsHeaders });
   }
 
-  const secret = Deno.env.get('SHOPIFY_WEBHOOK_SECRET');
-  if (!secret) {
-    console.error('SHOPIFY_WEBHOOK_SECRET not configured');
+  // API-created webhooks are signed with the app's client secret; manually
+  // created ones use the store webhook secret. Accept either.
+  const secrets = [
+    Deno.env.get('SHOPIFY_WEBHOOK_SECRET'),
+    Deno.env.get('SHOPIFY_CLIENT_SECRET'),
+  ].filter((s): s is string => !!s);
+  if (secrets.length === 0) {
+    console.error('No Shopify webhook signing secret configured');
     return new Response('Server not configured', { status: 500, headers: corsHeaders });
   }
 
   const rawBody = await req.text();
   const headerHmac = req.headers.get('X-Shopify-Hmac-Sha256') ?? '';
-  if (!headerHmac || !(await verifyHmac(rawBody, headerHmac, secret))) {
+  let signatureOk = false;
+  for (const s of secrets) {
+    if (headerHmac && (await verifyHmac(rawBody, headerHmac, s))) { signatureOk = true; break; }
+  }
+  if (!signatureOk) {
     return new Response('Invalid signature', { status: 401, headers: corsHeaders });
   }
 
