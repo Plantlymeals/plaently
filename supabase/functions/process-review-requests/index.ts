@@ -225,7 +225,10 @@ Deno.serve(async (req) => {
   // Nothing to send: succeed before touching Shopify credentials.
   if (!due || due.length === 0) return json({ ok: true, processed: 0 });
 
-  const priceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
+  // The stored secret currently holds a non-numeric value; fall back to the
+  // real "PLÄNTLY Review" price rule (10% off) when it is not a valid id.
+  const envPriceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
+  const priceRuleId = envPriceRuleId && /^\d+$/.test(envPriceRuleId) ? envPriceRuleId : '1905603477830';
   const shopifyToken = await getAdminToken();
   if (!priceRuleId || !/^\d+$/.test(priceRuleId) || !shopifyToken) {
     return json({ error: 'Shopify credentials not configured' }, 500);
