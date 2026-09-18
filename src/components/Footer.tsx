@@ -125,10 +125,10 @@ const Footer = () => {
             <h2 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.flavoursPacks")}</h2>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
               {[
-                { label: "Fusilli Bolognese", path: "/product/plant-based-fusilli-bolognese" },
-                { label: "Pasta Carbonara", path: "/product/plant-based-pasta-carbonara" },
-                { label: "Smoky BBQ Lentils", path: "/product/plant-based-smoky-bbq-lentils" },
-                { label: "Yellow Curry & Rice", path: "/product/plant-based-yellow-curry-rice" },
+                { label: "Bolognese Box", path: "/product/bolognese-box-12-cups" },
+                { label: "Carbonara Box", path: "/product/carbonara-box-12-cups" },
+                { label: "Smoky Lentils Box", path: "/product/smoky-lentils-box-12-cups" },
+                { label: "Yellow Curry Box", path: "/product/yellow-curry-box-12-cups" },
                 { label: "Starter Pack", path: "/product/starter-pack-12-cups-1" },
                 { label: "Monthly Box", path: "/product/monthly-box-24-cups" },
                 { label: "Office Pack", path: "/product/office-pack-48-cups" },
