@@ -14,7 +14,7 @@ function randomCodeSuffix(len = 8): string {
   const buf = new Uint8Array(len)
   crypto.getRandomValues(buf)
   let out = ''
-  for (let i = 0; i < len; i++) out += alphabet[buf[i] % alphabet.length]
+  for (let i = 0; i < len; i++) out += alphabet[(buf[i] as number) % alphabet.length]
   return out
 }
 

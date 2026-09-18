@@ -71,7 +71,9 @@ const ReviewRequestEmail = ({
 export const template = {
   component: ReviewRequestEmail,
   subject: (data: Record<string, any>) =>
-    data?.firstName ? `Hur smakade måltiderna, ${data.firstName}?` : 'Hur smakade måltiderna?',
+    data?.['firstName']
+      ? `Hur smakade måltiderna, ${data['firstName']}?`
+      : 'Hur smakade måltiderna?',
   displayName: 'Review request',
   previewData: {
     firstName: 'Ahmet',

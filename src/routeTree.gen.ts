@@ -47,6 +47,7 @@ import { Route as ProductHandleRouteImport } from './routes/product.$handle'
 import { Route as ProductsSlugRouteImport } from './routes/products_.$slug'
 import { Route as Char91DotlovableChar93OauthConsentRouteImport } from './routes/[.lovable]/oauth/consent'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiPublicReviewRequestEmailsRouteImport } from './routes/api/public/review-request-emails'
 import { Route as ApiPublicStarterOfferEmailRouteImport } from './routes/api/public/starter-offer-email'
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
 import { Route as DeProductHandleRouteImport } from './routes/de.product.$handle'
@@ -250,6 +251,12 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicReviewRequestEmailsRoute =
+  ApiPublicReviewRequestEmailsRouteImport.update({
+    id: '/api/public/review-request-emails',
+    path: '/api/public/review-request-emails',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicStarterOfferEmailRoute =
   ApiPublicStarterOfferEmailRouteImport.update({
     id: '/api/public/starter-offer-email',
@@ -332,6 +339,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
@@ -379,6 +387,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
@@ -428,6 +437,7 @@ export interface FileRoutesById {
   '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof Char91DotlovableChar93OauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
@@ -478,6 +488,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
     | '/de/product/$handle'
@@ -525,6 +536,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
     | '/de/product/$handle'
@@ -573,6 +585,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
+    | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog_/category/$slug'
     | '/de/product/$handle'
@@ -611,6 +624,7 @@ export interface RootRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRoute
   Char91DotlovableChar93OauthConsentRoute: typeof Char91DotlovableChar93OauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiPublicReviewRequestEmailsRoute: typeof ApiPublicReviewRequestEmailsRoute
   ApiPublicStarterOfferEmailRoute: typeof ApiPublicStarterOfferEmailRoute
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
   DeProductHandleRoute: typeof DeProductHandleRoute
@@ -889,6 +903,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/review-request-emails': {
+      id: '/api/public/review-request-emails'
+      path: '/api/public/review-request-emails'
+      fullPath: '/api/public/review-request-emails'
+      preLoaderRoute: typeof ApiPublicReviewRequestEmailsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/starter-offer-email': {
       id: '/api/public/starter-offer-email'
       path: '/api/public/starter-offer-email'
@@ -1008,6 +1029,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotlovableChar93OauthConsentRoute:
     Char91DotlovableChar93OauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiPublicReviewRequestEmailsRoute: ApiPublicReviewRequestEmailsRoute,
   ApiPublicStarterOfferEmailRoute: ApiPublicStarterOfferEmailRoute,
   BlogCategorySlugRoute: BlogCategorySlugRoute,
   DeProductHandleRoute: DeProductHandleRoute,
