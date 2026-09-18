@@ -226,8 +226,8 @@ Deno.serve(async (req) => {
   if (!due || due.length === 0) return json({ ok: true, processed: 0 });
 
   const priceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
-  const shopifyToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN');
-  if (!priceRuleId || !shopifyToken) {
+  const shopifyToken = await getAdminToken();
+  if (!priceRuleId || !/^\d+$/.test(priceRuleId) || !shopifyToken) {
     return json({ error: 'Shopify credentials not configured' }, 500);
   }
 
