@@ -23,7 +23,7 @@ export const ReauthenticationEmail = ({ token }: ReauthenticationEmailProps) => 
     <Preview>Din verifieringskod för PLÄNTLY</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src="https://fpwwjbevjhxbggtkaabc.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="PLÄNTLY" height="28" style={logo} />
+        <Img src="https://www.plaently.com/images/logo.png" alt="PLÄNTLY" height="28" style={logo} />
         <Heading style={h1}>Bekräfta din identitet</Heading>
         <Text style={text}>Använd koden nedan för att bekräfta din identitet:</Text>
         <Text style={codeStyle}>{token}</Text>

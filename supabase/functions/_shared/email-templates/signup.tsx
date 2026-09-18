@@ -33,7 +33,7 @@ export const SignupEmail = ({
     <Preview>Bekräfta din e-post för PLÄNTLY</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src="https://fpwwjbevjhxbggtkaabc.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="PLÄNTLY" height="28" style={logo} />
+        <Img src="https://www.plaently.com/images/logo.png" alt="PLÄNTLY" height="28" style={logo} />
         <Heading style={h1}>Välkommen till PLÄNTLY!</Heading>
         <Text style={text}>
           Tack för att du registrerade dig. Bekräfta din e-postadress ({recipient}) genom att klicka på knappen nedan:
