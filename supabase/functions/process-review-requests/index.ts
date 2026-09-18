@@ -97,6 +97,31 @@ function renderEmail(opts: {
   return { subject: greeting, html };
 }
 
+// The legacy SHOPIFY_ACCESS_TOKEN is revoked. Prefer a fresh app token from
+// the custom app's client credentials, and fall back to stored tokens.
+async function getAdminToken(): Promise<string | null> {
+  const clientId = Deno.env.get('SHOPIFY_CLIENT_ID');
+  const clientSecret = Deno.env.get('SHOPIFY_CLIENT_SECRET');
+  if (clientId && clientSecret) {
+    try {
+      const res = await fetch(`https://${SHOPIFY_STORE_DOMAIN}/admin/oauth/access_token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, grant_type: 'client_credentials' }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.access_token) return data.access_token as string;
+      } else {
+        console.warn('client_credentials token failed', res.status);
+      }
+    } catch (e) {
+      console.warn('client_credentials token error', String(e));
+    }
+  }
+  return Deno.env.get('SHOPIFY_ADMIN_API_ACCESS_TOKEN') ?? Deno.env.get('SHOPIFY_ACCESS_TOKEN') ?? null;
+}
+
 async function mintDiscountCode(priceRuleId: string, code: string, shopifyToken: string, expiresAtIso: string): Promise<{ ok: boolean; error?: string }> {
   // Set price-rule ends_at to expiration so the child code expires too.
   // We patch only ends_at; other fields remain.
@@ -201,8 +226,8 @@ Deno.serve(async (req) => {
   if (!due || due.length === 0) return json({ ok: true, processed: 0 });
 
   const priceRuleId = Deno.env.get('SHOPIFY_REVIEW_PRICE_RULE_ID');
-  const shopifyToken = Deno.env.get('SHOPIFY_ACCESS_TOKEN');
-  if (!priceRuleId || !shopifyToken) {
+  const shopifyToken = await getAdminToken();
+  if (!priceRuleId || !/^\d+$/.test(priceRuleId) || !shopifyToken) {
     return json({ error: 'Shopify credentials not configured' }, 500);
   }
 
