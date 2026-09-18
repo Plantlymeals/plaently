@@ -30,7 +30,7 @@ export const InviteEmail = ({
     <Preview>Du har blivit inbjuden till PLÄNTLY</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src="https://fpwwjbevjhxbggtkaabc.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="PLÄNTLY" height="28" style={logo} />
+        <Img src="https://www.plaently.com/images/logo.png" alt="PLÄNTLY" height="28" style={logo} />
         <Heading style={h1}>Du har blivit inbjuden</Heading>
         <Text style={text}>
           Du har blivit inbjuden till PLÄNTLY. Klicka på knappen nedan för att acceptera inbjudan och skapa ditt konto.

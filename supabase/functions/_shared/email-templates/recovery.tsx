@@ -28,7 +28,7 @@ export const RecoveryEmail = ({
     <Preview>Återställ ditt lösenord för PLÄNTLY</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src="https://fpwwjbevjhxbggtkaabc.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="PLÄNTLY" height="28" style={logo} />
+        <Img src="https://www.plaently.com/images/logo.png" alt="PLÄNTLY" height="28" style={logo} />
         <Heading style={h1}>Återställ ditt lösenord</Heading>
         <Text style={text}>
           Vi fick en begäran om att återställa ditt lösenord. Klicka på knappen nedan för att välja ett nytt lösenord.

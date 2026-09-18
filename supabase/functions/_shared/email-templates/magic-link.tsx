@@ -28,7 +28,7 @@ export const MagicLinkEmail = ({
     <Preview>Din inloggningslänk för PLÄNTLY</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img src="https://fpwwjbevjhxbggtkaabc.supabase.co/storage/v1/object/public/email-assets/logo.png" alt="PLÄNTLY" height="28" style={logo} />
+        <Img src="https://www.plaently.com/images/logo.png" alt="PLÄNTLY" height="28" style={logo} />
         <Heading style={h1}>Din inloggningslänk</Heading>
         <Text style={text}>
           Klicka på knappen nedan för att logga in på PLÄNTLY. Länken upphör snart att gälla.
