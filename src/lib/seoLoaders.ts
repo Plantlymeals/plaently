@@ -42,6 +42,14 @@ export type ProductSchemaData = {
   shopifyImageUrl: string | null;
   name: string | null;
   description: string | null;
+  /** Full Shopify product node — lets ProductDetail render from server HTML. */
+  product: ShopifyProduct["node"] | null;
+  /**
+   * For single-flavour boxes: the mapped cup's Swedish descriptionHtml
+   * (ingredients / nutrition / allergens). null for non-box products and on
+   * upstream failure.
+   */
+  flavorDescriptionHtml: string | null;
 };
 
 const EMPTY_PRODUCT_DATA: ProductSchemaData = {
@@ -51,6 +59,8 @@ const EMPTY_PRODUCT_DATA: ProductSchemaData = {
   shopifyImageUrl: null,
   name: null,
   description: null,
+  product: null,
+  flavorDescriptionHtml: null,
 };
 
 /** Real price/availability/rating for Product JSON-LD, resolved on the server. */
@@ -61,7 +71,15 @@ export async function loadProductSchemaData(handle: string): Promise<ProductSche
       if (!product) return { ...EMPTY_PRODUCT_DATA, confirmedMiss: true };
       const variant = product.variants?.edges?.[0]?.node;
       const price = variant?.price ?? product.priceRange?.minVariantPrice;
-      const rating = await fetchRating(product.handle).catch(() => null);
+      const flavorHandle = getBoxFlavorHandle(handle);
+      // Rating and (for boxes) the mapped cup's long text load in parallel;
+      // each is best-effort and must never stall the SSR stream.
+      const [rating, flavorProduct] = await Promise.all([
+        fetchRating(product.handle).catch(() => null),
+        flavorHandle
+          ? withTimeout(fetchShopifyProductByHandle(flavorHandle), 2500, null)
+          : Promise.resolve(null),
+      ]);
       return {
         confirmedMiss: false,
         offer: price
@@ -75,6 +93,8 @@ export async function loadProductSchemaData(handle: string): Promise<ProductSche
         shopifyImageUrl: product.images?.edges?.[0]?.node?.url ?? null,
         name: product.title ?? null,
         description: product.description ?? null,
+        product,
+        flavorDescriptionHtml: flavorProduct?.descriptionHtml ?? null,
       } satisfies ProductSchemaData;
     })(),
     3000,
