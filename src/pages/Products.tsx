@@ -33,8 +33,15 @@ const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
 
-  const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Loader data ships with the server-rendered HTML, so title, price and the
+  // ingredient/nutrition/allergen section are present before any JavaScript
+  // runs. strict:false reads the closest route match (this page's route).
+  const routeData = useLoaderData({ strict: false }) as ProductSchemaData | undefined;
+  const loaderProduct = routeData?.product ?? null;
+  const loaderFlavorHtml = routeData?.flavorDescriptionHtml ?? null;
+
+  const [product, setProduct] = useState<ShopifyProduct["node"] | null>(loaderProduct);
+  const [loading, setLoading] = useState(!loaderProduct);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
   const [, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
@@ -51,8 +58,11 @@ const ProductDetail = () => {
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
+  // Fallback only: when the loader could not deliver the product (timeout,
+  // upstream error) the client fetches it once after hydration so the page
+  // never renders empty.
   useEffect(() => {
-    if (!productHandle) return;
+    if (!productHandle || product) return;
     let active = true;
     setLoading(true);
     fetchShopifyProductByHandle(productHandle)
@@ -68,7 +78,7 @@ const ProductDetail = () => {
     return () => {
       active = false;
     };
-  }, [productHandle]);
+  }, [productHandle, product]);
 
   const pageSeo = productSeo?.[pageLocale];
 
