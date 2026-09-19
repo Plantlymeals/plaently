@@ -1,4 +1,5 @@
-import { fetchShopifyProductByHandle } from "@/lib/shopify";
+import { fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
+import { getBoxFlavorHandle } from "@/lib/productSeo";
 import type { ProductOffer, ProductRating } from "@/lib/productSchema";
 
 const SUPABASE_URL = import.meta.env["VITE_SUPABASE_URL"] as string | undefined;
