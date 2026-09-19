@@ -1,5 +1,5 @@
 import { Link, useParams } from "@/lib/router-compat";
-import { getRouteApi, useRouterState } from "@tanstack/react-router";
+import { getRouteApi, useRouterState, useLoaderData } from "@tanstack/react-router";
 import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -23,7 +23,8 @@ import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
-import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
+import { getProductSeo, getProductSsrCopy, getBoxFlavorHandle } from "@/lib/productSeo";
+import type { ProductSchemaData } from "@/lib/seoLoaders";
 import { getApprovedEnCopy } from "@/data/productCopyEn";
 import { getApprovedDeCopy } from "@/data/productCopyDe";
 import type { ProductPageLocale } from "@/lib/i18n";
@@ -32,8 +33,15 @@ const ProductDetail = () => {
   const { slug, handle } = useParams<{ slug?: string; handle?: string }>();
   const productHandle = handle || slug;
 
-  const [product, setProduct] = useState<ShopifyProduct["node"] | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Loader data ships with the server-rendered HTML, so title, price and the
+  // ingredient/nutrition/allergen section are present before any JavaScript
+  // runs. strict:false reads the closest route match (this page's route).
+  const routeData = useLoaderData({ strict: false }) as ProductSchemaData | undefined;
+  const loaderProduct = routeData?.product ?? null;
+  const loaderFlavorHtml = routeData?.flavorDescriptionHtml ?? null;
+
+  const [product, setProduct] = useState<ShopifyProduct["node"] | null>(loaderProduct);
+  const [loading, setLoading] = useState(!loaderProduct);
   const [imageOverride, setImageOverride] = useState<string | null>(null);
   const [, setReviewData] = useState<{ count: number; avg: number; items: Array<{ author_name: string; rating: number; title: string | null; body: string; created_at: string }> }>({ count: 0, avg: 0, items: [] });
   const [bundleContents, setBundleContents] = useState<Array<{ name: string; quantity: number }>>([]);
@@ -50,8 +58,21 @@ const ProductDetail = () => {
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
+  // Reset when navigating client-side between product pages: the state above
+  // only initializes once, so adopt the new route's loader data on handle
+  // change (render-time adjustment, runs before the visible render).
+  const [loadedHandle, setLoadedHandle] = useState(productHandle);
+  if (productHandle !== loadedHandle) {
+    setLoadedHandle(productHandle);
+    setProduct(loaderProduct);
+    setLoading(!loaderProduct);
+  }
+
+  // Fallback only: when the loader could not deliver the product (timeout,
+  // upstream error) the client fetches it once after hydration so the page
+  // never renders empty.
   useEffect(() => {
-    if (!productHandle) return;
+    if (!productHandle || product) return;
     let active = true;
     setLoading(true);
     fetchShopifyProductByHandle(productHandle)
@@ -67,7 +88,7 @@ const ProductDetail = () => {
     return () => {
       active = false;
     };
-  }, [productHandle]);
+  }, [productHandle, product]);
 
   const pageSeo = productSeo?.[pageLocale];
 
@@ -167,14 +188,23 @@ const ProductDetail = () => {
   // English copy, German pages the approved German copy. With no approved copy
   // the page falls back to the Swedish original — never a machine translation
   // of allergen data into another language.
+  //
+  // Single-flavour boxes borrow the mapped cup's copy: the box's own Shopify
+  // description lacks this content, and the loader already fetched the mapped
+  // cup's Swedish descriptionHtml server-side. Cups are unaffected —
+  // flavorHandle is null for them.
+  const flavorHandle = getBoxFlavorHandle(productHandle ?? product.handle);
+  const copyLookupHandle = flavorHandle ?? productHandle ?? product.handle;
   const approvedNonSvHtml =
     pageLocale === "sv"
       ? null
       : pageLocale === "de"
-        ? getApprovedDeCopy(productHandle ?? product.handle)
-        : getApprovedEnCopy(productHandle ?? product.handle);
+        ? getApprovedDeCopy(copyLookupHandle)
+        : getApprovedEnCopy(copyLookupHandle);
+  const swedishBaseHtml =
+    (flavorHandle ? loaderFlavorHtml : null) ?? product.descriptionHtml;
   const translatedHtml =
-    approvedNonSvHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "en" ? "en" : "sv");
+    approvedNonSvHtml ?? translateProductHtml(swedishBaseHtml, pageLocale === "en" ? "en" : "sv");
   const translatedDesc = translateProductText(product.description, pageLocale);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);

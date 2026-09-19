@@ -99,6 +99,24 @@ export const HANDLE_ALIASES: Record<string, string> = {
 };
 
 /**
+ * Single-flavour box → the cup product whose Shopify description holds the
+ * reviewed Swedish ingredient/nutrition/allergen text. The box's own Shopify
+ * description lacks that content, so box pages render the mapped cup's text
+ * instead — one source of truth, no duplicated copy.
+ */
+export const BOX_TO_FLAVOR_HANDLE: Record<string, string> = {
+  "bolognese-box-12-cups": "plant-based-fusilli-bolognese",
+  "carbonara-box-12-cups": "plant-based-pasta-carbonara",
+  "smoky-lentils-box-12-cups": "plant-based-smoky-bbq-lentils",
+  "yellow-curry-box-12-cups": "plant-based-yellow-curry-rice",
+};
+
+export function getBoxFlavorHandle(handle: string | undefined): string | null {
+  if (!handle) return null;
+  return BOX_TO_FLAVOR_HANDLE[canonicalizeHandle(handle)] ?? null;
+}
+
+/**
  * Normalizes any incoming/legacy handle to the single canonical handle used in
  * URLs and Shopify lookups. The `plant-based-` prefix is part of the real
  * Shopify handles, so it must NOT be stripped here.
