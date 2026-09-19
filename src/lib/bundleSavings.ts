@@ -28,3 +28,25 @@ export function getBundleSavings(title: string, bundlePrice: number) {
   const savingsPercent = Math.round(((fullPrice - bundlePrice) / fullPrice) * 100);
   return { mealCount, fullPrice, savingsAmount, savingsPercent };
 }
+
+// Per-meal pricing for single-flavour boxes (12 cups each). Kept separate from
+// BUNDLE_MEAL_COUNTS so these products never trigger the savings badge.
+const BOX_MEAL_COUNTS: [string, number][] = [
+  ["smoky lentils", 12],
+  ["yellow curry", 12],
+  ["bolognese", 12],
+  ["carbonara", 12],
+];
+
+export function getPerMealInfo(
+  title: string,
+  bundlePrice: number
+): { mealCount: number; perMeal: number } | null {
+  const lower = title.toLowerCase();
+  for (const [key, count] of BOX_MEAL_COUNTS) {
+    if (lower.includes(key)) {
+      return { mealCount: count, perMeal: Math.round(bundlePrice / count) };
+    }
+  }
+  return null;
+}
