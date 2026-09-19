@@ -15,7 +15,7 @@ import { translateProductHtml, translateProductText } from "@/lib/productDescrip
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
 import SavingsBadge from "@/components/SavingsBadge";
-import { getBundleSavings } from "@/lib/bundleSavings";
+import { getBundleSavings, getPerMealInfo } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
