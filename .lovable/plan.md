@@ -1,14 +1,17 @@
-# Del 2: Boxsidor med fullständigt innehåll (produktlista, ingredienser, näringsvärden, råvaror)
+# Del 2: Boxsidor med fullständigt innehåll i server-renderad HTML
 
-## Svar på din fråga: vi gör alternativ 1
+## Svar på dina två frågor
 
-De svenska boxsidorna hämtar kopp-produktens egen Shopify-beskrivning via en fast mappning box→smak. Ingen maskinöversättning, ingen duplicerad textfil.
+**1. Svensk textkälla — alternativ 1:** De svenska boxsidorna hämtar den mappade kopp-produktens egen Shopify-beskrivning. Ingen maskinöversättning, ingen duplicerad textfil. Koppens Shopify-beskrivning är redan den granskade originaltexten, och en enda källa gör att uppdateringar i Shopify speglas direkt på både kopp- och boxsidan. Engelska/tyska boxsidor använder samma mappning mot de redan godkända texterna i productCopyEn.ts/productCopyDe.ts.
 
-Motivering:
-- Svenska är huvudmarknaden och koppens Shopify-beskrivning är redan den granskade originaltexten som visas på kopp-sidorna idag.
-- Kopp-produkterna finns kvar i Shopify (de togs bara bort från butikens listningar), så texten kan fortfarande hämtas.
-- En enda källa: uppdateras texten i Shopify speglas det direkt på både kopp- och boxsidan. En svensk textfil (alternativ 2) skulle riskera att driva isär från Shopify-texten över tid.
-- Samma mappning löser även engelska och tyska boxsidor: de använder de redan godkända texterna i productCopyEn.ts/productCopyDe.ts för motsvarande smak.
+Rättelse: hämtningen sker via `fetchShopifyProductByHandle` i `src/lib/shopify.ts` (samma funktion laddaren redan använder), inte via `products.functions.ts`.
+
+**2. Server-HTML — du har rätt, och det kräver en större ändring än ursprungsplanen antydde:** Idag hämtar `ProductDetail` produkten i en `useEffect` i webbläsaren (Products.tsx rad 53–70), så ingrediens-/näringsinnehållet finns INTE i den första server-HTML:n. Routerns loader (`loadProductSchemaData` i `src/lib/seoLoaders.ts`) hämtar visserligen hela produkten server-side via `fetchShopifyProductByHandle` — men använder bara pris/bild/titel till `<head>` och kastar brödtexten.
+
+Konkret lösning i den här planen:
+- Laddaren i `src/routes/product.$handle.tsx` (och `/en/`, `/de/` motsvarigheterna) utökas till att returnera hela produktobjektet (titel, pris, bilder, varianter, `descriptionHtml`) — för boxar dessutom den mappade koppens `descriptionHtml`. Det är samma Shopify-anrop som redan görs idag, utökade fält kostar inget extra anrop.
+- `ProductDetail` läser laddarens data via routerns `useLoaderData` som sin primära datakälla. Den befintliga `useEffect`-hämtningen blir bara en reservväg vid ren klientnavigering om laddardata saknas.
+- Resultat: titel, pris, bild och hela ingrediens-/närings-/allergenavsnittet finns i den råa server-HTML:n — inte först efter JavaScript. Verifieras genom att hämta sidans råa HTML med curl och bekräfta att t.ex. "Ingredienser" och näringsvärdestabellen finns med.
 
 ## Mappning box → smak
 
@@ -19,19 +22,24 @@ Motivering:
 
 ## Åtgärder
 
-1. Ny mappning `BOX_TO_FLAVOR_HANDLE` i `src/lib/productSeo.ts` (bredvid befintlig produktmetadata).
-2. Produkt-sidans laddare (`src/routes/product.$handle.tsx` samt `/en/` och `/de/` motsvarigheter): när adressen är en box hämtas även den mappade kopp-produktens beskrivning från Shopify i samma anrop.
-3. `src/pages/Products.tsx` (ProductDetail): på boxsidor renderas
+1. Ny mappning `BOX_TO_FLAVOR_HANDLE` i `src/lib/productSeo.ts`.
+2. Utöka `loadProductSchemaData` i `src/lib/seoLoaders.ts` (eller en ny systerfunktion) till att även returnera `descriptionHtml` och variant-/bilddata, samt för box-handles hämta den mappade koppens `descriptionHtml`. Behåll befintlig 3-sekunderstimeout — schema/innehåll är best-effort och får aldrig stoppa SSR.
+3. `src/routes/product.$handle.tsx`, `en.product.$handle.tsx`, `de.product.$handle.tsx`: laddaren returnerar den utökade datan.
+4. `src/pages/Products.tsx` (`ProductDetail`): läs produkten och långtexten från laddardata först; behåll `useEffect`-hämtningen endast som fallback. Språkval per sida:
    - svenska: koppens svenska Shopify-beskrivning (oförändrad originaltext),
    - engelska: `getApprovedEnCopy(smak-handlen)`,
    - tyska: `getApprovedDeCopy(smak-handlen)`,
-   - fallback om något saknas: svenska originaltexten — aldrig maskinöversatt allergen-/näringsdata.
+   - fallback: svenska originaltexten — aldrig maskinöversatt allergen-/näringsdata.
    Pris, bild, titel och köpknapp för boxen ändras inte.
-4. Verifiering i förhandsvisning: öppna alla fyra boxsidor på svenska, engelska och tyska och bekräfta att ingrediens-, närings- och allergenavsnitten visas med rätt språk och att pris/bild ser rätt ut.
-5. Publicera först efter ditt godkännande av verifieringen.
+5. Verifiering:
+   - curl mot sidans råa HTML (utan JavaScript) för alla fyra boxar på svenska: "Ingredienser", näringsvärdestabellen och allergenavsnittet ska finnas i HTML:n.
+   - Samma kontroll för engelska och tyska boxsidor med respektive godkända text.
+   - Visuell kontroll i förhandsvisning: pris, bild, titel och köpknapp ser rätt ut.
+6. Publicera först efter ditt godkännande av verifieringen.
 
 ## Tekniska detaljer
 
-- Svensk boxtext kommer alltså INTE från en ny productCopySv.ts-fil och INTE från boxens egen Shopify-beskrivning — den hämtas live från den mappade kopp-produktens Shopify-beskrivning via Storefront API (befintlig `src/lib/products.functions.ts`-väg, SSR).
-- Boxsidorna är redan indexbara produktsidor med egen SEO-metadata i `src/lib/productSeo.ts` (rad 69–91) — den ändras inte.
+- Ändrade filer: `src/lib/productSeo.ts`, `src/lib/seoLoaders.ts`, `src/routes/product.$handle.tsx`, `src/routes/en.product.$handle.tsx`, `src/routes/de.product.$handle.tsx`, `src/pages/Products.tsx`.
+- Boxarnas SEO-metadata i `productSeo.ts` (rad 69–91) ändras inte.
 - Ingen ändring av STARTER199, admin-autentisering, routeLang-strukturen eller kassan.
+- Risk att bevaka: laddaren körs både server-side och vid klientnavigering — den utökade datan måste vara serialiserbar (ren JSON, inga klassinstanser).
