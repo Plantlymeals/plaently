@@ -1,5 +1,5 @@
 import { Link, useParams } from "@/lib/router-compat";
-import { getRouteApi, useRouterState } from "@tanstack/react-router";
+import { getRouteApi, useRouterState, useLoaderData } from "@tanstack/react-router";
 import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -23,7 +23,8 @@ import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
-import { getProductSeo, getProductSsrCopy } from "@/lib/productSeo";
+import { getProductSeo, getProductSsrCopy, getBoxFlavorHandle, canonicalizeHandle } from "@/lib/productSeo";
+import type { ProductSchemaData } from "@/lib/seoLoaders";
 import { getApprovedEnCopy } from "@/data/productCopyEn";
 import { getApprovedDeCopy } from "@/data/productCopyDe";
 import type { ProductPageLocale } from "@/lib/i18n";
