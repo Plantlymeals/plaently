@@ -188,14 +188,23 @@ const ProductDetail = () => {
   // English copy, German pages the approved German copy. With no approved copy
   // the page falls back to the Swedish original — never a machine translation
   // of allergen data into another language.
+  //
+  // Single-flavour boxes borrow the mapped cup's copy: the box's own Shopify
+  // description lacks this content, and the loader already fetched the mapped
+  // cup's Swedish descriptionHtml server-side. Cups are unaffected —
+  // flavorHandle is null for them.
+  const flavorHandle = getBoxFlavorHandle(productHandle ?? product.handle);
+  const copyLookupHandle = flavorHandle ?? productHandle ?? product.handle;
   const approvedNonSvHtml =
     pageLocale === "sv"
       ? null
       : pageLocale === "de"
-        ? getApprovedDeCopy(productHandle ?? product.handle)
-        : getApprovedEnCopy(productHandle ?? product.handle);
+        ? getApprovedDeCopy(copyLookupHandle)
+        : getApprovedEnCopy(copyLookupHandle);
+  const swedishBaseHtml =
+    (flavorHandle ? loaderFlavorHtml : null) ?? product.descriptionHtml;
   const translatedHtml =
-    approvedNonSvHtml ?? translateProductHtml(product.descriptionHtml, pageLocale === "en" ? "en" : "sv");
+    approvedNonSvHtml ?? translateProductHtml(swedishBaseHtml, pageLocale === "en" ? "en" : "sv");
   const translatedDesc = translateProductText(product.description, pageLocale);
 
   const handleAddToCart = () => handleAdd({ node: product } as ShopifyProduct);
