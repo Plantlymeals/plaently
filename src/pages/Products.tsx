@@ -58,6 +58,16 @@ const ProductDetail = () => {
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
+  // Reset when navigating client-side between product pages: the state above
+  // only initializes once, so adopt the new route's loader data on handle
+  // change (render-time adjustment, runs before the visible render).
+  const [loadedHandle, setLoadedHandle] = useState(productHandle);
+  if (productHandle !== loadedHandle) {
+    setLoadedHandle(productHandle);
+    setProduct(loaderProduct);
+    setLoading(!loaderProduct);
+  }
+
   // Fallback only: when the loader could not deliver the product (timeout,
   // upstream error) the client fetches it once after hydration so the page
   // never renders empty.
