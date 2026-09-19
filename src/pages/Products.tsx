@@ -23,7 +23,7 @@ import BundleSection from "@/components/home/BundleSection";
 import { getCupMeta, displayProductTitle, resolveProductImageUrl } from "@/lib/productImages";
 import CupBadges from "@/components/CupBadges";
 import ProductReviews from "@/components/ProductReviews";
-import { getProductSeo, getProductSsrCopy, getBoxFlavorHandle, canonicalizeHandle } from "@/lib/productSeo";
+import { getProductSeo, getProductSsrCopy, getBoxFlavorHandle } from "@/lib/productSeo";
 import type { ProductSchemaData } from "@/lib/seoLoaders";
 import { getApprovedEnCopy } from "@/data/productCopyEn";
 import { getApprovedDeCopy } from "@/data/productCopyDe";
