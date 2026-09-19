@@ -65,15 +65,16 @@ export const Route = createFileRoute('/api/public/review-request-emails')({
         const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
 
         const provided = request.headers.get('x-internal-secret') ?? ''
-        let expected = process.env['INTERNAL_WEBHOOK_SECRET'] ?? ''
-        if (!expected) {
-          // Fallback to the vault-stored secret (same source the edge
-          // functions use), since process.env is not populated in every
-          // runtime.
-          const { data } = await supabaseAdmin.rpc('get_internal_webhook_secret')
-          if (typeof data === 'string') expected = data
-        }
-        if (!expected || provided !== expected) {
+        // Accept the env secret when set; otherwise (or additionally) fall
+        // back to the vault-stored secret — the same source the edge
+        // functions and the pg_cron job use — since process.env is not
+        // populated in every runtime.
+        const envSecret = process.env['INTERNAL_WEBHOOK_SECRET'] ?? ''
+        const { data: vaultSecret } = await supabaseAdmin.rpc('get_internal_webhook_secret')
+        const expected = typeof vaultSecret === 'string' && vaultSecret ? vaultSecret : ''
+        const authorized =
+          (!!expected && provided === expected) || (!!envSecret && provided === envSecret)
+        if (!authorized) {
           return new Response('Unauthorized', { status: 401 })
         }
 
