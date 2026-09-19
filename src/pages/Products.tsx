@@ -15,7 +15,7 @@ import { translateProductHtml, translateProductText } from "@/lib/productDescrip
 import { supabase } from "@/integrations/supabase/client";
 import { fetchPublishedBundles } from "@/lib/bundlesApi";
 import SavingsBadge from "@/components/SavingsBadge";
-import { getBundleSavings } from "@/lib/bundleSavings";
+import { getBundleSavings, getPerMealInfo } from "@/lib/bundleSavings";
 import { useBundleMix } from "@/hooks/useBundleMix";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { getBundleCupsFromTitle } from "@/hooks/useBundleMix";
@@ -275,6 +275,7 @@ const ProductDetail = () => {
                   const amount = parseFloat(price.amount);
                   const savings = getBundleSavings(displayProductTitle(product.title), amount);
                   const hasSavings = !!savings && savings.savingsAmount > 0;
+                  const perMeal = hasSavings ? null : getPerMealInfo(displayProductTitle(product.title), amount);
                   return (
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-3xl font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</span>
@@ -286,9 +287,11 @@ const ProductDetail = () => {
                           locale={pageLocale}
                           showFullPrice
                         />
-                      ) : (
-                        <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
-                      )}
+                      ) : perMeal ? (
+                        <span className="text-sm text-muted-foreground">
+                          {perMeal.perMeal} kr {t("products.perMeal")}
+                        </span>
+                      ) : null}
                     </div>
                   );
                 })()
