@@ -286,9 +286,11 @@ const ProductDetail = () => {
                           locale={pageLocale}
                           showFullPrice
                         />
-                      ) : (
-                        <span className="text-sm text-muted-foreground">{t("products.perMeal")}</span>
-                      )}
+                      ) : perMeal ? (
+                        <span className="text-sm text-muted-foreground">
+                          {perMeal.perMeal} kr {t("products.perMeal")}
+                        </span>
+                      ) : null}
                     </div>
                   );
                 })()
