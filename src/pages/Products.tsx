@@ -275,6 +275,7 @@ const ProductDetail = () => {
                   const amount = parseFloat(price.amount);
                   const savings = getBundleSavings(displayProductTitle(product.title), amount);
                   const hasSavings = !!savings && savings.savingsAmount > 0;
+                  const perMeal = hasSavings ? null : getPerMealInfo(displayProductTitle(product.title), amount);
                   return (
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="text-3xl font-bold text-primary">{price.currencyCode} {amount.toFixed(2)}</span>
