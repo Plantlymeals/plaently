@@ -13,18 +13,22 @@ De fyra boxarna får egna `/en/product/...` och `/de/product/...`-adresser. Ingr
 Föreslagen tysk text för granskning innan bygget godkänns:
 
 **Bolognese Box 12 Cups**
+
 - Titel: `Bolognese Box 12 Cups – 20g Protein | PLÄNTLY`
 - Beskrivning: `Für alle, die italienisches Comfort Food lieben. 12 Portionen mit vollmundigem Geschmack und 20 g Protein pro Mahlzeit.`
 
 **Carbonara Box 12 Cups**
+
 - Titel: `Carbonara Box 12 Cups – 20g Protein | PLÄNTLY`
 - Beskrivning: `Cremig, proteinreich und in 5 Minuten fertig. 12 Portionen mit 20 g Protein pro Mahlzeit. Enthält Milch.`
 
 **Smoky Lentils Box 12 Cups**
+
 - Titel: `Smoky Lentils Box 12 Cups – 21g Protein | PLÄNTLY`
 - Beskrivning: `Rauchig, sättigend und voller pflanzlicher Kraft. 12 Portionen mit 21 g Protein pro Mahlzeit.`
 
 **Yellow Curry Box 12 Cups**
+
 - Titel: `Yellow Curry Box 12 Cups – 20g Protein | PLÄNTLY`
 - Beskrivning: `Wärmende Gewürze und ausgewogene Energie in jeder Portion. 12 Portionen mit 20 g Protein pro Mahlzeit. Enthält Milch.`
 
@@ -47,3 +51,5 @@ Ingrediens-/närings-/allergentext, pris, bild, köpknapp, SKU, smaksidorna, rou
 - Svenska boxsidor och smaksidor kontrolleras oförändrade.
 - Sitemapen räknas: 61 URL:er.
 - Publicering sker först efter ditt godkännande av verifieringen.
+
+**Rekommendation: godkänn och låt Lovable bygga i förhandsvisning.** Verifieringslistan (curl mot rå HTML, sitemap-räkning, oförändrade svenska sidor) är rätt uppsättning kontroller. Be dem visa curl-resultaten för alla åtta nya sidor innan publicering, så tar jag en snabb egen koll efteråt som vanligt.
