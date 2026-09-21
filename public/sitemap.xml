@@ -261,6 +261,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://plaently.com/en/product/bolognese-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/en/product/carbonara-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/en/product/smoky-lentils-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/en/product/yellow-curry-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://plaently.com/de/product/starter-pack-12-cups-1</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -282,6 +302,26 @@
   </url>
   <url>
     <loc>https://plaently.com/de/product/plant-based-smoky-bbq-lentils</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/de/product/bolognese-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/de/product/carbonara-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/de/product/smoky-lentils-box-12-cups</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://plaently.com/de/product/yellow-curry-box-12-cups</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
