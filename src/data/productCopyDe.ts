@@ -12,6 +12,10 @@ export const DE_PILOT_HANDLES = [
   "plant-based-pasta-carbonara",
   "plant-based-yellow-curry-rice",
   "plant-based-smoky-bbq-lentils",
+  "bolognese-box-12-cups",
+  "carbonara-box-12-cups",
+  "smoky-lentils-box-12-cups",
+  "yellow-curry-box-12-cups",
 ] as const;
 
 export function isGermanPilotHandle(handle: string): boolean {
