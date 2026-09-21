@@ -1,38 +1,49 @@
-# Engelska och tyska boxsidor + rätt titlar och beskrivningar per box
+# Engelska och tyska boxsidor (routing + meta-text)
 
-Idag har bara de fem pilotprodukterna (Starter Pack + fyra smaker) egna /en/- och /de/-sidor. De fyra boxarna skickas vidare till den svenska sidan oavsett språk. Dessutom är de tyska titlarna och beskrivningarna för boxarna i själva verket engelsk text.
+De fyra boxarna får egna `/en/product/...` och `/de/product/...`-adresser. Ingrediens-, närings- och allergentexten är redan löst via mappningen box → smak och rörs inte.
 
-## Vad som görs
+## 1. Routing
 
-### 1. De fyra boxarna får engelska och tyska sidor
+- `src/data/productCopyEn.ts`: `EN_PILOT_HANDLES` utökas med `bolognese-box-12-cups`, `carbonara-box-12-cups`, `smoky-lentils-box-12-cups`, `yellow-curry-box-12-cups`.
+- `src/data/productCopyDe.ts`: samma fyra handles i `DE_PILOT_HANDLES`.
+- Ingen av dem läggs i `EN_HANDLES_REQUIRING_APPROVAL` / `DE_HANDLES_REQUIRING_APPROVAL`, eftersom `needsApproved*Copy()` slår upp boxens eget handle och boxarna återanvänder smakens redan godkända textpost. Följden: `isEnglishPageReady()` / `isGermanPageReady()` är sanna och sidorna blir `index, follow` direkt.
 
-- `/en/product/bolognese-box-12-cups` och motsvarande för Carbonara, Smoky Lentils och Yellow Curry — samma på `/de/`.
-- Ingrediens-, närings- och allergentexten på de sidorna är **samma redan granskade text** som visas på motsvarande smaksida på respektive språk (Bolognese Box → Fusilli Bolognese osv.). Ingen ny översättning, inget maskinöversatt allergeninnehåll.
-- Om en smaks text mot förmodan inte är godkänd på ett språk visas den svenska originaltexten och boxsidan hålls utanför Google (noindex) — samma säkerhetsspärr som redan gäller smaksidorna. Alla fyra smaker är i dag godkända på både engelska och tyska, så sidorna blir indexerbara direkt.
-- Pris, bild, köpknapp, recensioner och den svenska boxsidan rörs inte.
+## 2. Tyska titlar och beskrivningar (dagens `de`-fält är ordagrann engelska)
 
-### 2. Titlar och beskrivningar per box och språk
+Föreslagen tysk text för granskning innan bygget godkänns:
 
-- Svenska: oförändrade (redan unika per box).
-- Engelska: oförändrade (redan unika per box).
-- Tyska: skrivs om från dagens engelska text till riktig tyska för alla fyra boxar, i samma ton som de tyska smaksidorna. Exempel: "Bolognese Box 12 Cups – 20g Protein | PLÄNTLY" med tysk beskrivning om italiensk comfort food och 20 g protein per måltid.
+**Bolognese Box 12 Cups**
+- Titel: `Bolognese Box 12 Cups – 20g Protein | PLÄNTLY`
+- Beskrivning: `Für alle, die italienisches Comfort Food lieben. 12 Portionen mit vollmundigem Geschmack und 20 g Protein pro Mahlzeit.`
 
-### 3. Rätt språkkoppling mot Google
+**Carbonara Box 12 Cups**
+- Titel: `Carbonara Box 12 Cups – 20g Protein | PLÄNTLY`
+- Beskrivning: `Cremig, proteinreich und in 5 Minuten fertig. 12 Portionen mit 20 g Protein pro Mahlzeit. Enthält Milch.`
 
-- Varje boxsida pekar på sig själv som kanonisk och listar de andra språkversionerna (sv↔en↔de) med svenska som x-default.
-- De nya engelska och tyska box-URL:erna läggs till i sitemapen.
-- Handles utanför pilot- och boxlistan fortsätter att 301:a till den svenska sidan.
+**Smoky Lentils Box 12 Cups**
+- Titel: `Smoky Lentils Box 12 Cups – 21g Protein | PLÄNTLY`
+- Beskrivning: `Rauchig, sättigend und voller pflanzlicher Kraft. 12 Portionen mit 21 g Protein pro Mahlzeit.`
 
-## Tekniska detaljer
+**Yellow Curry Box 12 Cups**
+- Titel: `Yellow Curry Box 12 Cups – 20g Protein | PLÄNTLY`
+- Beskrivning: `Wärmende Gewürze und ausgewogene Energie in jeder Portion. 12 Portionen mit 20 g Protein pro Mahlzeit. Enthält Milch.`
 
-- `src/data/productCopyEn.ts` / `productCopyDe.ts`: de fyra box-handlarna läggs till i `EN_PILOT_HANDLES` / `DE_PILOT_HANDLES`. `needsApproved*Copy()` och `isEnglish/GermanPageReady()` mappar box → smak via `getBoxFlavorHandle()` innan godkännandet slås upp, så en box ärver smakens status.
-- `src/lib/productSeo.ts`: inga strukturella ändringar utöver tyska `de`-texter för de fyra box-posterna i `PRODUCT_SEO`. `getAvailableProductLocales()` fungerar redan generiskt och ger rätt hreflang när boxarna finns i pilotlistorna.
-- `src/pages/Products.tsx`: textvalet för boxar (`getApprovedEnCopy/DeCopy(flavorHandle)` med svensk reserv) finns redan från del 2 och behöver ingen ändring.
-- `src/routes/en.product.$handle.tsx` / `de.product.$handle.tsx`: oförändrade — de använder pilotlistorna.
-- `scripts/generate-sitemap.ts`: pilotposterna genereras redan från `*_PILOT_HANDLES`, så boxarna kommer med automatiskt.
+Faktagrunden är hämtad ur respektive smaks redan granskade text: Bolognese 20,3 g protein (vete, kan innehålla mjölk/soja/ägg), Carbonara 20,2 g protein och innehåller mjölk, Smoky BBQ Lentils 20,8 g (avrundat 21 g), Yellow Curry 20,4 g och innehåller mjölk. Inga nya siffror hittas på; mjölkomnämnandet tas bara med där smaken faktiskt innehåller mjölk. Den engelska texten kontrolleras mot samma underlag och justeras bara om något är fel.
 
-## Verifiering före publicering
+## 3. Hreflang, canonical och sitemap
 
-- Curl mot rå server-HTML för alla fyra boxar på `/en/` och `/de/`: rätt titel, beskrivning, self-canonical, ömsesidiga hreflang, `index, follow`, och engelsk/tysk ingrediens- och näringstext i HTML:en.
-- Kontroll att svenska boxsidor och smaksidor är oförändrade.
-- Sitemapen innehåller de åtta nya URL:erna.
+- Ingen ny kod: `getAvailableProductLocales()` i `src/lib/productSeo.ts` bygger redan hreflang från pilotlistorna. Verifieras uttryckligen att varje boxsida får self-canonical + sv/en/de + x-default mot svenska.
+- `scripts/generate-sitemap.ts` genererar pilotposter från samma listor, så sitemapen växer från 53 till 61 URL:er.
+
+## Rörs inte
+
+Ingrediens-/närings-/allergentext, pris, bild, köpknapp, SKU, smaksidorna, routeLang, kassan, Shopify-katalogen.
+
+## Verifiering i förhandsvisning före publicering
+
+- Diffen för `EN_PILOT_HANDLES` / `DE_PILOT_HANDLES` visas.
+- De fyra tyska titel-/beskrivningsparen visas i klartext för avstämning.
+- Curl mot rå HTML för alla fyra boxar på `/en/` och `/de/`: ingen redirect, rätt språk i titel, meta-beskrivning och ingrediensavsnitt, self-canonical, ömsesidiga hreflang, `index, follow`.
+- Svenska boxsidor och smaksidor kontrolleras oförändrade.
+- Sitemapen räknas: 61 URL:er.
+- Publicering sker först efter ditt godkännande av verifieringen.
