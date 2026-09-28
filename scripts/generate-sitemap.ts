@@ -28,6 +28,10 @@ const staticEntries: SitemapEntry[] = [
   { path: "/plantbaserade-maltider", changefreq: "monthly", priority: "0.85" },
   { path: "/nyttig-snabbmat", changefreq: "monthly", priority: "0.9" },
   { path: "/proteinkoppar", changefreq: "monthly", priority: "0.85" },
+  { path: "/en/high-protein-meals", changefreq: "monthly", priority: "0.85" },
+  { path: "/en/plant-based-meals", changefreq: "monthly", priority: "0.85" },
+  { path: "/en/healthy-fast-food", changefreq: "monthly", priority: "0.9" },
+  { path: "/en/protein-cups", changefreq: "monthly", priority: "0.85" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   // Blog category archives
