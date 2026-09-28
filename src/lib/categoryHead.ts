@@ -8,7 +8,9 @@ const BASE_URL = "https://plaently.com";
 
 export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
   const c = getCategoryContent(key, lang);
-  const selfUrl = `${BASE_URL}/${svSlugByKey[key]}`;
+  const svUrl = `${BASE_URL}/${svSlugByKey[key]}`;
+  const enUrl = `${BASE_URL}/en/${key}`;
+  const selfUrl = lang === "en" ? enUrl : svUrl;
 
   const faqSchema = c.faqs.length
     ? {
@@ -38,6 +40,9 @@ export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
     ],
     links: [
       { rel: "canonical", href: selfUrl },
+      { rel: "alternate", hreflang: "sv", href: svUrl },
+      { rel: "alternate", hreflang: "en", href: enUrl },
+      { rel: "alternate", hreflang: "x-default", href: svUrl },
     ],
     ...(faqSchema
       ? { scripts: [{ type: "application/ld+json", children: JSON.stringify(faqSchema) }] }

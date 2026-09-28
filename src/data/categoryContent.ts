@@ -64,11 +64,11 @@ export const svSlugByKey: Record<CategoryKey, string> = {
 };
 
 const relatedEn = (exclude: CategoryKey): RelatedLink[] => [
-  { slug: "/nyttig-snabbmat", label: "Healthy fast food" },
-  { slug: "/proteinrika-maltider", label: "High protein meals" },
-  { slug: "/plantbaserade-maltider", label: "Plant-based meals" },
-  { slug: "/proteinkoppar", label: "Protein cups" },
-].filter((r) => r.slug !== `/${svSlugByKey[exclude]}`).slice(0, 3);
+  { slug: "/en/healthy-fast-food", label: "Healthy fast food" },
+  { slug: "/en/high-protein-meals", label: "High protein meals" },
+  { slug: "/en/plant-based-meals", label: "Plant-based meals" },
+  { slug: "/en/protein-cups", label: "Protein cups" },
+].filter((r) => r.slug !== `/en/${exclude}`).slice(0, 3);
 
 const relatedSv = (exclude: CategoryKey): RelatedLink[] => [
   { slug: "/nyttig-snabbmat", label: "Hälsosam snabbmat" },

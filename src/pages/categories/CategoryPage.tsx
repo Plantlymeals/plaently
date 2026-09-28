@@ -15,13 +15,14 @@ interface Props {
 const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
+  const pagePath = lang === "en" ? `/en/${categoryKey}` : `/${c.slug}`;
 
   return (
     <Layout>
       <SEOHead
         title={c.metaTitle}
         description={c.metaDescription}
-        path={`/${c.slug}`}
+        path={pagePath}
         locale={lang}
         routeOwnsLinks
         routeOwnsMetadata
@@ -75,7 +76,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
           <Breadcrumbs
             items={[
               { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
-              { label: c.breadcrumbName, path: `/${c.slug}` },
+              { label: c.breadcrumbName, path: pagePath },
             ]}
             lang={lang}
           />
