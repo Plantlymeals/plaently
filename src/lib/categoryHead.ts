@@ -40,9 +40,9 @@ export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
     ],
     links: [
       { rel: "canonical", href: selfUrl },
-      { rel: "alternate", hrefLang: "sv", href: svUrl },
-      { rel: "alternate", hrefLang: "en", href: enUrl },
-      { rel: "alternate", hrefLang: "x-default", href: svUrl },
+      { rel: "alternate", hreflang: "sv", href: svUrl },
+      { rel: "alternate", hreflang: "en", href: enUrl },
+      { rel: "alternate", hreflang: "x-default", href: svUrl },
     ],
     ...(faqSchema
       ? { scripts: [{ type: "application/ld+json", children: JSON.stringify(faqSchema) }] }
