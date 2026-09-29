@@ -16,6 +16,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
   const pagePath = lang === "en" ? `/en/${categoryKey}` : `/${c.slug}`;
+  const productsPath = lang === "en" ? "/en/products" : "/products";
 
   return (
     <Layout>

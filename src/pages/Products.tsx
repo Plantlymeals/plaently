@@ -1,5 +1,6 @@
 import { Link, useParams } from "@/lib/router-compat";
-import { getRouteApi, useRouterState, useLoaderData } from "@tanstack/react-router";
+import { useRouterState, useLoaderData } from "@tanstack/react-router";
+import type { getProductList } from "@/lib/products.functions";
 import { isListableProduct } from "@/lib/productFilters";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -388,7 +389,7 @@ const ProductDetail = () => {
 
 // Products grid page
 const Products = () => {
-  const loaderData = useLoaderData({ strict: false }) as ProductListLoaderData | undefined;
+  const loaderData = useLoaderData({ strict: false }) as Awaited<ReturnType<typeof getProductList>> | undefined;
   const [products, setProducts] = useState<ShopifyProduct[]>(() =>
     (loaderData?.products ?? []).map((p) => ({
       node: {
