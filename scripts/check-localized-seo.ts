@@ -137,7 +137,12 @@ for (const [page, links] of internalLinks)
   for (const l of links) if (broken.has(l)) err(page, `broken link ${l} (status ${broken.get(l)})`);
 
 console.log(`Checked ${paths.length} pages, ${allLinks.size} internal links against ${base}`);
-if (warnings.length) console.log(`\n${warnings.length} warning(s):\n  ` + [...new Set(warnings)].join("\n  "));
+if (warnings.length) {
+  const byTarget = new Map<string, number>();
+  for (const w of new Set(warnings)) { const t = w.split(" page ")[1]; byTarget.set(t, (byTarget.get(t) ?? 0) + 1); }
+  console.log(`\nWarning: /en and /de pages link to Swedish pages that have a translation:`);
+  for (const [t, n] of byTarget) console.log(`  ${t}  (on ${n} pages)`);
+}
 if (errors.length) {
   console.log(`\n${errors.length} error(s):\n  ` + errors.join("\n  "));
   process.exit(1);
