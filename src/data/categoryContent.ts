@@ -126,9 +126,9 @@ const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> =
         title: "Short answer",
         body: "PLÄNTLY is a ready-made high protein meal with 20g of plant protein per cup — add boiling water, wait 5 minutes, eat. It works as lunch at the office, a post-training meal or whenever cooking is not an option. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
         links: [
-          { label: "See our protein cups", path: "/products" },
+          { label: "See our protein cups", path: "/en/products" },
           { label: "Full nutrition facts", path: "/nutrition" },
-          { label: "Plant-based meals", path: "/plantbaserade-maltider" },
+          { label: "Plant-based meals", path: "/en/plant-based-meals" },
         ],
       },
       comparison: {
@@ -329,9 +329,9 @@ const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> =
         title: "Short answer",
         body: "PLÄNTLY plant-based meals are cups of real food — pasta, legumes, vegetables and spices — with 20g of plant protein per serving, ready in 5 minutes with boiling water. Two flavours are fully vegan: Fusilli Bolognese and Smoky BBQ Lentils. Pasta Carbonara and Yellow Curry & Rice are vegetarian, not vegan: they contain milk protein. We say that plainly instead of hiding it in a long ingredient list.",
         links: [
-          { label: "See our protein cups", path: "/products" },
+          { label: "See our protein cups", path: "/en/products" },
           { label: "Full nutrition facts", path: "/nutrition" },
-          { label: "High protein meals", path: "/proteinrika-maltider" },
+          { label: "High protein meals", path: "/en/high-protein-meals" },
         ],
       },
       comparison: {
@@ -671,9 +671,9 @@ const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> =
         title: "Short answer",
         body: "PLÄNTLY is healthy fast food in a cup: pasta, legumes, vegetables and spices with 20g of plant protein, ready in 5 minutes with boiling water. It is as fast as a takeaway lunch, but you can read every ingredient. Two flavours are vegan (Fusilli Bolognese, Smoky BBQ Lentils) and two are vegetarian with milk protein (Pasta Carbonara, Yellow Curry & Rice).",
         links: [
-          { label: "See our protein cups", path: "/products" },
-          { label: "High protein meals", path: "/proteinrika-maltider" },
-          { label: "Plant-based meals", path: "/plantbaserade-maltider" },
+          { label: "See our protein cups", path: "/en/products" },
+          { label: "High protein meals", path: "/en/high-protein-meals" },
+          { label: "Plant-based meals", path: "/en/plant-based-meals" },
         ],
       },
       faqs: [
