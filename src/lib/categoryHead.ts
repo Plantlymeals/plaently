@@ -2,15 +2,16 @@
 // description, canonical and the FAQPage schema so crawlers see them
 // in the server HTML; SEOHead only refines OG/Twitter on the client.
 import { getCategoryContent, svSlugByKey, type CategoryKey } from "@/data/categoryContent";
-import type { Lang } from "@/lib/i18n";
+import type { ProductPageLocale } from "@/lib/i18n";
 
 const BASE_URL = "https://plaently.com";
 
-export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
+export const buildCategoryHead = (key: CategoryKey, lang: ProductPageLocale) => {
   const c = getCategoryContent(key, lang);
   const svUrl = `${BASE_URL}/${svSlugByKey[key]}`;
   const enUrl = `${BASE_URL}/en/${key}`;
-  const selfUrl = lang === "en" ? enUrl : svUrl;
+  const deUrl = `${BASE_URL}/de/${key}`;
+  const selfUrl = lang === "en" ? enUrl : lang === "de" ? deUrl : svUrl;
 
   const faqSchema = c.faqs.length
     ? {
@@ -33,7 +34,7 @@ export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
       { property: "og:description", content: c.metaDescription },
       { property: "og:url", content: selfUrl },
       { property: "og:type", content: "website" },
-      { property: "og:locale", content: lang === "en" ? "en_GB" : "sv_SE" },
+      { property: "og:locale", content: lang === "en" ? "en_GB" : lang === "de" ? "de_DE" : "sv_SE" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: c.metaTitle },
       { name: "twitter:description", content: c.metaDescription },
@@ -42,6 +43,7 @@ export const buildCategoryHead = (key: CategoryKey, lang: Lang) => {
       { rel: "canonical", href: selfUrl },
       { rel: "alternate", hreflang: "sv", href: svUrl },
       { rel: "alternate", hreflang: "en", href: enUrl },
+      { rel: "alternate", hreflang: "de", href: deUrl },
       { rel: "alternate", hreflang: "x-default", href: svUrl },
     ],
     ...(faqSchema

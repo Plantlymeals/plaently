@@ -188,8 +188,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
+  // Document language follows the URL prefix (/en/…, /de/…), Swedish otherwise.
+  const pathname = useLocation({ select: (l) => l.pathname });
+  const htmlLang = pathname.startsWith("/en/") || pathname === "/en" ? "en" : pathname.startsWith("/de/") || pathname === "/de" ? "de" : "sv";
   return (
-    <html lang="sv" suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

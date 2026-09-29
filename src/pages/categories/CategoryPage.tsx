@@ -4,19 +4,26 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
-import type { Lang } from "@/lib/i18n";
+import type { ProductPageLocale } from "@/lib/i18n";
+
+const UI_TEXT: Record<ProductPageLocale, { products: string; exploreMore: string; faq: string; seeCups: string; orReadFull: string; nutrition: string; beforeDecide: string }> = {
+  sv: { products: "Produkter", exploreMore: "Utforska mer", faq: "Vanliga frågor", seeCups: "Se våra proteinkoppar", orReadFull: " — eller läs hela ", nutrition: "näringsinnehållet", beforeDecide: " innan du bestämmer dig." },
+  en: { products: "Products", exploreMore: "Explore more", faq: "Frequently asked questions", seeCups: "See our protein cups", orReadFull: " — or read the full ", nutrition: "nutrition facts", beforeDecide: " before you decide." },
+  de: { products: "Produkte", exploreMore: "Mehr entdecken", faq: "Häufig gestellte Fragen", seeCups: "Entdecke unsere Proteinbecher", orReadFull: " — oder lies die vollständigen ", nutrition: "Nährwertangaben", beforeDecide: ", bevor du dich entscheidest." },
+};
 import { getCategoryContent, type CategoryKey } from "@/data/categoryContent";
 
 interface Props {
   categoryKey: CategoryKey;
-  routeLang: Lang;
+  routeLang: ProductPageLocale;
 }
 
 const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
-  const pagePath = lang === "en" ? `/en/${categoryKey}` : `/${c.slug}`;
-  const productsPath = lang === "en" ? "/en/products" : "/products";
+  const pagePath = lang === "sv" ? `/${c.slug}` : `/${lang}/${categoryKey}`;
+  const ui = UI_TEXT[lang];
+  const productsPath = lang === "sv" ? "/products" : `/${lang}/products`;
 
   return (
     <Layout>
@@ -76,7 +83,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: lang === "sv" ? "Produkter" : "Products", path: productsPath },
+              { label: ui.products, path: productsPath },
               { label: c.breadcrumbName, path: pagePath },
             ]}
             lang={lang}
@@ -139,13 +146,13 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
           ))}
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
             <Link to={productsPath} className="text-primary font-semibold hover:underline">
-              {lang === "sv" ? "Se våra proteinkoppar" : "See our protein cups"}
+              {ui.seeCups}
             </Link>
-            {lang === "sv" ? " — eller läs hela " : " — or read the full "}
+            {ui.orReadFull}
             <Link to="/nutrition" className="text-primary font-semibold hover:underline">
-              {lang === "sv" ? "näringsinnehållet" : "nutrition facts"}
+              {ui.nutrition}
             </Link>
-            {lang === "sv" ? " innan du bestämmer dig." : " before you decide."}
+            {ui.beforeDecide}
           </p>
         </div>
       </section>
@@ -156,7 +163,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
         <section className="pb-16 md:pb-20">
           <div className="container max-w-3xl">
             <h2 className="font-heading text-xl md:text-2xl font-bold mb-6">
-              {lang === "sv" ? "Utforska mer" : "Explore more"}
+              {ui.exploreMore}
             </h2>
             <div className="grid sm:grid-cols-3 gap-4">
               {c.related.map((r) => (
@@ -178,7 +185,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
       <section className="py-16 md:py-20 bg-secondary/40">
         <div className="container max-w-3xl">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-center mb-10">
-            {lang === "sv" ? "Vanliga frågor" : "Frequently asked questions"}
+            {ui.faq}
           </h2>
           <div className="space-y-4">
             {c.faqs.map((f) => (
