@@ -16,7 +16,7 @@ const Lifestyle = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" locale={lang} />
+      <SEOHead title={t("seo.lifestyle.title")} description={t("seo.lifestyle.description")} path="/lifestyle" locale={lang} routeOwnsMetadata routeOwnsLinks />
       <section className="py-12 md:py-20">
         <div className="container space-y-16">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Livsstil" : "Lifestyle", path: "/lifestyle" }]} lang={lang} className="mb-0" />

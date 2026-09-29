@@ -185,7 +185,7 @@ const PrivacyPolicy = () => {
 
   return (
     <Layout>
-      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale="sv" noindex />
+      <SEOHead title={c.seoTitle} description={c.seoDesc} path={path} type="article" jsonLd={jsonLd} locale="sv" noindex routeOwnsMetadata routeOwnsLinks />
 
       <section className="bg-foreground text-primary-foreground">
         <div className="container py-20 md:py-28">

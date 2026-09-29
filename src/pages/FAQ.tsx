@@ -32,7 +32,7 @@ const FAQPage = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.faq.title")} description={t("seo.faq.description")} path="/faq" locale={lang} />
+      <SEOHead title={t("seo.faq.title")} description={t("seo.faq.description")} path="/faq" locale={lang} routeOwnsMetadata routeOwnsLinks />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Vanliga frågor" : "FAQ", path: "/faq" }]} lang={lang} className="mb-0" />
