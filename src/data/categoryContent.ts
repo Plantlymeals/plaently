@@ -1,4 +1,4 @@
-import type { Lang } from "@/lib/i18n";
+import type { ProductPageLocale } from "@/lib/i18n";
 
 export interface CategorySection {
   heading: string;
@@ -77,7 +77,14 @@ const relatedSv = (exclude: CategoryKey): RelatedLink[] => [
   { slug: "/proteinkoppar", label: "Proteinkoppar" },
 ].filter((r) => r.slug !== `/${svSlugByKey[exclude]}`).slice(0, 3);
 
-const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
+const relatedDe = (exclude: CategoryKey): RelatedLink[] => [
+  { slug: "/de/healthy-fast-food", label: "Gesundes Fast Food" },
+  { slug: "/de/high-protein-meals", label: "Proteinreiche Mahlzeiten" },
+  { slug: "/de/plant-based-meals", label: "Pflanzliche Mahlzeiten" },
+  { slug: "/de/protein-cups", label: "Proteinbecher" },
+].filter((r) => r.slug !== `/de/${exclude}`).slice(0, 3);
+
+const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> = {
   "high-protein-meals": {
     en: {
       slug: "proteinrika-maltider",
@@ -144,6 +151,71 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ctaHeadline: "20g protein. 5 minutes. No compromise.",
       ctaText: "Shop now",
       related: relatedEn("high-protein-meals"),
+    },
+    de: {
+      slug: "proteinrika-maltider",
+      breadcrumbName: "Proteinreiche Mahlzeiten",
+      metaTitle: "Proteinreiche Mahlzeiten | 20g Protein in 5 Minuten | PLÄNTLY",
+      metaDescription: "Proteinreiche Mahlzeiten mit 20g pflanzlichem Protein pro Portion. Fertig in 5 Minuten. Keine Vorbereitung, kein Kochen, kein Kompromiss. Entwickelt in Schweden. Hergestellt in Italien.",
+      h1: "Proteinreiche Mahlzeiten.",
+      keywordLabel: "Hoher Proteingehalt · Pflanzlich · Fertig in 5 Min",
+      intro: "20g pflanzliches Protein in jeder Mahlzeit, fertig in 5 Minuten. Echtes Essen für alle, die trainieren, arbeiten und im vollen Tempo leben.",
+      sections: [
+        {
+          heading: "20g Protein. Jede Mahlzeit. Jedes Mal.",
+          body: [
+            "Ob du zweimal die Woche trainierst oder zweimal am Tag — Protein ist nicht verhandelbar. PLÄNTLY liefert 20g pflanzliches Protein pro Mahlzeit, konsequent, in 5 Minuten.",
+            "Jeder Becher basiert auf einer Erbsen- und Sonnenblumenprotein-Mischung mit vollständigem Aminosäureprofil — gleichauf mit Molkenprotein bei Wert und Bioverfügbarkeit, mit der leichteren Verdaulichkeit pflanzlicher Proteine.",
+          ],
+        },
+        {
+          heading: "Keine Vorbereitung. Kein Kochen. Keine Ausreden.",
+          body: [
+            "Meal Prep kostet Zeit, die du nicht immer hast. PLÄNTLY ist deine proteinreiche Alltagsmahlzeit — fertig in 5 Minuten, egal wo du bist. Büro, Sporttasche, Küchentresen.",
+          ],
+        },
+        {
+          heading: "Pflanzliches Protein, das leistet.",
+          body: [
+            "Das Protein in PLÄNTLY stammt aus hochwertigen pflanzlichen Quellen mit vollständigem Aminosäureprofil. Die gleiche Leistung — ohne Kompromiss bei der Nachhaltigkeit.",
+            "Kombiniert mit langsam verdaulichen Kohlenhydraten, gesunden Fetten und 5–9g Ballaststoffen ergibt das eine Mahlzeit, die Fokus und Regeneration unterstützt — ohne Blutzucker-Spitzen und -Abstürze.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g Protein pro Portion", desc: "Vollständiges Aminosäureprofil aus Erbsen- und Sonnenblumenprotein." },
+        { title: "Fertig in 5 Minuten", desc: "Einfach heißes Wasser hinzufügen — echtes Essen, keine Wartezeit." },
+        { title: "4 Mahlzeiten zur Auswahl", desc: "Bolognese, Carbonara, Yellow Curry, Smoky Lentils." },
+        { title: "0 künstliche Zusatzstoffe", desc: "Nur echte Zutaten, sonst nichts." },
+      ],
+      quickAnswer: {
+        title: "Kurz gesagt",
+        body: "PLÄNTLY ist eine fertige proteinreiche Mahlzeit mit 20g pflanzlichem Protein pro Becher — heißes Wasser hinzufügen, 5 Minuten warten, essen. Perfekt als Mittagessen im Büro, Mahlzeit nach dem Training oder wenn Kochen keine Option ist. Zwei Sorten sind vegan (Fusilli Bolognese, Smoky BBQ Lentils) und zwei sind vegetarisch mit Milchprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Entdecke unsere Proteinbecher", path: "/de/products" },
+          { label: "Alle Nährwertangaben", path: "/nutrition" },
+          { label: "Pflanzliche Mahlzeiten", path: "/de/plant-based-meals" },
+        ],
+      },
+      comparison: {
+        heading: "Wie schneidet das im Vergleich zu anderen schnellen Proteinquellen ab?",
+        columns: ["Option", "Zeit", "Protein pro Portion", "Kühlschrank nötig"],
+        rows: [
+          { label: "PLÄNTLY-Becher", cells: ["5 Min", "20–21g", "Nein"], highlight: true },
+          { label: "Proteinshake", cells: ["1 Min", "20–25g", "Nein (Pulver), ja (Milch)"] },
+          { label: "Auswärts essen", cells: ["20–45 Min inkl. Anfahrt", "Variiert, oft nicht angegeben", "Nein"] },
+          { label: "Selbst kochen", cells: ["25–40 Min", "Du entscheidest", "Ja"] },
+        ],
+      },
+      faqs: [
+        { q: "Was zählt als proteinreiche Mahlzeit?", a: "In der Praxis eine Mahlzeit mit etwa 20g Protein oder mehr, bei der Protein einen bedeutenden Anteil der Kalorien ausmacht. Ein PLÄNTLY-Becher enthält 20–21g Protein pro Portion zusammen mit langsamen Kohlenhydraten und 5–9g Ballaststoffen. Wir listen alle Werte auf der Nährwertseite offen auf, statt uns hinter langen Zutatenlisten zu verstecken." },
+        { q: "Wie viel Protein brauche ich pro Tag?", a: "Die gängige Empfehlung liegt bei etwa 0,8g pro Kilo Körpergewicht für Erwachsene und etwa 1,2–2,0g pro Kilo, wenn du regelmäßig trainierst. Für eine Person mit 70 kg sind das etwa 56 bis 140g pro Tag. Es ist einfacher, das Protein über den Tag zu verteilen, als abends alles nachzuholen." },
+        { q: "Sind fertige Proteinmahlzeiten gesund?", a: "Das hängt ganz vom Inhalt ab. Achte auf Protein, Ballaststoffe, Salz und die Zutatenliste. PLÄNTLY basiert auf Pasta, Hülsenfrüchten, Gemüse und Gewürzen ohne künstliche Zusatzstoffe — aber es ist eine Mahlzeit in deinem Tag, kein Ersatz für eine abwechslungsreiche Ernährung." },
+        { q: "Kann man jeden Tag proteinreich essen?", a: "Ja, für die meisten gesunden Erwachsenen ist eine proteinreiche Ernährung jeden Tag unbedenklich. Variiere deine Proteinquellen und achte auf ausreichend Ballaststoffe, Gemüse und Flüssigkeit. Bei Nierenerkrankungen oder anderen gesundheitlichen Vorerkrankungen solltest du vorher mit deinem Arzt sprechen." },
+      ],
+      ctaHeadline: "20g Protein. 5 Minuten. Kein Kompromiss.",
+      ctaText: "Jetzt einkaufen",
+      related: relatedDe("high-protein-meals"),
     },
     sv: {
       slug: "proteinrika-maltider",
@@ -283,6 +355,75 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ctaText: "Shop now",
       related: relatedEn("plant-based-meals"),
     },
+    de: {
+      slug: "plantbaserade-maltider",
+      breadcrumbName: "Pflanzliche Mahlzeiten",
+      metaTitle: "Pflanzliche Mahlzeiten | 20g Protein | Fertig in 5 Minuten | PLÄNTLY",
+      metaDescription: "Pflanzliche Mahlzeiten mit 20g Protein pro Portion. Nicht nur für pflanzliche Ernährung — für alle, die smarter essen wollen. Fertig in 5 Minuten. Entwickelt in Schweden. Hergestellt in Italien.",
+      h1: "Pflanzliche Mahlzeiten.",
+      keywordLabel: "Pflanzlich · Echtes Essen · Geringerer Fußabdruck",
+      intro: "Pflanzliche Mahlzeiten mit 20g Protein, fertig in 5 Minuten. Kein Etikett — eine smartere Wahl.",
+      sections: [
+        {
+          heading: "Nicht nur für pflanzliche Ernährung. Für alle.",
+          body: [
+            "Pflanzlich zu essen ist kein Statement. Es ist eine smartere Wahl — für deinen Körper, für den Planeten, für deinen Alltag. PLÄNTLYs pflanzliche Mahlzeiten liefern 20g Protein, fertig in 5 Minuten. Kein Etikett nötig.",
+          ],
+        },
+        {
+          heading: "Das Klimaargument für pflanzliches Protein.",
+          body: [
+            "Forschung zu globalen Lebensmittelsystemen (Poore & Nemecek, Science 2018) zeigt, dass pflanzliches Protein in der Regel einen deutlich geringeren Klima-Fußabdruck hat als Rindfleisch. Eine pflanzliche Mahlzeit statt einer fleischbasierten zu wählen, ist eine der wirksamsten Alltagsentscheidungen fürs Klima — ohne sonst etwas zu ändern.",
+          ],
+        },
+        {
+          heading: "Gleiches Protein. Bruchteil des Fußabdrucks.",
+          body: [
+            "Neben Protein enthält jede Mahlzeit langsam verdauliche Kohlenhydrate, gesunde Fette aus Olivenöl und Nüssen sowie 5–9g darmfreundliche Ballaststoffe. Echte Zutaten, die du aussprechen kannst — Linsen, Pasta, Gemüse, Kräuter, Gewürze.",
+          ],
+        },
+        {
+          heading: "Entwickelt in Schweden. Hergestellt in Italien.",
+          body: [
+            "PLÄNTLY wurde in Schweden entwickelt — wo pflanzliche Ernährung kein Trend ist, sondern eine Haltung. Jedes Rezept wird in Italien hergestellt, wo Lebensmittelqualität nicht verhandelbar ist.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g pflanzliches Protein pro Mahlzeit", desc: "Vollständiges Aminosäureprofil, in jedem Becher." },
+        { title: "Geringerer Klima-Fußabdruck als Rindfleisch", desc: "Pflanzliches Protein hat in der Regel einen deutlich geringeren Fußabdruck (Poore & Nemecek, Science 2018)." },
+        { title: "Fertig in 5 Minuten", desc: "Heißes Wasser. Umrühren. Warten. Essen." },
+        { title: "0 künstliche Zusatzstoffe", desc: "Echte Zutaten, sonst nichts." },
+      ],
+      quickAnswer: {
+        title: "Kurz gesagt",
+        body: "PLÄNTLYs pflanzliche Mahlzeiten sind Becher mit echtem Essen — Pasta, Hülsenfrüchte, Gemüse und Gewürze — mit 20g pflanzlichem Protein pro Portion, fertig in 5 Minuten mit kochendem Wasser. Zwei Sorten sind vollständig vegan: Fusilli Bolognese und Smoky BBQ Lentils. Pasta Carbonara und Yellow Curry & Rice sind vegetarisch, nicht vegan: Sie enthalten Milchprotein. Das schreiben wir offen hin, statt es in einer langen Zutatenliste zu verstecken.",
+        links: [
+          { label: "Entdecke unsere Proteinbecher", path: "/de/products" },
+          { label: "Alle Nährwertangaben", path: "/nutrition" },
+          { label: "Proteinreiche Mahlzeiten", path: "/de/high-protein-meals" },
+        ],
+      },
+      comparison: {
+        heading: "Pflanzliches Protein im Vergleich zu anderen schnellen Optionen",
+        columns: ["Option", "Zeit", "Protein pro Portion", "Kühlschrank nötig"],
+        rows: [
+          { label: "PLÄNTLY-Becher", cells: ["5 Min", "20–21g", "Nein"], highlight: true },
+          { label: "Pflanzlicher Proteinshake", cells: ["1 Min", "20–25g", "Nein (Pulver), ja (Pflanzenmilch)"] },
+          { label: "Auswärts essen", cells: ["20–45 Min inkl. Anfahrt", "Variiert, oft nicht angegeben", "Nein"] },
+          { label: "Selbst kochen", cells: ["25–40 Min", "Du entscheidest", "Ja"] },
+        ],
+      },
+      faqs: [
+        { q: "Was ist eine pflanzliche Mahlzeit?", a: "Eine Mahlzeit, die hauptsächlich auf Pflanzen basiert — Gemüse, Hülsenfrüchte, Getreide, Nüsse und Samen — statt auf Fleisch und Fisch. Pflanzlich ist nicht automatisch vegan: Eine pflanzliche Mahlzeit kann weiterhin kleine Mengen Milch oder Ei enthalten. Deshalb kennzeichnen wir jede PLÄNTLY-Sorte als vegan oder vegetarisch." },
+        { q: "Ist pflanzliches Protein so gut wie tierisches?", a: "Für die meisten Menschen ja, solange du Quellen kombinierst. Hülsenfrüchte und Getreide ergänzen sich, sodass das Aminosäureprofil vollständig wird. Deshalb kombiniert PLÄNTLY Erbsen- und Sonnenblumenprotein mit Pasta oder Reis und Hülsenfrüchten." },
+        { q: "Eignen sich pflanzliche Mahlzeiten zum Abnehmen?", a: "Sie können helfen, vor allem weil Ballaststoffe und Protein es leichter machen, bei weniger Kalorien satt zu werden. Aber es gibt keine Magie im Etikett — die Gesamtkalorien über die Woche entscheiden. Ein PLÄNTLY-Becher hat 228–285 kcal pro Portion, damit lässt sich gut planen." },
+        { q: "Auf welche Nährstoffe sollten Veganer besonders achten?", a: "Vitamin B12, Eisen, Kalzium, Jod, Omega-3 (EPA/DHA), Zink und Vitamin D werden meist genannt. B12 braucht bei rein veganer Ernährung ein Nahrungsergänzungsmittel oder angereicherte Lebensmittel. PLÄNTLY ist eine Mahlzeit, kein Nahrungsergänzungsmittel — auf der Nährwertseite steht genau, was jeder Becher liefert." },
+      ],
+      ctaHeadline: "Gleiches Protein. Bruchteil des Fußabdrucks.",
+      ctaText: "Jetzt einkaufen",
+      related: relatedDe("plant-based-meals"),
+    },
     sv: {
       slug: "plantbaserade-maltider",
       breadcrumbName: "Plantbaserade måltider",
@@ -400,6 +541,51 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ctaText: "Shop now",
       related: relatedEn("healthy-instant-meals"),
     },
+    de: {
+      slug: "halsosamma-snabbmaltider",
+      breadcrumbName: "Gesunde Instant-Mahlzeiten",
+      metaTitle: "Gesunde Instant-Mahlzeiten | Echtes Essen in 5 Minuten | PLÄNTLY",
+      metaDescription: "Gesunde Instant-Mahlzeiten mit 20g pflanzlichem Protein und ausgewogener Nährstoffverteilung. Der smarte Weg, schnell zu essen, ohne auf echtes Essen zu verzichten.",
+      h1: "Gesunde Instant-Mahlzeiten.",
+      keywordLabel: "Instant · Gesund · Echte Zutaten",
+      intro: "PLÄNTLY beweist, dass 'instant' und 'gesund' in denselben Satz gehören. Echte Zutaten, 20g pflanzliches Protein, fertig in 5 Minuten.",
+      sections: [
+        {
+          heading: "Das Instant-Food-Problem — gelöst.",
+          body: [
+            "Jahrzehntelang bedeuteten Instant-Mahlzeiten einen Kompromiss: Geschwindigkeit im Austausch gegen Salzbomben, raffinierte Kohlenhydrate und wenig Protein. Die Kategorie wurde schneller, aber nie besser.",
+            "PLÄNTLY baut die Instant-Mahlzeit von Grund auf neu. Gleiche Bequemlichkeit, komplett anderes Nährwertprofil — 20g vollständiges pflanzliches Protein, ausgewogene Makros, echte Zutaten.",
+          ],
+        },
+        {
+          heading: "Gesundes Fast Food, endlich.",
+          body: [
+            "PLÄNTLY verweigert den Kompromiss zwischen Geschwindigkeit, Geschmack und Nährwert. Unsere Mahlzeiten sind darauf ausgelegt, alle drei zu liefern — ohne Abkürzungen, die die Qualität senken.",
+            "Ob du bis spät arbeitest, zwischen Meetings steckst oder nach dem Training hungrig bist — du solltest dich nicht mit etwas zufriedengeben, das dich träge macht.",
+          ],
+        },
+        {
+          heading: "Perfekt für den modernen Alltag.",
+          body: [
+            "Schreibtisch, Hotelzimmer, Studentenwohnheim, Sporttasche — PLÄNTLY passt überall dorthin, wo ein Wasserkocher passt. Keine Küche, keine Kochkenntnisse, kein Einkauf. Nur echtes Essen, wenn du es brauchst.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "Echte Zutaten", desc: "Keine Füllstoffe, keine künstlichen Aromen, keine Abkürzungen." },
+        { title: "5 Minuten Zubereitung", desc: "Einfach heißes Wasser hinzufügen — der Wasserkocher ist alles, was du brauchst." },
+        { title: "20g pflanzliches Protein", desc: "Mehr Protein als die meisten von Grund auf gekochten Mahlzeiten." },
+        { title: "Tragbar", desc: "Nimm es überallhin mit — Schreibtisch, Gym, Reise, Zuhause." },
+      ],
+      faqs: [
+        { q: "Wie unterscheidet sich das von Instant-Nudeln?", a: "PLÄNTLY enthält echte Zutaten, 20g pflanzliches Protein, ausgewogene Makros und null künstliche Füllstoffe — Instant-Nudeln bieten nichts davon." },
+        { q: "Wie lange dauert die Zubereitung?", a: "5 Minuten. Heißes Wasser hinzufügen, umrühren, warten, essen." },
+        { q: "Brauche ich etwas außer Wasser?", a: "Nur eine Tasse kochendes Wasser — das ist alles. Kein Kochen, keine Mikrowelle, keine zusätzlichen Zutaten." },
+      ],
+      ctaHeadline: "Probiere gesunde Instant-Mahlzeiten.",
+      ctaText: "Jetzt einkaufen",
+      related: relatedDe("healthy-instant-meals"),
+    },
     sv: {
       slug: "halsosamma-snabbmaltider",
       breadcrumbName: "Hälsosamma snabbmåltider",
@@ -500,6 +686,59 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ctaHeadline: "The future of fast food. Today.",
       ctaText: "Shop meals",
       related: relatedEn("healthy-fast-food"),
+    },
+    de: {
+      slug: "nyttig-snabbmat",
+      breadcrumbName: "Gesundes Fast Food",
+      metaTitle: "Gesundes Fast Food | 20g Protein in 5 Minuten | PLÄNTLY",
+      metaDescription: "Gesundes Fast Food, das wirklich liefert. 20g Protein pro Mahlzeit, fertig in 5 Minuten. Entwickelt in Schweden. Hergestellt in Italien. Kein Kompromiss.",
+      h1: "Gesundes Fast Food.",
+      keywordLabel: "Eine neue Kategorie · Pflanzliches Protein · 5 Minuten",
+      intro: "PLÄNTLY schreibt die Regeln von Fast Food neu. Echte Mahlzeiten, 20g pflanzliches Protein, fertig in der Zeit, die es braucht, Wasser zu kochen.",
+      sections: [
+        {
+          heading: "Fast Food. Neu geschrieben.",
+          body: [
+            "Fast Food war nie das Problem. Der Kompromiss war es. PLÄNTLY-Mahlzeiten sind in 5 Minuten fertig — genauso schnell wie jedes Fast Food — aber mit 20g Protein, echten Zutaten und null Reue.",
+          ],
+        },
+        {
+          heading: "20g Protein. 5 Minuten. Kein Kompromiss.",
+          body: [
+            "Jede PLÄNTLY-Mahlzeit folgt einer Regel: so schnell wie Fast Food, so gut wie eine richtige Mahlzeit. Entwickelt in Schweden. Hergestellt in Italien.",
+          ],
+        },
+        {
+          heading: "Die Zukunft der Convenience-Food.",
+          body: [
+            "Bequemlichkeit und Nährwert wurden immer gegeneinander abgewogen. Wir haben diesen Kompromiss beendet. PLÄNTLY ist gesundes Fast Food — kein Mittelweg zwischen beidem.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g pflanzliches Protein", desc: "Vollständiges Aminosäureprofil in jeder Mahlzeit." },
+        { title: "Fertig in 5 Minuten", desc: "Einfach heißes Wasser hinzufügen. Echtes Essen, keine Wartezeit." },
+        { title: "Entwickelt in Schweden", desc: "Nach skandinavischem Ernährungsstandard konzipiert." },
+        { title: "Hergestellt in Italien", desc: "Produziert mit italienischen Herstellern, die Lebensmittel als Handwerk verstehen." },
+      ],
+      quickAnswer: {
+        title: "Kurz gesagt",
+        body: "PLÄNTLY ist gesundes Fast Food im Becher: Pasta, Hülsenfrüchte, Gemüse und Gewürze mit 20g pflanzlichem Protein, fertig in 5 Minuten mit kochendem Wasser. Genauso schnell wie ein Lunch zum Mitnehmen, aber du kannst jede Zutat lesen. Zwei Sorten sind vegan (Fusilli Bolognese, Smoky BBQ Lentils) und zwei sind vegetarisch mit Milchprotein (Pasta Carbonara, Yellow Curry & Rice).",
+        links: [
+          { label: "Entdecke unsere Proteinbecher", path: "/de/products" },
+          { label: "Proteinreiche Mahlzeiten", path: "/de/high-protein-meals" },
+          { label: "Pflanzliche Mahlzeiten", path: "/de/plant-based-meals" },
+        ],
+      },
+      faqs: [
+        { q: "Ist gesundes Fast Food teurer als normales Fast Food?", a: "Pro Mahlzeit ist es meist günstiger als auswärts zu essen — die genauen Preise siehst du direkt im Shop. Im Vergleich zum Kochen einer größeren Portion zu Hause ist es teurer — dafür bezahlst du die Zeit, die du sparst." },
+        { q: "Was unterscheidet gesundes Fast Food von normalen Fertiggerichten?", a: "Vor allem die Zutatenliste und was die Mahlzeit tatsächlich liefert. Viele Fertiggerichte sind auf Haltbarkeit und Kosten ausgelegt, mit hohem Salzgehalt und wenig Ballaststoffen. PLÄNTLY basiert auf 20g Protein und 5–9g Ballaststoffen ohne künstliche Zusatzstoffe — und wir veröffentlichen die Werte, statt uns hinter langen Zutatenlisten zu verstecken." },
+        { q: "Halten sich Instant-Mahlzeiten lange?", a: "Ja. Da PLÄNTLY-Becher getrocknet sind, halten sie sich monatelang bei Raumtemperatur — das Mindesthaltbarkeitsdatum steht auf jedem Becher. Kein Kühlschrank, kein Gefrierfach nötig — genau deshalb funktionieren sie in der Schreibtischschublade oder der Sporttasche." },
+        { q: "Ist getrocknetes Essen mit zugesetztem Wasser wirklich gesund?", a: "Trocknen ist nur Wasserentzug — das macht Essen nicht per se ungesund. Entscheidend ist, was getrocknet wurde: Unsere Becher enthalten Hartweizenpasta, Hülsenfrüchte, Gemüse, Kräuter und Gewürze. Füge kochendes Wasser hinzu und du bekommst die Mahlzeit zurück, keinen Pulver-Shake." },
+      ],
+      ctaHeadline: "Die Zukunft von Fast Food. Heute.",
+      ctaText: "Mahlzeiten kaufen",
+      related: relatedDe("healthy-fast-food"),
     },
     sv: {
       slug: "nyttig-snabbmat",
@@ -607,6 +846,56 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
       ctaText: "Shop the Starter Pack",
       related: relatedEn("protein-cups"),
     },
+    de: {
+      slug: "proteinkoppar",
+      breadcrumbName: "Proteinbecher",
+      metaTitle: "Proteinbecher | 20g Protein Instant-Mahlzeiten | PLÄNTLY",
+      metaDescription: "PLÄNTLY Proteinbecher — 20g pflanzliches Protein pro Becher, fertig in 5 Minuten. Die smarteste Proteinmahlzeit für Schreibtisch, Sporttasche oder Küche.",
+      h1: "Proteinbecher.",
+      keywordLabel: "Proteinbecher · 20g Protein · Wasser hinzufügen",
+      intro: "Heißes Wasser hinzufügen. 5 Minuten warten. Eine richtige Mahlzeit mit 20g pflanzlichem Protein — das Becher-Format für dein echtes Leben.",
+      sections: [
+        {
+          heading: "Wasser hinzufügen. 5 Minuten warten. 20g Protein.",
+          body: [
+            "Der PLÄNTLY Proteinbecher wurde um eine Erkenntnis herum entwickelt: Gutes Essen sollte weder Zeit noch Ausrüstung noch Planung erfordern. Heißes Wasser hinzufügen. 5 Minuten warten. Eine richtige Mahlzeit mit 20g pflanzlichem Protein.",
+          ],
+        },
+        {
+          heading: "Hab immer einen dabei.",
+          body: [
+            "Schreibtischschublade. Sporttasche. Auto. Küchenschrank. Der PLÄNTLY Proteinbecher ist für dein Leben gemacht — nicht das Leben, das du geplant hast, sondern das, das du tatsächlich lebst.",
+          ],
+        },
+        {
+          heading: "Vier Mahlzeiten. Ein Format.",
+          body: [
+            "Fusilli Bolognese, Pasta Carbonara, Yellow Curry mit Reis und Smoky Lentils — jeder Becher liefert 20g pflanzliches Protein und ist portionskontrolliert, kalorienbalanciert und lange haltbar.",
+          ],
+        },
+        {
+          heading: "Das Starter Pack.",
+          body: [
+            "Neu bei PLÄNTLY? Mit dem Starter Pack probierst du jede Sorte — genug, um deinen Favoriten zu finden, und genug, um 20g Protein zur einfachsten Entscheidung deiner Woche zu machen.",
+          ],
+        },
+      ],
+      benefits: [
+        { title: "20g Protein pro Becher", desc: "Vollständiges Aminosäureprofil aus pflanzlichen Quellen." },
+        { title: "Fertig in 5 Minuten", desc: "Heißes Wasser ist die einzige Ausrüstung, die du brauchst." },
+        { title: "Vier Sorten", desc: "Bolognese, Carbonara, Yellow Curry, Smoky Lentils." },
+        { title: "Lange haltbar", desc: "Lagerbar im Schreibtisch, der Sporttasche oder der Vorratskammer." },
+      ],
+      faqs: [
+        { q: "Was ist ein PLÄNTLY Proteinbecher?", a: "Ein PLÄNTLY Proteinbecher ist eine Instant-Mahlzeit mit 20g pflanzlichem Protein, fertig in 5 Minuten mit nur heißem Wasser. Erhältlich in vier Sorten: Fusilli Bolognese, Pasta Carbonara, Yellow Curry mit Reis und Smoky Lentils." },
+        { q: "Wie bereitet man einen PLÄNTLY Proteinbecher zu?", a: "Heißes Wasser bis zur Markierung hinzufügen, umrühren, 5 Minuten warten, essen. Kein Kochen nötig, keine Vorbereitung, keine Ausrüstung außer heißem Wasser." },
+        { q: "Wo kann ich PLÄNTLY Proteinbecher kaufen?", a: "PLÄNTLY Proteinbecher gibt es online auf plaently.com. Mit dem Starter Pack kannst du alle Sorten auf einmal probieren." },
+        { q: "Wie lange halten sich PLÄNTLY Proteinbecher?", a: "PLÄNTLY Proteinbecher sind lange haltbar — ideal für die Schreibtischschublade, die Sporttasche und die Vorratskammer. Das Mindesthaltbarkeitsdatum steht auf der jeweiligen Verpackung." },
+      ],
+      ctaHeadline: "20g Protein im Becher. Überall.",
+      ctaText: "Starter Pack kaufen",
+      related: relatedDe("protein-cups"),
+    },
     sv: {
       slug: "proteinkoppar",
       breadcrumbName: "Proteinkoppar",
@@ -660,5 +949,5 @@ const content: Record<CategoryKey, Record<Lang, CategoryContent>> = {
   },
 };
 
-export const getCategoryContent = (key: CategoryKey, lang: Lang): CategoryContent => content[key][lang];
+export const getCategoryContent = (key: CategoryKey, lang: ProductPageLocale): CategoryContent => content[key][lang];
 export type { CategoryKey };
