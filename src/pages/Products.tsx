@@ -385,11 +385,10 @@ const ProductDetail = () => {
   );
 };
 
-const productsRoute = getRouteApi("/products");
 
 // Products grid page
 const Products = () => {
-  const loaderData = productsRoute.useLoaderData();
+  const loaderData = useLoaderData({ strict: false }) as ProductListLoaderData | undefined;
   const [products, setProducts] = useState<ShopifyProduct[]>(() =>
     (loaderData?.products ?? []).map((p) => ({
       node: {
@@ -409,7 +408,17 @@ const Products = () => {
   const [imageOverrides, setImageOverrides] = useState<Record<string, string>>(
     () => loaderData?.imageOverrides ?? {}
   );
-  const { t, lang } = useTranslation();
+  // Page language comes from the URL (route context), never the persisted store.
+  const pageLocale = useRouterState({
+    select: (state) => {
+      const ctx = state.matches.find((m) => (m.context as { pageLocale?: ProductPageLocale })?.pageLocale);
+      return (ctx?.context as { pageLocale?: ProductPageLocale } | undefined)?.pageLocale ?? "sv";
+    },
+  });
+  const { t } = useLocaleTranslation(pageLocale);
+  const lang = pageLocale;
+  const prefix = pageLocale === "sv" ? "" : `/${pageLocale}`;
+  const listPath = `${prefix}/products`;
   const { handleAdd, isLoading: cartIsLoading, dialogProps } = useBundleMix();
 
   // Fallback: om server-hämtningen misslyckades (t.ex. Shopify nere) hämtar
@@ -440,10 +449,10 @@ const Products = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path="/products" locale={lang} routeOwnsLinks routeOwnsMetadata />
+      <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path={listPath} locale={lang} routeOwnsLinks routeOwnsMetadata />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
-          <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : "Products", path: "/products" }]} lang={lang} className="mb-0" />
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : lang === "de" ? "Produkte" : "Products", path: listPath }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("products.pageTitle")}</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("products.pageSubtitle")}</p>
@@ -464,7 +473,7 @@ const Products = () => {
                 
                 return (
                   <div key={product.node.id} className="group flex flex-col h-full rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
-                    <Link to={`/product/${product.node.handle}`}>
+                    <Link to={`${prefix}/product/${product.node.handle}`}>
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
                         {cupMeta && <CupBadges meta={cupMeta} />}
                         {override ? (
@@ -480,7 +489,7 @@ const Products = () => {
                       <h2 className="font-heading font-semibold text-sm leading-tight mb-4 line-clamp-2 min-h-[2.5rem] group-hover:text-primary transition-colors">{displayProductTitle(product.node.title)}</h2>
                     </Link>
                     <Button asChild className="w-full rounded-full font-semibold text-sm mt-auto" size="sm">
-                      <Link to="/product/starter-pack-12-cups-1">{t("products.tryInStarterPack")}</Link>
+                      <Link to={`${prefix}/product/starter-pack-12-cups-1`}>{t("products.tryInStarterPack")}</Link>
                     </Button>
                   </div>
                 );
