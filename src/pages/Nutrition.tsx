@@ -16,7 +16,7 @@ const Nutrition = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" locale={lang} />
+      <SEOHead title={t("seo.nutrition.title")} description={t("seo.nutrition.description")} path="/nutrition" locale={lang} routeOwnsMetadata routeOwnsLinks />
       <section className="py-12 md:py-20">
         <div className="container max-w-4xl space-y-16">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Näring" : "Nutrition", path: "/nutrition" }]} lang={lang} className="mb-0" />

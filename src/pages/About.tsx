@@ -8,7 +8,7 @@ const About = () => {
 
   return (
     <Layout>
-      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" locale={lang} />
+      <SEOHead title={t("seo.about.title")} description={t("seo.about.description")} path="/about" locale={lang} routeOwnsMetadata routeOwnsLinks />
       <section className="py-12 md:py-20">
         <div className="container max-w-3xl space-y-12">
           <Breadcrumbs items={[{ label: lang === "sv" ? "Om oss" : "About", path: "/about" }]} lang={lang} className="mb-0" />
