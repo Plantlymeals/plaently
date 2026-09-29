@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
+    "check:seo": "bun scripts/check-localized-seo.ts",
     "test:watch": "vitest",
     "format": "prettier --write ."
   },
