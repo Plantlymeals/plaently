@@ -43,7 +43,11 @@ import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiContactReplyEmailRouteImport } from './routes/api/contact-reply-email'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
+import { Route as DeHealthyFastFoodRouteImport } from './routes/de.healthy-fast-food'
+import { Route as DeHighProteinMealsRouteImport } from './routes/de.high-protein-meals'
+import { Route as DePlantBasedMealsRouteImport } from './routes/de.plant-based-meals'
 import { Route as DeProductsRouteImport } from './routes/de.products'
+import { Route as DeProteinCupsRouteImport } from './routes/de.protein-cups'
 import { Route as EnHealthyFastFoodRouteImport } from './routes/en.healthy-fast-food'
 import { Route as EnHighProteinMealsRouteImport } from './routes/en.high-protein-meals'
 import { Route as EnPlantBasedMealsRouteImport } from './routes/en.plant-based-meals'
@@ -235,9 +239,29 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DeHealthyFastFoodRoute = DeHealthyFastFoodRouteImport.update({
+  id: '/de/healthy-fast-food',
+  path: '/de/healthy-fast-food',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeHighProteinMealsRoute = DeHighProteinMealsRouteImport.update({
+  id: '/de/high-protein-meals',
+  path: '/de/high-protein-meals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DePlantBasedMealsRoute = DePlantBasedMealsRouteImport.update({
+  id: '/de/plant-based-meals',
+  path: '/de/plant-based-meals',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeProductsRoute = DeProductsRouteImport.update({
   id: '/de/products',
   path: '/de/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DeProteinCupsRoute = DeProteinCupsRouteImport.update({
+  id: '/de/protein-cups',
+  path: '/de/protein-cups',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnHealthyFastFoodRoute = EnHealthyFastFoodRouteImport.update({
@@ -370,7 +394,11 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
+  '/de/high-protein-meals': typeof DeHighProteinMealsRoute
+  '/de/plant-based-meals': typeof DePlantBasedMealsRoute
   '/de/products': typeof DeProductsRoute
+  '/de/protein-cups': typeof DeProteinCupsRoute
   '/en/healthy-fast-food': typeof EnHealthyFastFoodRoute
   '/en/high-protein-meals': typeof EnHighProteinMealsRoute
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
@@ -424,7 +452,11 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
+  '/de/high-protein-meals': typeof DeHighProteinMealsRoute
+  '/de/plant-based-meals': typeof DePlantBasedMealsRoute
   '/de/products': typeof DeProductsRoute
+  '/de/protein-cups': typeof DeProteinCupsRoute
   '/en/healthy-fast-food': typeof EnHealthyFastFoodRoute
   '/en/high-protein-meals': typeof EnHighProteinMealsRoute
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
@@ -480,7 +512,11 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog_/$slug': typeof BlogSlugRoute
+  '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
+  '/de/high-protein-meals': typeof DeHighProteinMealsRoute
+  '/de/plant-based-meals': typeof DePlantBasedMealsRoute
   '/de/products': typeof DeProductsRoute
+  '/de/protein-cups': typeof DeProteinCupsRoute
   '/en/healthy-fast-food': typeof EnHealthyFastFoodRoute
   '/en/high-protein-meals': typeof EnHighProteinMealsRoute
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
@@ -537,7 +573,11 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog/$slug'
+    | '/de/healthy-fast-food'
+    | '/de/high-protein-meals'
+    | '/de/plant-based-meals'
     | '/de/products'
+    | '/de/protein-cups'
     | '/en/healthy-fast-food'
     | '/en/high-protein-meals'
     | '/en/plant-based-meals'
@@ -591,7 +631,11 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog/$slug'
+    | '/de/healthy-fast-food'
+    | '/de/high-protein-meals'
+    | '/de/plant-based-meals'
     | '/de/products'
+    | '/de/protein-cups'
     | '/en/healthy-fast-food'
     | '/en/high-protein-meals'
     | '/en/plant-based-meals'
@@ -646,7 +690,11 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog_/$slug'
+    | '/de/healthy-fast-food'
+    | '/de/high-protein-meals'
+    | '/de/plant-based-meals'
     | '/de/products'
+    | '/de/protein-cups'
     | '/en/healthy-fast-food'
     | '/en/high-protein-meals'
     | '/en/plant-based-meals'
@@ -692,7 +740,11 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiContactReplyEmailRoute: typeof ApiContactReplyEmailRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  DeHealthyFastFoodRoute: typeof DeHealthyFastFoodRoute
+  DeHighProteinMealsRoute: typeof DeHighProteinMealsRoute
+  DePlantBasedMealsRoute: typeof DePlantBasedMealsRoute
   DeProductsRoute: typeof DeProductsRoute
+  DeProteinCupsRoute: typeof DeProteinCupsRoute
   EnHealthyFastFoodRoute: typeof EnHealthyFastFoodRoute
   EnHighProteinMealsRoute: typeof EnHighProteinMealsRoute
   EnPlantBasedMealsRoute: typeof EnPlantBasedMealsRoute
@@ -953,11 +1005,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/de/healthy-fast-food': {
+      id: '/de/healthy-fast-food'
+      path: '/de/healthy-fast-food'
+      fullPath: '/de/healthy-fast-food'
+      preLoaderRoute: typeof DeHealthyFastFoodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de/high-protein-meals': {
+      id: '/de/high-protein-meals'
+      path: '/de/high-protein-meals'
+      fullPath: '/de/high-protein-meals'
+      preLoaderRoute: typeof DeHighProteinMealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de/plant-based-meals': {
+      id: '/de/plant-based-meals'
+      path: '/de/plant-based-meals'
+      fullPath: '/de/plant-based-meals'
+      preLoaderRoute: typeof DePlantBasedMealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/de/products': {
       id: '/de/products'
       path: '/de/products'
       fullPath: '/de/products'
       preLoaderRoute: typeof DeProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/de/protein-cups': {
+      id: '/de/protein-cups'
+      path: '/de/protein-cups'
+      fullPath: '/de/protein-cups'
+      preLoaderRoute: typeof DeProteinCupsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/en/healthy-fast-food': {
@@ -1144,7 +1224,11 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiContactReplyEmailRoute: ApiContactReplyEmailRoute,
   BlogSlugRoute: BlogSlugRoute,
+  DeHealthyFastFoodRoute: DeHealthyFastFoodRoute,
+  DeHighProteinMealsRoute: DeHighProteinMealsRoute,
+  DePlantBasedMealsRoute: DePlantBasedMealsRoute,
   DeProductsRoute: DeProductsRoute,
+  DeProteinCupsRoute: DeProteinCupsRoute,
   EnHealthyFastFoodRoute: EnHealthyFastFoodRoute,
   EnHighProteinMealsRoute: EnHighProteinMealsRoute,
   EnPlantBasedMealsRoute: EnPlantBasedMealsRoute,
