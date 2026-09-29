@@ -162,9 +162,9 @@ const translations: Record<string, Record<Lang, string>> = {
  "bundles.tryFirst": { sv: "Prova först", en: "Try first" },
  "bundles.youSave": { sv: "Du sparar", en: "You save" },
  "bundles.value": { sv: "Värde", en: "Value" },
- "bundles.perCup": { sv: "kr / kopp", en: "kr / cup" },
- "bundles.mixImageAlt": { sv: "PLÄNTLY proteinkoppar – mix av alla fyra smaker", en: "PLÄNTLY protein cups – mix of all four flavours" },
- "bundles.cups": { sv: "koppar", en: "cups" },
+ "bundles.perCup": { sv: "kr / måltid", en: "kr / meal" },
+ "bundles.mixImageAlt": { sv: "PLÄNTLY proteinmåltider – mix av alla fyra smaker", en: "PLÄNTLY protein meals – mix of all four flavours" },
+ "bundles.cups": { sv: "måltider", en: "meals" },
  "bundles.subSave": { sv: "Prenumerera & Spara", en: "Subscribe & Save" },
  "bundles.feat.allFlavours": { sv: "Alla 4 smaker ingår", en: "All 4 flavours included" },
  "bundles.feat.firstOrder": { sv: "Perfekt som första order", en: "Perfect as first order" },
@@ -182,13 +182,13 @@ const translations: Record<string, Record<Lang, string>> = {
  // Mix builder
  "mix.title": { sv: "Anpassa din mix", en: "Customise your mix" },
  "mix.subtitle": { sv: "Justera fördelningen av smaker. Standard är jämn fördelning.", en: "Adjust your flavour split. Defaults to an even mix." },
- "mix.cupsLabel": { sv: "koppar valda", en: "cups selected" },
+ "mix.cupsLabel": { sv: "måltider valda", en: "meals selected" },
  "mix.of": { sv: "av", en: "of" },
  "mix.reset": { sv: "Återställ jämn mix", en: "Reset to even mix" },
  "mix.confirm": { sv: "Lägg i kundvagn", en: "Add to cart" },
  "mix.loading": { sv: "Laddar smaker…", en: "Loading flavours…" },
  "mix.tooMany": { sv: "Du har valt fler än paketstorleken.", en: "You've selected more than the pack size." },
- "mix.tooFew": { sv: "Lägg till fler koppar för att fylla paketet.", en: "Add more cups to fill the pack." },
+ "mix.tooFew": { sv: "Lägg till fler måltider för att fylla paketet.", en: "Add more meals to fill the pack." },
  "mix.flavourCol": { sv: "Smak", en: "Flavour" },
 
   // Nutrition preview
