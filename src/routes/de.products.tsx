@@ -4,11 +4,11 @@ import { getProductList } from "@/lib/products.functions";
 import { getProductListHead } from "@/lib/productSeo";
 
 
-export const Route = createFileRoute("/products")({
-  beforeLoad: () => ({ pageLocale: "sv" as const }),
+export const Route = createFileRoute("/de/products")({
+  beforeLoad: () => ({ pageLocale: "de" as const }),
   loader: () => getProductList(),
   head: ({ loaderData }) => ({
-    ...getProductListHead("sv"),
+    ...getProductListHead("de"),
     scripts:
       loaderData && !loaderData.error && loaderData.products.length > 0
         ? [

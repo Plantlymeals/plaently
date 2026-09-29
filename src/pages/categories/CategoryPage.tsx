@@ -16,6 +16,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const lang = routeLang;
   const c = getCategoryContent(categoryKey, lang);
   const pagePath = lang === "en" ? `/en/${categoryKey}` : `/${c.slug}`;
+  const productsPath = lang === "en" ? "/en/products" : "/products";
 
   return (
     <Layout>
@@ -36,7 +37,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
           <p className="text-lg md:text-xl max-w-2xl mx-auto opacity-90">{c.intro}</p>
           <div className="flex flex-wrap gap-3 justify-center pt-2">
             <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
-              <Link to="/products">{c.ctaText}</Link>
+              <Link to={productsPath}>{c.ctaText}</Link>
             </Button>
           </div>
         </div>
@@ -75,7 +76,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: lang === "sv" ? "Produkter" : "Products", path: "/products" },
+              { label: lang === "sv" ? "Produkter" : "Products", path: productsPath },
               { label: c.breadcrumbName, path: pagePath },
             ]}
             lang={lang}
@@ -137,7 +138,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
             </article>
           ))}
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-            <Link to="/products" className="text-primary font-semibold hover:underline">
+            <Link to={productsPath} className="text-primary font-semibold hover:underline">
               {lang === "sv" ? "Se våra proteinkoppar" : "See our protein cups"}
             </Link>
             {lang === "sv" ? " — eller läs hela " : " — or read the full "}
@@ -199,7 +200,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
         <div className="container text-center text-primary-foreground space-y-6">
           <h2 className="font-heading text-3xl md:text-5xl font-bold">{c.ctaHeadline}</h2>
           <Button asChild size="lg" className="rounded-full px-8 font-semibold bg-background text-foreground hover:bg-background/90">
-            <Link to="/products" className="inline-flex items-center gap-2">{c.ctaText} <ArrowRight className="h-4 w-4" /></Link>
+            <Link to={productsPath} className="inline-flex items-center gap-2">{c.ctaText} <ArrowRight className="h-4 w-4" /></Link>
           </Button>
         </div>
       </section>

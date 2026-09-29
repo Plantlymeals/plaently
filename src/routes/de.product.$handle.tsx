@@ -78,7 +78,7 @@ function ProductNotFoundDe() {
         <h1 className="font-heading text-3xl font-bold">Produkt nicht gefunden</h1>
         <p className="text-muted-foreground">Diese Adresse existiert nicht mehr. Sieh dir unsere Auswahl an.</p>
         <Link
-          to="/products"
+          to="/de/products"
           className="inline-block rounded-full border border-border px-6 py-2 hover:text-primary"
         >
           Zu den Produkten

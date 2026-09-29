@@ -1,7 +1,7 @@
 import { resolveProductImageUrl } from "@/lib/productImages";
 import { isEnglishPilotHandle, isEnglishPageReady } from "@/data/productCopyEn";
 import { isGermanPilotHandle, isGermanPageReady } from "@/data/productCopyDe";
-import type { ProductPageLocale } from "@/lib/i18n";
+import { tLocale, type ProductPageLocale } from "@/lib/i18n";
 
 export type ProductSeoEntry = {
   sv: { title: string; description: string };
@@ -246,5 +246,38 @@ export function getProductSsrCopy(handle: string | undefined, locale: ProductPag
   return {
     name: name || "PLÄNTLY",
     description: fallbackDescription[locale],
+  };
+}
+
+export function productListUrl(locale: ProductPageLocale = "sv"): string {
+  if (locale === "sv") return "https://plaently.com/products";
+  return `https://plaently.com/${locale}/products`;
+}
+
+export function getProductListHead(locale: ProductPageLocale = "sv", options: { noindex?: boolean } = {}) {
+  const title = tLocale("seo.products.title", locale);
+  const description = tLocale("seo.products.description", locale);
+  const url = productListUrl(locale);
+  return {
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { name: "robots", content: options.noindex ? "noindex, follow" : "index, follow" },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:url", content: url },
+      { property: "og:type", content: "website" },
+      { property: "og:locale", content: OG_LOCALE[locale] },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+    ],
+    links: [
+      { rel: "canonical", href: url },
+      { rel: "alternate", hreflang: "sv", href: productListUrl("sv") },
+      { rel: "alternate", hreflang: "en", href: productListUrl("en") },
+      { rel: "alternate", hreflang: "de", href: productListUrl("de") },
+      { rel: "alternate", hreflang: "x-default", href: productListUrl("sv") },
+    ],
   };
 }

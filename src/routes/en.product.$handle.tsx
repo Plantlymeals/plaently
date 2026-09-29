@@ -78,7 +78,7 @@ function ProductNotFoundEn() {
         <h1 className="font-heading text-3xl font-bold">Product not found</h1>
         <p className="text-muted-foreground">This address no longer exists. See the full range below.</p>
         <Link
-          to="/products"
+          to="/en/products"
           className="inline-block rounded-full border border-border px-6 py-2 hover:text-primary"
         >
           To the products
