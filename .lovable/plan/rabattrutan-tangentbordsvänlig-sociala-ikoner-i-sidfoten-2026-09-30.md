@@ -26,3 +26,4 @@ Popupens timing och rabattlogik, sidfotens övriga kolumner, andra filer.
 - I förhandsvisningen med Playwright: öppna rabattrutan och tryck Tab många gånger. Fokus ska stanna i rutan. Escape ska stänga den, och fokus ska återställas.
 - I sidfoten ska fyra ikoner synas med rätt länkar, `target="_blank"` och `aria-label`.
 - `bun run check:seo` ska ge 0 fel.
+- Kör också en ny säkerhetsscan av hela sajten innan vi går vidare — ni flaggade själva för ett tag sedan att era senaste scanresultat var gamla och rekommenderade en ny inför bredare delning av sajten. Ingen kodändring väntad, bara en uppdaterad scan-rapport. Om den hittar något nytt, beskriv det innan ni fixar något.
