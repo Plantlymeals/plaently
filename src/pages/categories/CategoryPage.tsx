@@ -24,6 +24,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
   const pagePath = lang === "sv" ? `/${c.slug}` : `/${lang}/${categoryKey}`;
   const ui = UI_TEXT[lang];
   const productsPath = lang === "sv" ? "/products" : `/${lang}/products`;
+  const homePath = lang === "sv" ? "/" : `/${lang}`;
 
   return (
     <Layout>
@@ -87,6 +88,7 @@ const CategoryPage = ({ categoryKey, routeLang }: Props) => {
               { label: c.breadcrumbName, path: pagePath },
             ]}
             lang={lang}
+            homePath={homePath}
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {c.benefits.map((b) => (
