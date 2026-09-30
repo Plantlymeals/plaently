@@ -19,7 +19,7 @@ export type ProductSeoEntry = {
 
 const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
   "fusilli-bolognese": {
-    sv: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein och 263 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 75g per portion." },
+    sv: { title: "Vegansk Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegansk Fusilli Bolognese med 20g växtprotein och 263 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 75g per portion." },
     en: { title: "Vegan Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegan Fusilli Bolognese with 20g plant protein, 263 kcal. Ready in 5 minutes — add boiling water to the black line. 75g per serving." },
     de: { title: "Vegane Fusilli Bolognese | 20g Protein, 263 kcal — PLÄNTLY", description: "Vegane Fusilli Bolognese mit 20g pflanzlichem Protein und 263 kcal. Fertig in 5 Minuten — kochendes Wasser bis zur schwarzen Linie hinzufügen. 75g pro Portion." },
     schema: { name: "Vegan Fusilli Bolognese", sku: "PLNT-FUS-001", calories: "263 calories", protein: "20.3g", servingSize: "75g", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter." },
@@ -37,7 +37,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     schema: { name: "Veggie Yellow Curry & Rice", sku: "PLNT-CUR-001", calories: "285 calories", protein: "20.4g", servingSize: "73g", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
   },
   "smoky-bbq-lentils": {
-    sv: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein och 228 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 65g per portion." },
+    sv: { title: "Vegansk Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein och 228 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. 65g per portion." },
     en: { title: "Vegan Smoky BBQ Lentils | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegan Smoky BBQ Lentils with 21g plant protein, 228 kcal. Ready in 5 minutes. 65g per serving." },
     de: { title: "Vegane Smoky BBQ Linsen | 21g Protein, 228 kcal — PLÄNTLY", description: "Vegane Smoky BBQ Linsen mit 21g pflanzlichem Protein und 228 kcal. Fertig in 5 Minuten. 65g pro Portion." },
     schema: { name: "Vegan Smoky BBQ Lentils", sku: "PLNT-LEN-001", calories: "228 calories", protein: "20.8g", servingSize: "65g", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter." },
