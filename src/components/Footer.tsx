@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "@/lib/router-compat";
+import { Link, useLocation } from "@/lib/router-compat";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n";
@@ -8,10 +8,31 @@ import { toast } from "sonner";
 import { BLOG_CATEGORIES } from "@/data/blogCategories";
 import MarketSelector from "@/components/MarketSelector";
 import { openCookieSettings } from "@/lib/cookieConsent";
+import { isEnglishPilotHandle } from "@/data/productCopyEn";
+import { isGermanPilotHandle } from "@/data/productCopyDe";
 const logo = "/images/logo.png";
 
 const Footer = () => {
   const { t, lang } = useTranslation();
+  const location = useLocation();
+  const routeLocale: "sv" | "en" | "de" =
+    location.pathname.startsWith("/en/") || location.pathname === "/en"
+      ? "en"
+      : location.pathname.startsWith("/de/") || location.pathname === "/de"
+      ? "de"
+      : "sv";
+  const prefix = routeLocale === "sv" ? "" : `/${routeLocale}`;
+  const productsPath = `${prefix}/products`;
+  const highProteinPath = routeLocale === "sv" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
+  const plantBasedPath = routeLocale === "sv" ? "/plantbaserade-maltider" : `${prefix}/plant-based-meals`;
+  const productsLabel = routeLocale === "de" ? "Produkte" : t("nav.products");
+  const highProteinLabel = routeLocale === "de" ? "Proteinreiche Mahlzeiten" : t("footer.highProtein");
+  const plantBasedLabel = routeLocale === "de" ? "Pflanzliche Mahlzeiten" : t("footer.plantBased");
+  const productLinkPath = (handle: string) => {
+    if (routeLocale === "en" && isEnglishPilotHandle(handle)) return `/en/product/${handle}`;
+    if (routeLocale === "de" && isGermanPilotHandle(handle)) return `/de/product/${handle}`;
+    return `/product/${handle}`;
+  };
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -45,9 +66,9 @@ const Footer = () => {
             <h2 className="font-heading font-semibold text-sm uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h2>
             <nav className="flex flex-col gap-2">
               {[
-                { label: t("nav.products"), path: "/products" },
-                { label: t("footer.highProtein"), path: "/proteinrika-maltider" },
-                { label: t("footer.plantBased"), path: "/plantbaserade-maltider" },
+                { label: productsLabel, path: productsPath },
+                { label: highProteinLabel, path: highProteinPath },
+                { label: plantBasedLabel, path: plantBasedPath },
                 { label: t("nav.nutrition"), path: "/nutrition" },
                 { label: t("nav.lifestyle"), path: "/lifestyle" },
                 { label: t("nav.about"), path: "/about" },
@@ -103,18 +124,25 @@ const Footer = () => {
           <div className="space-y-3">
             <h2 className="font-heading font-semibold text-xs uppercase tracking-wider text-primary-foreground/70">{t("footer.explore")}</h2>
             <nav className="flex flex-wrap gap-x-4 gap-y-2">
-              {(lang === "sv"
+              {(routeLocale === "de"
                 ? [
+                    { label: "Proteinreiche Mahlzeiten", path: "/de/high-protein-meals" },
+                    { label: "Pflanzliche Mahlzeiten", path: "/de/plant-based-meals" },
+                    { label: "Gesundes Fast Food", path: "/de/healthy-fast-food" },
+                    { label: "Proteinbecher", path: "/de/protein-cups" },
+                  ]
+                : routeLocale === "en"
+                ? [
+                    { label: "High Protein Meals", path: "/en/high-protein-meals" },
+                    { label: "Plant-Based Meals", path: "/en/plant-based-meals" },
+                    { label: "Healthy Fast Food", path: "/en/healthy-fast-food" },
+                    { label: "Protein Cups", path: "/en/protein-cups" },
+                  ]
+                : [
                     { label: "Proteinrika måltider", path: "/proteinrika-maltider" },
                     { label: "Plantbaserade måltider", path: "/plantbaserade-maltider" },
                     { label: "Nyttig snabbmat", path: "/nyttig-snabbmat" },
                     { label: "Proteinkoppar", path: "/proteinkoppar" },
-                  ]
-                : [
-                    { label: "High Protein Meals", path: "/proteinrika-maltider" },
-                    { label: "Plant-Based Meals", path: "/plantbaserade-maltider" },
-                    { label: "Healthy Fast Food", path: "/nyttig-snabbmat" },
-                    { label: "Protein Cups", path: "/proteinkoppar" },
                   ]
               ).map((item) => (
                 <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
@@ -134,7 +162,7 @@ const Footer = () => {
                 { label: "Office Pack", path: "/product/office-pack-48-cups" },
                 { label: "Big Office Pack", path: "/product/big-office-pack-96-cups" },
               ].map((item) => (
-                <Link key={item.path} to={item.path} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
+                <Link key={item.path} to={productLinkPath(item.path.replace("/product/", ""))} className="text-xs text-primary-foreground/60 hover:text-primary transition-colors">{item.label}</Link>
               ))}
             </nav>
           </div>

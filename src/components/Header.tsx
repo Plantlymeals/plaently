@@ -11,10 +11,18 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { lang, t, setLang } = useTranslation();
+  const routeLocale: "sv" | "en" | "de" =
+    location.pathname.startsWith("/en/") || location.pathname === "/en"
+      ? "en"
+      : location.pathname.startsWith("/de/") || location.pathname === "/de"
+      ? "de"
+      : "sv";
+  const productsPath = `${routeLocale === "sv" ? "" : `/${routeLocale}`}/products`;
+  const productsLabel = routeLocale === "de" ? "Produkte" : t("nav.products");
 
   const navItems = [
     { label: t("nav.home"), path: "/" },
-    { label: t("nav.products"), path: "/products" },
+    { label: productsLabel, path: productsPath },
     { label: t("nav.howItWorks"), path: "/#how-it-works" },
     { label: t("nav.nutrition"), path: "/nutrition" },
     { label: t("nav.lifestyle"), path: "/lifestyle" },
@@ -74,7 +82,7 @@ const Header = () => {
           </button>
           <CartDrawer />
           <Button asChild className="hidden sm:inline-flex rounded-full px-6 font-semibold">
-            <Link to="/products">{t("nav.shopNow")}</Link>
+            <Link to={productsPath}>{t("nav.shopNow")}</Link>
           </Button>
 
           <button
@@ -117,7 +125,7 @@ const Header = () => {
               );
             })}
             <Button asChild className="mt-3 rounded-full font-semibold">
-              <Link to="/products" onClick={() => setMobileOpen(false)}>{t("nav.shopNow")}</Link>
+              <Link to={productsPath} onClick={() => setMobileOpen(false)}>{t("nav.shopNow")}</Link>
             </Button>
           </nav>
         </div>
