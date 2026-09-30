@@ -57,7 +57,6 @@ const ProductDetail = () => {
   });
   const { t } = useLocaleTranslation(pageLocale);
   const productsListPath = `${pageLocale === "sv" ? "" : `/${pageLocale}`}/products`;
-  const homePath = pageLocale === "sv" ? "/" : `/${pageLocale}`;
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -252,7 +251,6 @@ const ProductDetail = () => {
               { label: displayProductTitle(product.title) },
             ]}
             lang={pageLocale}
-            homePath={homePath}
           />
           <Link to={productsListPath} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
