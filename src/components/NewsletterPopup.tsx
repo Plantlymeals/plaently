@@ -49,9 +49,9 @@ const NewsletterPopup = () => {
       }
       if (e.key !== "Tab") return;
       const focusableEls = getFocusable();
-      if (focusableEls.length === 0) return;
       const first = focusableEls[0];
       const last = focusableEls[focusableEls.length - 1];
+      if (!first || !last) return;
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
