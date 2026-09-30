@@ -56,6 +56,8 @@ const ProductDetail = () => {
     },
   });
   const { t } = useLocaleTranslation(pageLocale);
+  const productsListPath = `${pageLocale === "sv" ? "" : `/${pageLocale}`}/products`;
+  const homePath = pageLocale === "sv" ? "/" : `/${pageLocale}`;
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
@@ -174,7 +176,7 @@ const ProductDetail = () => {
         <SEOHead title={fallbackTitle} description={fallbackDescription} path={`${pageLocale === "sv" ? "" : `/${pageLocale}`}/product/${productHandle ?? ""}`} locale={pageLocale} noindex={!productSeo} routeOwnsLinks routeOwnsMetadata />
         <div className="container py-20 text-center">
           <h1 className="font-heading text-3xl font-bold mb-4">{t("products.notFound")}</h1>
-          <Button asChild variant="outline" className="rounded-full"><Link to="/products">{t("products.backToProducts")}</Link></Button>
+          <Button asChild variant="outline" className="rounded-full"><Link to={productsListPath}>{t("products.backToProducts")}</Link></Button>
         </div>
       </Layout>
     );
@@ -246,12 +248,13 @@ const ProductDetail = () => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: pageLocale === "sv" ? "Produkter" : pageLocale === "de" ? "Produkte" : "Products", path: "/products" },
+              { label: pageLocale === "sv" ? "Produkter" : pageLocale === "de" ? "Produkte" : "Products", path: productsListPath },
               { label: displayProductTitle(product.title) },
             ]}
             lang={pageLocale}
+            homePath={homePath}
           />
-          <Link to="/products" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
+          <Link to={productsListPath} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
             <ArrowLeft className="h-4 w-4" /> {t("products.backToProducts")}
           </Link>
           <div className="grid lg:grid-cols-2 gap-16">

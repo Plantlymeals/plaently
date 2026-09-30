@@ -20,6 +20,8 @@ interface BreadcrumbsProps {
   /** Emit BreadcrumbList JSON-LD. Disable when the page already supplies it. */
   emitSchema?: boolean;
   className?: string;
+  /** Target path for the "Home" crumb. Defaults to "/". */
+  homePath?: string;
 }
 
 /**
@@ -32,8 +34,8 @@ const HOME_LABEL: Record<NonNullable<BreadcrumbsProps["lang"]>, string> = {
   de: "Startseite",
 };
 
-const Breadcrumbs = ({ items, lang = "sv", emitSchema = true, className }: BreadcrumbsProps) => {
-  const trail: Crumb[] = [{ label: HOME_LABEL[lang ?? "sv"], path: "/" }, ...items];
+const Breadcrumbs = ({ items, lang = "sv", emitSchema = true, className, homePath = "/" }: BreadcrumbsProps) => {
+  const trail: Crumb[] = [{ label: HOME_LABEL[lang ?? "sv"], path: homePath }, ...items];
 
   const schema = {
     "@context": "https://schema.org",
