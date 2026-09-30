@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Linkedin, Instagram, Facebook } from "lucide-react";
 import { Link, useLocation } from "@/lib/router-compat";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -172,10 +173,20 @@ const Footer = () => {
          <p className="text-xs text-primary-foreground/70">© 2026 Plaently (PLÄNTLY) · plaently.com. {t("footer.rights")}</p>
           <div className="flex items-center gap-6">
             <MarketSelector variant="footer" />
-            <a href="https://www.linkedin.com/company/111443346/" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">LinkedIn</a>
-            <a href="https://www.instagram.com/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">Instagram</a>
-            <a href="https://www.tiktok.com/@plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">TikTok</a>
-            <a href="https://www.facebook.com/plaently" target="_blank" rel="noopener noreferrer" className="text-xs text-primary-foreground/70 hover:text-primary transition-colors">Facebook</a>
+            <a href="https://www.linkedin.com/company/111443346/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-primary-foreground/70 hover:text-primary transition-colors">
+              <Linkedin className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a href="https://www.instagram.com/plaently" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-primary-foreground/70 hover:text-primary transition-colors">
+              <Instagram className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a href="https://www.tiktok.com/@plaently" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="text-primary-foreground/70 hover:text-primary transition-colors">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+                <path d="M9 12a4 4 0 1 0 4 4V2a5 5 0 0 0 5 5" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/plaently" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-primary-foreground/70 hover:text-primary transition-colors">
+              <Facebook className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>

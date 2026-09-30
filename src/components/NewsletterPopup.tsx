@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type MotionProps } from "framer-motion";
 
 const MotionDiv = motion.div as React.FC<
@@ -18,6 +18,8 @@ const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [copied, setCopied] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
   const { t } = useTranslation();
   const market = useEffectiveMarket();
   const { remaining, soldOut } = useStarterOfferCount();
@@ -29,6 +31,42 @@ const NewsletterPopup = () => {
     const timer = setTimeout(() => setIsOpen(true), 15000);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const dialog = dialogRef.current;
+    const getFocusable = () =>
+      dialog?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      ) ?? ([] as unknown as NodeListOf<HTMLElement>);
+    getFocusable()[0]?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const focusableEls = getFocusable();
+      if (focusableEls.length === 0) return;
+      const first = focusableEls[0];
+      const last = focusableEls[focusableEls.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused.current?.focus();
+    };
+  }, [isOpen]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -92,13 +130,13 @@ const NewsletterPopup = () => {
         <>
           <MotionDiv initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-foreground/50 z-[100]" onClick={handleClose} />
           <MotionDiv initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} transition={{ type: "spring", damping: 25, stiffness: 300 }} className="fixed inset-0 z-[101] flex items-center justify-center p-4">
-            <div className="bg-background rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative">
+            <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="newsletter-popup-title" className="bg-background rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative">
               <button onClick={handleClose} className="absolute top-4 right-4 z-10 p-1 rounded-full hover:bg-muted transition-colors" aria-label={t("newsletter.close")}>
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
               <div className="bg-primary pt-8 pb-6 px-6 text-center">
                 <img src={logo} alt="PLÄNTLY" className="h-8 mx-auto mb-3 brightness-0 invert" width={160} height={32} />
-                <h2 className="text-xl font-heading font-bold text-primary-foreground">{t("offer.title")}</h2>
+                <h2 id="newsletter-popup-title" className="text-xl font-heading font-bold text-primary-foreground">{t("offer.title")}</h2>
                 <p className="text-primary-foreground/80 text-sm mt-1">
                   {priceLabel} · {t("offer.subtitle")}
                 </p>
