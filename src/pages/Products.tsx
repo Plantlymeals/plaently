@@ -56,6 +56,8 @@ const ProductDetail = () => {
     },
   });
   const { t } = useLocaleTranslation(pageLocale);
+  const productsListPath = `${pageLocale === "sv" ? "" : `/${pageLocale}`}/products`;
+  const homePath = pageLocale === "sv" ? "/" : `/${pageLocale}`;
   const productSeo = getProductSeo(product?.handle) ?? getProductSeo(productHandle);
   const { handleAdd, isLoading, dialogProps } = useBundleMix();
 
