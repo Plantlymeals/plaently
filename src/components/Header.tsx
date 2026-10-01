@@ -17,8 +17,10 @@ const Header = () => {
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
       ? "de"
       : "sv";
-  const productsPath = `${routeLocale === "sv" ? "" : `/${routeLocale}`}/products`;
-  const productsLabel = routeLocale === "de" ? "Produkte" : t("nav.products");
+  // On unprefixed pages, follow the visitor's chosen language so English readers land on /en/products.
+  const linkLocale: "sv" | "en" | "de" = routeLocale !== "sv" ? routeLocale : lang === "en" ? "en" : "sv";
+  const productsPath = `${linkLocale === "sv" ? "" : `/${linkLocale}`}/products`;
+  const productsLabel = linkLocale === "de" ? "Produkte" : t("nav.products");
 
   const navItems = [
     { label: t("nav.home"), path: "/" },

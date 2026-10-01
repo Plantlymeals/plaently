@@ -16,12 +16,14 @@ const logo = "/images/logo.png";
 const Footer = () => {
   const { t, lang } = useTranslation();
   const location = useLocation();
-  const routeLocale: "sv" | "en" | "de" =
+  const urlLocale: "sv" | "en" | "de" =
     location.pathname.startsWith("/en/") || location.pathname === "/en"
       ? "en"
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
       ? "de"
       : "sv";
+  // On unprefixed pages, follow the visitor's chosen language for localized links.
+  const routeLocale: "sv" | "en" | "de" = urlLocale !== "sv" ? urlLocale : lang === "en" ? "en" : "sv";
   const prefix = routeLocale === "sv" ? "" : `/${routeLocale}`;
   const productsPath = `${prefix}/products`;
   const highProteinPath = routeLocale === "sv" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
