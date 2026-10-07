@@ -18,7 +18,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { useCartSync } from "@/hooks/useCartSync";
 import ChunkErrorBoundary from "@/components/ChunkErrorBoundary";
-import CookieConsent from "@/components/CookieConsent";
 import AutoLanguage from "@/components/AutoLanguage";
 import AiAssistant from "@/components/AiAssistantMount";
 import NotFound from "@/pages/NotFound";
@@ -54,15 +53,14 @@ const GA_LOADER = `(function () {
     gtag('config', 'G-WMLNNYVRSX');
   }
   function hasAnalyticsConsent() {
-    try {
-      var raw = localStorage.getItem('plaently_cookie_consent_v1');
-      return !!raw && JSON.parse(raw).analytics === true;
-    } catch (e) { return false; }
+    return window.KatlaConsent?.isCategoryAllowed('analytics') === true;
   }
   var armed = false;
   var events = ['scroll', 'mousemove', 'touchstart', 'keydown', 'click'];
   function trigger() {
     events.forEach(function (e) { window.removeEventListener(e, trigger, { passive: true }); });
+    armed = false;
+    if (!hasAnalyticsConsent()) return;
     loadGA();
   }
   function arm() {
@@ -70,8 +68,21 @@ const GA_LOADER = `(function () {
     armed = true;
     events.forEach(function (e) { window.addEventListener(e, trigger, { passive: true, once: true }); });
   }
-  window.addEventListener('plaently-consent-change', arm);
-  arm();
+  function sync() {
+    window['ga-disable-G-WMLNNYVRSX'] = !hasAnalyticsConsent();
+    window.dispatchEvent(new Event('plaently-consent-change'));
+    if (!hasAnalyticsConsent()) {
+      events.forEach(function (e) { window.removeEventListener(e, trigger, { passive: true }); });
+      armed = false;
+    } else arm();
+  }
+  window['ga-disable-G-WMLNNYVRSX'] = true;
+  function connect() {
+    if (!window.KatlaConsent?.subscribe) { setTimeout(connect, 100); return; }
+    window.KatlaConsent.subscribe(sync);
+    sync();
+  }
+  connect();
 })();`;
 
 const ORG_SCHEMA = JSON.stringify({
@@ -195,6 +206,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang={htmlLang} suppressHydrationWarning>
       <head>
+        <script async src="https://cdn.katla.app/29905002-e0eb-4604-82d4-dcfe295bc558.js"></script>
         <HeadContent />
       </head>
       <body>
@@ -211,7 +223,6 @@ function InnerApp() {
     <ChunkErrorBoundary>
       <AutoLanguage />
       <Outlet />
-<CookieConsent />
       <AiAssistant />
     </ChunkErrorBoundary>
   );
