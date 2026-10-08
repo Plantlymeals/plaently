@@ -12,7 +12,6 @@ import {
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -183,11 +182,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "dns-prefetch", href: "https://fpwwjbevjhxbggtkaabc.supabase.co" },
       {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+      },
+      {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+        media: "print",
+        "data-async-font": "poppins",
       },
     ],
     scripts: [
+      // Flip the print-media font stylesheet to `all` once loaded (non-blocking font load).
+      {
+        children: `(function(){var l=document.querySelector('link[data-async-font]');if(!l)return;function on(){l.media='all';}if(l.sheet){on();}else{l.addEventListener('load',on);}})();`,
+      },
       { children: GA_LOADER },
       { type: "application/ld+json", children: ORG_SCHEMA },
       { type: "application/ld+json", children: WEBSITE_SCHEMA },
@@ -234,7 +244,6 @@ function RootComponent() {
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <Toaster />
           <Sonner />
           <AuthProvider>
             <InnerApp />
