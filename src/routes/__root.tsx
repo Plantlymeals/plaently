@@ -190,8 +190,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
         media: "print",
-        // @ts-expect-error -- TanStack head links support arbitrary attrs; onLoad flips media to all
-        onLoad: "this.media='all'",
+        // @ts-expect-error -- data-attribute used by the inline font-swap script below
+        "data-async-font": "poppins",
       },
     ],
     scripts: [
