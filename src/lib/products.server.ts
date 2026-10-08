@@ -1,3 +1,4 @@
+import { cached } from "./serverCache";
 import { createClient } from "@supabase/supabase-js";
 import { isListableProduct } from "./productFilters";
 
@@ -82,7 +83,15 @@ function cleanProductTitle(title: string): string {
   return title.replace(/[—].*$/, "").trim();
 }
 
-export async function fetchProductListForSsr(token: string | undefined): Promise<ProductListResult> {
+export function fetchProductListForSsr(token: string | undefined): Promise<ProductListResult> {
+  return cached(
+    "product-list:v1",
+    { ttlMs: 5 * 60_000, staleMs: 60 * 60_000, ttlFor: (v) => (v.error ? null : 5 * 60_000) },
+    () => fetchProductListUncached(token),
+  );
+}
+
+async function fetchProductListUncached(token: string | undefined): Promise<ProductListResult> {
   if (!token) {
     console.error("fetchProductListForSsr: SHOPIFY_STOREFRONT_ACCESS_TOKEN saknas");
     return { products: [], imageOverrides: {}, error: true };

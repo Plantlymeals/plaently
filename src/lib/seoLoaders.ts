@@ -1,6 +1,17 @@
 import { fetchShopifyProductByHandle, type ShopifyProduct } from "@/lib/shopify";
 import { getBoxFlavorHandle } from "@/lib/productSeo";
 import type { ProductOffer, ProductRating } from "@/lib/productSchema";
+import { cached } from "@/lib/serverCache";
+
+/** Product by handle; cached for 5 min (stale up to 1 h) on the server only. */
+function productByHandle(handle: string): Promise<ShopifyProduct["node"] | null> {
+  if (!import.meta.env.SSR) return fetchShopifyProductByHandle(handle);
+  return cached(
+    `product:v1:${handle}`,
+    { ttlMs: 5 * 60_000, staleMs: 60 * 60_000, ttlFor: (v) => (v ? 5 * 60_000 : 60_000) },
+    () => fetchShopifyProductByHandle(handle),
+  );
+}
 
 const SUPABASE_URL = import.meta.env["VITE_SUPABASE_URL"] as string | undefined;
 const SUPABASE_KEY = import.meta.env["VITE_SUPABASE_PUBLISHABLE_KEY"] as string | undefined;
@@ -68,7 +79,7 @@ const EMPTY_PRODUCT_DATA: ProductSchemaData = {
 export async function loadProductSchemaData(handle: string): Promise<ProductSchemaData> {
   return withTimeout(
     (async () => {
-      const product = await fetchShopifyProductByHandle(handle);
+      const product = await productByHandle(handle);
       if (!product) return { ...EMPTY_PRODUCT_DATA, confirmedMiss: true };
       const variant = product.variants?.edges?.[0]?.node;
       const price = variant?.price ?? product.priceRange?.minVariantPrice;
@@ -78,7 +89,7 @@ export async function loadProductSchemaData(handle: string): Promise<ProductSche
       const [rating, flavorProduct] = await Promise.all([
         fetchRating(product.handle).catch(() => null),
         flavorHandle
-          ? withTimeout(fetchShopifyProductByHandle(flavorHandle), 2500, null)
+          ? withTimeout(productByHandle(flavorHandle), 2500, null)
           : Promise.resolve(null),
       ]);
       return {
