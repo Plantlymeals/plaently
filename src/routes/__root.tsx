@@ -195,6 +195,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
     scripts: [
+      // Flip the print-media font stylesheet to `all` once loaded (non-blocking font load).
+      {
+        children: `(function(){var l=document.querySelector('link[data-async-font]');if(!l)return;function on(){l.media='all';}if(l.sheet){on();}else{l.addEventListener('load',on);}})();`,
+      },
       { children: GA_LOADER },
       { type: "application/ld+json", children: ORG_SCHEMA },
       { type: "application/ld+json", children: WEBSITE_SCHEMA },
