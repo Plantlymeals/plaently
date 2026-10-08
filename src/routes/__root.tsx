@@ -12,7 +12,6 @@ import {
 import type { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
@@ -183,8 +182,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "dns-prefetch", href: "https://fpwwjbevjhxbggtkaabc.supabase.co" },
       {
+        rel: "preload",
+        as: "style",
+        href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+      },
+      {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap",
+        media: "print",
+        // @ts-expect-error -- TanStack head links support arbitrary attrs; onLoad flips media to all
+        onLoad: "this.media='all'",
       },
     ],
     scripts: [
@@ -234,7 +241,6 @@ function RootComponent() {
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
-          <Toaster />
           <Sonner />
           <AuthProvider>
             <InnerApp />
