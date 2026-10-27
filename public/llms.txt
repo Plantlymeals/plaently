@@ -27,6 +27,6 @@ PLÄNTLY tillverkar instant cup-måltider med 20g plantprotein från en blandnin
 ## Optional
 
 - [English products](/en/products): Product range in English.
-- [Frakt & leverans](/shipping): Leveransvillkor.
+- [Frakt & leverans](/frakt): Leveransvillkor.
 - [Köpvillkor](/kopsvillkor): Allmänna villkor.
 - [Integritetspolicy](/integritetspolicy): GDPR och datahantering.
