@@ -1,35 +1,37 @@
-# Polsk pilot på /pl/ (samma mönster som tyska)
+# Polsk pilot: nio produktsidor på /pl/ (AI-översatt, godkänd direkt)
 
-Nio produktsidor (Starter Pack, fyra smaker, fyra boxar), /pl/products och fyra kategorisidor. De fyra smakerna startar som ej godkända: de visar svensk originaltext, är `noindex, follow` och ligger utanför sajtkartan tills du (eller någon som kan polska) godkänt texten.
+Enligt den nya briefen (beslut 27 okt): Starter Pack, fyra smaker och fyra boxar på `/pl/product/...`, plus `/pl/products`. Den polska produkttexten från briefen läggs in ordagrant med `approved: true`, så sidorna blir indexerbara och hamnar i sajtkartan direkt. Kategorisidorna ingår inte den här gången.
 
 ## 1. Språktypen först
-`ProductPageLocale` i `src/lib/i18n.ts` utökas till `"sv" | "en" | "de" | "pl"`. Typkontrollen används sedan för att hitta varje ställe som grenar på språk. Varje ställe får en egen, uttrycklig `pl`-gren, aldrig en återanvänd `de`- eller `en`-gren. Polsk ordbok `productPagePl` med samma nycklar som `productPageDe`, svensk reserv per nyckel.
+`ProductPageLocale` i `src/lib/i18n.ts` blir `"sv" | "en" | "de" | "pl"`. Typkontrollen används för att hitta varje ställe som väljer text efter språk, och varje ställe får en egen `pl`-gren. Ingen gren lånas från `de` eller `en`.
 
-## 2. Ny datafil `src/data/productCopyPl.ts`
-- `PL_PILOT_HANDLES` (nio handtag), `isPolishPilotHandle()`.
-- `PL_PRODUCT_COPY` för de fyra smakerna, översatt från den granskade tyska texten. Alla siffror (procent, kcal/kJ, E-nummer) kopieras exakt. `approved: false`.
-- `getApprovedPlCopy()`, `hasApprovedPlCopy()`, `isPolishPageReady()`. Den sista läser bara den polska `approved`-flaggan (kontrolleras mot hur `isGermanPageReady` ser ut idag innan den skrivs).
+Ny ordbok `productPagePl` med samma nycklar som `productPageDe` (knappar, etiketter som "Produkty", fraktrader och liknande). Briefen innehåller inte de här korta knapptexterna, så jag översätter dem från tyskan. Saknas en nyckel visas svenska, aldrig en tom sträng.
+
+## 2. `src/data/productCopyPl.ts`
+Skapas ordagrant från briefen: `PL_PILOT_HANDLES`, `isPolishPilotHandle()`, `PL_PRODUCT_COPY` (fyra smaker, `approved: true`), `getApprovedPlCopy()`, `hasApprovedPlCopy()` och `isPolishPageReady()`. Innan filen skrivs jämförs `isPolishPageReady()` med hur `isGermanPageReady()` faktiskt ser ut i koden: paketen och boxarna är klara direkt, och smakerna kräver polsk godkänd text.
 
 ## 3. Nya sidor
-`pl.product.$handle.tsx`, `pl.products.tsx`, `pl.healthy-fast-food.tsx`, `pl.high-protein-meals.tsx`, `pl.plant-based-meals.tsx`, `pl.protein-cups.tsx`. Kopior av de tyska, med `pageLocale: "pl"`, polsk "hittades inte"-text. Handtag utanför piloten 301 till svenska sidan.
+- `pl.product.$handle.tsx`: kopia av den tyska sidan med `pageLocale: "pl"` och den polska sidan "Nie znaleziono produktu" från briefen. Handtag utanför piloten skickas vidare (301) till den svenska sidan.
+- `pl.products.tsx`: kopia av `de.products.tsx`. Länkarna från produktsidorna (brödsmulor, "tillbaka", sidan som inte hittas) pekar hit, så sidan behövs för att de inte ska ge 404.
 
-## 4. Delade filer som får en `pl`-gren
-- `Products.tsx`: polsk text hämtas via `getApprovedPlCopy()` (importeras uttryckligen), annars svenskt original; brödsmulor och produktlistlänk `/pl/products`.
-- `productDescription.ts` (`translateProductHtml`): uttrycklig `pl`-gren med kommentar: polska maskinöversätts aldrig, svenska originalet visas.
-- `productSeo.ts`: polsk titel/beskrivning per produkt, `pl_PL` som og:locale, `/pl/`-adresser, hreflang med `pl` bara när sidan är redo (självreferens från start).
-- `productSchema.ts`, `SEOHead.tsx`, `categoryHead.ts`, `categoryContent.ts` (polsk kategoritext), `CategoryPage.tsx`, `Header.tsx`, `Footer.tsx`, `__root.tsx` (`<html lang="pl">`).
+## 4. Delade filer
+- `Products.tsx`: polsk text hämtas med `getApprovedPlCopy()`, som importeras uttryckligen. Saknas den visas svensk originaltext. Brödsmulan "Produkty" och länkar till `/pl/products`.
+- `productDescription.ts` (`translateProductHtml`): en uttrycklig `pl`-gren med en kommentar om att polska aldrig maskinöversätts och att svenska originalet visas.
+- `productSeo.ts`: polska titlar och beskrivningar från briefen för de nio produkterna, `/pl/`-adresser, `pl_PL`, och hreflang `pl` på alla språkversioner med självreferens. Hreflang `pl` läggs till i produktlistans head.
+- `productSchema.ts`, `SEOHead.tsx`, `Breadcrumbs.tsx`, `Header.tsx` (som känner igen `/pl` och visar "Produkty"), `Footer.tsx` (produktlänkar på `/pl/`-sidor) och `__root.tsx` (`<html lang="pl">`).
+- `scripts/check-localized-seo.ts`: lär sig att `/pl` är polska.
 
 ## 5. Sajtkarta
-`scripts/generate-sitemap.ts` får polska poster med samma regel: bara sidor där `isPolishPageReady()` är sant. Just nu blir det Starter Pack, boxsidorna, /pl/products och kategorisidorna, om de följer det tyska upplägget.
+`scripts/generate-sitemap.ts` får polska poster: de nio produktsidorna, där bara de som är klara enligt `isPolishPageReady()` tas med, plus `/pl/products`.
 
 ## Rörs inte
-Svenska, engelska och tyska texter, den globala sv/en-växlaren, marknader/frakt/valuta, Shopify, sändning till Search Console.
+Svenska, engelska och tyska texter, kategorisidorna, den globala sv/en-växlaren, marknad, frakt och valuta, Shopify och Search Console.
 
 ## Innan publicering visar jag
-- Lista över ändrade och nya filer med en rad motivering per fil.
-- Citat av koden i `isPolishPageReady()` och den polska grenen i `translateProductHtml`.
-- Resultat från typkontroll, bygge och `bun run check:seo`.
-- Kontroll av serverrenderad HTML för en smak på /pl/: `noindex, follow`, svensk brödtext, ingen hreflang till /pl/ från andra språk.
+- Varje ändrad och ny fil med en rad om varför.
+- Kodcitat av `isPolishPageReady()` bredvid `isGermanPageReady()`, och av den polska grenen i `translateProductHtml`.
+- Resultat av typkontroll, bygge och `bun run check:seo`.
+- Serverrenderad HTML för en smak på `/pl/`: polsk produkttext, `index, follow`, självrefererande canonical och hreflang åt båda hållen mellan sv, en, de och pl.
 
 ## Att observera
-Den polska kategori-, SEO- och produkttexten skrivs av mig utifrån tyskan. Någon som kan polska behöver läsa den innan `approved: true` sätts.
+Briefens del 3 nämner också polska kategorisidor, men omfattningen i början säger "inte kategorisidorna". Planen följer omfattningen. Säg till om du vill ha dem med.
