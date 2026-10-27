@@ -29,7 +29,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     schema: { name: "Vegan Fusilli Bolognese", sku: "PLNT-FUS-001", calories: "263 calories", protein: "20.3g", servingSize: "75g", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter." },
   },
   "pasta-carbonara": {
-    sv: { title: "Vegetarisk Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarisk Pasta Carbonara med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
+    sv: { title: "Vegetarisk Pasta Carbonara – proteinpasta, 20g protein — PLÄNTLY", description: "Carbonara med protein: vegetarisk proteinpasta med 20g växtprotein och 285 kcal. Klar på 5 minuter — tillsätt kokande vatten upp till det svarta strecket. Innehåller mjölk." },
     en: { title: "Veggie Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Veggie Pasta Carbonara with 20g plant protein, 285 kcal. Ready in 5 minutes. Contains milk." },
     de: { title: "Vegetarische Pasta Carbonara | 20g Protein, 285 kcal — PLÄNTLY", description: "Vegetarische Pasta Carbonara mit 20g pflanzlichem Protein und 285 kcal. Fertig in 5 Minuten. Enthält Milch." },
     pl: { title: "Wegetariańska Pasta Carbonara | 20g białka, 285 kcal — PLÄNTLY", description: "Wegetariańska Pasta Carbonara z 20g białka roślinnego i 285 kcal. Gotowa w 5 minut. Zawiera mleko." },
