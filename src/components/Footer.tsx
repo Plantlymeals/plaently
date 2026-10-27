@@ -11,29 +11,33 @@ import MarketSelector from "@/components/MarketSelector";
 import { openCookieSettings } from "@/lib/cookieConsent";
 import { isEnglishPilotHandle } from "@/data/productCopyEn";
 import { isGermanPilotHandle } from "@/data/productCopyDe";
+import { isPolishPilotHandle } from "@/data/productCopyPl";
 const logo = "/images/logo.png";
 
 const Footer = () => {
   const { t, lang } = useTranslation();
   const location = useLocation();
-  const urlLocale: "sv" | "en" | "de" =
+  const urlLocale: "sv" | "en" | "de" | "pl" =
     location.pathname.startsWith("/en/") || location.pathname === "/en"
       ? "en"
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
       ? "de"
+      : location.pathname.startsWith("/pl/") || location.pathname === "/pl"
+      ? "pl"
       : "sv";
   // On unprefixed pages, follow the visitor's chosen language for localized links.
-  const routeLocale: "sv" | "en" | "de" = urlLocale !== "sv" ? urlLocale : lang === "en" ? "en" : "sv";
+  const routeLocale: "sv" | "en" | "de" | "pl" = urlLocale !== "sv" ? urlLocale : lang === "en" ? "en" : "sv";
   const prefix = routeLocale === "sv" ? "" : `/${routeLocale}`;
   const productsPath = `${prefix}/products`;
-  const highProteinPath = routeLocale === "sv" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
-  const plantBasedPath = routeLocale === "sv" ? "/plantbaserade-maltider" : `${prefix}/plant-based-meals`;
-  const productsLabel = routeLocale === "de" ? "Produkte" : t("nav.products");
+  const highProteinPath = routeLocale === "sv" || routeLocale === "pl" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
+  const plantBasedPath = routeLocale === "sv" || routeLocale === "pl" ? "/plantbaserade-maltider" : `${prefix}/plant-based-meals`;
+  const productsLabel = routeLocale === "de" ? "Produkte" : routeLocale === "pl" ? "Produkty" : t("nav.products");
   const highProteinLabel = routeLocale === "de" ? "Proteinreiche Mahlzeiten" : t("footer.highProtein");
   const plantBasedLabel = routeLocale === "de" ? "Pflanzliche Mahlzeiten" : t("footer.plantBased");
   const productLinkPath = (handle: string) => {
     if (routeLocale === "en" && isEnglishPilotHandle(handle)) return `/en/product/${handle}`;
     if (routeLocale === "de" && isGermanPilotHandle(handle)) return `/de/product/${handle}`;
+    if (routeLocale === "pl" && isPolishPilotHandle(handle)) return `/pl/product/${handle}`;
     return `/product/${handle}`;
   };
   const [email, setEmail] = useState("");

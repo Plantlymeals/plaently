@@ -11,16 +11,18 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { lang, t, setLang } = useTranslation();
-  const routeLocale: "sv" | "en" | "de" =
+  const routeLocale: "sv" | "en" | "de" | "pl" =
     location.pathname.startsWith("/en/") || location.pathname === "/en"
       ? "en"
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
       ? "de"
+      : location.pathname.startsWith("/pl/") || location.pathname === "/pl"
+      ? "pl"
       : "sv";
   // On unprefixed pages, follow the visitor's chosen language so English readers land on /en/products.
-  const linkLocale: "sv" | "en" | "de" = routeLocale !== "sv" ? routeLocale : lang === "en" ? "en" : "sv";
+  const linkLocale: "sv" | "en" | "de" | "pl" = routeLocale !== "sv" ? routeLocale : lang === "en" ? "en" : "sv";
   const productsPath = `${linkLocale === "sv" ? "" : `/${linkLocale}`}/products`;
-  const productsLabel = linkLocale === "de" ? "Produkte" : t("nav.products");
+  const productsLabel = linkLocale === "de" ? "Produkte" : linkLocale === "pl" ? "Produkty" : t("nav.products");
 
   const navItems = [
     { label: t("nav.home"), path: "/" },

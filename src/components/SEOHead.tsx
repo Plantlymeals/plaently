@@ -9,7 +9,7 @@ interface SEOHeadProps {
   image?: string | undefined;
   type?: string | undefined;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
-  locale?: "sv" | "en" | "de" | undefined;
+  locale?: "sv" | "en" | "de" | "pl" | undefined;
   /** Swedish title/description used for OG + Twitter cards (falls back to title/description). */
   ogTitle?: string | undefined;
   ogDescription?: string | undefined;
@@ -26,6 +26,7 @@ const BASE_URL = "https://plaently.com";
 const KEYWORDS: Record<NonNullable<SEOHeadProps["locale"]>, string> = {
   sv: "växtbaserade proteinmåltider, proteinmåltider, hälsosam snabbmat, 20g växtprotein, nyttig snabbmat Sverige, instant proteinmåltid, plant-based protein meals, PLÄNTLY, snabb proteinrik mat, växtprotein måltid, proteinmåltid 5 minuter, nyttig lunch kontor",
   en: "plant-based protein meals, protein meals, healthy fast food, 20g plant protein, instant protein meal Sweden, PLÄNTLY, quick protein food, plant protein meal, protein meal 5 minutes, healthy office lunch",
+  pl: "roślinne posiłki białkowe, posiłki białkowe, zdrowy fast food, 20g białka roślinnego, PLÄNTLY, szybki posiłek białkowy, posiłek białkowy 5 minut, zdrowy lunch do biura",
   de: "pflanzliche Proteinmahlzeiten, Proteinmahlzeiten, gesundes Fast Food, 20g pflanzliches Protein, Proteinmahlzeit Schweden, PLÄNTLY, schnelles Protein-Essen, pflanzliches Protein, Proteinmahlzeit 5 Minuten, gesundes Büroessen",
 };
 
@@ -36,7 +37,7 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
   const canonicalPath = normalizePath(pathname || path);
   const url = `${BASE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`;
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
-  const ogLocale = locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : "sv_SE";
+  const ogLocale = locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : locale === "pl" ? "pl_PL" : "sv_SE";
   const socialTitle = ogTitle || title;
   const socialDescription = ogDescription || description;
 

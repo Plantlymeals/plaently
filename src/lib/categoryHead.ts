@@ -2,11 +2,11 @@
 // description, canonical and the FAQPage schema so crawlers see them
 // in the server HTML; SEOHead only refines OG/Twitter on the client.
 import { getCategoryContent, svSlugByKey, type CategoryKey } from "@/data/categoryContent";
-import type { ProductPageLocale } from "@/lib/i18n";
+import type { CategoryLocale } from "@/data/categoryContent";
 
 const BASE_URL = "https://plaently.com";
 
-export const buildCategoryHead = (key: CategoryKey, lang: ProductPageLocale) => {
+export const buildCategoryHead = (key: CategoryKey, lang: CategoryLocale) => {
   const c = getCategoryContent(key, lang);
   const svUrl = `${BASE_URL}/${svSlugByKey[key]}`;
   const enUrl = `${BASE_URL}/en/${key}`;

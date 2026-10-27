@@ -4,9 +4,9 @@ import Layout from "@/components/Layout";
 import SEOHead from "@/components/SEOHead";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Button } from "@/components/ui/button";
-import type { ProductPageLocale } from "@/lib/i18n";
+import type { CategoryLocale } from "@/data/categoryContent";
 
-const UI_TEXT: Record<ProductPageLocale, { products: string; exploreMore: string; faq: string; seeCups: string; orReadFull: string; nutrition: string; beforeDecide: string }> = {
+const UI_TEXT: Record<CategoryLocale, { products: string; exploreMore: string; faq: string; seeCups: string; orReadFull: string; nutrition: string; beforeDecide: string }> = {
   sv: { products: "Produkter", exploreMore: "Utforska mer", faq: "Vanliga frågor", seeCups: "Se våra proteinkoppar", orReadFull: " — eller läs hela ", nutrition: "näringsinnehållet", beforeDecide: " innan du bestämmer dig." },
   en: { products: "Products", exploreMore: "Explore more", faq: "Frequently asked questions", seeCups: "See our protein cups", orReadFull: " — or read the full ", nutrition: "nutrition facts", beforeDecide: " before you decide." },
   de: { products: "Produkte", exploreMore: "Mehr entdecken", faq: "Häufig gestellte Fragen", seeCups: "Entdecke unsere Proteinbecher", orReadFull: " — oder lies die vollständigen ", nutrition: "Nährwertangaben", beforeDecide: ", bevor du dich entscheidest." },
@@ -15,7 +15,7 @@ import { getCategoryContent, type CategoryKey } from "@/data/categoryContent";
 
 interface Props {
   categoryKey: CategoryKey;
-  routeLang: ProductPageLocale;
+  routeLang: CategoryLocale;
 }
 
 const CategoryPage = ({ categoryKey, routeLang }: Props) => {
