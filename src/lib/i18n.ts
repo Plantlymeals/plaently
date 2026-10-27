@@ -6,7 +6,7 @@ export type Lang = "sv" | "en";
 /** URL-scoped locales for product pages only. Kept separate from the global
  *  `Lang` type so adding a product-page language does not force a full-site
  *  translation. */
-export type ProductPageLocale = "sv" | "en" | "de";
+export type ProductPageLocale = "sv" | "en" | "de" | "pl";
 
 interface LangStore {
  lang: Lang;
@@ -561,6 +561,60 @@ const productPageDe: Record<string, string> = {
   "seo.products.title": "Pflanzliche Proteinmahlzeiten | 4 Sorten — PLÄNTLY",
 };
 
+/**
+ * Minimal Polish copy for the product-page pilot (translated from productPageDe).
+ * tLocale falls back to Swedish for any missing key — never an empty string.
+ */
+const productPagePl: Record<string, string> = {
+  "bundles.value": "Wartość",
+  "bundles.whatsInside": "Co zawiera",
+  "cta.riskReversal": "Dostawa w 2–4 dni robocze · Bez subskrypcji · 14 dni na odstąpienie od umowy",
+  "product.vegan": "Wegańskie",
+  "product.vegetarian": "Wegetariańskie",
+  "productDetail.benefitsDesc": "Białko roślinne, zbilansowane makroskładniki i prawdziwe składniki — w czasie potrzebnym na zagotowanie wody.",
+  "productDetail.benefitsTitle": "Zdrowy fast food",
+  "productDetail.nutritionClean": "Prawdziwe składniki, bez sztucznych dodatków",
+  "productDetail.nutritionMacros": "Zbilansowane makroskładniki i 5–9 g błonnika",
+  "productDetail.nutritionProtein": "20 g białka roślinnego na porcję",
+  "productDetail.nutritionTitle": "Wartości odżywcze w skrócie",
+  "productDetail.prepStep1": "Otwórz kubek",
+  "productDetail.prepStep2": "Dodaj gorącą wodę do oznaczenia",
+  "productDetail.prepStep3": "Wymieszaj i odczekaj 5 min",
+  "productDetail.prepTitle": "Gotowe w 5 minut",
+  "productDetail.tasteDesc": "Opracowane przez kucharzy w Sztokholmie, by dawać prawdziwy, przekonujący smak — bez kompromisów.",
+  "productDetail.tasteTitle": "Smak przede wszystkim",
+  "products.addToCart": "Dodaj do koszyka",
+  "products.backToProducts": "Wróć do produktów",
+  "products.noProducts": "Nie znaleziono produktów.",
+  "products.notFound": "Nie znaleziono produktu",
+  "products.pageSubtitle": "Roślinne posiłki białkowe, gotowe w 5 minut.\nWybierz swoje ulubione.",
+  "products.pageTitle": "Nasze posiłki białkowe",
+  "products.perMeal": "za posiłek",
+  "products.tryInStarterPack": "Wypróbuj w Starter Pack",
+  "reviews.approvalNote": "Twoja opinia pojawi się po zatwierdzeniu przez zespół.",
+  "reviews.cancel": "Anuluj",
+  "reviews.countMany": "opinii",
+  "reviews.countOne": "opinia",
+  "reviews.errBodyMin": "Opinia musi mieć co najmniej 5 znaków",
+  "reviews.errInvalidEmail": "Nieprawidłowy adres e-mail",
+  "reviews.errNameRequired": "Imię jest wymagane",
+  "reviews.errPickRating": "Wybierz ocenę",
+  "reviews.formTitle": "Opinia",
+  "reviews.labelBody": "Twoja opinia *",
+  "reviews.labelEmail": "E-mail * (nie zostanie opublikowany)",
+  "reviews.labelName": "Imię *",
+  "reviews.labelRating": "Twoja ocena *",
+  "reviews.labelTitle": "Tytuł",
+  "reviews.noReviews": "Brak opinii — bądź pierwszy.",
+  "reviews.placeholderOptional": "Opcjonalnie",
+  "reviews.submit": "Wyślij opinię",
+  "reviews.submitSuccess": "Dziękujemy! Twoja opinia pojawi się po zatwierdzeniu.",
+  "reviews.title": "Opinie klientów",
+  "reviews.write": "Napisz opinię",
+  "seo.products.description": "Cztery roślinne posiłki białkowe z 20 g białka na porcję. Gotowe w 5 minut — wystarczy dodać wrzącą wodę do czarnej linii.",
+  "seo.products.title": "Roślinne posiłki białkowe | 4 smaki — PLÄNTLY",
+};
+
 export const useLangStore = create<LangStore>()(
  persist(
  (set, get) => ({
@@ -602,7 +656,7 @@ export const useTranslation = () => {
 export const tLocale = (key: string, locale: Lang | ProductPageLocale): string => {
   if (locale === "de") {
     return productPageDe[key] ?? tLocale(key, "sv");
-  }
+  } else if (locale === "pl") return productPagePl[key] ?? tLocale(key, "sv");
   const entry = translations[key];
   if (!entry) return key;
   return entry[locale as Lang] || entry.sv || key;
