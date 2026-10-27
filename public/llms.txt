@@ -2,24 +2,31 @@
 
 > Växtbaserade högprotein-måltider klara på 5 minuter. Snabb, näringsrik och bekväm mat för en aktiv vardag.
 
-PLÄNTLY tillverkar instant cup-måltider med 20g plantprotein från en blandning av ärt och solros. Sortimentet är mejerifritt, fiberrikt och utvecklat i Sverige.
+PLÄNTLY tillverkar instant cup-måltider med 20g plantprotein från en blandning av ärt och solros. Sortimentet är fiberrikt och utvecklat i Sverige. Måltiderna säljs i paket:
+
+- Starter Pack: 12 måltider, 399 kr (33 kr/måltid)
+- Monthly Box: 24 måltider, 759 kr (32 kr/måltid)
+- Office Pack: 48 måltider, 1490 kr (31 kr/måltid)
+- Big Office Pack: 96 måltider, 2890 kr (31 kr/måltid)
 
 ## Pages
 
 - [Hem](/): Översikt och starterpaket.
-- [Produkter](/products): Hela sortimentet av instant cup-måltider och bundles.
+- [Produkter](/products): Hela sortimentet av instant cup-måltider och paket.
+- [Nyttig snabbmat](/nyttig-snabbmat): Kategoriguide för nyttig snabbmat.
+- [Proteinrika måltider](/proteinrika-maltider): Kategoriguide för högprotein.
+- [Plantbaserade måltider](/plantbaserade-maltider): Kategoriguide för plantbaserat.
+- [Proteinkoppar](/proteinkoppar): Våra instant-måltider i kopp.
 - [Näring](/nutrition): Näringsinnehåll, makros och ingredienser.
 - [Lifestyle](/lifestyle): Användningsfall — kontoret, gymmet, resor, studier.
-- [Högprotein måltider](/high-protein-meals): Kategoriguide för högprotein.
-- [Växtbaserade måltider](/plant-based-meals): Kategoriguide för plantbaserat.
-- [Hälsosamma snabbmåltider](/healthy-instant-meals): Kategoriguide för snabbmåltider.
 - [Om oss](/about): PLÄNTLYs uppdrag och historia.
-- [Blogg](/blog): Artiklar om plantbaserad kost, hälsa och hållbarhet.
+- [Blogg](/blog): Artiklar om plantbaserad kost och snabb lunch.
 - [FAQ](/faq): Vanliga frågor om produkter och leverans.
 - [Kontakt](/contact): Kontakta oss på hello@plaently.com.
 
 ## Optional
 
-- [Frakt & leverans](/shipping): Leveransvillkor.
+- [English products](/en/products): Product range in English.
+- [Frakt & leverans](/frakt): Leveransvillkor.
 - [Köpvillkor](/kopsvillkor): Allmänna villkor.
 - [Integritetspolicy](/integritetspolicy): GDPR och datahantering.
