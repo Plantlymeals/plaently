@@ -1,5 +1,8 @@
 import type { ProductPageLocale } from "@/lib/i18n";
 
+/** Category pages exist in sv/en/de only — Polish category pages are not built yet. */
+export type CategoryLocale = Exclude<ProductPageLocale, "pl">;
+
 export interface CategorySection {
   heading: string;
   body: string[];
@@ -84,7 +87,7 @@ const relatedDe = (exclude: CategoryKey): RelatedLink[] => [
   { slug: "/de/protein-cups", label: "Proteinbecher" },
 ].filter((r) => r.slug !== `/de/${exclude}`).slice(0, 3);
 
-const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> = {
+const content: Record<CategoryKey, Record<CategoryLocale, CategoryContent>> = {
   "high-protein-meals": {
     en: {
       slug: "proteinrika-maltider",
@@ -949,5 +952,5 @@ const content: Record<CategoryKey, Record<ProductPageLocale, CategoryContent>> =
   },
 };
 
-export const getCategoryContent = (key: CategoryKey, lang: ProductPageLocale): CategoryContent => content[key][lang];
+export const getCategoryContent = (key: CategoryKey, lang: CategoryLocale): CategoryContent => content[key][lang];
 export type { CategoryKey };

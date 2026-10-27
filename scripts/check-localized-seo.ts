@@ -15,10 +15,10 @@ import { readFileSync } from "fs";
 
 const SITE = "https://plaently.com";
 const base = (process.argv[2] ?? "http://localhost:8080").replace(/\/$/, "");
-type Loc = "sv" | "en" | "de";
+type Loc = "sv" | "en" | "de" | "pl";
 
 const localeOf = (path: string): Loc =>
-  path === "/en" || path.startsWith("/en/") ? "en" : path === "/de" || path.startsWith("/de/") ? "de" : "sv";
+  path === "/en" || path.startsWith("/en/") ? "en" : path === "/de" || path.startsWith("/de/") ? "de" : path === "/pl" || path.startsWith("/pl/") ? "pl" : "sv";
 
 const decode = (s: string) =>
   s.replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").trim();

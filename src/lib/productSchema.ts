@@ -28,6 +28,7 @@ const IN_LANGUAGE: Record<ProductPageLocale, string> = {
   sv: "sv-SE",
   en: "en-GB",
   de: "de-DE",
+  pl: "pl-PL",
 };
 
 /**
@@ -41,7 +42,7 @@ export function buildProductJsonLd(input: ProductSchemaInput): Record<string, un
   const locale = input.locale ?? "sv";
   const ssr = getProductSsrCopy(handle, locale);
   const name = seo?.schema.name ?? input.name ?? ssr.name;
-  const description = seo?.[locale].description ?? input.description ?? ssr.description;
+  const description = seo?.[locale]?.description ?? input.description ?? ssr.description;
   const pageUrl = productUrl(handle, locale);
   const image = resolveProductImageUrl({
     handle,

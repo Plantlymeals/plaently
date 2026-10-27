@@ -247,7 +247,12 @@ export function translateProductHtml(html: string | undefined | null, lang: Prod
   html = sanitizeVeganClaims(html);
   // German never reuses the English machine translation; German pages fall
   // back to the Swedish original until reviewed German copy exists.
-  if (lang === "en") {
+  // Polish is NEVER machine-translated here: without approved Polish copy
+  // (src/data/productCopyPl.ts) the page shows the Swedish original. Every
+  // future language pilot must add its own explicit branch like this one.
+  if (lang === "pl") {
+    // falls through to the Swedish normalization below
+  } else if (lang === "en") {
     let out = html;
     for (const [re, rep] of SV_TO_EN) out = out.replace(re, rep);
     return sanitizeVeganClaims(out);
