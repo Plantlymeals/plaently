@@ -14,13 +14,13 @@ const ISSUE_ICONS = [Clock, AlertTriangle, RotateCcw];
 
 const COPY = {
  sv: {
- seoTitle: "Frakt & Leverans | Fri Frakt över 399 kr — PLÄNTLY",
- seoDesc: "Fri frakt på beställningar över 399 kr. Leverans inom 2–4 vardagar i hela Sverige med PostNord och DHL.",
+ seoTitle: "Frakt & Leverans | Fri Frakt över 299 kr — PLÄNTLY",
+ seoDesc: "Fri frakt på beställningar över 299 kr. Leverans inom 2–4 vardagar i hela Sverige med PostNord och DHL.",
  label: "Frakt & Leverans",
  h1a: "Enkelt, snabbt och ",
  h1b: "transparent.",
  heroSub: "Vi skickar dina PLÄNTLY-måltider med PostNord och DHL. Du får ett spårningsnummer så fort din order är på väg.",
- banner: " Fri frakt på alla beställningar från 399 kr — alltid.",
+ banner: " Fri frakt på alla beställningar från 299 kr — alltid.",
  costsLabel: "Fraktkostnader",
  costsTitle: "Vad kostar frakten?",
  costsSub: "Gratis frakt på Starter Pack och Monthly Box. Enstaka måltider tillkommer en fraktavgift.",
@@ -76,7 +76,7 @@ const COPY = {
  { q: "Levererar ni till Svalbard, Åland eller utlandet?", a: "Just nu levererar vi endast inom Sverige. Vi arbetar på att utöka leveransen till Norge, Danmark och Finland. Anmäl dig till vårt nyhetsbrev för att vara först med att veta!" },
  { q: "Vad händer om ingen är hemma vid leverans?", a: "PostNord och DHL lämnar ett avi eller levererar till närmaste utlämningsställe/paketbox. Du får ett SMS/e-post med instruktioner för upphämtning." },
  { q: "Hur spårar jag min order?", a: "Du får ett spårningsnummer via e-post så fort ordern är avsänd. Använd det på PostNord.se eller DHL.se för att se realtidsstatus." },
- { q: "Kan jag kombinera produkter för att nå fri frakt?", a: "Ja! Alla beställningar från 399 kr får fri frakt automatiskt i kassan — oavsett vilka produkter du väljer." },
+ { q: "Kan jag kombinera produkter för att nå fri frakt?", a: "Ja! Alla beställningar från 299 kr får fri frakt automatiskt i kassan — oavsett vilka produkter du väljer." },
  { q: "Hur länge håller produkterna?", a: "Alla PLÄNTLY-produkter har lång hållbarhet — minst 12 månader från tillverkningsdatum. Bäst-före-datum finns tryckt på varje kopp." },
  ],
  ctaTitle: "Redo att beställa?",
@@ -84,8 +84,8 @@ const COPY = {
  ctaBtn: "Handla Starter Pack",
  },
  en: {
- seoTitle: "Shipping & Delivery | Free Shipping over 399 SEK — PLÄNTLY",
- seoDesc: "Free shipping on orders over 399 SEK. Delivery within 2–4 business days throughout Sweden with PostNord and DHL.",
+ seoTitle: "Shipping & Delivery | Free Shipping over 299 SEK — PLÄNTLY",
+ seoDesc: "Free shipping on orders over 299 SEK. Delivery within 2–4 business days throughout Sweden with PostNord and DHL.",
  label: "Shipping & Delivery",
  h1a: "Simple, fast and ",
  h1b: "transparent.",
