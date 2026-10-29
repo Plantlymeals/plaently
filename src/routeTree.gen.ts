@@ -55,6 +55,7 @@ import { Route as EnPlantBasedMealsRouteImport } from './routes/en.plant-based-m
 import { Route as EnProductsRouteImport } from './routes/en.products'
 import { Route as EnProteinCupsRouteImport } from './routes/en.protein-cups'
 import { Route as EsProductsRouteImport } from './routes/es.products'
+import { Route as FiProductsRouteImport } from './routes/fi.products'
 import { Route as FrProductsRouteImport } from './routes/fr.products'
 import { Route as PlProductsRouteImport } from './routes/pl.products'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
@@ -68,6 +69,7 @@ import { Route as DaProductHandleRouteImport } from './routes/da.product.$handle
 import { Route as DeProductHandleRouteImport } from './routes/de.product.$handle'
 import { Route as EnProductHandleRouteImport } from './routes/en.product.$handle'
 import { Route as EsProductHandleRouteImport } from './routes/es.product.$handle'
+import { Route as FiProductHandleRouteImport } from './routes/fi.product.$handle'
 import { Route as FrProductHandleRouteImport } from './routes/fr.product.$handle'
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as PlProductHandleRouteImport } from './routes/pl.product.$handle'
@@ -307,6 +309,11 @@ const EsProductsRoute = EsProductsRouteImport.update({
   path: '/es/products',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FiProductsRoute = FiProductsRouteImport.update({
+  id: '/fi/products',
+  path: '/fi/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FrProductsRoute = FrProductsRouteImport.update({
   id: '/fr/products',
   path: '/fr/products',
@@ -374,6 +381,11 @@ const EnProductHandleRoute = EnProductHandleRouteImport.update({
 const EsProductHandleRoute = EsProductHandleRouteImport.update({
   id: '/es/product/$handle',
   path: '/es/product/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiProductHandleRoute = FiProductHandleRouteImport.update({
+  id: '/fi/product/$handle',
+  path: '/fi/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrProductHandleRoute = FrProductHandleRouteImport.update({
@@ -454,6 +466,7 @@ export interface FileRoutesByFullPath {
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
   '/es/products': typeof EsProductsRoute
+  '/fi/products': typeof FiProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -468,6 +481,7 @@ export interface FileRoutesByFullPath {
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
+  '/fi/product/$handle': typeof FiProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -520,6 +534,7 @@ export interface FileRoutesByTo {
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
   '/es/products': typeof EsProductsRoute
+  '/fi/products': typeof FiProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -534,6 +549,7 @@ export interface FileRoutesByTo {
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
+  '/fi/product/$handle': typeof FiProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -588,6 +604,7 @@ export interface FileRoutesById {
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
   '/es/products': typeof EsProductsRoute
+  '/fi/products': typeof FiProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -602,6 +619,7 @@ export interface FileRoutesById {
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
+  '/fi/product/$handle': typeof FiProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -657,6 +675,7 @@ export interface FileRouteTypes {
     | '/en/products'
     | '/en/protein-cups'
     | '/es/products'
+    | '/fi/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -671,6 +690,7 @@ export interface FileRouteTypes {
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
+    | '/fi/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -723,6 +743,7 @@ export interface FileRouteTypes {
     | '/en/products'
     | '/en/protein-cups'
     | '/es/products'
+    | '/fi/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -737,6 +758,7 @@ export interface FileRouteTypes {
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
+    | '/fi/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -790,6 +812,7 @@ export interface FileRouteTypes {
     | '/en/products'
     | '/en/protein-cups'
     | '/es/products'
+    | '/fi/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -804,6 +827,7 @@ export interface FileRouteTypes {
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
+    | '/fi/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -848,6 +872,7 @@ export interface RootRouteChildren {
   EnProductsRoute: typeof EnProductsRoute
   EnProteinCupsRoute: typeof EnProteinCupsRoute
   EsProductsRoute: typeof EsProductsRoute
+  FiProductsRoute: typeof FiProductsRoute
   FrProductsRoute: typeof FrProductsRoute
   PlProductsRoute: typeof PlProductsRoute
   ProductHandleRoute: typeof ProductHandleRoute
@@ -861,6 +886,7 @@ export interface RootRouteChildren {
   DeProductHandleRoute: typeof DeProductHandleRoute
   EnProductHandleRoute: typeof EnProductHandleRoute
   EsProductHandleRoute: typeof EsProductHandleRoute
+  FiProductHandleRoute: typeof FiProductHandleRoute
   FrProductHandleRoute: typeof FrProductHandleRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   PlProductHandleRoute: typeof PlProductHandleRoute
@@ -1193,6 +1219,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EsProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fi/products': {
+      id: '/fi/products'
+      path: '/fi/products'
+      fullPath: '/fi/products'
+      preLoaderRoute: typeof FiProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fr/products': {
       id: '/fr/products'
       path: '/fr/products'
@@ -1282,6 +1315,13 @@ declare module '@tanstack/react-router' {
       path: '/es/product/$handle'
       fullPath: '/es/product/$handle'
       preLoaderRoute: typeof EsProductHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fi/product/$handle': {
+      id: '/fi/product/$handle'
+      path: '/fi/product/$handle'
+      fullPath: '/fi/product/$handle'
+      preLoaderRoute: typeof FiProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fr/product/$handle': {
@@ -1396,6 +1436,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnProductsRoute: EnProductsRoute,
   EnProteinCupsRoute: EnProteinCupsRoute,
   EsProductsRoute: EsProductsRoute,
+  FiProductsRoute: FiProductsRoute,
   FrProductsRoute: FrProductsRoute,
   PlProductsRoute: PlProductsRoute,
   ProductHandleRoute: ProductHandleRoute,
@@ -1410,6 +1451,7 @@ const rootRouteChildren: RootRouteChildren = {
   DeProductHandleRoute: DeProductHandleRoute,
   EnProductHandleRoute: EnProductHandleRoute,
   EsProductHandleRoute: EsProductHandleRoute,
+  FiProductHandleRoute: FiProductHandleRoute,
   FrProductHandleRoute: FrProductHandleRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,
   PlProductHandleRoute: PlProductHandleRoute,
