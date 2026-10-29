@@ -53,6 +53,7 @@ import { Route as EnHighProteinMealsRouteImport } from './routes/en.high-protein
 import { Route as EnPlantBasedMealsRouteImport } from './routes/en.plant-based-meals'
 import { Route as EnProductsRouteImport } from './routes/en.products'
 import { Route as EnProteinCupsRouteImport } from './routes/en.protein-cups'
+import { Route as EsProductsRouteImport } from './routes/es.products'
 import { Route as FrProductsRouteImport } from './routes/fr.products'
 import { Route as PlProductsRouteImport } from './routes/pl.products'
 import { Route as ProductHandleRouteImport } from './routes/product.$handle'
@@ -64,6 +65,7 @@ import { Route as ApiPublicStarterOfferEmailRouteImport } from './routes/api/pub
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
 import { Route as DeProductHandleRouteImport } from './routes/de.product.$handle'
 import { Route as EnProductHandleRouteImport } from './routes/en.product.$handle'
+import { Route as EsProductHandleRouteImport } from './routes/es.product.$handle'
 import { Route as FrProductHandleRouteImport } from './routes/fr.product.$handle'
 import { Route as LovableEmailEventsRouteImport } from './routes/lovable/email/events'
 import { Route as PlProductHandleRouteImport } from './routes/pl.product.$handle'
@@ -293,6 +295,11 @@ const EnProteinCupsRoute = EnProteinCupsRouteImport.update({
   path: '/en/protein-cups',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EsProductsRoute = EsProductsRouteImport.update({
+  id: '/es/products',
+  path: '/es/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FrProductsRoute = FrProductsRouteImport.update({
   id: '/fr/products',
   path: '/fr/products',
@@ -350,6 +357,11 @@ const DeProductHandleRoute = DeProductHandleRouteImport.update({
 const EnProductHandleRoute = EnProductHandleRouteImport.update({
   id: '/en/product/$handle',
   path: '/en/product/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EsProductHandleRoute = EsProductHandleRouteImport.update({
+  id: '/es/product/$handle',
+  path: '/es/product/$handle',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FrProductHandleRoute = FrProductHandleRouteImport.update({
@@ -428,6 +440,7 @@ export interface FileRoutesByFullPath {
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
+  '/es/products': typeof EsProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -440,6 +453,7 @@ export interface FileRoutesByFullPath {
   '/blog/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
+  '/es/product/$handle': typeof EsProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -490,6 +504,7 @@ export interface FileRoutesByTo {
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
+  '/es/products': typeof EsProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -502,6 +517,7 @@ export interface FileRoutesByTo {
   '/blog/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
+  '/es/product/$handle': typeof EsProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -554,6 +570,7 @@ export interface FileRoutesById {
   '/en/plant-based-meals': typeof EnPlantBasedMealsRoute
   '/en/products': typeof EnProductsRoute
   '/en/protein-cups': typeof EnProteinCupsRoute
+  '/es/products': typeof EsProductsRoute
   '/fr/products': typeof FrProductsRoute
   '/pl/products': typeof PlProductsRoute
   '/product/$handle': typeof ProductHandleRoute
@@ -566,6 +583,7 @@ export interface FileRoutesById {
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
+  '/es/product/$handle': typeof EsProductHandleRoute
   '/fr/product/$handle': typeof FrProductHandleRoute
   '/lovable/email/events': typeof LovableEmailEventsRoute
   '/pl/product/$handle': typeof PlProductHandleRoute
@@ -619,6 +637,7 @@ export interface FileRouteTypes {
     | '/en/plant-based-meals'
     | '/en/products'
     | '/en/protein-cups'
+    | '/es/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -631,6 +650,7 @@ export interface FileRouteTypes {
     | '/blog/category/$slug'
     | '/de/product/$handle'
     | '/en/product/$handle'
+    | '/es/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -681,6 +701,7 @@ export interface FileRouteTypes {
     | '/en/plant-based-meals'
     | '/en/products'
     | '/en/protein-cups'
+    | '/es/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -693,6 +714,7 @@ export interface FileRouteTypes {
     | '/blog/category/$slug'
     | '/de/product/$handle'
     | '/en/product/$handle'
+    | '/es/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -744,6 +766,7 @@ export interface FileRouteTypes {
     | '/en/plant-based-meals'
     | '/en/products'
     | '/en/protein-cups'
+    | '/es/products'
     | '/fr/products'
     | '/pl/products'
     | '/product/$handle'
@@ -756,6 +779,7 @@ export interface FileRouteTypes {
     | '/blog_/category/$slug'
     | '/de/product/$handle'
     | '/en/product/$handle'
+    | '/es/product/$handle'
     | '/fr/product/$handle'
     | '/lovable/email/events'
     | '/pl/product/$handle'
@@ -798,6 +822,7 @@ export interface RootRouteChildren {
   EnPlantBasedMealsRoute: typeof EnPlantBasedMealsRoute
   EnProductsRoute: typeof EnProductsRoute
   EnProteinCupsRoute: typeof EnProteinCupsRoute
+  EsProductsRoute: typeof EsProductsRoute
   FrProductsRoute: typeof FrProductsRoute
   PlProductsRoute: typeof PlProductsRoute
   ProductHandleRoute: typeof ProductHandleRoute
@@ -809,6 +834,7 @@ export interface RootRouteChildren {
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
   DeProductHandleRoute: typeof DeProductHandleRoute
   EnProductHandleRoute: typeof EnProductHandleRoute
+  EsProductHandleRoute: typeof EsProductHandleRoute
   FrProductHandleRoute: typeof FrProductHandleRoute
   LovableEmailEventsRoute: typeof LovableEmailEventsRoute
   PlProductHandleRoute: typeof PlProductHandleRoute
@@ -1127,6 +1153,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnProteinCupsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/es/products': {
+      id: '/es/products'
+      path: '/es/products'
+      fullPath: '/es/products'
+      preLoaderRoute: typeof EsProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/fr/products': {
       id: '/fr/products'
       path: '/fr/products'
@@ -1202,6 +1235,13 @@ declare module '@tanstack/react-router' {
       path: '/en/product/$handle'
       fullPath: '/en/product/$handle'
       preLoaderRoute: typeof EnProductHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/es/product/$handle': {
+      id: '/es/product/$handle'
+      path: '/es/product/$handle'
+      fullPath: '/es/product/$handle'
+      preLoaderRoute: typeof EsProductHandleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fr/product/$handle': {
@@ -1314,6 +1354,7 @@ const rootRouteChildren: RootRouteChildren = {
   EnPlantBasedMealsRoute: EnPlantBasedMealsRoute,
   EnProductsRoute: EnProductsRoute,
   EnProteinCupsRoute: EnProteinCupsRoute,
+  EsProductsRoute: EsProductsRoute,
   FrProductsRoute: FrProductsRoute,
   PlProductsRoute: PlProductsRoute,
   ProductHandleRoute: ProductHandleRoute,
@@ -1326,6 +1367,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogCategorySlugRoute: BlogCategorySlugRoute,
   DeProductHandleRoute: DeProductHandleRoute,
   EnProductHandleRoute: EnProductHandleRoute,
+  EsProductHandleRoute: EsProductHandleRoute,
   FrProductHandleRoute: FrProductHandleRoute,
   LovableEmailEventsRoute: LovableEmailEventsRoute,
   PlProductHandleRoute: PlProductHandleRoute,
