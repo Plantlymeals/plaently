@@ -31,6 +31,7 @@ const IN_LANGUAGE: Record<ProductPageLocale, string> = {
   pl: "pl-PL",
   fr: "fr-FR",
   es: "es-ES",
+  da: "da-DK",
 };
 
 /**

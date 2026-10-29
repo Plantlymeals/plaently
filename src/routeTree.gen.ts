@@ -43,6 +43,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiContactReplyEmailRouteImport } from './routes/api/contact-reply-email'
 import { Route as BlogSlugRouteImport } from './routes/blog_.$slug'
+import { Route as DaProductsRouteImport } from './routes/da.products'
 import { Route as DeHealthyFastFoodRouteImport } from './routes/de.healthy-fast-food'
 import { Route as DeHighProteinMealsRouteImport } from './routes/de.high-protein-meals'
 import { Route as DePlantBasedMealsRouteImport } from './routes/de.plant-based-meals'
@@ -63,6 +64,7 @@ import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[
 import { Route as ApiPublicReviewRequestEmailsRouteImport } from './routes/api/public/review-request-emails'
 import { Route as ApiPublicStarterOfferEmailRouteImport } from './routes/api/public/starter-offer-email'
 import { Route as BlogCategorySlugRouteImport } from './routes/blog_.category.$slug'
+import { Route as DaProductHandleRouteImport } from './routes/da.product.$handle'
 import { Route as DeProductHandleRouteImport } from './routes/de.product.$handle'
 import { Route as EnProductHandleRouteImport } from './routes/en.product.$handle'
 import { Route as EsProductHandleRouteImport } from './routes/es.product.$handle'
@@ -245,6 +247,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DaProductsRoute = DaProductsRouteImport.update({
+  id: '/da/products',
+  path: '/da/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeHealthyFastFoodRoute = DeHealthyFastFoodRouteImport.update({
   id: '/de/healthy-fast-food',
   path: '/de/healthy-fast-food',
@@ -349,6 +356,11 @@ const BlogCategorySlugRoute = BlogCategorySlugRouteImport.update({
   path: '/blog/category/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DaProductHandleRoute = DaProductHandleRouteImport.update({
+  id: '/da/product/$handle',
+  path: '/da/product/$handle',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeProductHandleRoute = DeProductHandleRouteImport.update({
   id: '/de/product/$handle',
   path: '/de/product/$handle',
@@ -430,6 +442,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/da/products': typeof DaProductsRoute
   '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
   '/de/high-protein-meals': typeof DeHighProteinMealsRoute
   '/de/plant-based-meals': typeof DePlantBasedMealsRoute
@@ -451,6 +464,7 @@ export interface FileRoutesByFullPath {
   '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/da/product/$handle': typeof DaProductHandleRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
@@ -494,6 +508,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/da/products': typeof DaProductsRoute
   '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
   '/de/high-protein-meals': typeof DeHighProteinMealsRoute
   '/de/plant-based-meals': typeof DePlantBasedMealsRoute
@@ -515,6 +530,7 @@ export interface FileRoutesByTo {
   '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog/category/$slug': typeof BlogCategorySlugRoute
+  '/da/product/$handle': typeof DaProductHandleRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
@@ -560,6 +576,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/contact-reply-email': typeof ApiContactReplyEmailRoute
   '/blog_/$slug': typeof BlogSlugRoute
+  '/da/products': typeof DaProductsRoute
   '/de/healthy-fast-food': typeof DeHealthyFastFoodRoute
   '/de/high-protein-meals': typeof DeHighProteinMealsRoute
   '/de/plant-based-meals': typeof DePlantBasedMealsRoute
@@ -581,6 +598,7 @@ export interface FileRoutesById {
   '/api/public/review-request-emails': typeof ApiPublicReviewRequestEmailsRoute
   '/api/public/starter-offer-email': typeof ApiPublicStarterOfferEmailRoute
   '/blog_/category/$slug': typeof BlogCategorySlugRoute
+  '/da/product/$handle': typeof DaProductHandleRoute
   '/de/product/$handle': typeof DeProductHandleRoute
   '/en/product/$handle': typeof EnProductHandleRoute
   '/es/product/$handle': typeof EsProductHandleRoute
@@ -627,6 +645,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog/$slug'
+    | '/da/products'
     | '/de/healthy-fast-food'
     | '/de/high-protein-meals'
     | '/de/plant-based-meals'
@@ -648,6 +667,7 @@ export interface FileRouteTypes {
     | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/da/product/$handle'
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
@@ -691,6 +711,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog/$slug'
+    | '/da/products'
     | '/de/healthy-fast-food'
     | '/de/high-protein-meals'
     | '/de/plant-based-meals'
@@ -712,6 +733,7 @@ export interface FileRouteTypes {
     | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog/category/$slug'
+    | '/da/product/$handle'
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
@@ -756,6 +778,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/contact-reply-email'
     | '/blog_/$slug'
+    | '/da/products'
     | '/de/healthy-fast-food'
     | '/de/high-protein-meals'
     | '/de/plant-based-meals'
@@ -777,6 +800,7 @@ export interface FileRouteTypes {
     | '/api/public/review-request-emails'
     | '/api/public/starter-offer-email'
     | '/blog_/category/$slug'
+    | '/da/product/$handle'
     | '/de/product/$handle'
     | '/en/product/$handle'
     | '/es/product/$handle'
@@ -812,6 +836,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiContactReplyEmailRoute: typeof ApiContactReplyEmailRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  DaProductsRoute: typeof DaProductsRoute
   DeHealthyFastFoodRoute: typeof DeHealthyFastFoodRoute
   DeHighProteinMealsRoute: typeof DeHighProteinMealsRoute
   DePlantBasedMealsRoute: typeof DePlantBasedMealsRoute
@@ -832,6 +857,7 @@ export interface RootRouteChildren {
   ApiPublicReviewRequestEmailsRoute: typeof ApiPublicReviewRequestEmailsRoute
   ApiPublicStarterOfferEmailRoute: typeof ApiPublicStarterOfferEmailRoute
   BlogCategorySlugRoute: typeof BlogCategorySlugRoute
+  DaProductHandleRoute: typeof DaProductHandleRoute
   DeProductHandleRoute: typeof DeProductHandleRoute
   EnProductHandleRoute: typeof EnProductHandleRoute
   EsProductHandleRoute: typeof EsProductHandleRoute
@@ -1083,6 +1109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/da/products': {
+      id: '/da/products'
+      path: '/da/products'
+      fullPath: '/da/products'
+      preLoaderRoute: typeof DaProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/de/healthy-fast-food': {
       id: '/de/healthy-fast-food'
       path: '/de/healthy-fast-food'
@@ -1223,6 +1256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogCategorySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/da/product/$handle': {
+      id: '/da/product/$handle'
+      path: '/da/product/$handle'
+      fullPath: '/da/product/$handle'
+      preLoaderRoute: typeof DaProductHandleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/de/product/$handle': {
       id: '/de/product/$handle'
       path: '/de/product/$handle'
@@ -1344,6 +1384,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiContactReplyEmailRoute: ApiContactReplyEmailRoute,
   BlogSlugRoute: BlogSlugRoute,
+  DaProductsRoute: DaProductsRoute,
   DeHealthyFastFoodRoute: DeHealthyFastFoodRoute,
   DeHighProteinMealsRoute: DeHighProteinMealsRoute,
   DePlantBasedMealsRoute: DePlantBasedMealsRoute,
@@ -1365,6 +1406,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicReviewRequestEmailsRoute: ApiPublicReviewRequestEmailsRoute,
   ApiPublicStarterOfferEmailRoute: ApiPublicStarterOfferEmailRoute,
   BlogCategorySlugRoute: BlogCategorySlugRoute,
+  DaProductHandleRoute: DaProductHandleRoute,
   DeProductHandleRoute: DeProductHandleRoute,
   EnProductHandleRoute: EnProductHandleRoute,
   EsProductHandleRoute: EsProductHandleRoute,
