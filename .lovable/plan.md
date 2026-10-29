@@ -1,22 +1,18 @@
-# Paket-sektionen och vegan-märket på rätt språk (de, pl, fr, es, da)
+# Fix: savings chip and shipping line still in Swedish on pilot product lists
 
-Följer briefen ordagrant. Fyra filer, inga nya.
+Scope exactly as the brief — two small changes, nothing else.
 
-## Vad som ändras
-1. **Produktlistan** (`/de|pl|fr|es|da/products`): vegan/vegetarisk-märket på produktkorten och hela paket-blocket följer sidans språk i stället för SV/EN-växlaren.
-2. **Paket-blocket**: alla texter (rubrik, märken, beskrivningar, "vad ingår", knapp, frakt) visas på sidans språk med briefens texter ordagrant.
-3. **Fri frakt-märket** på paket över fraktgränsen visar rätt marknad ("Fri frakt till EU" osv.) i stället för alltid Sverige — gäller alla besökare.
-4. **Marknadsnamn** översatta per språk (EU → UE på fr/es/pl).
-5. **Startsidan** oförändrad.
+1. **Savings chip** ("Du sparar 69 SEK · 15%" / "Spara 177 SEK · 19%") on /de, /pl, /fr, /es, /da, /fi product lists: pass the page language to the badge so it uses the already-existing texts (e.g. "Du sparst", "Säästät", "Oszczędzasz").
+2. **Shipping line** ("Frakt 6 EUR") on the four boxes: add the six texts from the brief verbatim — Versand / Dostawa / Livraison / Envío / Fragt / Toimitus, followed by amount and currency.
 
-## Tekniska detaljer
-- `src/pages/Products.tsx`: rad 505 `<CupBadges meta={cupMeta} locale={pageLocale} />`, rad 528 `<BundleSection locale={pageLocale} />`. `Index.tsx` rörs inte.
-- `src/components/home/BundleSection.tsx`: valfri `locale`-prop, `t = locale ? tLocale(key, locale) : globalT`, `effectiveLang = locale ?? globalLang` i alla `marketLabel`-anrop; fri frakt-märket använder `bundles.freeShipping` på SE annars `bundles.freeShippingMarket` med `{market}`; `freeShipText` tas bort om oanvänd.
-- `src/lib/i18n.ts`: briefens 37 `bundles.*`-nycklar i `productPageDe/Pl/Fr/Es/Da` (polska `posiłków` som medveten förenkling).
-- `src/lib/markets.ts`: `marketLabel` breddas enligt briefen med fallback till engelska.
-- **Avvikelse från briefen:** finska är nu live och sidans språk kan vara `fi`. För att typerna ska hålla accepterar `marketLabel` även `fi` (faller tillbaka på engelska). Finska paket-texter läggs inte till nu, så paket-blocket på `/fi/products` fortsätter visa svenska. Det fixar vi i en separat runda om du skickar finska texter.
+Not touched: home page, Starter Pack highlight, Products page, markets.
 
-## Verifiering
-- Typkontroll grön, varje ordbok har 84 nycklar, `check:seo` körs.
-- Kontrollera i förhandsvisningen att paket-blocket och märkena syns på rätt språk på alla fem språkens produktsidor, och att startsidan ser ut som innan; skärmdumpar före/efter för `/es/products`.
-- Publiceras inte förrän du säger till.
+## Verification
+- Typecheck.
+- Open all six pilot product lists in the preview: chip and shipping line in the page language.
+- Home page unchanged in Swedish.
+- Report back before publishing.
+
+## Technical details
+- `src/components/home/BundleSection.tsx`: add `locale={effectiveLang}` to `<SavingsBadge>`. `effectiveLang` falls back to the global sv/en on the home page, so the home result stays the same; confirm its type fits `ProductPageLocale`.
+- `src/lib/i18n.ts`: add `"shipping.standardCost"` to productPageDe/Pl/Fr/Es/Da/Fi (each dictionary goes from 86 to 87 keys).
