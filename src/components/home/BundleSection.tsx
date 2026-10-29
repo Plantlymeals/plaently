@@ -5,7 +5,7 @@ import { findShopifyMatch, parsePriceNumber } from "@/lib/bundleMatch";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Check, Loader2 } from "lucide-react";
-import { useTranslation } from "@/lib/i18n";
+import { useTranslation, tLocale, type ProductPageLocale } from "@/lib/i18n";
 import { MixBuilderDialog } from "@/components/MixBuilderDialog";
 import { fetchPublishedBundles, type BundleRow } from "@/lib/bundlesApi";
 import { SINGLE_MEAL_PRICE } from "@/lib/bundleSavings";
@@ -90,15 +90,21 @@ function featuresForBundle(cups: number, isSubscription: boolean): string[] {
   ];
 }
 
-const BundleSection = () => {
+interface BundleSectionProps {
+  /** Page-scoped language (product listing pages take language from the URL). */
+  locale?: ProductPageLocale;
+}
+
+const BundleSection = ({ locale }: BundleSectionProps = {}) => {
   const [bundles, setBundles] = useState<BundleRow[]>([]);
   const [shopifyBundles, setShopifyBundles] = useState<ShopifyProduct[]>([]);
   const addItem = useCartStore(state => state.addItem);
   const isLoading = useCartStore(state => state.isLoading);
-  const { t, lang } = useTranslation();
+  const { t: globalT, lang: globalLang } = useTranslation();
+  const t = locale ? (key: string) => tLocale(key, locale) : globalT;
+  const effectiveLang = locale ?? globalLang;
   const marketCfg = useMarketConfig();
-  const marketName = marketLabel(marketCfg.code, lang);
-  const freeShipText = t("bundles.freeShipping");
+  const marketName = marketLabel(marketCfg.code, effectiveLang);
   const [mixOpen, setMixOpen] = useState(false);
   const [activeBundle, setActiveBundle] = useState<ShopifyProduct | null>(null);
   const [activeBundleCups, setActiveBundleCups] = useState<number>(0);
@@ -251,7 +257,7 @@ const BundleSection = () => {
                   )}
                   {bundlePrice >= marketCfg.freeShippingThresholdSek && (
                     <span className="rounded-full border border-white/20 text-[10px] font-bold tracking-widest uppercase py-[5px] px-[6px]">
-                      {freeShipText}
+                      {marketCfg.code === "SE" ? t("bundles.freeShipping") : t("bundles.freeShippingMarket").replace("{market}", marketName)}
                     </span>
                   )}
                   {!highlight && b.badge && (

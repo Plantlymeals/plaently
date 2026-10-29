@@ -502,7 +502,7 @@ const Products = () => {
                   <div key={product.node.id} className="group flex flex-col h-full rounded-2xl bg-card border border-border/50 p-4 shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
                     <Link to={`${prefix}/product/${product.node.handle}`}>
                       <div className="relative aspect-square rounded-xl mb-5 flex items-center justify-center overflow-hidden" style={{ backgroundColor: "#d9d9d9" }}>
-                        {cupMeta && <CupBadges meta={cupMeta} />}
+                        {cupMeta && <CupBadges meta={cupMeta} locale={pageLocale} />}
                         {override ? (
                           <img src={override} alt={displayProductTitle(product.node.title)} className="h-full w-full object-cover" loading="lazy" />
                         ) : cupMeta ? (
@@ -525,7 +525,7 @@ const Products = () => {
           )}
         </div>
       </section>
-      <BundleSection />
+      <BundleSection locale={pageLocale} />
       <MixBuilderDialog {...dialogProps} />
     </Layout>
   );
