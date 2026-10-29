@@ -40,6 +40,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/de/products", changefreq: "daily", priority: "0.9" },
   { path: "/pl/products", changefreq: "daily", priority: "0.9" },
   { path: "/fr/products", changefreq: "daily", priority: "0.9" },
+  { path: "/es/products", changefreq: "daily", priority: "0.9" },
   { path: "/about", changefreq: "monthly", priority: "0.6" },
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
   // Blog category archives
@@ -205,8 +206,18 @@ async function frenchPilotEntries(): Promise<SitemapEntry[]> {
   }));
 }
 
+/** Spanish pilot product pages — only those approved per isSpanishPageReady(). */
+async function spanishPilotEntries(): Promise<SitemapEntry[]> {
+  const mod = await import("../src/data/productCopyEs");
+  return mod.ES_PILOT_HANDLES.filter((h: string) => mod.isSpanishPageReady(h)).map((handle: string) => ({
+    path: `/es/product/${handle}`,
+    changefreq: "weekly" as const,
+    priority: "0.7",
+  }));
+}
+
 async function main() {
-  const [blog, products, english, german, polish, french] = await Promise.all([
+  const [blog, products, english, german, polish, french, spanish] = await Promise.all([
     fetchBlogSlugs(),
     fetchShopifyHandles(),
     englishPilotEntries().catch((e) => {
@@ -225,8 +236,12 @@ async function main() {
       console.warn("sitemap: french pilot entries failed", e);
       return [] as SitemapEntry[];
     }),
+    spanishPilotEntries().catch((e) => {
+      console.warn("sitemap: spanish pilot entries failed", e);
+      return [] as SitemapEntry[];
+    }),
   ]);
-  const entries = [...staticEntries, ...blog, ...products, ...english, ...german, ...polish, ...french];
+  const entries = [...staticEntries, ...blog, ...products, ...english, ...german, ...polish, ...french, ...spanish];
   writeFileSync(resolve("public/sitemap.xml"), generateSitemap(entries));
   console.log(`sitemap.xml written (${entries.length} entries)`);
 }
