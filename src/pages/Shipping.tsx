@@ -90,7 +90,7 @@ const COPY = {
  h1a: "Simple, fast and ",
  h1b: "transparent.",
  heroSub: "We ship your PLÄNTLY meals with PostNord and DHL. You'll get a tracking number as soon as your order is on its way.",
- banner: " Free shipping on all orders from SEK 399 — always.",
+ banner: " Free shipping on all orders from SEK 299 — always.",
  costsLabel: "Shipping costs",
  costsTitle: "What does shipping cost?",
  costsSub: "Free shipping on Starter Pack and Monthly Box. Single meals have a small shipping fee.",
