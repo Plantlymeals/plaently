@@ -6,7 +6,7 @@ export type Lang = "sv" | "en";
 /** URL-scoped locales for product pages only. Kept separate from the global
  *  `Lang` type so adding a product-page language does not force a full-site
  *  translation. */
-export type ProductPageLocale = "sv" | "en" | "de" | "pl";
+export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr";
 
 interface LangStore {
  lang: Lang;
@@ -565,6 +565,57 @@ const productPageDe: Record<string, string> = {
  * Minimal Polish copy for the product-page pilot (translated from productPageDe).
  * tLocale falls back to Swedish for any missing key — never an empty string.
  */
+/** French copy for the product-page pilot (brief 29 Oct, verbatim). */
+const productPageFr: Record<string, string> = {
+  "bundles.value": "Valeur",
+  "bundles.whatsInside": "Ce qui est inclus",
+  "cta.riskReversal": "Livraison en 2–4 jours ouvrés · Sans abonnement · Droit de rétractation de 14 jours",
+  "product.vegan": "Végane",
+  "product.vegetarian": "Végétarien",
+  "productDetail.benefitsDesc": "Protéines végétales, macros équilibrées et vrais ingrédients — le temps de faire bouillir de l'eau.",
+  "productDetail.benefitsTitle": "Fast-food sain",
+  "productDetail.nutritionClean": "De vrais ingrédients, sans additifs artificiels",
+  "productDetail.nutritionMacros": "Macros équilibrées et 5–9 g de fibres",
+  "productDetail.nutritionProtein": "20 g de protéines végétales par portion",
+  "productDetail.nutritionTitle": "Points forts nutritionnels",
+  "productDetail.prepStep1": "Ouvrez le gobelet",
+  "productDetail.prepStep2": "Ajoutez de l'eau chaude jusqu'au repère",
+  "productDetail.prepStep3": "Mélangez et attendez 5 min",
+  "productDetail.prepTitle": "Prêt en 5 minutes",
+  "productDetail.tasteDesc": "Développé par des chefs à Stockholm pour offrir un goût authentique et convaincant — sans compromis.",
+  "productDetail.tasteTitle": "Le goût d'abord",
+  "products.addToCart": "Ajouter au panier",
+  "products.backToProducts": "Retour aux produits",
+  "products.noProducts": "Aucun produit trouvé.",
+  "products.notFound": "Produit introuvable",
+  "products.pageSubtitle": "Repas protéinés végétaux, prêts en 5 minutes.\nChoisissez vos favoris.",
+  "products.pageTitle": "Nos repas protéinés",
+  "products.perMeal": "par repas",
+  "products.tryInStarterPack": "Essayer dans le Starter Pack",
+  "reviews.approvalNote": "Votre avis sera visible après validation par notre équipe.",
+  "reviews.cancel": "Annuler",
+  "reviews.countMany": "avis",
+  "reviews.countOne": "avis",
+  "reviews.errBodyMin": "L'avis doit contenir au moins 5 caractères",
+  "reviews.errInvalidEmail": "Adresse e-mail invalide",
+  "reviews.errNameRequired": "Le nom est requis",
+  "reviews.errPickRating": "Veuillez choisir une note",
+  "reviews.formTitle": "Avis",
+  "reviews.labelBody": "Votre avis *",
+  "reviews.labelEmail": "E-mail * (ne sera pas publié)",
+  "reviews.labelName": "Nom *",
+  "reviews.labelRating": "Votre note *",
+  "reviews.labelTitle": "Titre",
+  "reviews.noReviews": "Pas encore d'avis — soyez le premier.",
+  "reviews.placeholderOptional": "Facultatif",
+  "reviews.submit": "Envoyer l'avis",
+  "reviews.submitSuccess": "Merci ! Votre avis apparaîtra après validation.",
+  "reviews.title": "Avis clients",
+  "reviews.write": "Écrire un avis",
+  "seo.products.description": "Quatre repas protéinés végétaux avec 20 g de protéines par portion. Prêts en 5 minutes — ajoutez simplement de l'eau bouillante jusqu'au trait noir.",
+  "seo.products.title": "Repas protéinés végétaux | 4 saveurs — PLÄNTLY",
+};
+
 const productPagePl: Record<string, string> = {
   "bundles.value": "Wartość",
   "bundles.whatsInside": "Co zawiera",
@@ -657,6 +708,7 @@ export const tLocale = (key: string, locale: Lang | ProductPageLocale): string =
   if (locale === "de") {
     return productPageDe[key] ?? tLocale(key, "sv");
   } else if (locale === "pl") return productPagePl[key] ?? tLocale(key, "sv");
+  else if (locale === "fr") return productPageFr[key] ?? tLocale(key, "sv");
   const entry = translations[key];
   if (!entry) return key;
   return entry[locale as Lang] || entry.sv || key;
