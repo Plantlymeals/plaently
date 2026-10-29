@@ -6,7 +6,7 @@ export type Lang = "sv" | "en";
 /** URL-scoped locales for product pages only. Kept separate from the global
  *  `Lang` type so adding a product-page language does not force a full-site
  *  translation. */
-export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr" | "es" | "da";
+export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi";
 
 interface LangStore {
  lang: Lang;
@@ -617,6 +617,56 @@ const productPageEs: Record<string, string> = {
 };
 
 /** French copy for the product-page pilot (brief 29 Oct, verbatim). */
+const productPageFi: Record<string, string> = {
+  "bundles.value": "Arvo",
+  "bundles.whatsInside": "Mitä sisältyy",
+  "cta.riskReversal": "Toimitus 2–4 arkipäivässä · Ei tilausta · 14 päivän palautusoikeus",
+  "product.vegan": "Vegaaninen",
+  "product.vegetarian": "Vegetaarinen",
+  "productDetail.benefitsDesc": "Kasviproteiinia, tasapainoiset makrot ja aidot raaka-aineet — valmiina siinä ajassa, kun vesi kiehuu.",
+  "productDetail.benefitsTitle": "Terveellistä pikaruokaa",
+  "productDetail.nutritionClean": "Aidot raaka-aineet, ei keinotekoisia lisäaineita",
+  "productDetail.nutritionMacros": "Tasapainoiset makrot ja 5–9 g kuitua",
+  "productDetail.nutritionProtein": "20 g kasviproteiinia per annos",
+  "productDetail.nutritionTitle": "Ravitsemukselliset kohokohdat",
+  "productDetail.prepStep1": "Avaa muki",
+  "productDetail.prepStep2": "Lisää kuumaa vettä merkkiin asti",
+  "productDetail.prepStep3": "Sekoita ja odota 5 min",
+  "productDetail.prepTitle": "Valmis 5 minuutissa",
+  "productDetail.tasteDesc": "Tukholman kokkien kehittämä tarjoamaan aito ja vakuuttava maku — tinkimättä.",
+  "productDetail.tasteTitle": "Maku edellä",
+  "products.addToCart": "Lisää koriin",
+  "products.backToProducts": "Takaisin tuotteisiin",
+  "products.noProducts": "Tuotteita ei löytynyt.",
+  "products.notFound": "Tuotetta ei löydy",
+  "products.pageSubtitle": "Kasvipohjaisia proteiiniaterioita, valmiina 5 minuutissa.\nValitse suosikkisi.",
+  "products.pageTitle": "Proteiiniateriamme",
+  "products.perMeal": "per ateria",
+  "products.tryInStarterPack": "Kokeile Starter Packissa",
+  "reviews.approvalNote": "Arvostelusi näkyy, kun tiimimme on hyväksynyt sen.",
+  "reviews.cancel": "Peruuta",
+  "reviews.countMany": "arvostelua",
+  "reviews.countOne": "arvostelu",
+  "reviews.errBodyMin": "Arvostelun tulee sisältää vähintään 5 merkkiä",
+  "reviews.errInvalidEmail": "Virheellinen sähköpostiosoite",
+  "reviews.errNameRequired": "Nimi vaaditaan",
+  "reviews.errPickRating": "Valitse arvosana",
+  "reviews.formTitle": "Arvostelut",
+  "reviews.labelBody": "Arvostelusi *",
+  "reviews.labelEmail": "Sähköposti * (ei julkaista)",
+  "reviews.labelName": "Nimi *",
+  "reviews.labelRating": "Arvosanasi *",
+  "reviews.labelTitle": "Otsikko",
+  "reviews.noReviews": "Ei arvosteluja vielä — ole ensimmäinen.",
+  "reviews.placeholderOptional": "Valinnainen",
+  "reviews.submit": "Lähetä arvostelu",
+  "reviews.submitSuccess": "Kiitos! Arvostelusi näkyy, kun se on hyväksytty.",
+  "reviews.title": "Asiakasarvostelut",
+  "reviews.write": "Kirjoita arvostelu",
+  "seo.products.description": "Neljä kasvipohjaista proteiiniateriaa, joissa 20 g proteiinia per annos. Valmis 5 minuutissa — lisää vain kiehuvaa vettä mustaan viivaan asti.",
+  "seo.products.title": "Kasvipohjaiset proteiiniateriat | 4 makuvaihtoehtoa — PLÄNTLY",
+};
+
 /** Danish copy for the product-page pilot (brief 29 Oct, verbatim). */
 const productPageDa: Record<string, string> = {
   "bundles.value": "Værdi",
@@ -813,6 +863,7 @@ export const tLocale = (key: string, locale: Lang | ProductPageLocale): string =
   else if (locale === "fr") return productPageFr[key] ?? tLocale(key, "sv");
   else if (locale === "es") return productPageEs[key] ?? tLocale(key, "sv");
   else if (locale === "da") return productPageDa[key] ?? tLocale(key, "sv");
+  else if (locale === "fi") return productPageFi[key] ?? tLocale(key, "sv");
   const entry = translations[key];
   if (!entry) return key;
   return entry[locale as Lang] || entry.sv || key;

@@ -251,7 +251,7 @@ export function translateProductHtml(html: string | undefined | null, lang: Prod
   // (src/data/productCopyPl.ts) the page shows the Swedish original. Every
   // future language pilot must add its own explicit branch like this one.
   // French follows the same rule: approved copy from productCopyFr.ts only.
-  if (lang === "pl" || lang === "fr" || lang === "es" || lang === "da") {
+  if (lang === "pl" || lang === "fr" || lang === "es" || lang === "da" || lang === "fi") {
     // falls through to the Swedish normalization below
   } else if (lang === "en") {
     let out = html;
