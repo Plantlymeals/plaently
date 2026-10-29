@@ -241,6 +241,7 @@ export function getProductRouteHead(
     de: "Proteinmahlzeit – 20g Protein | PLÄNTLY",
     pl: "Posiłek białkowy – 20g białka | PLÄNTLY",
     fr: "Repas protéiné – 20g de protéines | PLÄNTLY",
+    es: "Comida proteica – 20g de proteína | PLÄNTLY",
   };
   const fallbackDescription: Record<ProductPageLocale, string> = {
     sv: "Riktig proteinmåltid med 20g protein, klar på 5 minuter.",
@@ -248,6 +249,7 @@ export function getProductRouteHead(
     de: "Eine echte Proteinmahlzeit mit 20g Protein, fertig in 5 Minuten.",
     pl: "Prawdziwy posiłek białkowy z 20g białka, gotowy w 5 minut.",
     fr: "Un vrai repas protéiné avec 20g de protéines, prêt en 5 minutes.",
+    es: "Una comida proteica de verdad con 20g de proteína, lista en 5 minutos.",
   };
   const title = copy?.title ?? fallbackTitle[locale];
   const description = copy?.description ?? fallbackDescription[locale];
@@ -302,6 +304,7 @@ export function getProductSsrCopy(handle: string | undefined, locale: ProductPag
     de: `${name} von PLÄNTLY – Proteinmahlzeit mit 20g Protein, fertig in 5 Minuten.`,
     pl: `${name} od PLÄNTLY – posiłek białkowy z 20g białka, gotowy w 5 minut.`,
     fr: `${name} par PLÄNTLY – repas protéiné avec 20g de protéines, prêt en 5 minutes.`,
+    es: `${name} de PLÄNTLY – comida proteica con 20g de proteína, lista en 5 minutos.`,
   };
   return {
     name: name || "PLÄNTLY",
