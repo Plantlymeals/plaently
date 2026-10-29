@@ -36,11 +36,13 @@ export function marketFromCountry(country: string | null | undefined): Market {
 }
 
 
-export function marketLabel(market: Market, lang: "sv" | "en"): string {
-  const map: Record<Market, { sv: string; en: string }> = {
-    SE: { sv: "Sverige", en: "Sweden" },
-    EU: { sv: "EU", en: "EU" },
-    UK: { sv: "Storbritannien", en: "United Kingdom" },
+export type MarketLabelLang = "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi";
+
+export function marketLabel(market: Market, lang: MarketLabelLang): string {
+  const map: Record<Market, Record<MarketLabelLang, string>> = {
+    SE: { sv: "Sverige", en: "Sweden", de: "Schweden", pl: "Szwecja", fr: "Suède", es: "Suecia", da: "Sverige", fi: "Ruotsi" },
+    EU: { sv: "EU", en: "EU", de: "EU", pl: "UE", fr: "UE", es: "UE", da: "EU", fi: "EU" },
+    UK: { sv: "Storbritannien", en: "United Kingdom", de: "Vereinigtes Königreich", pl: "Wielka Brytania", fr: "Royaume-Uni", es: "Reino Unido", da: "Storbritannien", fi: "Yhdistynyt kuningaskunta" },
   };
-  return map[market][lang];
+  return map[market][lang] ?? map[market].en;
 }
