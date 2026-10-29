@@ -38,7 +38,7 @@ export const Route = createFileRoute("/da/product/$handle")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Producto no encontrado — PLÄNTLY" },
+          { title: "Produkt ikke fundet — PLÄNTLY" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
@@ -75,13 +75,13 @@ function ProductNotFoundDa() {
   return (
     <Layout>
       <div className="container py-20 text-center space-y-4">
-        <h1 className="font-heading text-3xl font-bold">Producto no encontrado</h1>
-        <p className="text-muted-foreground">Esta dirección ya no existe. Descubre nuestra selección.</p>
+        <h1 className="font-heading text-3xl font-bold">Produkt ikke fundet</h1>
+        <p className="text-muted-foreground">Denne adresse findes ikke længere. Udforsk vores udvalg.</p>
         <Link
           to="/da/products"
           className="inline-block rounded-full border border-border px-6 py-2 hover:text-primary"
         >
-          Ver productos
+          Se produkter
         </Link>
       </div>
     </Layout>
