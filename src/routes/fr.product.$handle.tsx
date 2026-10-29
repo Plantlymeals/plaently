@@ -38,7 +38,7 @@ export const Route = createFileRoute("/fr/product/$handle")({
     if (!loaderData) {
       return {
         meta: [
-          { title: "Nie znaleziono produktu — PLÄNTLY" },
+          { title: "Produit introuvable — PLÄNTLY" },
           { name: "robots", content: "noindex, follow" },
         ],
       };
@@ -75,13 +75,13 @@ function ProductNotFoundFr() {
   return (
     <Layout>
       <div className="container py-20 text-center space-y-4">
-        <h1 className="font-heading text-3xl font-bold">Nie znaleziono produktu</h1>
-        <p className="text-muted-foreground">Ten adres już nie istnieje. Zobacz naszą ofertę.</p>
+        <h1 className="font-heading text-3xl font-bold">Produit introuvable</h1>
+        <p className="text-muted-foreground">Cette adresse n'existe plus. Découvrez notre sélection.</p>
         <Link
           to="/fr/products"
           className="inline-block rounded-full border border-border px-6 py-2 hover:text-primary"
         >
-          Zobacz produkty
+          Voir les produits
         </Link>
       </div>
     </Layout>
