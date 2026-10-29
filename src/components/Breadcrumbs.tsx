@@ -16,7 +16,7 @@ const BASE_URL = "https://plaently.com";
 interface BreadcrumbsProps {
   items: Crumb[];
   /** Language for the "Home" root crumb. */
-  lang?: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da";
+  lang?: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi";
   /** Emit BreadcrumbList JSON-LD. Disable when the page already supplies it. */
   emitSchema?: boolean;
   className?: string;
@@ -34,6 +34,7 @@ const HOME_LABEL: Record<NonNullable<BreadcrumbsProps["lang"]>, string> = {
   fr: "Accueil",
   es: "Inicio",
   da: "Forside",
+  fi: "Etusivu",
 };
 
 const Breadcrumbs = ({ items, lang = "sv", emitSchema = true, className }: BreadcrumbsProps) => {

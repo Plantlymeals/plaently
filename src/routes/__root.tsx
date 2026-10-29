@@ -212,7 +212,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: React.ReactNode }) {
   // Document language follows the URL prefix (/en/…, /de/…), Swedish otherwise.
   const pathname = useLocation({ select: (l) => l.pathname });
-  const htmlLang = pathname.startsWith("/en/") || pathname === "/en" ? "en" : pathname.startsWith("/de/") || pathname === "/de" ? "de" : pathname.startsWith("/pl/") || pathname === "/pl" ? "pl" : pathname.startsWith("/fr/") || pathname === "/fr" ? "fr" : pathname.startsWith("/es/") || pathname === "/es" ? "es" : pathname.startsWith("/da/") || pathname === "/da" ? "da" : "sv";
+  const htmlLang = pathname.startsWith("/en/") || pathname === "/en" ? "en" : pathname.startsWith("/de/") || pathname === "/de" ? "de" : pathname.startsWith("/pl/") || pathname === "/pl" ? "pl" : pathname.startsWith("/fr/") || pathname === "/fr" ? "fr" : pathname.startsWith("/es/") || pathname === "/es" ? "es" : pathname.startsWith("/da/") || pathname === "/da" ? "da" : pathname.startsWith("/fi/") || pathname === "/fi" ? "fi" : "sv";
   return (
     <html lang={htmlLang} suppressHydrationWarning>
       <head>

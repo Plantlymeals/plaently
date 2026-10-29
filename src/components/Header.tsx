@@ -11,7 +11,7 @@ const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
   const { lang, t, setLang } = useTranslation();
-  const routeLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" =
+  const routeLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi" =
     location.pathname.startsWith("/en/") || location.pathname === "/en"
       ? "en"
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
@@ -24,11 +24,13 @@ const Header = () => {
       ? "es"
       : location.pathname.startsWith("/da/") || location.pathname === "/da"
       ? "da"
+      : location.pathname.startsWith("/fi/") || location.pathname === "/fi"
+      ? "fi"
       : "sv";
   // On unprefixed pages, follow the visitor's chosen language so English readers land on /en/products.
-  const linkLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" = routeLocale !== "sv" ? routeLocale : lang === "en" ? "en" : "sv";
+  const linkLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi" = routeLocale !== "sv" ? routeLocale : lang === "en" ? "en" : "sv";
   const productsPath = `${linkLocale === "sv" ? "" : `/${linkLocale}`}/products`;
-  const productsLabel = linkLocale === "de" ? "Produkte" : linkLocale === "pl" ? "Produkty" : linkLocale === "fr" ? "Produits" : linkLocale === "es" ? "Productos" : linkLocale === "da" ? "Produkter" : t("nav.products");
+  const productsLabel = linkLocale === "de" ? "Produkte" : linkLocale === "pl" ? "Produkty" : linkLocale === "fr" ? "Produits" : linkLocale === "es" ? "Productos" : linkLocale === "da" ? "Produkter" : linkLocale === "fi" ? "Tuotteet" : t("nav.products");
 
   const navItems = [
     { label: t("nav.home"), path: "/" },

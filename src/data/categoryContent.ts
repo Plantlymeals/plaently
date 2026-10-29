@@ -1,7 +1,7 @@
 import type { ProductPageLocale } from "@/lib/i18n";
 
 /** Category pages exist in sv/en/de only — Polish category pages are not built yet. */
-export type CategoryLocale = Exclude<ProductPageLocale, "pl" | "fr" | "es" | "da">;
+export type CategoryLocale = Exclude<ProductPageLocale, "pl" | "fr" | "es" | "da" | "fi">;
 
 export interface CategorySection {
   heading: string;

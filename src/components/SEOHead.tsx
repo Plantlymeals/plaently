@@ -9,7 +9,7 @@ interface SEOHeadProps {
   image?: string | undefined;
   type?: string | undefined;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[] | undefined;
-  locale?: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | undefined;
+  locale?: "sv" | "en" | "de" | "pl" | "fr" | "es" | "da" | "fi" | undefined;
   /** Swedish title/description used for OG + Twitter cards (falls back to title/description). */
   ogTitle?: string | undefined;
   ogDescription?: string | undefined;
@@ -28,6 +28,7 @@ const KEYWORDS: Record<NonNullable<SEOHeadProps["locale"]>, string> = {
   en: "plant-based protein meals, protein meals, healthy fast food, 20g plant protein, instant protein meal Sweden, PLÄNTLY, quick protein food, plant protein meal, protein meal 5 minutes, healthy office lunch",
   pl: "roślinne posiłki białkowe, posiłki białkowe, zdrowy fast food, 20g białka roślinnego, PLÄNTLY, szybki posiłek białkowy, posiłek białkowy 5 minut, zdrowy lunch do biura",
   es: "comidas proteicas vegetales, comidas proteicas, comida rápida saludable, 20g de proteína vegetal, PLÄNTLY, comida proteica rápida, comida proteica 5 minutos, almuerzo saludable en la oficina",
+  fi: "kasvipohjaiset proteiiniateriat, proteiiniateriat, terveellinen pikaruoka, 20g kasviproteiinia, PLÄNTLY, nopea proteiiniruoka, kasviproteiiniateria, proteiiniateria 5 minuutissa, terveellinen toimistolounas",
   da: "plantebaserede proteinmåltider, proteinmåltider, sund fastfood, 20g planteprotein, PLÄNTLY, hurtig proteinmåltid, proteinmåltid på 5 minutter, sund frokost på kontoret",
   fr: "repas protéinés végétaux, repas protéinés, fast-food sain, 20g de protéines végétales, PLÄNTLY, repas protéiné rapide, repas protéiné 5 minutes, déjeuner sain au bureau",
   de: "pflanzliche Proteinmahlzeiten, Proteinmahlzeiten, gesundes Fast Food, 20g pflanzliches Protein, Proteinmahlzeit Schweden, PLÄNTLY, schnelles Protein-Essen, pflanzliches Protein, Proteinmahlzeit 5 Minuten, gesundes Büroessen",
@@ -40,7 +41,7 @@ const SEOHead = ({ title, description, path, image, type = "website", jsonLd, lo
   const canonicalPath = normalizePath(pathname || path);
   const url = `${BASE_URL}${canonicalPath === "/" ? "/" : canonicalPath}`;
   const ogImage = image || "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9e767189-eb55-4625-a33e-6e7fd5ef1e34/id-preview-0c6ffa32--e49a6c76-e3de-462b-a409-874125bebed1.lovable.app-1773245481620.png";
-  const ogLocale = locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : locale === "pl" ? "pl_PL" : locale === "fr" ? "fr_FR" : locale === "es" ? "es_ES" : locale === "da" ? "da_DK" : "sv_SE";
+  const ogLocale = locale === "en" ? "en_GB" : locale === "de" ? "de_DE" : locale === "pl" ? "pl_PL" : locale === "fr" ? "fr_FR" : locale === "es" ? "es_ES" : locale === "da" ? "da_DK" : locale === "fi" ? "fi_FI" : "sv_SE";
   const socialTitle = ogTitle || title;
   const socialDescription = ogDescription || description;
 
