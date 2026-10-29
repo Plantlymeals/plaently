@@ -13,12 +13,13 @@ import { isEnglishPilotHandle } from "@/data/productCopyEn";
 import { isGermanPilotHandle } from "@/data/productCopyDe";
 import { isPolishPilotHandle } from "@/data/productCopyPl";
 import { isFrenchPilotHandle } from "@/data/productCopyFr";
+import { isSpanishPilotHandle } from "@/data/productCopyEs";
 const logo = "/images/logo.png";
 
 const Footer = () => {
   const { t, lang } = useTranslation();
   const location = useLocation();
-  const urlLocale: "sv" | "en" | "de" | "pl" | "fr" =
+  const urlLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" =
     location.pathname.startsWith("/en/") || location.pathname === "/en"
       ? "en"
       : location.pathname.startsWith("/de/") || location.pathname === "/de"
@@ -27,14 +28,16 @@ const Footer = () => {
       ? "pl"
       : location.pathname.startsWith("/fr/") || location.pathname === "/fr"
       ? "fr"
+      : location.pathname.startsWith("/es/") || location.pathname === "/es"
+      ? "es"
       : "sv";
   // On unprefixed pages, follow the visitor's chosen language for localized links.
-  const routeLocale: "sv" | "en" | "de" | "pl" | "fr" = urlLocale !== "sv" ? urlLocale : lang === "en" ? "en" : "sv";
+  const routeLocale: "sv" | "en" | "de" | "pl" | "fr" | "es" = urlLocale !== "sv" ? urlLocale : lang === "en" ? "en" : "sv";
   const prefix = routeLocale === "sv" ? "" : `/${routeLocale}`;
   const productsPath = `${prefix}/products`;
-  const highProteinPath = routeLocale === "sv" || routeLocale === "pl" || routeLocale === "fr" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
-  const plantBasedPath = routeLocale === "sv" || routeLocale === "pl" || routeLocale === "fr" ? "/plantbaserade-maltider" : `${prefix}/plant-based-meals`;
-  const productsLabel = routeLocale === "de" ? "Produkte" : routeLocale === "pl" ? "Produkty" : routeLocale === "fr" ? "Produits" : t("nav.products");
+  const highProteinPath = routeLocale === "sv" || routeLocale === "pl" || routeLocale === "fr" || routeLocale === "es" ? "/proteinrika-maltider" : `${prefix}/high-protein-meals`;
+  const plantBasedPath = routeLocale === "sv" || routeLocale === "pl" || routeLocale === "fr" || routeLocale === "es" ? "/plantbaserade-maltider" : `${prefix}/plant-based-meals`;
+  const productsLabel = routeLocale === "de" ? "Produkte" : routeLocale === "pl" ? "Produkty" : routeLocale === "fr" ? "Produits" : routeLocale === "es" ? "Productos" : t("nav.products");
   const highProteinLabel = routeLocale === "de" ? "Proteinreiche Mahlzeiten" : t("footer.highProtein");
   const plantBasedLabel = routeLocale === "de" ? "Pflanzliche Mahlzeiten" : t("footer.plantBased");
   const productLinkPath = (handle: string) => {
@@ -42,6 +45,7 @@ const Footer = () => {
     if (routeLocale === "de" && isGermanPilotHandle(handle)) return `/de/product/${handle}`;
     if (routeLocale === "pl" && isPolishPilotHandle(handle)) return `/pl/product/${handle}`;
     if (routeLocale === "fr" && isFrenchPilotHandle(handle)) return `/fr/product/${handle}`;
+    if (routeLocale === "es" && isSpanishPilotHandle(handle)) return `/es/product/${handle}`;
     return `/product/${handle}`;
   };
   const [email, setEmail] = useState("");

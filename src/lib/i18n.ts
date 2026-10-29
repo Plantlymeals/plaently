@@ -6,7 +6,7 @@ export type Lang = "sv" | "en";
 /** URL-scoped locales for product pages only. Kept separate from the global
  *  `Lang` type so adding a product-page language does not force a full-site
  *  translation. */
-export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr";
+export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr" | "es";
 
 interface LangStore {
  lang: Lang;
@@ -565,6 +565,57 @@ const productPageDe: Record<string, string> = {
  * Minimal Polish copy for the product-page pilot (translated from productPageDe).
  * tLocale falls back to Swedish for any missing key — never an empty string.
  */
+/** Spanish copy for the product-page pilot (brief 29 Oct, verbatim). */
+const productPageEs: Record<string, string> = {
+  "bundles.value": "Valor",
+  "bundles.whatsInside": "Qué incluye",
+  "cta.riskReversal": "Entrega en 2–4 días laborables · Sin suscripción · Derecho de devolución de 14 días",
+  "product.vegan": "Vegano",
+  "product.vegetarian": "Vegetariano",
+  "productDetail.benefitsDesc": "Proteína vegetal, macros equilibrados e ingredientes reales — el tiempo de hervir agua.",
+  "productDetail.benefitsTitle": "Comida rápida saludable",
+  "productDetail.nutritionClean": "Ingredientes reales, sin aditivos artificiales",
+  "productDetail.nutritionMacros": "Macros equilibrados y 5–9 g de fibra",
+  "productDetail.nutritionProtein": "20 g de proteína vegetal por ración",
+  "productDetail.nutritionTitle": "Puntos fuertes nutricionales",
+  "productDetail.prepStep1": "Abre el vaso",
+  "productDetail.prepStep2": "Añade agua caliente hasta la marca",
+  "productDetail.prepStep3": "Remueve y espera 5 min",
+  "productDetail.prepTitle": "Listo en 5 minutos",
+  "productDetail.tasteDesc": "Desarrollado por chefs en Estocolmo para ofrecer un sabor auténtico y convincente — sin concesiones.",
+  "productDetail.tasteTitle": "El sabor primero",
+  "products.addToCart": "Añadir al carrito",
+  "products.backToProducts": "Volver a los productos",
+  "products.noProducts": "No se encontraron productos.",
+  "products.notFound": "Producto no encontrado",
+  "products.pageSubtitle": "Comidas proteicas vegetales, listas en 5 minutos.\nElige tus favoritas.",
+  "products.pageTitle": "Nuestras comidas proteicas",
+  "products.perMeal": "por comida",
+  "products.tryInStarterPack": "Probar en el Starter Pack",
+  "reviews.approvalNote": "Tu reseña será visible tras su validación por nuestro equipo.",
+  "reviews.cancel": "Cancelar",
+  "reviews.countMany": "reseñas",
+  "reviews.countOne": "reseña",
+  "reviews.errBodyMin": "La reseña debe tener al menos 5 caracteres",
+  "reviews.errInvalidEmail": "Dirección de correo no válida",
+  "reviews.errNameRequired": "El nombre es obligatorio",
+  "reviews.errPickRating": "Por favor, elige una puntuación",
+  "reviews.formTitle": "Reseñas",
+  "reviews.labelBody": "Tu reseña *",
+  "reviews.labelEmail": "Correo electrónico * (no se publicará)",
+  "reviews.labelName": "Nombre *",
+  "reviews.labelRating": "Tu puntuación *",
+  "reviews.labelTitle": "Título",
+  "reviews.noReviews": "Aún no hay reseñas — sé el primero.",
+  "reviews.placeholderOptional": "Opcional",
+  "reviews.submit": "Enviar reseña",
+  "reviews.submitSuccess": "¡Gracias! Tu reseña aparecerá tras su validación.",
+  "reviews.title": "Reseñas de clientes",
+  "reviews.write": "Escribir una reseña",
+  "seo.products.description": "Cuatro comidas proteicas vegetales con 20 g de proteína por ración. Listas en 5 minutos — solo añade agua hirviendo hasta la línea negra.",
+  "seo.products.title": "Comidas proteicas vegetales | 4 sabores — PLÄNTLY",
+};
+
 /** French copy for the product-page pilot (brief 29 Oct, verbatim). */
 const productPageFr: Record<string, string> = {
   "bundles.value": "Valeur",
@@ -709,6 +760,7 @@ export const tLocale = (key: string, locale: Lang | ProductPageLocale): string =
     return productPageDe[key] ?? tLocale(key, "sv");
   } else if (locale === "pl") return productPagePl[key] ?? tLocale(key, "sv");
   else if (locale === "fr") return productPageFr[key] ?? tLocale(key, "sv");
+  else if (locale === "es") return productPageEs[key] ?? tLocale(key, "sv");
   const entry = translations[key];
   if (!entry) return key;
   return entry[locale as Lang] || entry.sv || key;
