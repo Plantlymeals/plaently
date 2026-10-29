@@ -296,6 +296,7 @@ const BundleSection = ({ locale }: BundleSectionProps = {}) => {
                       currencyCode={currencyCode}
                       variant={isTrial ? "trial" : isValue || isSubscription ? "value" : "default"}
                       size="sm"
+                      locale={effectiveLang}
                     />
                   </div>
                 )}
