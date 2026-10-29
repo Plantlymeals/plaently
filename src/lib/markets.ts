@@ -11,15 +11,15 @@ export interface MarketConfig {
 }
 
 export const MARKETS: Record<Market, MarketConfig> = {
-  SE: { code: "SE", flag: "🇸🇪", currency: "SEK", shippingCost: 49, freeShippingThreshold: 399, freeShippingThresholdSek: 399 },
-  EU: { code: "EU", flag: "🇪🇺", currency: "EUR", shippingCost: 6, freeShippingThreshold: 55, freeShippingThresholdSek: 599 },
-  UK: { code: "UK", flag: "🇬🇧", currency: "SEK", shippingCost: 79, freeShippingThreshold: 699, freeShippingThresholdSek: 699 },
+  SE: { code: "SE", flag: "🇸🇪", currency: "SEK", shippingCost: 39, freeShippingThreshold: 299, freeShippingThresholdSek: 299 },
+  EU: { code: "EU", flag: "🇪🇺", currency: "SEK", shippingCost: 69, freeShippingThreshold: 299, freeShippingThresholdSek: 299 },
+  UK: { code: "UK", flag: "🇬🇧", currency: "SEK", shippingCost: 110, freeShippingThreshold: 499, freeShippingThresholdSek: 499 },
 };
 
-// EU member-state ISO codes (excl. SE, UK)
+// EU-group ISO codes routed to the EU market (incl. NO and CH, excl. SE, UK)
 const EU_COUNTRIES = new Set([
-  "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE",
-  "IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES",
+  "AT","BE","CZ","DK","EE","FI","FR","DE","GR","HU","IE",
+  "IT","LV","LT","NL","PL","PT","RO","ES","NO","CH",
 ]);
 
 /**
