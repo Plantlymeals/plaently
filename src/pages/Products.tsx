@@ -31,6 +31,7 @@ import { getApprovedDeCopy } from "@/data/productCopyDe";
 import { getApprovedPlCopy } from "@/data/productCopyPl";
 import { getApprovedFrCopy } from "@/data/productCopyFr";
 import { getApprovedEsCopy } from "@/data/productCopyEs";
+import { getApprovedDaCopy } from "@/data/productCopyDa";
 import type { ProductPageLocale } from "@/lib/i18n";
 
 const ProductDetail = () => {
@@ -211,6 +212,8 @@ const ProductDetail = () => {
         ? getApprovedFrCopy(copyLookupHandle)
         : pageLocale === "es"
         ? getApprovedEsCopy(copyLookupHandle)
+        : pageLocale === "da"
+        ? getApprovedDaCopy(copyLookupHandle)
         : getApprovedEnCopy(copyLookupHandle);
   const swedishBaseHtml =
     (flavorHandle ? loaderFlavorHtml : null) ?? product.descriptionHtml;
@@ -233,6 +236,8 @@ const ProductDetail = () => {
       ? "/fr/product/starter-pack-12-cups-1"
       : pageLocale === "es"
       ? "/es/product/starter-pack-12-cups-1"
+      : pageLocale === "da"
+      ? "/da/product/starter-pack-12-cups-1"
       : "/product/starter-pack-12-cups-1";
 
   const schemaImageUrl = resolveProductImageUrl({
@@ -262,7 +267,7 @@ const ProductDetail = () => {
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: pageLocale === "sv" ? "Produkter" : pageLocale === "de" ? "Produkte" : pageLocale === "pl" ? "Produkty" : pageLocale === "fr" ? "Produits" : pageLocale === "es" ? "Productos" : "Products", path: productsListPath },
+              { label: pageLocale === "sv" ? "Produkter" : pageLocale === "de" ? "Produkte" : pageLocale === "pl" ? "Produkty" : pageLocale === "fr" ? "Produits" : pageLocale === "es" ? "Productos" : pageLocale === "da" ? "Produkter" : "Products", path: productsListPath },
               { label: displayProductTitle(product.title) },
             ]}
             lang={pageLocale}
@@ -469,7 +474,7 @@ const Products = () => {
       <SEOHead title={t("seo.products.title")} description={t("seo.products.description")} path={listPath} locale={lang} routeOwnsLinks routeOwnsMetadata />
       <section className="py-12 md:py-20">
         <div className="container space-y-12">
-          <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : lang === "de" ? "Produkte" : lang === "pl" ? "Produkty" : lang === "fr" ? "Produits" : lang === "es" ? "Productos" : "Products", path: listPath }]} lang={lang} className="mb-0" />
+          <Breadcrumbs items={[{ label: lang === "sv" ? "Produkter" : lang === "de" ? "Produkte" : lang === "pl" ? "Produkty" : lang === "fr" ? "Produits" : lang === "es" ? "Productos" : lang === "da" ? "Produkter" : "Products", path: listPath }]} lang={lang} className="mb-0" />
           <div className="text-center space-y-4 animate-fade-up">
             <h1 className="font-heading text-4xl md:text-5xl font-bold">{t("products.pageTitle")}</h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t("products.pageSubtitle")}</p>

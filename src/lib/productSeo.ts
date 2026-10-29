@@ -4,6 +4,7 @@ import { isGermanPilotHandle, isGermanPageReady } from "@/data/productCopyDe";
 import { isPolishPilotHandle, isPolishPageReady } from "@/data/productCopyPl";
 import { isFrenchPilotHandle, isFrenchPageReady } from "@/data/productCopyFr";
 import { isSpanishPilotHandle, isSpanishPageReady } from "@/data/productCopyEs";
+import { isDanishPilotHandle, isDanishPageReady } from "@/data/productCopyDa";
 import { tLocale, type ProductPageLocale } from "@/lib/i18n";
 
 export type ProductSeoEntry = {
@@ -16,6 +17,8 @@ export type ProductSeoEntry = {
   fr?: { title: string; description: string };
   /** Spanish copy exists only for the nine Spanish pilot products. */
   es?: { title: string; description: string };
+  /** Danish copy exists only for the nine Danish pilot products. */
+  da?: { title: string; description: string };
   schema: {
     name: string;
     sku: string;
@@ -34,6 +37,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Wegańskie Fusilli Bolognese | 20g białka, 263 kcal — PLÄNTLY", description: "Wegańskie Fusilli Bolognese z 20g białka roślinnego i 263 kcal. Gotowe w 5 minut — dodaj wrzącą wodę do czarnej linii. 75g na porcję." },
     fr: { title: "Fusilli Bolognaise Végane | 20g de protéines, 263 kcal — PLÄNTLY", description: "Fusilli Bolognaise végane avec 20g de protéines végétales et 263 kcal. Prêt en 5 minutes — ajoutez de l'eau bouillante jusqu'au trait noir. 75g par portion." },
     es: { title: "Fusilli Boloñesa Vegana | 20g de proteína, 263 kcal — PLÄNTLY", description: "Fusilli boloñesa vegana con 20g de proteína vegetal y 263 kcal. Listo en 5 minutos — añade agua hirviendo hasta la línea negra. 75g por ración." },
+    da: { title: "Vegansk Fusilli Bolognese | 20g protein, 263 kcal — PLÄNTLY", description: "Vegansk fusilli bolognese med 20g planteprotein og 263 kcal. Klar på 5 minutter — tilsæt kogende vand til den sorte streg. 75g pr. portion." },
     schema: { name: "Vegan Fusilli Bolognese", sku: "PLNT-FUS-001", calories: "263 calories", protein: "20.3g", servingSize: "75g", description: "Vegansk Fusilli Bolognese med 20g växtprotein. Klar på 5 minuter." },
   },
   "pasta-carbonara": {
@@ -43,6 +47,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Wegetariańska Pasta Carbonara | 20g białka, 285 kcal — PLÄNTLY", description: "Wegetariańska Pasta Carbonara z 20g białka roślinnego i 285 kcal. Gotowa w 5 minut. Zawiera mleko." },
     fr: { title: "Pâtes Carbonara Végétariennes | 20g de protéines, 285 kcal — PLÄNTLY", description: "Pâtes Carbonara végétariennes avec 20g de protéines végétales et 285 kcal. Prêtes en 5 minutes. Contient du lait." },
     es: { title: "Pasta Carbonara Vegetariana | 20g de proteína, 285 kcal — PLÄNTLY", description: "Pasta carbonara vegetariana con 20g de proteína vegetal y 285 kcal. Lista en 5 minutos. Contiene leche." },
+    da: { title: "Vegetarisk Pasta Carbonara | 20g protein, 285 kcal — PLÄNTLY", description: "Vegetarisk pasta carbonara med 20g planteprotein og 285 kcal. Klar på 5 minutter. Indeholder mælk." },
     schema: { name: "Veggie Pasta Carbonara", sku: "PLNT-CAR-001", calories: "285 calories", protein: "20.2g", servingSize: "75g", description: "Vegetarisk Pasta Carbonara med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
   },
   "yellow-curry-rice": {
@@ -52,6 +57,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Wegetariańskie Yellow Curry z ryżem | 20g białka, 285 kcal — PLÄNTLY", description: "Wegetariańskie Yellow Curry z ryżem, 20g białka roślinnego i 285 kcal. Gotowe w 5 minut. Zawiera mleko." },
     fr: { title: "Curry Jaune & Riz Végétarien | 20g de protéines, 285 kcal — PLÄNTLY", description: "Curry jaune & riz végétarien avec 20g de protéines végétales et 285 kcal. Prêt en 5 minutes. Contient du lait." },
     es: { title: "Curry Amarillo y Arroz Vegetariano | 20g de proteína, 285 kcal — PLÄNTLY", description: "Curry amarillo y arroz vegetariano con 20g de proteína vegetal y 285 kcal. Listo en 5 minutos. Contiene leche." },
+    da: { title: "Gul Karry & Ris, Vegetarisk | 20g protein, 285 kcal — PLÄNTLY", description: "Gul karry & ris, vegetarisk, med 20g planteprotein og 285 kcal. Klar på 5 minutter. Indeholder mælk." },
     schema: { name: "Veggie Yellow Curry & Rice", sku: "PLNT-CUR-001", calories: "285 calories", protein: "20.4g", servingSize: "73g", description: "Vegetarisk Yellow Curry & Rice med 20g växtprotein. Klar på 5 minuter. Innehåller mjölk." },
   },
   "smoky-bbq-lentils": {
@@ -61,6 +67,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Wegańska Smoky BBQ Soczewica | 21g białka, 228 kcal — PLÄNTLY", description: "Wegańska Smoky BBQ Soczewica z 21g białka roślinnego i 228 kcal. Gotowa w 5 minut. 65g na porcję." },
     fr: { title: "Lentilles BBQ Fumées Véganes | 21g de protéines, 228 kcal — PLÄNTLY", description: "Lentilles BBQ fumées véganes avec 21g de protéines végétales et 228 kcal. Prêtes en 5 minutes. 65g par portion." },
     es: { title: "Lentejas BBQ Ahumadas Veganas | 21g de proteína, 228 kcal — PLÄNTLY", description: "Lentejas BBQ ahumadas veganas con 21g de proteína vegetal y 228 kcal. Listas en 5 minutos. 65g por ración." },
+    da: { title: "Røgede BBQ-linser, Vegansk | 21g protein, 228 kcal — PLÄNTLY", description: "Røgede BBQ-linser, vegansk, med 21g planteprotein og 228 kcal. Klar på 5 minutter. 65g pr. portion." },
     schema: { name: "Vegan Smoky BBQ Lentils", sku: "PLNT-LEN-001", calories: "228 calories", protein: "20.8g", servingSize: "65g", description: "Vegansk Smoky BBQ Lentils med 21g växtprotein. Klar på 5 minuter." },
   },
   "starter-pack-12-cups-1": {
@@ -70,6 +77,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Starter Pack – 20g białka w 5 min | PLÄNTLY", description: "Mix wszystkich 4 smaków. 12 posiłków białkowych — dostawa w 1–2 dni robocze." },
     fr: { title: "Starter Pack – 20g de protéines en 5 min | PLÄNTLY", description: "Un mix des 4 saveurs. 12 repas protéinés — livraison en 1–2 jours ouvrés." },
     es: { title: "Starter Pack – 20g de proteína en 5 min | PLÄNTLY", description: "Una mezcla de los 4 sabores. 12 comidas proteicas — entrega en 1–2 días laborables." },
+    da: { title: "Starter Pack – 20g protein på 5 min | PLÄNTLY", description: "En mix af de 4 smagsvarianter. 12 proteinmåltider — levering på 1–2 hverdage." },
     schema: { name: "Starter Pack", sku: "PLNT-STARTER-12", calories: "", protein: "20g", servingSize: "1 cup", description: "12 proteinmåltider i fyra smaker." },
   },
   "monthly-box-24-cups": {
@@ -97,6 +105,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Bolognese Box 12 posiłków – 20g białka | PLÄNTLY", description: "Dla miłośników włoskiego comfort food. 12 porcji o pełnym smaku i 20 g białka na posiłek." },
     fr: { title: "Bolognese Box 12 repas – 20g de protéines | PLÄNTLY", description: "Pour les amateurs de comfort food italien. 12 portions pleines de saveur avec 20 g de protéines par repas." },
     es: { title: "Bolognese Box 12 comidas – 20g de proteína | PLÄNTLY", description: "Para los amantes del comfort food italiano. 12 raciones llenas de sabor con 20 g de proteína por comida." },
+    da: { title: "Bolognese Box 12 måltider – 20g protein | PLÄNTLY", description: "Til elskere af italiensk comfort food. 12 smagfulde portioner med 20 g protein pr. måltid." },
     schema: { name: "Bolognese Box – 12 Meals", sku: "PLNT-BOLOGNESE-12", calories: "263 calories", protein: "20g", servingSize: "1 cup", description: "12 portioner fyllda med fyllig smak och 20 g protein per måltid." },
   },
   "carbonara-box-12-cups": {
@@ -106,6 +115,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Carbonara Box 12 posiłków – 20g białka | PLÄNTLY", description: "Kremowa, bogata w białko i gotowa w 5 minut. 12 porcji z 20 g białka na posiłek. Zawiera mleko." },
     fr: { title: "Carbonara Box 12 repas – 20g de protéines | PLÄNTLY", description: "Crémeux, riche en protéines et prêt en 5 minutes. 12 portions avec 20 g de protéines par repas. Contient du lait." },
     es: { title: "Carbonara Box 12 comidas – 20g de proteína | PLÄNTLY", description: "Cremosa, rica en proteína y lista en 5 minutos. 12 raciones con 20 g de proteína por comida. Contiene leche." },
+    da: { title: "Carbonara Box 12 måltider – 20g protein | PLÄNTLY", description: "Cremet, proteinrig og klar på 5 minutter. 12 portioner med 20 g protein pr. måltid. Indeholder mælk." },
     schema: { name: "Carbonara Box – 12 Meals", sku: "PLNT-CARBONARA-12", calories: "285 calories", protein: "20g", servingSize: "1 cup", description: "Krämig, proteinrik och alltid redo på 5 minuter." },
   },
   "smoky-lentils-box-12-cups": {
@@ -115,6 +125,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Smoky Lentils Box 12 posiłków – 21g białka | PLÄNTLY", description: "Wędzona, sycąca i pełna roślinnej mocy. 12 porcji z 21 g białka na posiłek." },
     fr: { title: "Smoky Lentils Box 12 repas – 21g de protéines | PLÄNTLY", description: "Fumé, rassasiant et plein de force végétale. 12 portions avec 21 g de protéines par repas." },
     es: { title: "Smoky Lentils Box 12 comidas – 21g de proteína | PLÄNTLY", description: "Ahumada, saciante y llena de fuerza vegetal. 12 raciones con 21 g de proteína por comida." },
+    da: { title: "Smoky Lentils Box 12 måltider – 21g protein | PLÄNTLY", description: "Røget, mættende og fuld af plantekraft. 12 portioner med 21 g protein pr. måltid." },
     schema: { name: "Smoky Lentils Box – 12 Meals", sku: "PLNT-SMOKY-12", calories: "228 calories", protein: "21g", servingSize: "1 cup", description: "Rökig, mättande och full av växtbaserad kraft med 21 g protein." },
   },
   "yellow-curry-box-12-cups": {
@@ -124,6 +135,7 @@ const PRODUCT_SEO: Record<string, ProductSeoEntry> = {
     pl: { title: "Yellow Curry Box 12 posiłków – 20g białka | PLÄNTLY", description: "Rozgrzewające przyprawy i zbalansowana energia w każdej porcji. 12 porcji z 20 g białka na posiłek. Zawiera mleko." },
     fr: { title: "Yellow Curry Box 12 repas – 20g de protéines | PLÄNTLY", description: "Des épices réconfortantes et une énergie équilibrée à chaque portion. 12 portions avec 20 g de protéines par repas. Contient du lait." },
     es: { title: "Yellow Curry Box 12 comidas – 20g de proteína | PLÄNTLY", description: "Especias reconfortantes y energía equilibrada en cada ración. 12 raciones con 20 g de proteína por comida. Contiene leche." },
+    da: { title: "Yellow Curry Box 12 måltider – 20g protein | PLÄNTLY", description: "Lune krydderier og afbalanceret energi i hver portion. 12 portioner med 20 g protein pr. måltid. Indeholder mælk." },
     schema: { name: "Yellow Curry Box – 12 Meals", sku: "PLNT-CURRY-12", calories: "285 calories", protein: "20g", servingSize: "1 cup", description: "Värmande kryddor och balanserad energi i varje portion med 20 g protein." },
   },
 };
@@ -192,6 +204,7 @@ export function productUrl(handle: string, locale: ProductPageLocale = "sv"): st
   if (locale === "pl") return `https://plaently.com/pl/product/${canonicalHandle}`;
   if (locale === "fr") return `https://plaently.com/fr/product/${canonicalHandle}`;
   if (locale === "es") return `https://plaently.com/es/product/${canonicalHandle}`;
+  if (locale === "da") return `https://plaently.com/da/product/${canonicalHandle}`;
   throw new Error(`productUrl: unknown locale ${String(locale)}`);
 }
 
@@ -214,6 +227,9 @@ function getAvailableProductLocales(handle: string): ProductPageLocale[] {
   if (isSpanishPilotHandle(canonical) && isSpanishPageReady(canonical)) {
     locales.push("es");
   }
+  if (isDanishPilotHandle(canonical) && isDanishPageReady(canonical)) {
+    locales.push("da");
+  }
   return locales;
 }
 
@@ -224,6 +240,7 @@ const OG_LOCALE: Record<ProductPageLocale, string> = {
   pl: "pl_PL",
   fr: "fr_FR",
   es: "es_ES",
+  da: "da_DK",
 };
 
 export function getProductRouteHead(
@@ -242,6 +259,7 @@ export function getProductRouteHead(
     pl: "Posiłek białkowy – 20g białka | PLÄNTLY",
     fr: "Repas protéiné – 20g de protéines | PLÄNTLY",
     es: "Comida proteica – 20g de proteína | PLÄNTLY",
+    da: "Proteinmåltid – 20g protein | PLÄNTLY",
   };
   const fallbackDescription: Record<ProductPageLocale, string> = {
     sv: "Riktig proteinmåltid med 20g protein, klar på 5 minuter.",
@@ -250,6 +268,7 @@ export function getProductRouteHead(
     pl: "Prawdziwy posiłek białkowy z 20g białka, gotowy w 5 minut.",
     fr: "Un vrai repas protéiné avec 20g de protéines, prêt en 5 minutes.",
     es: "Una comida proteica de verdad con 20g de proteína, lista en 5 minutos.",
+    da: "Et rigtigt proteinmåltid med 20g protein, klar på 5 minutter.",
   };
   const title = copy?.title ?? fallbackTitle[locale];
   const description = copy?.description ?? fallbackDescription[locale];
@@ -290,7 +309,7 @@ export function getProductSsrCopy(handle: string | undefined, locale: ProductPag
   const canonical = canonicalizeHandle(handle ?? "");
   const seo = getProductSeo(canonical);
   if (seo) {
-    const localized = locale === "pl" ? seo.pl ?? seo.sv : locale === "fr" ? seo.fr ?? seo.sv : locale === "es" ? seo.es ?? seo.sv : seo[locale];
+    const localized = locale === "pl" ? seo.pl ?? seo.sv : locale === "fr" ? seo.fr ?? seo.sv : locale === "es" ? seo.es ?? seo.sv : locale === "da" ? seo.da ?? seo.sv : seo[locale];
     return { name: seo.schema.name, description: localized.description };
   }
   const name = canonical
@@ -305,6 +324,7 @@ export function getProductSsrCopy(handle: string | undefined, locale: ProductPag
     pl: `${name} od PLÄNTLY – posiłek białkowy z 20g białka, gotowy w 5 minut.`,
     fr: `${name} par PLÄNTLY – repas protéiné avec 20g de protéines, prêt en 5 minutes.`,
     es: `${name} de PLÄNTLY – comida proteica con 20g de proteína, lista en 5 minutos.`,
+    da: `${name} fra PLÄNTLY – proteinmåltid med 20g protein, klar på 5 minutter.`,
   };
   return {
     name: name || "PLÄNTLY",
@@ -343,6 +363,7 @@ export function getProductListHead(locale: ProductPageLocale = "sv", options: { 
       { rel: "alternate", hreflang: "pl", href: productListUrl("pl") },
       { rel: "alternate", hreflang: "fr", href: productListUrl("fr") },
       { rel: "alternate", hreflang: "es", href: productListUrl("es") },
+      { rel: "alternate", hreflang: "da", href: productListUrl("da") },
       { rel: "alternate", hreflang: "x-default", href: productListUrl("sv") },
     ],
   };

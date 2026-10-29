@@ -6,7 +6,7 @@ export type Lang = "sv" | "en";
 /** URL-scoped locales for product pages only. Kept separate from the global
  *  `Lang` type so adding a product-page language does not force a full-site
  *  translation. */
-export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr" | "es";
+export type ProductPageLocale = "sv" | "en" | "de" | "pl" | "fr" | "es" | "da";
 
 interface LangStore {
  lang: Lang;
@@ -617,6 +617,57 @@ const productPageEs: Record<string, string> = {
 };
 
 /** French copy for the product-page pilot (brief 29 Oct, verbatim). */
+/** Danish copy for the product-page pilot (brief 29 Oct, verbatim). */
+const productPageDa: Record<string, string> = {
+  "bundles.value": "Værdi",
+  "bundles.whatsInside": "Hvad er inkluderet",
+  "cta.riskReversal": "Levering på 2–4 hverdage · Intet abonnement · 14 dages fortrydelsesret",
+  "product.vegan": "Vegansk",
+  "product.vegetarian": "Vegetarisk",
+  "productDetail.benefitsDesc": "Planteprotein, afbalancerede makroer og rigtige ingredienser — klar på den tid, det tager at koge vand.",
+  "productDetail.benefitsTitle": "Sund fastfood",
+  "productDetail.nutritionClean": "Rigtige ingredienser, uden kunstige tilsætningsstoffer",
+  "productDetail.nutritionMacros": "Afbalancerede makroer og 5–9 g fibre",
+  "productDetail.nutritionProtein": "20 g planteprotein pr. portion",
+  "productDetail.nutritionTitle": "Ernæringsmæssige højdepunkter",
+  "productDetail.prepStep1": "Åbn bægeret",
+  "productDetail.prepStep2": "Tilsæt varmt vand til mærket",
+  "productDetail.prepStep3": "Rør rundt og vent 5 min",
+  "productDetail.prepTitle": "Klar på 5 minutter",
+  "productDetail.tasteDesc": "Udviklet af kokke i Stockholm for at give en autentisk og overbevisende smag — uden kompromis.",
+  "productDetail.tasteTitle": "Smagen først",
+  "products.addToCart": "Læg i kurv",
+  "products.backToProducts": "Tilbage til produkter",
+  "products.noProducts": "Ingen produkter fundet.",
+  "products.notFound": "Produkt ikke fundet",
+  "products.pageSubtitle": "Plantebaserede proteinmåltider, klar på 5 minutter.\nVælg dine favoritter.",
+  "products.pageTitle": "Vores proteinmåltider",
+  "products.perMeal": "pr. måltid",
+  "products.tryInStarterPack": "Prøv i Starter Pack",
+  "reviews.approvalNote": "Din anmeldelse bliver synlig, når vores team har godkendt den.",
+  "reviews.cancel": "Annuller",
+  "reviews.countMany": "anmeldelser",
+  "reviews.countOne": "anmeldelse",
+  "reviews.errBodyMin": "Anmeldelsen skal indeholde mindst 5 tegn",
+  "reviews.errInvalidEmail": "Ugyldig e-mailadresse",
+  "reviews.errNameRequired": "Navn er påkrævet",
+  "reviews.errPickRating": "Vælg venligst en vurdering",
+  "reviews.formTitle": "Anmeldelser",
+  "reviews.labelBody": "Din anmeldelse *",
+  "reviews.labelEmail": "E-mail * (offentliggøres ikke)",
+  "reviews.labelName": "Navn *",
+  "reviews.labelRating": "Din vurdering *",
+  "reviews.labelTitle": "Titel",
+  "reviews.noReviews": "Ingen anmeldelser endnu — vær den første.",
+  "reviews.placeholderOptional": "Valgfrit",
+  "reviews.submit": "Send anmeldelse",
+  "reviews.submitSuccess": "Tak! Din anmeldelse vises, når den er godkendt.",
+  "reviews.title": "Kundeanmeldelser",
+  "reviews.write": "Skriv en anmeldelse",
+  "seo.products.description": "Fire plantebaserede proteinmåltider med 20 g protein pr. portion. Klar på 5 minutter — tilsæt bare kogende vand til den sorte streg.",
+  "seo.products.title": "Plantebaserede proteinmåltider | 4 smagsvarianter — PLÄNTLY",
+};
+
 const productPageFr: Record<string, string> = {
   "bundles.value": "Valeur",
   "bundles.whatsInside": "Ce qui est inclus",
@@ -761,6 +812,7 @@ export const tLocale = (key: string, locale: Lang | ProductPageLocale): string =
   } else if (locale === "pl") return productPagePl[key] ?? tLocale(key, "sv");
   else if (locale === "fr") return productPageFr[key] ?? tLocale(key, "sv");
   else if (locale === "es") return productPageEs[key] ?? tLocale(key, "sv");
+  else if (locale === "da") return productPageDa[key] ?? tLocale(key, "sv");
   const entry = translations[key];
   if (!entry) return key;
   return entry[locale as Lang] || entry.sv || key;
